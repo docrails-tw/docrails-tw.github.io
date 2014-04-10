@@ -1341,7 +1341,7 @@ Client.joins(:orders).where(orders: {created_at: time_range})
 <h3 id="eager-loading-關聯">13 Eager Loading 關聯</h3>
 <p>Eager loading 是載入由 <code>Model.find</code> 回傳的物件關聯記錄的機制，將查詢數降到最低。</p>
 <p><strong>N + 1 查詢問題</strong></p>
-<p>考慮以下程式碼。找出 10 個客戶，並印出郵遞區號：</p>
+<p>考慮以下程式碼。找出 10 位客戶，印出他們的郵遞區號：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 clients = Client.limit(10)
@@ -1352,9 +1352,9 @@ end
 
 </pre>
 </div>
-<p>程式碼一眼看起來沒什麼問題。但問題是總共執行了幾次查詢。上例程式碼總共會執行 <strong>11</strong> 次查詢，1 次用來取得 10 位客戶、10 次用來取得客戶地址的郵遞區號。</p>
+<p>程式碼一眼看起來沒什麼問題。但問題是，總共執行了幾次查詢？上例程式碼總共會執行 <strong>11</strong> 次查詢，1 次用來取得 10 位客戶、10 次用來取得客戶地址的郵遞區號。</p>
 <p><strong>N + 1 查詢的解法</strong></p>
-<p>Active Record 可預先指定所有會載入的關聯。透過使用 <code>Model.find</code> 搭配 <code>includes</code> 方法。有了 <code>includes</code>，Active Record 確保所有指定的關聯用最少次的查詢來加載。</p>
+<p>Active Record 透過使用 <code>Model.find</code> 搭配 <code>includes</code> 方法，可預先指定所有會載入的關聯。有了 <code>includes</code>，Active Record 確保所有指定的關聯，加載的查詢減到最少。</p>
 <p>用 Eager Loading 重寫上例：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
