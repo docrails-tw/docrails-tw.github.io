@@ -441,7 +441,7 @@ end
 </div>
 <p>所有的關聯類型皆適用此方法。</p>
 <div class="warning"><p>不要在關聯的兩邊都使用 <code>validates_associated</code>。它們會互相呼叫陷入無窮迴圈。</p></div>
-<p><code>validates_associated</code> 預設錯誤訊息是 _"is invalid"_。注意到每個關聯的物件會有自己的 <code>errors</code> 集合。錯誤不會集中到呼叫該方法的 Model。</p>
+<p><code>validates_associated</code> 預設錯誤訊息是 <em>"is invalid"</em>。注意到每個關聯的物件會有自己的 <code>errors</code> 集合。錯誤不會集中到呼叫該方法的 Model。</p>
 <h4 id="confirmation">2.3 <code>confirmation</code>
 </h4>
 <p>當有兩個 text field 內容需要完全相同時，使用這個方法。比如可能想要確認 E-mail 或密碼兩次輸入是否相同。這個驗證會新建一個虛擬屬性，名字是該欄位（field）的名稱，後面加上 <code>_confirmation</code>。</p>
@@ -745,7 +745,7 @@ end
 
 </pre>
 </div>
-<p>注意自己寫的這個驗證類別（上例為 <code>GoodnessValidator</code>），在應用程式生命週期內**只會實例化一次**，而不是每次驗證時就實例化一次。所以使用實例變數時要很小心。</p>
+<p>注意自己寫的這個驗證類別（上例為 <code>GoodnessValidator</code>），在應用程式生命週期內<strong>只會實例化一次</strong>，而不是每次驗證時就實例化一次。所以使用實例變數時要很小心。</p>
 <p>如果驗證類別足夠複雜的話，需要用到實例變數，可以用純 Ruby 物件（Plain Old Ruby Object, PORO） 來取代：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">

@@ -941,7 +941,7 @@ end
 <p>You can choose not to yield and build the response yourself, in which case the action will not be run.</p>
 <h4 id="other-ways-to-use-filters">8.2 Other Ways to Use Filters</h4>
 <p>While the most common way to use filters is by creating private methods and using *_action to add them, there are two other ways to do the same thing.</p>
-<p>The first is to use a block directly with the *_action methods. The block receives the controller as an argument, and the <code>require_login</code> filter from above could be rewritten to use a block:</p>
+<p>The first is to use a block directly with the *<em>action methods. The block receives the controller as an argument, and the `require</em>login` filter from above could be rewritten to use a block:</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class ApplicationController &lt; ActionController::Base

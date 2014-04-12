@@ -178,31 +178,31 @@
 <a href="#%E9%97%9C%E8%81%AF%E7%A8%AE%E9%A1%9E">關聯種類</a>
 
 <ul>
-<li><a href="#the-belongs_to-association">The <code>belongs_to</code> Association</a></li>
-<li><a href="#the-has_one-association">The <code>has_one</code> Association</a></li>
-<li><a href="#the-has_many-association">The <code>has_many</code> Association</a></li>
-<li><a href="#the-has_many-:through-association">The <code>has_many :through</code> Association</a></li>
-<li><a href="#the-has_one-:through-association">The <code>has_one :through</code> Association</a></li>
-<li><a href="#the-has_and_belongs_to_many-association">The <code>has_and_belongs_to_many</code> Association</a></li>
-<li><a href="#choosing-between-belongs_to-and-has_one">Choosing Between <code>belongs_to</code> and <code>has_one</code></a></li>
-<li><a href="#choosing-between-has_many-:through-and-has_and_belongs_to_many">Choosing Between <code>has_many :through</code> and <code>has_and_belongs_to_many</code></a></li>
-<li><a href="#polymorphic-associations">Polymorphic Associations</a></li>
-<li><a href="#self-joins">Self Joins</a></li>
+<li><a href="#belongs_to-%E9%97%9C%E8%81%AF"><code>belongs_to</code> 關聯</a></li>
+<li><a href="#has_one-%E9%97%9C%E8%81%AF"><code>has_one</code> 關聯</a></li>
+<li><a href="#has_many-%E9%97%9C%E8%81%AF"><code>has_many</code> 關聯</a></li>
+<li><a href="#has_many-:through-%E9%97%9C%E8%81%AF"><code>has_many :through</code> 關聯</a></li>
+<li><a href="#has_one-:through-%E9%97%9C%E8%81%AF"><code>has_one :through</code> 關聯</a></li>
+<li><a href="#has_and_belongs_to_many-%E9%97%9C%E8%81%AF"><code>has_and_belongs_to_many</code> 關聯</a></li>
+<li><a href="#belongs_to-%E8%88%87-has_one-%E7%9A%84%E6%87%89%E7%94%A8%E5%A0%B4%E6%99%AF"><code>belongs_to</code> 與 <code>has_one</code> 的應用場景</a></li>
+<li><a href="#has_many-:through-%E8%88%87-has_and_belongs_to_many-%E7%9A%84%E6%87%89%E7%94%A8%E5%A0%B4%E6%99%AF"><code>has_many :through</code> 與 <code>has_and_belongs_to_many</code> 的應用場景</a></li>
+<li><a href="#%E5%A4%9A%E5%9E%8B%E9%97%9C%E8%81%AF">多型關聯</a></li>
+<li><a href="#%E8%87%AA%E9%80%A3%E6%8E%A5">自連接</a></li>
 </ul>
 </li>
 <li>
-<a href="#tips,-tricks,-and-warnings">Tips, Tricks, and Warnings</a>
+<a href="#%E7%A7%98%E8%A8%A3%E3%80%81%E6%8A%80%E5%B7%A7%E8%88%87%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A0%85">秘訣、技巧與注意事項</a>
 
 <ul>
-<li><a href="#controlling-caching">Controlling Caching</a></li>
-<li><a href="#avoiding-name-collisions">Avoiding Name Collisions</a></li>
-<li><a href="#updating-the-schema">Updating the Schema</a></li>
-<li><a href="#controlling-association-scope">Controlling Association Scope</a></li>
-<li><a href="#bi-directional-associations">Bi-directional Associations</a></li>
+<li><a href="#%E6%8E%A7%E5%88%B6%E5%BF%AB%E5%8F%96">控制快取</a></li>
+<li><a href="#%E9%81%BF%E5%85%8D%E5%91%BD%E5%90%8D%E8%A1%9D%E7%AA%81">避免命名衝突</a></li>
+<li><a href="#%E6%9B%B4%E6%96%B0%E8%B3%87%E6%96%99%E5%BA%AB%E7%B6%B1%E8%A6%81">更新資料庫綱要</a></li>
+<li><a href="#%E6%8E%A7%E5%88%B6%E9%97%9C%E8%81%AF%E4%BD%9C%E7%94%A8%E5%9F%9F">控制關聯作用域</a></li>
+<li><a href="#%E9%9B%99%E5%90%91%E9%97%9C%E8%81%AF">雙向關聯</a></li>
 </ul>
 </li>
 <li>
-<a href="#detailed-association-reference">Detailed Association Reference</a>
+<a href="#%E9%97%9C%E8%81%AF%E5%AE%8C%E6%95%B4%E5%8F%83%E8%80%83%E6%89%8B%E5%86%8A">關聯完整參考手冊</a>
 
 <ul>
 <li><a href="#belongs_to-association-reference"><code>belongs_to</code> Association Reference</a></li>
@@ -284,7 +284,7 @@ end
 </div>
 <p>了解各種關聯的用途，請閱讀本篇下一節。下一節介紹關聯種類、各種關聯的秘訣與小技巧，本篇最後是 Rails 關聯的選項與方法的完整參考手冊。</p>
 <h3 id="關聯種類">2 關聯種類</h3>
-<p>In Rails, an <em>association</em> is a connection between two Active Record models. Associations are implemented using macro-style calls, so that you can declaratively add features to your models. For example, by declaring that one model <code>belongs_to</code> another, you instruct Rails to maintain Primary Key-Foreign Key information between instances of the two models, and you also get a number of utility methods added to your model. Rails supports six types of associations:</p>
+<p>在 Rails 的世界裡，<strong>關聯</strong>連結了兩個 Active Record Model。關聯使用宏風格（macro-style）的語法來呼叫，以宣告的形式加入功能到 Model。舉例來說，透過宣告一個 Model 屬於另一個，來告訴 Rails 如何維護兩者之間的主外鍵，同時獲得許多實用的方法。Rails 支援以下六種關聯：</p>
 <ul>
 <li><code>belongs_to</code></li>
 <li><code>has_one</code></li>
@@ -293,9 +293,9 @@ end
 <li><code>has_one :through</code></li>
 <li><code>has_and_belongs_to_many</code></li>
 </ul>
-<p>In the remainder of this guide, you'll learn how to declare and use the various forms of associations. But first, a quick introduction to the situations where each association type is appropriate.</p>
-<h4 id="the-belongs_to-association">2.1 The <code>belongs_to</code> Association</h4>
-<p>A <code>belongs_to</code> association sets up a one-to-one connection with another model, such that each instance of the declaring model "belongs to" one instance of the other model. For example, if your application includes customers and orders, and each order can be assigned to exactly one customer, you'd declare the order model this way:</p>
+<p>本篇之後細講各種關聯如何使用，首先介紹各種關聯的應用場景。</p>
+<h4 id="belongs_to-關聯">2.1 <code>belongs_to</code> 關聯</h4>
+<p><code>belongs_to</code> 關聯建立兩個 Model 之間的一對一關係。<code>belongs_to</code> 關聯宣告一個 Model 實例屬於另一個 Model 實例。舉例來說，應用程式有顧客與訂單兩個 Model，每筆訂單只屬於一位顧客，訂單 Model 便如此宣告：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Order &lt; ActiveRecord::Base
@@ -305,8 +305,8 @@ end
 </pre>
 </div>
 <p><img src="images/belongs_to.png" alt="belongs_to Association Diagram"></p>
-<div class="note"><p><code>belongs_to</code> associations <em>must</em> use the singular term. If you used the pluralized form in the above example for the <code>customer</code> association in the <code>Order</code> model, you would be told that there was an "uninitialized constant Order::Customers". This is because Rails automatically infers the class name from the association name. If the association name is wrongly pluralized, then the inferred class will be wrongly pluralized too.</p></div>
-<p>The corresponding migration might look like this:</p>
+<div class="note"><p><code>belongs_to</code> 宣告<strong>必須</strong>使用單數形式。上例若使用複數形式，會報 <code>"uninitialized constant Order::Customers"</code> 錯誤。這是因為 Rails 自動從關聯名稱推斷出類別名稱。關聯名稱錯用複數，推斷出來的類別名稱自然也錯了。</p></div>
+<p>上例對應的遷移看起來會像是：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class CreateOrders &lt; ActiveRecord::Migration
@@ -326,8 +326,8 @@ end
 
 </pre>
 </div>
-<h4 id="the-has_one-association">2.2 The <code>has_one</code> Association</h4>
-<p>A <code>has_one</code> association also sets up a one-to-one connection with another model, but with somewhat different semantics (and consequences). This association indicates that each instance of a model contains or possesses one instance of another model. For example, if each supplier in your application has only one account, you'd declare the supplier model like this:</p>
+<h4 id="has_one-關聯">2.2 <code>has_one</code> 關聯</h4>
+<p><code>has_one</code> 關聯建立兩個 Model 之間的一對一關係，但語義與結果不同。<code>has_one</code> 關聯宣告一個 Model 實例，含有（或持有）另一個 Model 實例。舉例來說，每個供應商在應用程式裡只有一個帳號，供應商 Model 便如此宣告：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Supplier &lt; ActiveRecord::Base
@@ -337,7 +337,7 @@ end
 </pre>
 </div>
 <p><img src="images/has_one.png" alt="has_one Association Diagram"></p>
-<p>The corresponding migration might look like this:</p>
+<p>上例對應的遷移看起來會像是：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class CreateSuppliers &lt; ActiveRecord::Migration
@@ -357,8 +357,8 @@ end
 
 </pre>
 </div>
-<h4 id="the-has_many-association">2.3 The <code>has_many</code> Association</h4>
-<p>A <code>has_many</code> association indicates a one-to-many connection with another model. You'll often find this association on the "other side" of a <code>belongs_to</code> association. This association indicates that each instance of the model has zero or more instances of another model. For example, in an application containing customers and orders, the customer model could be declared like this:</p>
+<h4 id="has_many-關聯">2.3 <code>has_many</code> 關聯</h4>
+<p><code>has_many</code> 關聯建立兩個 Model 之間的一對多關係。通常 <code>has_many</code> 另一邊對應的是 <code>belongs_to</code> 關聯。<code>has_many</code> 關聯宣告一個 Model 實例有零個或多個另一個 Model 實例。舉例來說，應用程式有顧客與訂單兩個 Model，顧客可有多筆訂單，訂單 Model 便如此宣告：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Customer &lt; ActiveRecord::Base
@@ -367,9 +367,9 @@ end
 
 </pre>
 </div>
-<div class="note"><p>The name of the other model is pluralized when declaring a <code>has_many</code> association.</p></div>
+<div class="note"><p>宣告 <code>has_many</code> 關聯名稱採<strong>複數</strong>。</p></div>
 <p><img src="images/has_many.png" alt="has_many Association Diagram"></p>
-<p>The corresponding migration might look like this:</p>
+<p>上例對應的遷移看起來會像是：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class CreateCustomers &lt; ActiveRecord::Migration
@@ -389,8 +389,8 @@ end
 
 </pre>
 </div>
-<h4 id="the-has_many-:through-association">2.4 The <code>has_many :through</code> Association</h4>
-<p>A <code>has_many :through</code> association is often used to set up a many-to-many connection with another model. This association indicates that the declaring model can be matched with zero or more instances of another model by proceeding <em>through</em> a third model. For example, consider a medical practice where patients make appointments to see physicians. The relevant association declarations could look like this:</p>
+<h4 id="has_many-:through-關聯">2.4 <code>has_many :through</code> 關聯</h4>
+<p><code>has_many :through</code> 關聯通常用來建立兩個 Model 之間的多對多關係。<code>has_many :through</code> 關聯<strong>透過（through）</strong>第三個 Model，宣告一個 Model 實例可有零個或多個另一個 Model 實例。舉個醫療的例子，“病患”需要<strong>透過</strong>“預約”來見“物理治療師”。相對應的宣告如下：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Physician &lt; ActiveRecord::Base
@@ -411,7 +411,7 @@ end
 </pre>
 </div>
 <p><img src="images/has_many_through.png" alt="has_many :through Association Diagram"></p>
-<p>The corresponding migration might look like this:</p>
+<p>上例對應的遷移看起來會像是：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class CreateAppointments &lt; ActiveRecord::Migration
@@ -437,16 +437,16 @@ end
 
 </pre>
 </div>
-<p>The collection of join models can be managed via the API. For example, if you assign</p>
+<p>連接 Model（Join Model）的集合可以用 API 關聯。比如：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 physician.patients = patients
 
 </pre>
 </div>
-<p>new join models are created for newly associated objects, and if some are gone their rows are deleted.</p>
-<div class="warning"><p>Automatic deletion of join models is direct, no destroy callbacks are triggered.</p></div>
-<p>The <code>has_many :through</code> association is also useful for setting up "shortcuts" through nested <code>has_many</code> associations. For example, if a document has many sections, and a section has many paragraphs, you may sometimes want to get a simple collection of all paragraphs in the document. You could set that up this way:</p>
+<p>會為新建立的關聯物件建立 Join Model，如果刪除了其中一個物件，也會刪除對應的資料庫記錄。</p>
+<div class="warning"><p>自動刪除連接 Model 會直接執行，不會觸發任何 destroy 回呼。</p></div>
+<p><code>has_many :through</code> 關聯在簡化巢狀的 <code>has_many</code> 關聯很有用。比如文件有多個章節、段落。想要簡單地從文件取得所有段落，可以這麼寫：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Document &lt; ActiveRecord::Base
@@ -465,18 +465,15 @@ end
 
 </pre>
 </div>
-<p>With <code>through: :sections</code> specified, Rails will now understand:</p>
+<p>指定了 <code>has_many :paragraphs, through: :sections</code> 之後，Rails 便懂得如何透過章節，從文件中取得段落：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 @document.paragraphs
 
 </pre>
 </div>
-<h4 id="the-has_one-:through-association">2.5 The <code>has_one :through</code> Association</h4>
-<p>A <code>has_one :through</code> association sets up a one-to-one connection with another model. This association indicates
-that the declaring model can be matched with one instance of another model by proceeding <em>through</em> a third model.
-For example, if each supplier has one account, and each account is associated with one account history, then the
-supplier model could look like this:</p>
+<h4 id="has_one-:through-關聯">2.5 <code>has_one :through</code> 關聯</h4>
+<p><code>has_one :through</code> 關聯建立兩個 Model 之間的一對一關係。<code>has_one :through</code> 關聯<strong>透過（through）</strong>第三個 Model，宣告一個 Model 實例可有另一個 Model 實例。舉例來說，供應商有一個帳號，每個帳號有帳號歷史，則供應商 Model 看起來像是：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Supplier &lt; ActiveRecord::Base
@@ -496,7 +493,7 @@ end
 </pre>
 </div>
 <p><img src="images/has_one_through.png" alt="has_one :through Association Diagram"></p>
-<p>The corresponding migration might look like this:</p>
+<p>上例對應的遷移看起來會像是：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class CreateAccountHistories &lt; ActiveRecord::Migration
@@ -522,8 +519,8 @@ end
 
 </pre>
 </div>
-<h4 id="the-has_and_belongs_to_many-association">2.6 The <code>has_and_belongs_to_many</code> Association</h4>
-<p>A <code>has_and_belongs_to_many</code> association creates a direct many-to-many connection with another model, with no intervening model. For example, if your application includes assemblies and parts, with each assembly having many parts and each part appearing in many assemblies, you could declare the models this way:</p>
+<h4 id="has_and_belongs_to_many-關聯">2.6 <code>has_and_belongs_to_many</code> 關聯</h4>
+<p><code>has_and_belongs_to_many</code> 關聯建立兩個 Model 之間<strong>直接的</strong>多對多關係。舉例來說，應用程式有組件（Assembly），組件下有部件（Part），可以如此宣告：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Assembly &lt; ActiveRecord::Base
@@ -537,7 +534,7 @@ end
 </pre>
 </div>
 <p><img src="images/habtm.png" alt="has_and_belongs_to_many Association Diagram"></p>
-<p>The corresponding migration might look like this:</p>
+<p>上例對應的遷移看起來會像是：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class CreateAssembliesAndParts &lt; ActiveRecord::Migration
@@ -561,14 +558,12 @@ end
 
 </pre>
 </div>
-<h4 id="choosing-between-belongs_to-and-has_one">2.7 Choosing Between <code>belongs_to</code> and <code>has_one</code>
-</h4>
-<p>If you want to set up a one-to-one relationship between two models, you'll need to add <code>belongs_to</code> to one, and <code>has_one</code> to the other. How do you know which is which?</p>
-<p>The distinction is in where you place the foreign key (it goes on the table for the class declaring the <code>belongs_to</code> association), but you should give some thought to the actual meaning of the data as well. The <code>has_one</code> relationship says that one of something is yours - that is, that something points back to you. For example, it makes more sense to say that a supplier owns an account than that an account owns a supplier. This suggests that the correct relationships are like this:</p>
+<h4 id="belongs_to-與-has_one-的應用場景">2.7 <code>belongs_to</code> 與 <code>has_one</code> 的應用場景</h4>
+<p>如果想建立兩個 Model 之間的一對一關係，一邊宣告 <code>belongs_to</code>，另一邊宣告 <code>has_one</code>。怎麼知道那個要寫那個？</p>
+<p>差異在於外鍵放在那個 Model（<strong>外鍵放在宣告 <code>belongs_to</code> 的關聯的資料表</strong>）。但應該要考慮實際的語義。比如 <code>has_one</code> 關聯表示某物屬於你，也就是供應商有一個帳號，比帳號擁有供應商合理。所以正確的關聯應這麼宣告：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Supplier &lt; ActiveRecord::Base
-  has_one :account
 end
 
 class Account &lt; ActiveRecord::Base
@@ -577,7 +572,7 @@ end
 
 </pre>
 </div>
-<p>The corresponding migration might look like this:</p>
+<p>上例對應的遷移看起來會像是：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class CreateSuppliers &lt; ActiveRecord::Migration
@@ -597,10 +592,9 @@ end
 
 </pre>
 </div>
-<div class="note"><p>Using <code>t.integer :supplier_id</code> makes the foreign key naming obvious and explicit. In current versions of Rails, you can abstract away this implementation detail by using <code>t.references :supplier</code> instead.</p></div>
-<h4 id="choosing-between-has_many-:through-and-has_and_belongs_to_many">2.8 Choosing Between <code>has_many :through</code> and <code>has_and_belongs_to_many</code>
-</h4>
-<p>Rails offers two different ways to declare a many-to-many relationship between models. The simpler way is to use <code>has_and_belongs_to_many</code>, which allows you to make the association directly:</p>
+<div class="note"><p>使用 <code>t.integer :supplier_id</code> 讓外鍵看起來更明確。這種寫法可以使用 <code>t.references :supplier</code> 抽象掉實作細節。</p></div>
+<h4 id="has_many-:through-與-has_and_belongs_to_many-的應用場景">2.8 <code>has_many :through</code> 與 <code>has_and_belongs_to_many</code> 的應用場景</h4>
+<p>Rails 提供兩種方式來宣告多對多關係。簡單的方法是使用 <code>has_and_belongs_to_many</code> 來直接建立多對多關聯：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Assembly &lt; ActiveRecord::Base
@@ -613,7 +607,7 @@ end
 
 </pre>
 </div>
-<p>The second way to declare a many-to-many relationship is to use <code>has_many :through</code>. This makes the association indirectly, through a join model:</p>
+<p>第二種建立多對多關係的方式是使用 <code>has_many :through</code>。這透過連接的 Model，間接建立出多對多關聯：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Assembly &lt; ActiveRecord::Base
@@ -633,10 +627,10 @@ end
 
 </pre>
 </div>
-<p>The simplest rule of thumb is that you should set up a <code>has_many :through</code> relationship if you need to work with the relationship model as an independent entity. If you don't need to do anything with the relationship model, it may be simpler to set up a <code>has_and_belongs_to_many</code> relationship (though you'll need to remember to create the joining table in the database).</p>
-<p>You should use <code>has_many :through</code> if you need validations, callbacks, or extra attributes on the join model.</p>
-<h4 id="polymorphic-associations">2.9 Polymorphic Associations</h4>
-<p>A slightly more advanced twist on associations is the <em>polymorphic association</em>. With polymorphic associations, a model can belong to more than one other model, on a single association. For example, you might have a picture model that belongs to either an employee model or a product model. Here's how this could be declared:</p>
+<p>最簡單的經驗法則表示，當多對多關係中間的 Model 要獨立使用時，使用 <code>has_many :through</code>；不需要對多對多關係中間的 Model 做任何事時，保持簡單使用 <code>has_and_belongs_to_many</code>（但要記得在資料庫建立連接的資料表）。</p>
+<p>若是連接的資料表需要驗證、回呼或其他屬性時，使用 <code>has_many :through</code>。</p>
+<h4 id="多型關聯">2.9 多型關聯</h4>
+<p>一種更進階的關聯用法是<strong>多型關聯</strong>。使用多型關聯，單個關聯裡，Model 可屬於多個 Model。舉例來說，圖片 Model 可屬於員工或產品 Model。以下是如何宣告：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Picture &lt; ActiveRecord::Base
@@ -653,9 +647,8 @@ end
 
 </pre>
 </div>
-<p>You can think of a polymorphic <code>belongs_to</code> declaration as setting up an interface that any other model can use. From an instance of the <code>Employee</code> model, you can retrieve a collection of pictures: <code>@employee.pictures</code>.</p>
-<p>Similarly, you can retrieve <code>@product.pictures</code>.</p>
-<p>If you have an instance of the <code>Picture</code> model, you can get to its parent via <code>@picture.imageable</code>. To make this work, you need to declare both a foreign key column and a type column in the model that declares the polymorphic interface:</p>
+<p>可以把多型的 <code>belongs_to</code> 宣告想成是一個介面，任何 Model 皆可使用的介面。在 <code>Employee</code> Model，可以透過 <code>@employee.pictures</code> 來取出所有圖片。同樣的，在 <code>Product</code> Model 亦然：<code>@product.pictures</code>。</p>
+<p>如果有一個 <code>Picture</code> Model 的實例，可以使用 <code>@picture.imageable</code> 看擁有這張圖片的是誰（父物件）。但首先需要先在遷移裡宣告外鍵（<code>*_id</code>）與類型（<code>*_type</code>）欄位，<code>*_type</code> 宣告此 Model 擁有多型介面：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class CreatePictures &lt; ActiveRecord::Migration
@@ -671,7 +664,7 @@ end
 
 </pre>
 </div>
-<p>This migration can be simplified by using the <code>t.references</code> form:</p>
+<p>上例遷移可用 <code>t.references</code> 形式簡化：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class CreatePictures &lt; ActiveRecord::Migration
@@ -687,8 +680,8 @@ end
 </pre>
 </div>
 <p><img src="images/polymorphic.png" alt="Polymorphic Association Diagram"></p>
-<h4 id="self-joins">2.10 Self Joins</h4>
-<p>In designing a data model, you will sometimes find a model that should have a relation to itself. For example, you may want to store all employees in a single database model, but be able to trace relationships such as between manager and subordinates. This situation can be modeled with self-joining associations:</p>
+<h4 id="自連接">2.10 自連接</h4>
+<p>在設計資料 Model 時會發現，有的 Model 自己與自己有關係。舉例來說，可能會想把員工資料通通存在一張資料表，但又要能夠追蹤像是經理或下屬之間的關係。這種情況可以使用自連接（Self join）關聯：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Employee &lt; ActiveRecord::Base
@@ -700,8 +693,8 @@ end
 
 </pre>
 </div>
-<p>With this setup, you can retrieve <code>@employee.subordinates</code> and <code>@employee.manager</code>.</p>
-<p>In your migrations/schema, you will add a references column to the model itself.</p>
+<p>這麼設定好後，可以使用 <code>@employee.subordinates</code> 與 <code>@employee.manager</code> 來取出經理與下屬。</p>
+<p>在遷移裡則是需要加入參照自己的欄位：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class CreateEmployees &lt; ActiveRecord::Migration
@@ -715,41 +708,40 @@ end
 
 </pre>
 </div>
-<h3 id="tips,-tricks,-and-warnings">3 Tips, Tricks, and Warnings</h3>
-<p>Here are a few things you should know to make efficient use of Active Record associations in your Rails applications:</p>
+<h3 id="秘訣、技巧與注意事項">3 秘訣、技巧與注意事項</h3>
+<p>以下是在 Rails 裡有效使用 Active Record 關聯所需要知道的二三事：</p>
 <ul>
-<li>Controlling caching</li>
-<li>Avoiding name collisions</li>
-<li>Updating the schema</li>
-<li>Controlling association scope</li>
-<li>Bi-directional associations</li>
+<li>控制快取</li>
+<li>避免命名衝突</li>
+<li>更新資料庫綱要</li>
+<li>控制關聯作用域</li>
+<li>雙向關聯</li>
 </ul>
-<h4 id="controlling-caching">3.1 Controlling Caching</h4>
-<p>All of the association methods are built around caching, which keeps the result of the most recent query available for further operations. The cache is even shared across methods. For example:</p>
+<h4 id="控制快取">3.1 控制快取</h4>
+<p>所有關聯新增的方法皆圍繞著快取打轉。這些方法會保留最近的查詢結果，供之後的查詢使用。快取甚至可在方法之間共享，比如：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
-customer.orders                 # retrieves orders from the database
-customer.orders.size            # uses the cached copy of orders
-customer.orders.empty?          # uses the cached copy of orders
+customer.orders        # 從資料庫取出訂單，快取之。
+customer.orders.size   # 使用快取的訂單查詢數量
+customer.orders.empty? # 使用快取的訂單檢查是否為空
 
 </pre>
 </div>
-<p>But what if you want to reload the cache, because data might have been changed by some other part of the application? Just pass <code>true</code> to the association call:</p>
+<p>但要是應用程式某部分更新了資料，想重載快取呢？呼叫關聯方法時傳入 <code>true</code> 即可：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
-customer.orders                 # retrieves orders from the database
-customer.orders.size            # uses the cached copy of orders
-customer.orders(true).empty?    # discards the cached copy of orders
-                                # and goes back to the database
+customer.orders              # 從資料庫取出訂單，快取。
+customer.orders.size         # 使用快取的訂單查詢數量
+customer.orders(true).empty? # 捨棄快取的訂單，重新去資料庫取出訂單，檢查是否為空。
 
 </pre>
 </div>
-<h4 id="avoiding-name-collisions">3.2 Avoiding Name Collisions</h4>
-<p>You are not free to use just any name for your associations. Because creating an association adds a method with that name to the model, it is a bad idea to give an association a name that is already used for an instance method of <code>ActiveRecord::Base</code>. The association method would override the base method and break things. For instance, <code>attributes</code> or <code>connection</code> are bad names for associations.</p>
-<h4 id="updating-the-schema">3.3 Updating the Schema</h4>
-<p>Associations are extremely useful, but they are not magic. You are responsible for maintaining your database schema to match your associations. In practice, this means two things, depending on what sort of associations you are creating. For <code>belongs_to</code> associations you need to create foreign keys, and for <code>has_and_belongs_to_many</code> associations you need to create the appropriate join table.</p>
-<h5 id="creating-foreign-keys-for-belongs_to-associations">3.3.1 Creating Foreign Keys for <code>belongs_to</code> Associations</h5>
-<p>When you declare a <code>belongs_to</code> association, you need to create foreign keys as appropriate. For example, consider this model:</p>
+<h4 id="避免命名衝突">3.2 避免命名衝突</h4>
+<p>關聯名稱不可隨意使用。因為在建立關聯時，會新增與關聯名稱相同的方法。若是關聯名稱與 <code>ActiveRecord::Base</code> 的實例方法相同時，關聯新增的方法會覆蓋掉 <code>ActiveRecord::Base</code> 的實例方法。比如 <code>attributes</code> 或 <code>connection</code> 是不好的關聯名稱。</p>
+<h4 id="更新資料庫綱要">3.3 更新資料庫綱要</h4>
+<p>關聯非常非常有用，但沒什麼神奇的。為關聯維護對應的資料庫綱要是您的責任。不同關聯需要做的事不同。對於 <code>belongs_to</code> 關聯來說，需要建立外鍵；對於 <code>has_and_belongs_to_many</code> 則需要建立適當的連接資料表。</p>
+<h5 id="為-belongs_to-關聯建立外鍵">3.3.1 為 <code>belongs_to</code> 關聯建立外鍵</h5>
+<p>當宣告了 <code>belongs_to</code> 關聯時，需要建立外鍵。看看下面這個 Model：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Order &lt; ActiveRecord::Base
@@ -758,7 +750,7 @@ end
 
 </pre>
 </div>
-<p>This declaration needs to be backed up by the proper foreign key declaration on the orders table:</p>
+<p>這個宣告需要在訂單資料表建立適當的外鍵才有效：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class CreateOrders &lt; ActiveRecord::Migration
@@ -773,11 +765,11 @@ end
 
 </pre>
 </div>
-<p>If you create an association some time after you build the underlying model, you need to remember to create an <code>add_column</code> migration to provide the necessary foreign key.</p>
-<h5 id="creating-join-tables-for-has_and_belongs_to_many-associations">3.3.2 Creating Join Tables for <code>has_and_belongs_to_many</code> Associations</h5>
-<p>If you create a <code>has_and_belongs_to_many</code> association, you need to explicitly create the joining table. Unless the name of the join table is explicitly specified by using the <code>:join_table</code> option, Active Record creates the name by using the lexical order of the class names. So a join between customer and order models will give the default join table name of "customers_orders" because "c" outranks "o" in lexical ordering.</p>
-<div class="warning"><p>The precedence between model names is calculated using the <code>&lt;</code> operator for <code>String</code>. This means that if the strings are of different lengths, and the strings are equal when compared up to the shortest length, then the longer string is considered of higher lexical precedence than the shorter one. For example, one would expect the tables "paper_boxes" and "papers" to generate a join table name of "papers_paper_boxes" because of the length of the name "paper_boxes", but it in fact generates a join table name of "paper_boxes_papers" (because the underscore '_' is lexicographically <em>less</em> than 's' in common encodings).</p></div>
-<p>Whatever the name, you must manually generate the join table with an appropriate migration. For example, consider these associations:</p>
+<p>若在建立 Model 之後才宣告關聯，記得使用 <code>add_column</code> 遷移來提供所需的外鍵。</p>
+<h5 id="為-has_and_belongs_to_many-關聯建立連接資料表">3.3.2 為 <code>has_and_belongs_to_many</code> 關聯建立連接資料表</h5>
+<p>如果建立了 <code>has_and_belongs_to_many</code> 關聯，需要明確的建一張連接表。除非資料表已在 <code>:join_table</code> 選項中指定，否則 Active Record 會以關聯的類別名稱，依照辭典順序先後來命名這張連接資料表。假設 <code>Customer</code> 與 <code>Order</code> Model 預設的連接表名稱是 <code>customers_orders</code>，因為在詞法序當中，<code>c</code> 的地位高於 <code>o</code>。</p>
+<div class="warning"><p>Model 名稱的優先順序使用 <code>String</code> 的 <code>&lt;</code> 來計算。若字串不一樣長，比較最短長度時，兩個字串是相等的。但長字串詞法地位高於短字串。舉例來說，你可能認為 <code>paper_boxes</code> 與 <code>papers</code> 這兩個資料表產生的連接表名稱是 <code>papers_paper_boxes</code>，因為 <code>paper_boxes</code> 比 <code>papers</code> 長。但實際上是 <code>paper_boxes_papers</code>，因為在常見的編碼裡，<code>_</code> 的詞法地位高於 <code>s</code>。</p></div>
+<p>不論名稱為何，必須要在適當的遷移中，手動產生連接表。考慮下面的關聯範例：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Assembly &lt; ActiveRecord::Base
@@ -790,7 +782,7 @@ end
 
 </pre>
 </div>
-<p>These need to be backed up by a migration to create the <code>assemblies_parts</code> table. This table should be created without a primary key:</p>
+<p>關聯要有效，還需寫一個遷移來建立 <code>assemblies_parts</code> 資料表。並且此表無主鍵：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class CreateAssembliesPartsJoinTable &lt; ActiveRecord::Migration
@@ -804,9 +796,9 @@ end
 
 </pre>
 </div>
-<p>We pass <code>id: false</code> to <code>create_table</code> because that table does not represent a model. That's required for the association to work properly. If you observe any strange behavior in a <code>has_and_belongs_to_many</code> association like mangled models IDs, or exceptions about conflicting IDs, chances are you forgot that bit.</p>
-<h4 id="controlling-association-scope">3.4 Controlling Association Scope</h4>
-<p>By default, associations look for objects only within the current module's scope. This can be important when you declare Active Record models within a module. For example:</p>
+<p><code>create_table</code> 傳入 <code>id: false</code> 因為資料表無需表示一個 Model。這張資料表只是為了讓關聯可以正常工作。如果你發現 <code>has_and_belongs_to_many</code> 關聯出現任何奇怪的行為，像是 ID 錯位、ID 衝突，很可能就是因為忘記去掉主鍵。</p>
+<h4 id="控制關聯作用域">3.4 控制關聯作用域</h4>
+<p>預設關聯只會在目前模組的作用域裡尋找物件。這在模組裡宣告 Active Record Model 時很重要，比如：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 module MyApplication
@@ -823,7 +815,7 @@ end
 
 </pre>
 </div>
-<p>This will work fine, because both the <code>Supplier</code> and the <code>Account</code> class are defined within the same scope. But the following will <em>not</em> work, because <code>Supplier</code> and <code>Account</code> are defined in different scopes:</p>
+<p>這沒什麼問題，因為 <code>Supplier</code> 與 <code>Account</code> 在相同的作用域裡定義。但以下不會正常工作，因為 <code>Supplier</code> 與 <code>Account</code> 定義在不同的作用域裡。</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 module MyApplication
@@ -842,7 +834,7 @@ end
 
 </pre>
 </div>
-<p>To associate a model with a model in a different namespace, you must specify the complete class name in your association declaration:</p>
+<p>要將不同命名空間下的 Model 關聯起來，可以在宣告關聯時指定完整的類別名稱：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 module MyApplication
@@ -863,8 +855,8 @@ end
 
 </pre>
 </div>
-<h4 id="bi-directional-associations">3.5 Bi-directional Associations</h4>
-<p>It's normal for associations to work in two directions, requiring declaration on two different models:</p>
+<h4 id="雙向關聯">3.5 雙向關聯</h4>
+<p>關聯兩邊都可以工作是很常見的需求，這需要在兩邊都宣告：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Customer &lt; ActiveRecord::Base
@@ -877,7 +869,7 @@ end
 
 </pre>
 </div>
-<p>By default, Active Record doesn't know about the connection between these associations. This can lead to two copies of an object getting out of sync:</p>
+<p>Active Record 預設不知道這些關聯的連結關係。這可能會導致複製一個物件的不同步：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 c = Customer.first
@@ -888,7 +880,7 @@ c.first_name == o.customer.first_name # =&gt; false
 
 </pre>
 </div>
-<p>This happens because c and o.customer are two different in-memory representations of the same data, and neither one is automatically refreshed from changes to the other. Active Record provides the <code>:inverse_of</code> option so that you can inform it of these relations:</p>
+<p>只所以會這樣的原因是，<code>c</code> 與 <code>o.customer</code> 在記憶體裡是表示相同資料的兩種表示，改了一個不會自動改另一個。Active Record 提供了 <code>inverse_of</code> 選項，用來通知 Rails 關聯之間的關係：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Customer &lt; ActiveRecord::Base
@@ -901,7 +893,7 @@ end
 
 </pre>
 </div>
-<p>With these changes, Active Record will only load one copy of the customer object, preventing inconsistencies and making your application more efficient:</p>
+<p>加上了 <code>inverse_of</code> 後，Active Record 只會載入一個顧客物件，避免資料的不一致，並提高應用程式的效率：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 c = Customer.first
@@ -912,25 +904,21 @@ c.first_name == o.customer.first_name # =&gt; true
 
 </pre>
 </div>
-<p>There are a few limitations to <code>inverse_of</code> support:</p>
+<p><code>inverse_of</code> 有幾點限制：</p>
 <ul>
-<li>They do not work with <code>:through</code> associations.</li>
-<li>They do not work with <code>:polymorphic</code> associations.</li>
-<li>They do not work with <code>:as</code> associations.</li>
-<li>For <code>belongs_to</code> associations, <code>has_many</code> inverse associations are ignored.</li>
+<li>不能與 <code>:through</code> 關聯同時使用。</li>
+<li>不能與 <code>:polymorphic</code> 關聯同時使用。</li>
+<li>不能與 <code>:as</code> 選項同時使用。</li>
+<li>對 <code>belongs_to</code> 關聯，會忽略 <code>has_many</code> 所設定的 <code>inverse_of</code>。</li>
 </ul>
-<p>Every association will attempt to automatically find the inverse association
-and set the <code>:inverse_of</code> option heuristically (based on the association name).
-Most associations with standard names will be supported. However, associations
-that contain the following options will not have their inverses set
-automatically:</p>
+<p>每種關聯皆會試著自動找到對應的關聯，並根據關聯名稱來合理地設定 <code>:inverse_of</code> 選項。多數使用標準名稱的關聯都會自動設定。但使用了以下選項的關聯，則無法自動設定：</p>
 <ul>
 <li>:conditions</li>
 <li>:through</li>
 <li>:polymorphic</li>
 <li>:foreign_key</li>
 </ul>
-<h3 id="detailed-association-reference">4 Detailed Association Reference</h3>
+<h3 id="關聯完整參考手冊">4 關聯完整參考手冊</h3>
 <p>The following sections give the details of each type of association, including the methods that they add and the options that you can use when declaring an association.</p>
 <h4 id="belongs_to-association-reference">4.1 <code>belongs_to</code> Association Reference</h4>
 <p>The <code>belongs_to</code> association creates a one-to-one match with another model. In database terms, this association says that this class contains the foreign key. If the other class contains the foreign key, then you should use <code>has_one</code> instead.</p>

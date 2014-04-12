@@ -719,7 +719,7 @@ Client.where("orders_count = #{params[:orders]}")
 
 </pre>
 </div>
-<p>因為前者比較安全。直接將變數插入條件字串裡，不論變數是什麼，都會直接存到資料庫裡。這表示從惡意使用者傳來的變數，會直接存到資料庫。這麼做是把資料庫放在風險裡不管啊！一旦有人知道，可以隨意將任何字串插入資料庫裡，就可以做任何想做的事。__絕對不要直接將變數插入條件字串裡。__</p>
+<p>因為前者比較安全。直接將變數插入條件字串裡，不論變數是什麼，都會直接存到資料庫裡。這表示從惡意使用者傳來的變數，會直接存到資料庫。這麼做是把資料庫放在風險裡不管啊！一旦有人知道，可以隨意將任何字串插入資料庫裡，就可以做任何想做的事。<strong>絕對不要直接將變數插入條件字串裡。</strong></p>
 <div class="info"><p>關於更多 SQL injection 的資料，請參考 <a href="edgeguides.rubyonrails.org/security.html#sql-injection">Ruby on Rails 安全指南</a>。</p></div>
 <h5 id="佔位符">2.2.1 佔位符</h5>
 <p>替換除了可以使用 <code>?</code> 之外，用符號也可以。以 Hash 的鍵值對方式，傳入陣列條件：</p>
@@ -1410,7 +1410,7 @@ SELECT "posts"."id" AS t0_r0, ... "comments"."updated_at" AS t1_r5 FROM "posts" 
 </pre>
 </div>
 <p>如果沒有下 <code>where</code> 條件，則會像平常那樣產生兩條查詢。</p>
-<p>上例若文章都沒有評論，仍會載入所有文章。然而使用 <code>joins</code> （<code>INNER JOIN</code>）**必須**要滿足連接條件，不然不會回傳任何記錄。</p>
+<p>上例若文章都沒有評論，仍會載入所有文章。然而使用 <code>joins</code> （<code>INNER JOIN</code>）<strong>必須</strong>要滿足連接條件，不然不會回傳任何記錄。</p>
 <h3 id="作用域">14 作用域</h3>
 <p>作用域（Scopes）允許將常用查詢定義成關聯物件或 Model 的方法。作用域可以使用前面介紹過的 <code>where</code>、<code>joins</code>、<code>includes</code> 等方法。所有作用域方法會回傳一個 <code>ActiveRecord::Relation</code> 物件，允許之後的方法（像是作用域）來繼續呼叫。</p>
 <p>要定義一個簡單的作用域，在類別裡使用 <code>scope</code> 方法，傳入呼叫此作用域時想執行的查詢即可：</p>
