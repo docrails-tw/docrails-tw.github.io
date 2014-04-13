@@ -283,7 +283,7 @@ Person.create(name: nil).valid? # =&gt; false
 </ul>
 <p>根據不同場合選擇不同驗證方式。Rails 團隊的觀點是 Model 層級的驗證，最符合多數應用場景。</p>
 <h4 id="驗證何時發生？">1.2 驗證何時發生？</h4>
-<p>Active Record 物件有兩種：一種對應到資料庫的列、另一種沒有。當新建一個新的物件時，比如使用 <code>new</code> 方法，物件此時並不屬於資料庫。一旦對物件呼叫 <code>save</code>，則物件會存入對應的資料表裡。Active Record 使用 <code>new_record?</code> 這個實例方法來決定物件是否已存在資料庫。看看下面這個簡單的 Active Record 類別：</p>
+<p>Active Record 物件有兩種：一種對應到資料庫的列、另一種沒有。當新建一個新的物件時，比如使用 <code>new</code> 方法，物件此時並不屬於資料庫。一旦對物件呼叫 <code>save</code>，則物件會存入對應的資料表裡。Active Record 使用 <code>new_record?</code> 這個實體方法來決定物件是否已存在資料庫。看看下面這個簡單的 Active Record 類別：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Person &lt; ActiveRecord::Base
@@ -351,8 +351,8 @@ Person.create(name: nil).valid? # =&gt; false
 
 </pre>
 </div>
-<p>Active Record 做完驗證後，所有找到的錯誤都可透過 <code>errors.messages</code> 這個實例方法來存取，會回傳錯誤集合。就定義來說，物件做完驗證後，錯誤集合為空才是有效的。</p>
-<p>注意到用 <code>new</code> 實例化出來的物件，即便有錯誤也不會說，因為 <code>new</code> 不會觸發任何驗證。</p>
+<p>Active Record 做完驗證後，所有找到的錯誤都可透過 <code>errors.messages</code> 這個實體方法來存取，會回傳錯誤集合。就定義來說，物件做完驗證後，錯誤集合為空才是有效的。</p>
+<p>注意到用 <code>new</code> 實體化出來的物件，即便有錯誤也不會說，因為 <code>new</code> 不會觸發任何驗證。</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Person &lt; ActiveRecord::Base
@@ -745,8 +745,8 @@ end
 
 </pre>
 </div>
-<p>注意自己寫的這個驗證類別（上例為 <code>GoodnessValidator</code>），在應用程式生命週期內<strong>只會實例化一次</strong>，而不是每次驗證時就實例化一次。所以使用實例變數時要很小心。</p>
-<p>如果驗證類別足夠複雜的話，需要用到實例變數，可以用純 Ruby 物件（Plain Old Ruby Object, PORO） 來取代：</p>
+<p>注意自己寫的這個驗證類別（上例為 <code>GoodnessValidator</code>），在應用程式生命週期內<strong>只會實體化一次</strong>，而不是每次驗證時就實體化一次。所以使用實體變數時要很小心。</p>
+<p>如果驗證類別足夠複雜的話，需要用到實體變數，可以用純 Ruby 物件（Plain Old Ruby Object, PORO） 來取代：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Person &lt; ActiveRecord::Base
@@ -1005,7 +1005,7 @@ end
 <p>以下是最常使用的方法。請參考 <code>ActiveModel::Errors</code> 的文件來了解所有可用的方法。</p>
 <h4 id="errors">7.1 <code>errors</code>
 </h4>
-<p>此方法回傳 <code>ActiveModel::Errors</code> 類別的實例，包含了所有的錯誤。屬性名稱為鍵，值為由錯誤訊息字串組成的陣列，</p>
+<p>此方法回傳 <code>ActiveModel::Errors</code> 類別的實體，包含了所有的錯誤。屬性名稱為鍵，值為由錯誤訊息字串組成的陣列，</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Person &lt; ActiveRecord::Base
@@ -1147,7 +1147,7 @@ person.errors.size # =&gt; 0
 <p>一旦 Model 建好，也加入驗證。用表單新建模型時，可能會需要在驗證失敗的欄位顯示錯誤訊息。</p>
 <p>因為每個應用程式處理錯誤的方式不同，Rails 沒有直接提供 View Helpers 供您直接產生這些錯誤訊息。</p>
 <p>然而，Rails 大量豐富的驗證方法，自己寫一個顯示錯誤的 View Helper 也不難。當使用 Scaffold 產生時，Rails 會在 <code>_form.html.erb</code> 加入一些 ERB，用來產生 Model 的完整錯誤清單。</p>
-<p>假設我們有個 Model 存在實例變數 <code>@post</code> 裡，View 則可以這麼寫：</p>
+<p>假設我們有個 Model 存在實體變數 <code>@post</code> 裡，View 則可以這麼寫：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 &lt;% if @post.errors.any? %&gt;

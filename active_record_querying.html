@@ -365,12 +365,12 @@ end
 <li><code>uniq</code></li>
 <li><code>where</code></li>
 </ul>
-<p>以上方法皆會回傳一個 <code>ActiveRecord::Relation</code> 實例。</p>
+<p>以上方法皆會回傳一個 <code>ActiveRecord::Relation</code> 實體。</p>
 <p><code>Model.find(options)</code> 的主要操作可以總結如下：</p>
 <ul>
 <li>將傳入的參數轉換成對應的 SQL 語句。</li>
 <li>執行 SQL 語句，去資料庫取回對應的結果。</li>
-<li>將每個查詢結果，根據適當的 Model 實例化出 Ruby 物件。</li>
+<li>將每個查詢結果，根據適當的 Model 實體化出 Ruby 物件。</li>
 <li>有 <code>after_find</code> 回呼的話，執行它們。</li>
 </ul>
 <h4 id="取出單一物件">1.1 取出單一物件</h4>
@@ -857,7 +857,7 @@ SELECT viewable_by, locked FROM clients
 
 </pre>
 </div>
-<p>要小心使用 <code>select</code>。因為實例化出來的物件僅有所選欄位。如果試圖存取不存在的欄位，會得到 <code>ActiveModel::MissingAttributeError</code> 異常：</p>
+<p>要小心使用 <code>select</code>。因為實體化出來的物件僅有所選欄位。如果試圖存取不存在的欄位，會得到 <code>ActiveModel::MissingAttributeError</code> 異常：</p>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 ActiveModel::MissingAttributeError: missing attribute: &lt;attribute&gt;
@@ -1191,7 +1191,7 @@ end
 
 </pre>
 </div>
-<p>如果已經有 Model 的實例，使用以下寫法，可以將操作包在 transaction 裡，並同時獲得鎖：</p>
+<p>如果已經有 Model 的實體，使用以下寫法，可以將操作包在 transaction 裡，並同時獲得鎖：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 item = Item.first
@@ -1695,10 +1695,10 @@ Client.find_by_sql("SELECT * FROM clients
 
 </pre>
 </div>
-<p><code>find_by_sql</code> 提供自定查詢的簡單方式，並會將取出的物件實例化。</p>
+<p><code>find_by_sql</code> 提供自定查詢的簡單方式，並會將取出的物件實體化。</p>
 <h4 id="select_all">17.1 <code>select_all</code>
 </h4>
-<p><code>find_by_sql</code> 有個類似的方法：<code>connection#select_all</code>。 <code>select_all</code> 會使用自定的 SQL 語句從資料庫取出物件，但不會實例化物件。會回傳一個 <code>ActiveRecord::Result</code> 物件，可以使用 <code>to_ary</code> 或 <code>to_hash</code> 將 <code>ActiveRecord::Result</code> 轉成陣列，每筆記錄皆是陣列裡的一個 Hash。</p>
+<p><code>find_by_sql</code> 有個類似的方法：<code>connection#select_all</code>。 <code>select_all</code> 會使用自定的 SQL 語句從資料庫取出物件，但不會實體化物件。會回傳一個 <code>ActiveRecord::Result</code> 物件，可以使用 <code>to_ary</code> 或 <code>to_hash</code> 將 <code>ActiveRecord::Result</code> 轉成陣列，每筆記錄皆是陣列裡的一個 Hash。</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 Client.connection.select_all("SELECT * FROM clients WHERE id = '1'")

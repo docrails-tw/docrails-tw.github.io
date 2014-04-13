@@ -279,7 +279,7 @@
 <li><p><strong>主鍵</strong> -  Active Record 預設會使用一個叫做 <code>id</code> 的整數欄位，作為資料表的主鍵。採用 <a href="migrations.html">Active Record
 遷移</a> 來建立資料表時，這個欄位會自動產生。</p></li>
 </ul>
-<p>以下是某些選擇性的欄位名稱，會加入更多功能到 Active Record 實例：</p>
+<p>以下是某些選擇性的欄位名稱，會加入更多功能到 Active Record 實體：</p>
 <ul>
 <li>
 <code>created_at</code> - 記錄首次建立時自動設定此欄位為當下的日期與時間。</li>
@@ -306,7 +306,7 @@ end
 
 </pre>
 </div>
-<p>便會新增一個 <code>Product</code> Model，對應到資料庫的 <code>products</code> 表。資料表當中的每一列，皆會對應到 Model 實例的屬性。假設 <code>products</code> 以下面的 SQL 語句新建而成：</p>
+<p>便會新增一個 <code>Product</code> Model，對應到資料庫的 <code>products</code> 表。資料表當中的每一列，皆會對應到 Model 實體的屬性。假設 <code>products</code> 以下面的 SQL 語句新建而成：</p>
 <div class="code_container">
 <pre class="brush: sql; gutter: false; toolbar: false">
 CREATE TABLE products (
@@ -369,7 +369,7 @@ user = User.create(name: "David", occupation: "Code Artist")
 
 </pre>
 </div>
-<p>使用 <code>new</code> 方法，物件會實例化出來，但不會儲存：</p>
+<p>使用 <code>new</code> 方法，物件會實體化出來，但不會儲存：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 user = User.new
@@ -379,7 +379,7 @@ user.occupation = "Code Artist"
 </pre>
 </div>
 <p>呼叫 <code>user.save</code> 會將該筆記錄存入資料庫。</p>
-<p>最後，使用區塊的例子，會將 User.new 實例化出來的物件放入區塊裡，對個別屬性作設定：</p>
+<p>最後，使用區塊的例子，會將 User.new 實體化出來的物件放入區塊裡，對個別屬性作設定：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 user = User.new do |u|
