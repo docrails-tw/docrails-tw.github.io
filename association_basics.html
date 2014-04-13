@@ -237,7 +237,7 @@ end
 
 </pre>
 </div>
-<p>為顧客加一筆訂單：</p>
+<p>為顧客建筆新訂單：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 @order = Order.create(order_date: Time.now, customer_id: @customer.id)
@@ -255,7 +255,7 @@ end
 
 </pre>
 </div>
-<p>有了 Active Record 關聯，可以透過告訴 Rails Model 之間的關聯，來精簡上例。以下是簡化後的程式碼：</p>
+<p>有了 Active Record 關聯，可以透過告訴 Rails，Model 之間的關聯，來精簡上例。以下是簡化後的程式碼：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Customer &lt; ActiveRecord::Base
@@ -282,7 +282,7 @@ end
 
 </pre>
 </div>
-<p>了解各種關聯的用途，請閱讀本篇下一節。下一節介紹關聯種類、各種關聯的秘訣與小技巧，本篇最後是 Rails 關聯的選項與方法的完整參考手冊。</p>
+<p>要了解各種關聯的用途，請閱讀下一節。下一節介紹關聯種類、各種關聯的秘訣與小技巧。本篇最後一節是 Rails 各種關聯的可用選項與方法的完整參考手冊。</p>
 <h3 id="關聯種類">2 關聯種類</h3>
 <p>在 Rails 的世界裡，<strong>關聯</strong>連結了兩個 Active Record Model。關聯使用宏風格（macro-style）的語法來呼叫，以宣告的形式加入功能到 Model。舉例來說，透過宣告一個 Model 屬於另一個，來告訴 Rails 如何維護兩者之間的主外鍵，同時獲得許多實用的方法。Rails 支援以下六種關聯：</p>
 <ul>
@@ -295,7 +295,7 @@ end
 </ul>
 <p>本篇之後細講各種關聯如何使用，首先介紹各種關聯的應用場景。</p>
 <h4 id="belongs_to-關聯">2.1 <code>belongs_to</code> 關聯</h4>
-<p><code>belongs_to</code> 關聯建立兩個 Model 之間的一對一關係。<code>belongs_to</code> 關聯宣告一個 Model 實例屬於另一個 Model 實例。舉例來說，應用程式有顧客與訂單兩個 Model，每筆訂單只屬於一位顧客，訂單 Model 便如此宣告：</p>
+<p><code>belongs_to</code> 關聯建立兩個 Model 之間的一對一關係。<code>belongs_to</code> 關聯宣告一個 Model 實例，屬於另一個 Model 實例。舉例來說，應用程式有顧客與訂單兩個 Model，每筆訂單只屬於一位顧客，訂單 Model 便如此宣告：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Order &lt; ActiveRecord::Base
@@ -306,7 +306,7 @@ end
 </div>
 <p><img src="images/belongs_to.png" alt="belongs_to Association Diagram"></p>
 <div class="note"><p><code>belongs_to</code> 宣告<strong>必須</strong>使用單數形式。上例若使用複數形式，會報 <code>"uninitialized constant Order::Customers"</code> 錯誤。這是因為 Rails 自動從關聯名稱推斷出類別名稱。關聯名稱錯用複數，推斷出來的類別名稱自然也錯了。</p></div>
-<p>上例對應的遷移看起來會像是：</p>
+<p>上例對應的遷移（Migration）看起來會像是：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class CreateOrders &lt; ActiveRecord::Migration
@@ -327,7 +327,7 @@ end
 </pre>
 </div>
 <h4 id="has_one-關聯">2.2 <code>has_one</code> 關聯</h4>
-<p><code>has_one</code> 關聯建立兩個 Model 之間的一對一關係，但語義與結果不同。<code>has_one</code> 關聯宣告一個 Model 實例，含有（或持有）另一個 Model 實例。舉例來說，每個供應商在應用程式裡只有一個帳號，供應商 Model 便如此宣告：</p>
+<p><code>has_one</code> 關聯建立兩個 Model 之間的一對一關係，但語義和結果與 <code>belongs_to</code> 不同。<code>has_one</code> 關聯宣告一個 Model 實例，含有（或持有）另一個 Model 實例。舉例來說，每個供應商在應用程式裡只有一個帳號，供應商 Model 便如此宣告：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Supplier &lt; ActiveRecord::Base
@@ -358,7 +358,7 @@ end
 </pre>
 </div>
 <h4 id="has_many-關聯">2.3 <code>has_many</code> 關聯</h4>
-<p><code>has_many</code> 關聯建立兩個 Model 之間的一對多關係。通常 <code>has_many</code> 另一邊對應的是 <code>belongs_to</code> 關聯。<code>has_many</code> 關聯宣告一個 Model 實例有零個或多個另一個 Model 實例。舉例來說，應用程式有顧客與訂單兩個 Model，顧客可有多筆訂單，訂單 Model 便如此宣告：</p>
+<p><code>has_many</code> 關聯建立兩個 Model 之間的一對多關係。通常 <code>has_many</code> 另一邊對應的是 <code>belongs_to</code> 關聯。<code>has_many</code> 關聯宣告一個 Model 實例，有零個或多個另一個 Model 實例。舉例來說，應用程式有顧客與訂單兩個 Model，顧客可有多筆訂單，訂單 Model 便如此宣告：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Customer &lt; ActiveRecord::Base
@@ -390,7 +390,7 @@ end
 </pre>
 </div>
 <h4 id="has_many-:through-關聯">2.4 <code>has_many :through</code> 關聯</h4>
-<p><code>has_many :through</code> 關聯通常用來建立兩個 Model 之間的多對多關係。<code>has_many :through</code> 關聯<strong>透過（through）</strong>第三個 Model，宣告一個 Model 實例可有零個或多個另一個 Model 實例。舉個醫療的例子，“病患”需要<strong>透過</strong>“預約”來見“物理治療師”。相對應的宣告如下：</p>
+<p><code>has_many :through</code> 關聯通常用來建立兩個 Model 之間的多對多關係。<code>has_many :through</code> 關聯<strong>透過（through）</strong>第三個 Model，宣告一個 Model 實例，可有零個或多個另一個 Model 實例。舉個醫療的例子，“病患”需要<strong>透過</strong>“預約”來見“物理治療師”。相對應的宣告如下：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Physician &lt; ActiveRecord::Base
@@ -444,8 +444,8 @@ physician.patients = patients
 
 </pre>
 </div>
-<p>會為新建立的關聯物件建立 Join Model，如果刪除了其中一個物件，也會刪除對應的資料庫記錄。</p>
-<div class="warning"><p>自動刪除連接 Model 會直接執行，不會觸發任何 destroy 回呼。</p></div>
+<p>會為新建立的關聯物件建立連接 Model，如果刪除了其中一個物件，也會刪除對應的資料庫記錄。</p>
+<div class="warning"><p>連接 Model 會自動刪除、直接執行，不會觸發任何 <code>destroy</code> 回呼。</p></div>
 <p><code>has_many :through</code> 關聯在簡化巢狀的 <code>has_many</code> 關聯很有用。比如文件有多個章節、段落。想要簡單地從文件取得所有段落，可以這麼寫：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
@@ -473,7 +473,7 @@ end
 </pre>
 </div>
 <h4 id="has_one-:through-關聯">2.5 <code>has_one :through</code> 關聯</h4>
-<p><code>has_one :through</code> 關聯建立兩個 Model 之間的一對一關係。<code>has_one :through</code> 關聯<strong>透過（through）</strong>第三個 Model，宣告一個 Model 實例可有另一個 Model 實例。舉例來說，供應商有一個帳號，每個帳號有帳號歷史，則供應商 Model 看起來像是：</p>
+<p><code>has_one :through</code> 關聯建立兩個 Model 之間的一對一關係。<code>has_one :through</code> 關聯<strong>透過（through）</strong>第三個 Model，宣告一個 Model 實例，可有另一個 Model 實例。舉例來說，供應商有一個帳號，每個帳號有帳號歷史，相對應的宣告如下：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Supplier &lt; ActiveRecord::Base
@@ -520,7 +520,7 @@ end
 </pre>
 </div>
 <h4 id="has_and_belongs_to_many-關聯">2.6 <code>has_and_belongs_to_many</code> 關聯</h4>
-<p><code>has_and_belongs_to_many</code> 關聯建立兩個 Model 之間<strong>直接的</strong>多對多關係。舉例來說，應用程式有組件（Assembly），組件下有部件（Part），可以如此宣告：</p>
+<p><code>has_and_belongs_to_many</code> 關聯建立兩個 Model 之間，<strong>直接的</strong>多對多關係。舉例來說，應用程式有組件（Assembly），組件下有部件（Part），可以如此宣告：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Assembly &lt; ActiveRecord::Base
@@ -630,7 +630,7 @@ end
 <p>最簡單的經驗法則表示，當多對多關係中間的 Model 要獨立使用時，使用 <code>has_many :through</code>；不需要對多對多關係中間的 Model 做任何事時，保持簡單使用 <code>has_and_belongs_to_many</code>（但要記得在資料庫建立連接的資料表）。</p>
 <p>若是連接的資料表需要驗證、回呼或其他屬性時，使用 <code>has_many :through</code>。</p>
 <h4 id="多型關聯">2.9 多型關聯</h4>
-<p>一種更進階的關聯用法是<strong>多型關聯</strong>。使用多型關聯，單個關聯裡，Model 可屬於多個 Model。舉例來說，圖片 Model 可屬於員工或產品 Model。以下是如何宣告：</p>
+<p>一種更進階的關聯用法是<strong>多型關聯</strong>。使用多型關聯，單個關聯裡，Model 可屬於多個 Model。舉例來說，圖片 Model 可屬於員工或產品 Model。相對應的宣告如下：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Picture &lt; ActiveRecord::Base
@@ -648,7 +648,7 @@ end
 </pre>
 </div>
 <p>可以把多型的 <code>belongs_to</code> 宣告想成是一個介面，任何 Model 皆可使用的介面。在 <code>Employee</code> Model，可以透過 <code>@employee.pictures</code> 來取出所有圖片。同樣的，在 <code>Product</code> Model 亦然：<code>@product.pictures</code>。</p>
-<p>如果有一個 <code>Picture</code> Model 的實例，可以使用 <code>@picture.imageable</code> 看擁有這張圖片的是誰（父物件）。但首先需要先在遷移裡宣告外鍵（<code>*_id</code>）與類型（<code>*_type</code>）欄位，<code>*_type</code> 宣告此 Model 擁有多型介面：</p>
+<p>如果有一個 <code>Picture</code> Model 的實例，可以使用 <code>@picture.imageable</code> 看擁有這張圖片的是誰（父物件）。但首先需要先在遷移裡，加入外鍵（<code>*_id</code>）與類型（<code>*_type</code>）欄位。<code>*_type</code> 類型欄位用來宣告此 Model 擁有多型介面：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class CreatePictures &lt; ActiveRecord::Migration
@@ -681,7 +681,7 @@ end
 </div>
 <p><img src="images/polymorphic.png" alt="Polymorphic Association Diagram"></p>
 <h4 id="自連接">2.10 自連接</h4>
-<p>在設計資料 Model 時會發現，有的 Model 自己與自己有關係。舉例來說，可能會想把員工資料通通存在一張資料表，但又要能夠追蹤像是經理或下屬之間的關係。這種情況可以使用自連接（Self join）關聯：</p>
+<p>在設計資料 Model 時會發現，有時會需要自己與自己有關係的 Model。舉例來說，可能會想把員工資料通通存在一張資料表，但又要能夠追蹤像是經理或下屬之間的關係。這種情況可以使用自連接（Self join）關聯：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Employee &lt; ActiveRecord::Base
@@ -739,7 +739,7 @@ customer.orders(true).empty? # 捨棄快取的訂單，重新去資料庫取出�
 <h4 id="避免命名衝突">3.2 避免命名衝突</h4>
 <p>關聯名稱不可隨意使用。因為在建立關聯時，會新增與關聯名稱相同的方法。若是關聯名稱與 <code>ActiveRecord::Base</code> 的實例方法相同時，關聯新增的方法會覆蓋掉 <code>ActiveRecord::Base</code> 的實例方法。比如 <code>attributes</code> 或 <code>connection</code> 是不好的關聯名稱。</p>
 <h4 id="更新資料庫綱要">3.3 更新資料庫綱要</h4>
-<p>關聯非常非常有用，但沒什麼神奇的。為關聯維護對應的資料庫綱要是您的責任。不同關聯需要做的事不同。對於 <code>belongs_to</code> 關聯來說，需要建立外鍵；對於 <code>has_and_belongs_to_many</code> 則需要建立適當的連接資料表。</p>
+<p>關聯非常非常有用，但沒什麼神奇的。為關聯維護對應的資料庫綱要是開發者的責任。不同關聯需要做的事不同。對於 <code>belongs_to</code> 關聯來說，需要建立外鍵；對於 <code>has_and_belongs_to_many</code> 則需要建立適當的連接資料表。</p>
 <h5 id="為-belongs_to-關聯建立外鍵">3.3.1 為 <code>belongs_to</code> 關聯建立外鍵</h5>
 <p>當宣告了 <code>belongs_to</code> 關聯時，需要建立外鍵。看看下面這個 Model：</p>
 <div class="code_container">
@@ -750,7 +750,7 @@ end
 
 </pre>
 </div>
-<p>這個宣告需要在訂單資料表建立適當的外鍵才有效：</p>
+<p>仍需要在訂單資料表，建立適當的外鍵才有效：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class CreateOrders &lt; ActiveRecord::Migration
@@ -765,9 +765,9 @@ end
 
 </pre>
 </div>
-<p>若在建立 Model 之後才宣告關聯，記得使用 <code>add_column</code> 遷移來提供所需的外鍵。</p>
+<p>若在建立 Model 之後才宣告關聯，記得使用 <code>add_column</code> 遷移，來提供所需的外鍵。</p>
 <h5 id="為-has_and_belongs_to_many-關聯建立連接資料表">3.3.2 為 <code>has_and_belongs_to_many</code> 關聯建立連接資料表</h5>
-<p>如果建立了 <code>has_and_belongs_to_many</code> 關聯，需要明確的建一張連接表。除非資料表已在 <code>:join_table</code> 選項中指定，否則 Active Record 會以關聯的類別名稱，依照辭典順序先後來命名這張連接資料表。假設 <code>Customer</code> 與 <code>Order</code> Model 預設的連接表名稱是 <code>customers_orders</code>，因為在詞法序當中，<code>c</code> 的地位高於 <code>o</code>。</p>
+<p>如果建立了 <code>has_and_belongs_to_many</code> 關聯，需要明確的建一張連接表。除非資料表已在 <code>:join_table</code> 選項中指定，否則 Active Record 會以關聯的類別名稱，依照詞法先後順序來命名這張連接資料表。假設有 <code>Customer</code> 與 <code>Order</code> Model ，則預設的連接表名稱是 <code>customers_orders</code>，因為在詞法順序當中，<code>c</code> 的地位高於 <code>o</code>。</p>
 <div class="warning"><p>Model 名稱的優先順序使用 <code>String</code> 的 <code>&lt;</code> 來計算。若字串不一樣長，比較最短長度時，兩個字串是相等的。但長字串詞法地位高於短字串。舉例來說，你可能認為 <code>paper_boxes</code> 與 <code>papers</code> 這兩個資料表產生的連接表名稱是 <code>papers_paper_boxes</code>，因為 <code>paper_boxes</code> 比 <code>papers</code> 長。但實際上是 <code>paper_boxes_papers</code>，因為在常見的編碼裡，<code>_</code> 的詞法地位高於 <code>s</code>。</p></div>
 <p>不論名稱為何，必須要在適當的遷移中，手動產生連接表。考慮下面的關聯範例：</p>
 <div class="code_container">
@@ -796,7 +796,7 @@ end
 
 </pre>
 </div>
-<p><code>create_table</code> 傳入 <code>id: false</code> 因為資料表無需表示一個 Model。這張資料表只是為了讓關聯可以正常工作。如果你發現 <code>has_and_belongs_to_many</code> 關聯出現任何奇怪的行為，像是 ID 錯位、ID 衝突，很可能就是因為忘記去掉主鍵。</p>
+<p><code>create_table</code> 傳入 <code>id: false</code> 是因為，資料表無需表示一個 Model。這張資料表只是為了讓關聯可以正常工作。如果發現 <code>has_and_belongs_to_many</code> 關聯，出現任何奇怪的行為，像是 ID 錯位、ID 衝突，很可能就是因為忘記去掉主鍵。</p>
 <h4 id="控制關聯作用域">3.4 控制關聯作用域</h4>
 <p>預設關聯只會在目前模組的作用域裡尋找物件。這在模組裡宣告 Active Record Model 時很重要，比如：</p>
 <div class="code_container">
@@ -834,7 +834,7 @@ end
 
 </pre>
 </div>
-<p>要將不同命名空間下的 Model 關聯起來，可以在宣告關聯時指定完整的類別名稱：</p>
+<p>要將不同命名空間下的 Model 關聯起來，可以在宣告關聯時，指定完整的類別名稱：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 module MyApplication
@@ -880,7 +880,7 @@ c.first_name == o.customer.first_name # =&gt; false
 
 </pre>
 </div>
-<p>只所以會這樣的原因是，<code>c</code> 與 <code>o.customer</code> 在記憶體裡是表示相同資料的兩種表示，改了一個不會自動改另一個。Active Record 提供了 <code>inverse_of</code> 選項，用來通知 Rails 關聯之間的關係：</p>
+<p>之所以會這樣的原因是，<code>c</code> 與 <code>o.customer</code> 在記憶體裡是表示相同資料的兩種表示，改了一個不會自動改另一個。Active Record 提供了 <code>inverse_of</code> 選項，用來通知 Rails 關聯之間的關係：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Customer &lt; ActiveRecord::Base
@@ -893,7 +893,7 @@ end
 
 </pre>
 </div>
-<p>加上了 <code>inverse_of</code> 後，Active Record 只會載入一個顧客物件，避免資料的不一致，並提高應用程式的效率：</p>
+<p>加上了 <code>inverse_of</code> 後，Active Record 只會載入一個顧客物件，除了避免資料的不一致，還能提高應用程式的效率：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 c = Customer.first
