@@ -185,7 +185,10 @@
 <a href="#a">A</a>
 
 <ul>
+<li><a href="#accessor-%E5%AD%98%E5%8F%96%E5%99%A8">Accessor 存取器</a></li>
 <li><a href="#application-%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F">Application 應用程式</a></li>
+<li><a href="#association-%E9%97%9C%E8%81%AF">Association 關聯</a></li>
+<li><a href="#association-proxy-%E9%97%9C%E8%81%AF%E4%BB%A3%E7%90%86">Association Proxy 關聯代理</a></li>
 </ul>
 </li>
 <li><a href="#b">B</a></li>
@@ -193,6 +196,7 @@
 <a href="#c">C</a>
 
 <ul>
+<li><a href="#callback-%E5%9B%9E%E5%91%BC">Callback 回呼</a></li>
 <li><a href="#cache-%E5%BF%AB%E5%8F%96">Cache 快取</a></li>
 <li><a href="#code-%E7%A8%8B%E5%BC%8F%E7%A2%BC">Code 程式碼</a></li>
 <li><a href="#commit-%E6%8F%90%E4%BA%A4">Commit 提交</a></li>
@@ -206,6 +210,8 @@
 <li><a href="#h">H</a></li>
 <li><a href="#i">I</a></li>
 <li><a href="#j">J</a></li>
+<li><a href="#join-table-%E9%80%A3%E6%8E%A5%E8%A1%A8">Join Table 連接表</a></li>
+<li><a href="#join-table-%E9%80%A3%E6%8E%A5%E8%B3%87%E6%96%99%E8%A1%A8">Join Table 連接資料表</a></li>
 <li><a href="#k">K</a></li>
 <li><a href="#l">L</a></li>
 <li>
@@ -241,7 +247,13 @@
 <li><a href="#response-%E5%9B%9E%E6%87%89">Response 回應</a></li>
 </ul>
 </li>
-<li><a href="#s">S</a></li>
+<li>
+<a href="#s">S</a>
+
+<ul>
+<li><a href="#self-join-%E8%87%AA%E9%80%A3%E6%8E%A5">Self-Join 自連接</a></li>
+</ul>
+</li>
 <li>
 <a href="#t">T</a>
 
@@ -282,13 +294,17 @@
 <h4 id="view">1.7 View</h4>
 <h3 id="翻譯術語">2 翻譯術語</h3>
 <h3 id="a">3 A</h3>
-<h4 id="application-應用程式">3.1 Application 應用程式</h4>
+<h4 id="accessor-存取器">3.1 Accessor 存取器</h4>
+<h4 id="application-應用程式">3.2 Application 應用程式</h4>
+<h4 id="association-關聯">3.3 Association 關聯</h4>
+<h4 id="association-proxy-關聯代理">3.4 Association Proxy 關聯代理</h4>
 <h3 id="b">4 B</h3>
 <h3 id="c">5 C</h3>
-<h4 id="cache-快取">5.1 Cache 快取</h4>
-<h4 id="code-程式碼">5.2 Code 程式碼</h4>
-<h4 id="commit-提交">5.3 Commit 提交</h4>
-<h4 id="computer-計算機">5.4 Computer 計算機</h4>
+<h4 id="callback-回呼">5.1 Callback 回呼</h4>
+<h4 id="cache-快取">5.2 Cache 快取</h4>
+<h4 id="code-程式碼">5.3 Code 程式碼</h4>
+<h4 id="commit-提交">5.4 Commit 提交</h4>
+<h4 id="computer-計算機">5.5 Computer 計算機</h4>
 <p>亦作電腦。</p>
 <h3 id="d">6 D</h3>
 <h3 id="e">7 E</h3>
@@ -297,35 +313,38 @@
 <h3 id="h">10 H</h3>
 <h3 id="i">11 I</h3>
 <h3 id="j">12 J</h3>
-<h3 id="k">13 K</h3>
-<h3 id="l">14 L</h3>
-<h3 id="m">15 M</h3>
-<h4 id="macro-宏">15.1 Macro 宏</h4>
-<h3 id="n">16 N</h3>
-<h3 id="o">17 O</h3>
-<h4 id="object-物件">17.1 Object 物件</h4>
-<h3 id="p">18 P</h3>
-<h4 id="program-(n.)-程式">18.1 Program (n.) 程式</h4>
-<h4 id="program-(v.)-編程">18.2 Program (v.) 編程</h4>
+<h3 id="join-table-連接表">13 Join Table 連接表</h3>
+<h3 id="join-table-連接資料表">14 Join Table 連接資料表</h3>
+<h3 id="k">15 K</h3>
+<h3 id="l">16 L</h3>
+<h3 id="m">17 M</h3>
+<h4 id="macro-宏">17.1 Macro 宏</h4>
+<h3 id="n">18 N</h3>
+<h3 id="o">19 O</h3>
+<h4 id="object-物件">19.1 Object 物件</h4>
+<h3 id="p">20 P</h3>
+<h4 id="program-(n.)-程式">20.1 Program (n.) 程式</h4>
+<h4 id="program-(v.)-編程">20.2 Program (v.) 編程</h4>
 <p>編寫程式，取編寫的編，程式的程來代表。</p>
-<h3 id="q">19 Q</h3>
-<h3 id="r">20 R</h3>
-<h4 id="repository-原碼庫。">20.1 Repository 原碼庫。</h4>
+<h3 id="q">21 Q</h3>
+<h3 id="r">22 R</h3>
+<h4 id="repository-原碼庫。">22.1 Repository 原碼庫。</h4>
 <p>Repository 在生活中有倉庫的意思，在版本控制的世界裡，通常我們將原始碼提交到 Repository。</p>
 <p>所以叫做原碼庫。</p>
-<h4 id="request-請求">20.2 Request 請求</h4>
+<h4 id="request-請求">22.2 Request 請求</h4>
 <p>為 HTTP 協議裡的專有名詞，HTTP Request。</p>
-<h4 id="response-回應">20.3 Response 回應</h4>
+<h4 id="response-回應">22.3 Response 回應</h4>
 <p>為 HTTP 協議裡的專有名詞，HTTP Response。</p>
-<h3 id="s">21 S</h3>
-<h3 id="t">22 T</h3>
-<h4 id="table-資料表">22.1 Table 資料表</h4>
-<h3 id="u">23 U</h3>
-<h3 id="v">24 V</h3>
-<h3 id="w">25 W</h3>
-<h3 id="x">26 X</h3>
-<h3 id="y">27 Y</h3>
-<h3 id="z">28 Z</h3>
+<h3 id="s">23 S</h3>
+<h4 id="self-join-自連接">23.1 Self-Join 自連接</h4>
+<h3 id="t">24 T</h3>
+<h4 id="table-資料表">24.1 Table 資料表</h4>
+<h3 id="u">25 U</h3>
+<h3 id="v">26 V</h3>
+<h3 id="w">27 W</h3>
+<h3 id="x">28 X</h3>
+<h3 id="y">29 Y</h3>
+<h3 id="z">30 Z</h3>
 </body></html>
 
 
