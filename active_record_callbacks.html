@@ -221,12 +221,12 @@
         <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
 <html><body>
 <h3 id="物件的生命週期">1 物件的生命週期</h3>
-<p>Rails 應用程式常見的操作裡，物件可以被新建、更新與刪除。Active Record 提供了掛載機制到物件的生命週期裡，用來控制應用程式與資料。</p>
+<p>Rails 應用程式常見的操作裡，物件可以被新建、更新與刪除。Active Record 提供了掛載機制，可以掛載事件到物件的生命週期裡，用來控制應用程式與資料。</p>
 <p>回呼允許你在物件狀態前後，觸發特定的邏輯。</p>
 <h3 id="回呼綜覽">2 回呼綜覽</h3>
 <p>回呼是在物件生命週期特定時間點所呼叫的方法。有了回呼便可以在 Active Record 物件，<strong>新建、儲存、更新、刪除、驗證、或從資料庫讀出</strong>前後，執行想要的邏輯。</p>
 <h4 id="註冊回呼">2.1 註冊回呼</h4>
-<p>為了要使用可用的回呼，需先註冊要使用的回呼。可以使用一般的方法，或是宏風格的方法來註冊回呼：</p>
+<p>需要先註冊方可使用回呼。註冊回呼可以使用一般的方法或是宏風格的方法：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class User &lt; ActiveRecord::Base
@@ -257,7 +257,7 @@ end
 
 </pre>
 </div>
-<p>回呼也可只針對生命週期裡特定的事件：</p>
+<p>回呼也可只針對 Active Record 物件生命週期裡特定的事件觸發：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class User &lt; ActiveRecord::Base
@@ -278,9 +278,9 @@ end
 
 </pre>
 </div>
-<p>通常會把回呼方法會宣告為 <code>protected</code> 或 <code>private</code> 方法。若是 <code>public</code> 方法，則有可能會在 Model 外被呼叫，違反了物件封裝的精神。</p>
+<p>通常會把回呼方法宣告為 <code>protected</code> 或 <code>private</code> 方法。若是 <code>public</code> 方法，有可能會在 Model 外被呼叫，則違反了物件封裝的精神。</p>
 <h3 id="可用的回呼">3 可用的回呼</h3>
-<p>以下是 Active Record 可用的回呼，依照<strong>按照執行順序排序</strong>：</p>
+<p>以下是 Active Record 可用的回呼，<strong>依照執行順序排序</strong>：</p>
 <h4 id="新建物件">3.1 新建物件</h4>
 <ul>
 <li><code>before_validation</code></li>
@@ -317,7 +317,7 @@ end
 </h4>
 <p>不管是實體化 Active Record 物件，還是從資料庫裡讀出記錄時，都會呼叫 <code>after_initialize</code>。使用 <code>after_initialize</code> 比覆蓋 Active Record 的 <code>initialize</code> 方法好多了。</p>
 <p>無論何時從資料庫取出 Active Record 物件時，如果同時使用了 <code>after_find</code> 與 <code>after_initialize</code>，會先呼叫 <code>after_find</code>。</p>
-<p><code>after_initialize</code> 與 <code>after_find</code> 沒有對應的 <code>before_*</code>。註冊方法與一般的回呼相同。</p>
+<p><code>after_initialize</code> 與 <code>after_find</code> 沒有對應的 <code>before_*</code>。<code>after_initialize</code> 與 <code>after_find</code> 註冊的方法與一般回呼相同。</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class User &lt; ActiveRecord::Base
@@ -443,10 +443,10 @@ An Employee was touched
 <p>小心使用這些方法，因為回呼裡可能有重要的業務邏輯。沒弄懂回呼的用途，便直接跳過可能會導致存入不合法的資料。</p>
 <h3 id="終止執行">6 終止執行</h3>
 <p>為 Model 註冊新的回呼時，回呼便會加入佇列裡等待執行。這個佇列包含了所有需要執行的驗證、回呼以及資料庫操作。</p>
-<p>整條回呼鏈（Callback Chain）被包在一個交易裡。如果有任何的 <code>before_*</code> 回呼方法回傳 <code>false</code> 或拋出異常，則執行鏈會被終止，並回滾取消此次交易。而 <code>after_*</code> 回呼則需要拋出異常才可取消交易。</p>
+<p>整條回呼鏈（Callback Chain）被包在一筆交易（Transaction）裡。如果有任何的 <code>before_*</code> 回呼方法回傳 <code>false</code> 或拋出異常，則執行鏈會被終止，並回滾取消此次交易。而 <code>after_*</code> 回呼則需要拋出異常才可取消交易。</p>
 <div class="warning"><p>即便回呼鏈已終止，任何非 <code>ActiveRecord::Rollback</code> 的異常會在回呼鏈終止時被 Rails 重複拋出。拋出非 <code>ActiveRecord::Rollback</code> 可能會導致不期望收到異常的方法像是 <code>save</code> 與 <code>update</code> 執行異常（通常會回傳 <code>true</code> 或 <code>false</code>）。</p></div>
 <h3 id="關聯回呼">7 關聯回呼</h3>
-<p>回呼也可穿透 Model 之間的關係，甚至可以透過關聯來定義。舉個例子，假設使用者有許多文章，使用者的文章應在刪除使用者時一併刪除。讓我們在與 <code>User</code> Model 相關聯的 <code>Post</code> Model 裡加入 <code>after_destroy</code> 回呼：</p>
+<p>回呼也可穿透 Model 之間的關係，甚至可以透過關聯來定義。舉個例子，假設使用者有許多文章，使用者的文章應在刪除使用者時一併刪除。可以在與 <code>User</code> Model 相關聯的 <code>Post</code> Model 裡加入 <code>after_destroy</code> 回呼：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class User &lt; ActiveRecord::Base
@@ -472,10 +472,10 @@ Post destroyed
 </pre>
 </div>
 <h3 id="條件式回呼">8 條件式回呼</h3>
-<p>回呼和驗證一樣，也可以在滿足給定條件才執行。條件透過 <code>:if</code>、<code>:unless</code> 選項指定，接受 <code>Symbol</code>、<code>String</code>、<code>Proc</code> 或 <code>Array</code>。當回呼滿足某條件才執行時，請用 <code>:if</code>；回呼不滿足某條件才執行時，請用 <code>:unless</code>。</p>
+<p>回呼和驗證一樣，也可以在滿足給定條件時才執行。條件透過 <code>:if</code>、<code>:unless</code> 選項指定，接受 <code>Symbol</code>、<code>String</code>、<code>Proc</code> 或 <code>Array</code>。當回呼滿足某條件則執行時，請用 <code>:if</code>；回呼不滿足某條件則執行時，請用 <code>:unless</code>。</p>
 <h4 id="使用符號指定-:if-與-:unless">8.1 使用符號指定 <code>:if</code> 與 <code>:unless</code>
 </h4>
-<p><code>:if</code> 與 <code>:unless</code> 選項使用符號時，符號代表呼叫回呼前，所要執行的謂詞方法名稱。當使用 <code>:if</code> 選項時，若謂詞方法回傳 <code>false</code>，則不會執行回呼；當使用 <code>:unless</code> 選項時，則是 <code>true</code> 不會執行回呼。使用符號是最常見的選項。這種註冊回呼的方式，可以使用多個謂詞方法來決定是否要執行回呼。</p>
+<p><code>:if</code> 與 <code>:unless</code> 選項傳入符號（Symbol）時，符號代表執行回呼前，所要呼叫的謂詞方法名稱。當使用 <code>:if</code> 選項時，若謂詞方法回傳 <code>false</code>，則不會執行回呼；當使用 <code>:unless</code> 選項時，則是 <code>true</code> 不會執行回呼。使用符號是最常見。這種註冊回呼的方式，還可以使用多個謂詞方法來決定是否要執行回呼。</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Order &lt; ActiveRecord::Base
@@ -486,7 +486,7 @@ end
 </div>
 <h4 id="使用字串指定-:if-與-:unless">8.2 使用字串指定 <code>:if</code> 與 <code>:unless</code>
 </h4>
-<p>傳入的字串將會使用 <code>eval</code> 求值，所以字串必須是合法的 Ruby 程式碼。應該只在要代表某個簡短條件下再使用字串：</p>
+<p>傳入的字串將會使用 <code>eval</code> 求值，所以字串必須是合法的 Ruby 程式碼。應該只在條件夠簡短的情況下再使用字串：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Order &lt; ActiveRecord::Base
@@ -497,7 +497,7 @@ end
 </div>
 <h4 id="使用-proc-指定-:if-與-:unless">8.3 使用 <code>Proc</code> 指定 <code>:if</code> 與 <code>:unless</code>
 </h4>
-<p>最後，使用 <code>Proc</code> 物件來指定 <code>:if</code> 與 <code>:unless</code> 也可以，適合撰寫簡短驗證方法的場景下使用，通常是單行：</p>
+<p>最後，也可以使用 <code>Proc</code> 物件來指定 <code>:if</code> 與 <code>:unless</code>，適合撰寫簡短驗證方法的場景下使用，通常是單行：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Order &lt; ActiveRecord::Base
@@ -519,7 +519,7 @@ end
 </pre>
 </div>
 <h3 id="回呼類別">9 回呼類別</h3>
-<p>有時某個回呼可能別的 Model 也可重複使用，可以封裝成類別。Active Record 使封裝回呼方法到類別裡格外簡單，重用便更容易了。</p>
+<p>若某個回呼別的 Model 也可重複使用，此時便可把回呼封裝成類別。Active Record 使封裝回呼方法到類別裡格外簡單，重用便更容易了。</p>
 <p>以下是個範例。我們建立一個 <code>PictureFile</code> Model，並註冊一個 <code>after_destroy</code> 回呼：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
@@ -533,7 +533,7 @@ end
 
 </pre>
 </div>
-<p>回呼在類別裡宣告時（如上），回呼方法會收到 Model 物件作為參數。回呼類別在 Model 裡使用方式如下：</p>
+<p>回呼在類別裡宣告時（如上），回呼方法會收到 Model 實體（<code>picture_file</code>）作為參數。回呼類別在 Model 裡的使用方式如下：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class PictureFile &lt; ActiveRecord::Base
@@ -542,7 +542,7 @@ end
 
 </pre>
 </div>
-<p>注意我們需要建立一個新的 <code>PictureFileCallbacks</code> 新的實體，因為回呼寫在 <code>PictureFileCallbacks</code> 類裡是實體方法。若回呼使用到了實體變數的情況下特別有用。但通常回呼宣告成類別方法更合理：</p>
+<p>注意我們需要建立一個新的 <code>PictureFileCallbacks</code> 實體，因為回呼寫在 <code>PictureFileCallbacks</code> 類裡是實體方法。這在回呼使用到了實體變數的場景下特別有用。但通常回呼宣告成類別方法更合理：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class PictureFileCallbacks
@@ -566,8 +566,8 @@ end
 </div>
 <p>回呼類別裡可宣告任意數量個回呼方法。</p>
 <h3 id="交易回呼">10 交易回呼</h3>
-<p>完成資料庫交易操作時會觸發兩個條件式回呼：<code>after_commit</code> 與 <code>after_rollback</code>。這些回呼與 <code>after_save</code> 回呼非常類似，不同點在於 <code>after_commit</code> 是在提交到資料庫後執行，而 <code>after_rollback</code> 則是在資料庫回滾後執行。當 Active Record Model 需要與資料庫交易之外的外部系統互動時，這兩個回呼非常有用。</p>
-<p>舉個例子，上例 <code>PictureFile</code> Model 需要在某個特定記錄刪除後，刪除一個檔案。若 <code>after_destroy</code> 之後拋出任何異常，則交易取消。但檔案卻被刪除了，Model 會處於一種不一致的狀態。舉例來說，假設下例的 <code>picture_file_2</code> 不是合法的檔案，<code>save!</code> 會拋出一個錯誤。</p>
+<p>完成資料庫交易操作時會觸發兩個條件式回呼：<code>after_commit</code> 與 <code>after_rollback</code>。它們與 <code>after_save</code> 回呼非常類似，不同點在於 <code>after_commit</code> 是提交到資料庫後才執行，而 <code>after_rollback</code> 則是在資料庫回滾後執行。當 Active Record Model 需要與資料庫交易之外的外部系統互動時，這兩個回呼非常有用。</p>
+<p>舉個例子，上例 <code>PictureFile</code> Model 需要在某個特定記錄刪除後，刪除一個檔案。若 <code>after_destroy</code> 拋出任何異常，則交易取消。但檔案卻被刪除了，Model 會處於一種不一致的狀態。舉例來說，假設下例的 <code>picture_file_2</code> 不是合法的檔案，<code>save!</code> 會拋出一個錯誤。</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 PictureFile.transaction do
