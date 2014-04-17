@@ -566,8 +566,6 @@ end
 </div>
 <p>回呼類別裡可宣告任意數量個回呼方法。</p>
 <h3 id="交易回呼">10 交易回呼</h3>
-<p>在資料庫交易完成操作時，有兩個回呼會被觸發，分別是 <code>after_commit</code> 與 <code>after_rollback</code>。這倆與 <code>after_save</code> 類似，只是他們在資料庫完成操作，比如 commit 或 roll back 後才觸發，這在 Active Record Model 需要與外部系統互動時很有用。</p>
-<p>舉例來說，前面 <code>PictureFile</code> 的例子，需要在某個對應的 record 摧毀後再刪除圖片。如果 <code>after_destroy</code> 回呼之後有拋出異常，則會 roll back（因為 Model 操作都包在交易裡，），但此時圖片卻被刪掉了。比如 <code>picture_file_2</code> <code>save!</code> 時拋出異常：</p>
 <p>完成資料庫交易操作時會觸發兩個條件式回呼：<code>after_commit</code> 與 <code>after_rollback</code>。這些回呼與 <code>after_save</code> 回呼非常類似，不同點在於 <code>after_commit</code> 是在提交到資料庫後執行，而 <code>after_rollback</code> 則是在資料庫回滾後執行。當 Active Record Model 需要與資料庫交易之外的外部系統互動時，這兩個回呼非常有用。</p>
 <p>舉個例子，上例 <code>PictureFile</code> Model 需要在某個特定記錄刪除後，刪除一個檔案。若 <code>after_destroy</code> 之後拋出任何異常，則交易取消。但檔案卻被刪除了，Model 會處於一種不一致的狀態。舉例來說，假設下例的 <code>picture_file_2</code> 不是合法的檔案，<code>save!</code> 會拋出一個錯誤。</p>
 <div class="code_container">
