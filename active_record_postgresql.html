@@ -322,7 +322,7 @@ Event.where("payload-&gt;'kind' = ?", "user_renamed")
 <li><a href="http://www.postgresql.org/docs/9.3/static/rangetypes.html">類型定義</a></li>
 <li><a href="http://www.postgresql.org/docs/9.3/static/functions-range.html">函數與運算元</a></li>
 </ul>
-<p>此類型對應到 Ruby 的 [<code>Range</code>] 物件</p>
+<p>此類型映射到 Ruby 的 <a href="http://www.ruby-doc.org/core-2.1.1/Range.html"><code>Range</code></a> 物件</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 # db/migrate/20130923065404_create_events.rb
@@ -478,7 +478,7 @@ user.save!
 <ul>
 <li><a href="http://www.postgresql.org/docs/9.3/static/datatype-net-types.html">類型定義</a></li>
 </ul>
-<p><code>inet</code> 與 <code>cidr</code> 類型映射到 Ruby 的 [<code>IPAddr</code>] 物件。<code>macaddr</code> 類型映射到一般的 <code>text</code> 欄位。</p>
+<p><code>inet</code> 與 <code>cidr</code> 類型映射到 Ruby 的 <a href="http://www.ruby-doc.org/stdlib-2.1.1/libdoc/ipaddr/rdoc/IPAddr.html"><code>IPAddr</code></a> 物件。<code>macaddr</code> 類型映射到一般的 <code>text</code> 欄位。</p>
 <h4 id="幾何類型">1.11 幾何類型</h4>
 <ul>
 <li><a href="http://www.postgresql.org/docs/9.3/static/datatype-geometric.html">類型定義</a></li>
