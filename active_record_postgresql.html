@@ -6,7 +6,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-<title>Ruby on Rails 指南</title>
+<title>Active Record and PostgreSQL — Ruby on Rails 指南</title>
 <link rel="stylesheet" type="text/css" href="stylesheets/style.css" />
 <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
 
@@ -161,31 +161,31 @@
 
   <div id="feature">
     <div class="wrapper">
-      
+      <h2 id="active-record-and-postgresql">Active Record and PostgreSQL</h2><p>本篇介紹 Active Record PostgreSQL 的具體用法。</p><p>PostgreSQL 的最低版本要求為 8.2。舊版不支援。</p><p>開始使用 PostgreSQL 之前，請先看看<a href="configuring.html#configuring-a-postgresql-database">如何為 Active Record 設定 PostgreSQL 資料庫</a>。</p>
 
                 <div id="subCol">
             <h3 class="chapter"><img src="images/chapters_icon.gif" alt="" />Chapters</h3>
             <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
 <html><body><ol class="chapters">
 <li>
-<a href="#datatypes">Datatypes</a>
+<a href="#%E8%B3%87%E6%96%99%E9%A1%9E%E5%9E%8B">資料類型</a>
 
 <ul>
 <li><a href="#bytea">Bytea</a></li>
 <li><a href="#array">Array</a></li>
 <li><a href="#hstore">Hstore</a></li>
-<li><a href="#json">Json</a></li>
-<li><a href="#range-types">Range Types</a></li>
-<li><a href="#composite-types">Composite Types</a></li>
-<li><a href="#enumerated-types">Enumerated Types</a></li>
+<li><a href="#json">JSON</a></li>
+<li><a href="#range-%E9%A1%9E%E5%9E%8B">Range 類型</a></li>
+<li><a href="#%E8%A4%87%E5%90%88%E9%A1%9E%E5%9E%8B">複合類型</a></li>
+<li><a href="#%E6%9E%9A%E8%88%89%E9%A1%9E%E5%9E%8B">枚舉類型</a></li>
 <li><a href="#uuid">UUID</a></li>
 <li><a href="#bit-string-types">Bit String Types</a></li>
-<li><a href="#network-address-types">Network Address Types</a></li>
-<li><a href="#geometric-types">Geometric Types</a></li>
+<li><a href="#%E7%B6%B2%E8%B7%AF%E4%BD%8D%E5%9D%80%E9%A1%9E%E5%9E%8B">網路位址類型</a></li>
+<li><a href="#%E5%B9%BE%E4%BD%95%E9%A1%9E%E5%9E%8B">幾何類型</a></li>
 </ul>
 </li>
-<li><a href="#uuid-primary-keys">UUID Primary Keys</a></li>
-<li><a href="#full-text-search">Full Text Search</a></li>
+<li><a href="#uuid-%E4%B8%BB%E9%8D%B5">UUID 主鍵</a></li>
+<li><a href="#%E5%85%A8%E6%96%87%E6%90%9C%E7%B4%A2">全文搜索</a></li>
 <li><a href="#views">Views</a></li>
 </ol></body></html>
 
@@ -199,14 +199,7 @@
       <div id="mainCol">
         <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
 <html><body>
-<h2 id="active-record-and-postgresql">Active Record and PostgreSQL</h2>
-<p>This guide covers PostgreSQL specific usage of Active Record.</p>
-<p>In order to use the PostgreSQL adapter you need to have at least version 8.2
-installed. Older versions are not supported.</p>
-<p>To get started with PostgreSQL have a look at the
-<a href="configuring.html#configuring-a-postgresql-database">configuring Rails guide</a>.
-It describes how to properly setup Active Record for PostgreSQL.</p>
-<h3 id="datatypes">1 Datatypes</h3>
+<h3 id="資料類型">1 資料類型</h3>
 <p>PostgreSQL offers a number of specific datatypes. Following is a list of types,
 that are supported by the PostgreSQL adapter.</p>
 <h4 id="bytea">1.1 Bytea</h4>
@@ -225,7 +218,7 @@ end
 class Document &lt; ActiveRecord::Base
 end
 
-# Usage
+# 用途
 data = File.read(Rails.root + "tmp/output.pdf")
 Document.create payload: data
 
@@ -249,7 +242,7 @@ end
 class Book &lt; ActiveRecord::Base
 end
 
-# Usage
+# 用途
 Book.create title: "Brave New World",
             tags: ["fantasy", "fiction"],
             ratings: [4, 5]
@@ -282,7 +275,7 @@ end
 class Profile &lt; ActiveRecord::Base
 end
 
-# Usage
+# 用途
 Profile.create(settings: { "color" =&gt; "blue", "resolution" =&gt; "800x600" })
 
 profile = Profile.first
@@ -298,10 +291,10 @@ profile.save!
 
 </pre>
 </div>
-<h4 id="json">1.4 Json</h4>
+<h4 id="json">1.4 JSON</h4>
 <ul>
-<li><a href="http://www.postgresql.org/docs/9.3/static/datatype-json.html">type definition</a></li>
-<li><a href="http://www.postgresql.org/docs/9.3/static/functions-json.html">functions and operators</a></li>
+<li><a href="http://www.postgresql.org/docs/9.3/static/datatype-json.html">類型定義</a></li>
+<li><a href="http://www.postgresql.org/docs/9.3/static/functions-json.html">函數與運算元</a></li>
 </ul>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
@@ -314,21 +307,21 @@ end
 class Event &lt; ActiveRecord::Base
 end
 
-# Usage
+# 用途
 Event.create(payload: { kind: "user_renamed", change: ["jack", "john"]})
 
 event = Event.first
 event.payload # =&gt; {"kind"=&gt;"user_renamed", "change"=&gt;["jack", "john"]}
 
-## Query based on JSON document
+## 基於 JSON 文件的查詢
 Event.where("payload-&gt;'kind' = ?", "user_renamed")
 
 </pre>
 </div>
-<h4 id="range-types">1.5 Range Types</h4>
+<h4 id="range-類型">1.5 Range 類型</h4>
 <ul>
-<li><a href="http://www.postgresql.org/docs/9.3/static/rangetypes.html">type definition</a></li>
-<li><a href="http://www.postgresql.org/docs/9.3/static/functions-range.html">functions and operators</a></li>
+<li><a href="http://www.postgresql.org/docs/9.3/static/rangetypes.html">類型定義</a></li>
+<li><a href="http://www.postgresql.org/docs/9.3/static/functions-range.html">函數與運算元</a></li>
 </ul>
 <p>This type is mapped to Ruby <a href=""><code>Range</code></a> objects.</p>
 <div class="code_container">
@@ -342,13 +335,13 @@ end
 class Event &lt; ActiveRecord::Base
 end
 
-# Usage
+# 用途
 Event.create(duration: Date.new(2014, 2, 11)..Date.new(2014, 2, 12))
 
 event = Event.first
 event.duration # =&gt; Tue, 11 Feb 2014...Thu, 13 Feb 2014
 
-## All Events on a given date
+## 找出特定日期的所有活動
 Event.where("duration @&gt; ?::date", Date.new(2014, 2, 12))
 
 ## Working with range bounds
@@ -361,9 +354,9 @@ event.ends_at # =&gt; Thu, 13 Feb 2014
 
 </pre>
 </div>
-<h4 id="composite-types">1.6 Composite Types</h4>
+<h4 id="複合類型">1.6 複合類型</h4>
 <ul>
-<li><a href="http://www.postgresql.org/docs/9.3/static/rowtypes.html">type definition</a></li>
+<li><a href="http://www.postgresql.org/docs/9.3/static/rowtypes.html">類型定義</a></li>
 </ul>
 <p>Currently there is no special support for composite types. They are mapped to as
 normal text columns:</p>
@@ -395,7 +388,7 @@ end
 class Contact &lt; ActiveRecord::Base
 end
 
-# Usage
+# 用途
 Contact.create address: "(Paris,Champs-Élysées)"
 contact = Contact.first
 contact.address # =&gt; "(Paris,Champs-Élysées)"
@@ -404,9 +397,9 @@ contact.save!
 
 </pre>
 </div>
-<h4 id="enumerated-types">1.7 Enumerated Types</h4>
+<h4 id="枚舉類型">1.7 枚舉類型</h4>
 <ul>
-<li><a href="http://www.postgresql.org/docs/9.3/static/datatype-enum.html">type definition</a></li>
+<li><a href="http://www.postgresql.org/docs/9.3/static/datatype-enum.html">類型定義</a></li>
 </ul>
 <p>Currently there is no special support for enumerated types. They are mapped as
 normal text columns:</p>
@@ -424,7 +417,7 @@ end
 class Article &lt; ActiveRecord::Base
 end
 
-# Usage
+# 用途
 Article.create status: "draft"
 article = Article.first
 article.status # =&gt; "draft"
@@ -450,7 +443,7 @@ end
 class Revision &lt; ActiveRecord::Base
 end
 
-# Usage
+# 用途
 Revision.create identifier: "A0EEBC99-9C0B-4EF8-BB6D-6BB9BD380A11"
 
 revision = Revision.first
@@ -474,7 +467,7 @@ end
 class User &lt; ActiveRecord::Base
 end
 
-# Usage
+# 用途
 User.create settings: "01010011"
 user = User.first
 user.settings # =&gt; "(Paris,Champs-Élysées)"
@@ -484,18 +477,18 @@ user.save!
 
 </pre>
 </div>
-<h4 id="network-address-types">1.10 Network Address Types</h4>
+<h4 id="網路位址類型">1.10 網路位址類型</h4>
 <ul>
 <li><a href="http://www.postgresql.org/docs/9.3/static/datatype-net-types.html">type definition</a></li>
 </ul>
 <p>The types <code>inet</code> and <code>cidr</code> are mapped to Ruby <a href=""><code>IPAddr</code></a> objects. The
 <code>macaddr</code> type is mapped to normal text.</p>
-<h4 id="geometric-types">1.11 Geometric Types</h4>
+<h4 id="幾何類型">1.11 幾何類型</h4>
 <ul>
 <li><a href="http://www.postgresql.org/docs/9.3/static/datatype-geometric.html">type definition</a></li>
 </ul>
 <p>All geometric types are mapped to normal text.</p>
-<h3 id="uuid-primary-keys">2 UUID Primary Keys</h3>
+<h3 id="uuid-主鍵">2 UUID 主鍵</h3>
 <div class="note"><p>you need to enable the <code>uuid-ossp</code> extension to generate UUIDs.</p></div>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
@@ -509,13 +502,13 @@ end
 class Device &lt; ActiveRecord::Base
 end
 
-# Usage
+# 用途
 device = Device.create
 device.id # =&gt; "814865cd-5a1d-4771-9306-4268f188fe9e"
 
 </pre>
 </div>
-<h3 id="full-text-search">3 Full Text Search</h3>
+<h3 id="全文搜索">3 全文搜索</h3>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 # db/migrate/20131220144913_create_documents.rb
@@ -530,10 +523,10 @@ execute "CREATE INDEX documents_idx ON documents USING gin(to_tsvector('english'
 class Document &lt; ActiveRecord::Base
 end
 
-# Usage
+# 用途
 Document.create(title: "Cats and Dogs", body: "are nice!")
 
-## all documents matching 'cat &amp; dog'
+## 所有匹配 `cat &amp; dog` 的文件
 Document.where("to_tsvector('english', title || ' ' || body) @@ to_tsquery(?)",
                  "cat &amp; dog")
 
