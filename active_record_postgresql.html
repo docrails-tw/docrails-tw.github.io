@@ -6,7 +6,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-<title>Active Record and PostgreSQL — Ruby on Rails 指南</title>
+<title>Active Record PostgreSQL — Ruby on Rails 指南</title>
 <link rel="stylesheet" type="text/css" href="stylesheets/style.css" />
 <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
 
@@ -161,7 +161,7 @@
 
   <div id="feature">
     <div class="wrapper">
-      <h2 id="active-record-and-postgresql">Active Record and PostgreSQL</h2><p>本篇介紹 Active Record PostgreSQL 的具體用法。</p><p>PostgreSQL 的最低版本要求為 8.2。舊版不支援。</p><p>開始使用 PostgreSQL 之前，請先看看<a href="configuring.html#configuring-a-postgresql-database">如何為 Active Record 設定 PostgreSQL 資料庫</a>。</p>
+      <h2 id="active-record-postgresql">Active Record PostgreSQL</h2><p>本篇介紹 Active Record PostgreSQL 的具體用法。</p><p>PostgreSQL 的最低版本要求為 8.2。舊版不支援。</p><p>開始使用 PostgreSQL 之前，請先看看<a href="configuring.html#configuring-a-postgresql-database">如何為 Active Record 設定 PostgreSQL 資料庫</a>。</p>
 
                 <div id="subCol">
             <h3 class="chapter"><img src="images/chapters_icon.gif" alt="" />Chapters</h3>
@@ -200,12 +200,11 @@
         <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
 <html><body>
 <h3 id="資料類型">1 資料類型</h3>
-<p>PostgreSQL offers a number of specific datatypes. Following is a list of types,
-that are supported by the PostgreSQL adapter.</p>
+<p>PostgreSQL 提供許多具體的資料類型。以下是 PostgreSQL 連接器所支援的類型列表。</p>
 <h4 id="bytea">1.1 Bytea</h4>
 <ul>
-<li><a href="http://www.postgresql.org/docs/9.3/static/datatype-binary.html">type definition</a></li>
-<li><a href="http://www.postgresql.org/docs/9.3/static/functions-binarystring.html">functions and operators</a></li>
+<li><a href="http://www.postgresql.org/docs/9.3/static/datatype-binary.html">類型定義</a></li>
+<li><a href="http://www.postgresql.org/docs/9.3/static/functions-binarystring.html">函數與運算元</a></li>
 </ul>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
@@ -226,8 +225,8 @@ Document.create payload: data
 </div>
 <h4 id="array">1.2 Array</h4>
 <ul>
-<li><a href="http://www.postgresql.org/docs/9.3/static/arrays.html">type definition</a></li>
-<li><a href="http://www.postgresql.org/docs/9.3/static/functions-array.html">functions and operators</a></li>
+<li><a href="http://www.postgresql.org/docs/9.3/static/arrays.html">類型定義</a></li>
+<li><a href="http://www.postgresql.org/docs/9.3/static/functions-array.html">函數與運算元</a></li>
 </ul>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
@@ -260,7 +259,7 @@ Book.where("array_length(ratings, 1) &gt;= 3")
 </div>
 <h4 id="hstore">1.3 Hstore</h4>
 <ul>
-<li><a href="http://www.postgresql.org/docs/9.3/static/hstore.html">type definition</a></li>
+<li><a href="http://www.postgresql.org/docs/9.3/static/hstore.html">類型定義</a></li>
 </ul>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
@@ -323,7 +322,7 @@ Event.where("payload-&gt;'kind' = ?", "user_renamed")
 <li><a href="http://www.postgresql.org/docs/9.3/static/rangetypes.html">類型定義</a></li>
 <li><a href="http://www.postgresql.org/docs/9.3/static/functions-range.html">函數與運算元</a></li>
 </ul>
-<p>This type is mapped to Ruby <a href=""><code>Range</code></a> objects.</p>
+<p>此類型對應到 Ruby 的 [<code>Range</code>] 物件</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 # db/migrate/20130923065404_create_events.rb
@@ -344,7 +343,7 @@ event.duration # =&gt; Tue, 11 Feb 2014...Thu, 13 Feb 2014
 ## 找出特定日期的所有活動
 Event.where("duration @&gt; ?::date", Date.new(2014, 2, 12))
 
-## Working with range bounds
+## 使用 range bounds
 event = Event.
   select("lower(duration) AS starts_at").
   select("upper(duration) AS ends_at").first
@@ -358,8 +357,7 @@ event.ends_at # =&gt; Thu, 13 Feb 2014
 <ul>
 <li><a href="http://www.postgresql.org/docs/9.3/static/rowtypes.html">類型定義</a></li>
 </ul>
-<p>Currently there is no special support for composite types. They are mapped to as
-normal text columns:</p>
+<p>複合類型映射到一般的 <code>text</code> 欄位。</p>
 <div class="code_container">
 <pre class="brush: sql; gutter: false; toolbar: false">
 CREATE TYPE full_address AS
@@ -401,8 +399,7 @@ contact.save!
 <ul>
 <li><a href="http://www.postgresql.org/docs/9.3/static/datatype-enum.html">類型定義</a></li>
 </ul>
-<p>Currently there is no special support for enumerated types. They are mapped as
-normal text columns:</p>
+<p>枚舉類型映射到一般的 <code>text</code> 欄位。</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 # db/migrate/20131220144913_create_events.rb
@@ -429,8 +426,8 @@ article.save!
 </div>
 <h4 id="uuid">1.8 UUID</h4>
 <ul>
-<li><a href="http://www.postgresql.org/docs/9.3/static/datatype-uuid.html">type definition</a></li>
-<li><a href="http://www.postgresql.org/docs/9.3/static/uuid-ossp.html">generator functions</a></li>
+<li><a href="http://www.postgresql.org/docs/9.3/static/datatype-uuid.html">類型定義</a></li>
+<li><a href="http://www.postgresql.org/docs/9.3/static/uuid-ossp.html">產生器函數</a></li>
 </ul>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
@@ -453,8 +450,8 @@ revision.identifier # =&gt; "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11"
 </div>
 <h4 id="bit-string-types">1.9 Bit String Types</h4>
 <ul>
-<li><a href="http://www.postgresql.org/docs/9.3/static/datatype-bit.html">type definition</a></li>
-<li><a href="http://www.postgresql.org/docs/9.3/static/functions-bitstring.html">functions and operators</a></li>
+<li><a href="http://www.postgresql.org/docs/9.3/static/datatype-bit.html">類型定義</a></li>
+<li><a href="http://www.postgresql.org/docs/9.3/static/functions-bitstring.html">函數與運算元</a></li>
 </ul>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
@@ -479,17 +476,16 @@ user.save!
 </div>
 <h4 id="網路位址類型">1.10 網路位址類型</h4>
 <ul>
-<li><a href="http://www.postgresql.org/docs/9.3/static/datatype-net-types.html">type definition</a></li>
+<li><a href="http://www.postgresql.org/docs/9.3/static/datatype-net-types.html">類型定義</a></li>
 </ul>
-<p>The types <code>inet</code> and <code>cidr</code> are mapped to Ruby <a href=""><code>IPAddr</code></a> objects. The
-<code>macaddr</code> type is mapped to normal text.</p>
+<p><code>inet</code> 與 <code>cidr</code> 類型映射到 Ruby 的 [<code>IPAddr</code>] 物件。<code>macaddr</code> 類型映射到一般的 <code>text</code> 欄位。</p>
 <h4 id="幾何類型">1.11 幾何類型</h4>
 <ul>
-<li><a href="http://www.postgresql.org/docs/9.3/static/datatype-geometric.html">type definition</a></li>
+<li><a href="http://www.postgresql.org/docs/9.3/static/datatype-geometric.html">類型定義</a></li>
 </ul>
 <p>All geometric types are mapped to normal text.</p>
 <h3 id="uuid-主鍵">2 UUID 主鍵</h3>
-<div class="note"><p>you need to enable the <code>uuid-ossp</code> extension to generate UUIDs.</p></div>
+<div class="note"><p>需要啟用 <code>uuid-ossp</code> 擴充功能才可以產生 UUID。</p></div>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 # db/migrate/20131220144913_create_devices.rb
