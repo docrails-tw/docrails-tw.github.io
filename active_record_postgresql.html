@@ -479,6 +479,35 @@ user.save!
 <li><a href="http://www.postgresql.org/docs/9.3/static/datatype-net-types.html">類型定義</a></li>
 </ul>
 <p><code>inet</code> 與 <code>cidr</code> 類型映射到 Ruby 的 <a href="http://www.ruby-doc.org/stdlib-2.1.1/libdoc/ipaddr/rdoc/IPAddr.html"><code>IPAddr</code></a> 物件。<code>macaddr</code> 類型映射到一般的 <code>text</code> 欄位。</p>
+<div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+# db/migrate/20140508144913_create_devices.rb
+create_table(:devices, force: true) do |t|
+  t.inet 'ip'
+  t.cidr 'network'
+  t.macaddr 'address'
+end
+
+# app/models/device.rb
+class Device &lt; ActiveRecord::Base
+end
+
+# Usage
+macbook = Device.create(ip: "192.168.1.12",
+                        network: "192.168.2.0/24",
+                        address: "32:01:16:6d:05:ef")
+
+macbook.ip
+# =&gt; #&lt;IPAddr: IPv4:192.168.1.12/255.255.255.255&gt;
+
+macbook.network
+# =&gt; #&lt;IPAddr: IPv4:192.168.2.0/255.255.255.0&gt;
+
+macbook.address
+# =&gt; "32:01:16:6d:05:ef"
+
+</pre>
+</div>
 <h4 id="幾何類型">1.11 幾何類型</h4>
 <ul>
 <li><a href="http://www.postgresql.org/docs/9.3/static/datatype-geometric.html">類型定義</a></li>
