@@ -61,7 +61,7 @@
                 <dd><a href="form_helpers.html">Action View 表單 Helpers</a></dd>
                 <dt>Controllers</dt>
                 <dd><a href="action_controller_overview.html">Action Controller 綜覽</a></dd>
-                <dd><a href="routing.html">Rails 路由：由表入裡</a></dd>
+                <dd><a href="routing.html">Rails 路由：深入淺出</a></dd>
               </dl>
               <dl class="R">
                 <dt>深入了解</dt>
@@ -117,7 +117,7 @@
               </optgroup>
               <optgroup label="Controllers">
                   <option value="action_controller_overview.html">Action Controller 綜覽</option>
-                  <option value="routing.html">Rails 路由：由表入裡</option>
+                  <option value="routing.html">Rails 路由：深入淺出</option>
               </optgroup>
               <optgroup label="深入了解">
                   <option value="active_support_core_extensions.html">Active Support 核心擴展</option>
@@ -660,7 +660,7 @@ serialization。 <a href="https://github.com/rails/rails/pull/13911">PR#13911</a
 <li><p><code>String#gsub(pattern,'')</code> 可簡寫為 <code>String#remove(pattern)</code>。<a href="https://github.com/rails/rails/commit/5da23a3f921f0a4a3139495d2779ab0d3bd4cb5f">Commit</a></p></li>
 <li><p>新增 <code>Hash#compact</code> 與 <code>Hash#compact!</code> 來移除 hash 中的 nil。 <a href="https://github.com/rails/rails/pull/13632">PR#13632</a></p></li>
 <li><p><code>blank?</code> and <code>present?</code> 會返回 singleton。 (<a href="https://github.com/rails/rails/commit/126dc47665c65cd129967cbd8a5926dddd0aa514">Commit</a>)</p></li>
-<li><p>新的設定： <code>I18n.enforce_available_locales</code> 預設是 <code>true</code>。代表 <code>I18n</code> 會確保所有傳入的 locale 都預先在 <code>available_locales</code> 裡聲明。 <a href="https://github.com/rails/rails/pull/13341">PR#13341</a></p></li>
+<li><p>新的設定： <code>I18n.enforce_available_locales</code> 預設是 <code>true</code>。代表 <code>I18n</code> 會確保所有傳入的 locale 都預先在 <code>available_locales</code> 裡宣告。 <a href="https://github.com/rails/rails/pull/13341">PR#13341</a></p></li>
 <li><p>引入 <code>Module#concerning</code>：一種自然、輕量級的方式來拆分 Class 內的職責。<a href="https://github.com/rails/rails/commit/1eee0ca6de975b42524105a59e0521d18b38ab81">Commit</a></p></li>
 <li><p>新增 <code>Object#presence_in</code> 來簡化對數值做白名單。<a href="https://github.com/rails/rails/commit/4edca106daacc5a159289eae255207d160f22396">Commit</a></p></li>
 </ul>

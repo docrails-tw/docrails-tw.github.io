@@ -61,7 +61,7 @@
                 <dd><a href="form_helpers.html">Action View 表單 Helpers</a></dd>
                 <dt>Controllers</dt>
                 <dd><a href="action_controller_overview.html">Action Controller 綜覽</a></dd>
-                <dd><a href="routing.html">Rails 路由：由表入裡</a></dd>
+                <dd><a href="routing.html">Rails 路由：深入淺出</a></dd>
               </dl>
               <dl class="R">
                 <dt>深入了解</dt>
@@ -117,7 +117,7 @@
               </optgroup>
               <optgroup label="Controllers">
                   <option value="action_controller_overview.html">Action Controller 綜覽</option>
-                  <option value="routing.html">Rails 路由：由表入裡</option>
+                  <option value="routing.html">Rails 路由：深入淺出</option>
               </optgroup>
               <optgroup label="深入了解">
                   <option value="active_support_core_extensions.html">Active Support 核心擴展</option>
@@ -697,7 +697,7 @@ Client.where("orders_count = ?", params[:orders])
 
 </pre>
 </div>
-<p>Active Record 會將 <code>?</code> 換成 <code>params[:orders]</code> 做查詢。也可聲明多個條件，條件式後的元素，對應到條件裡的每個 <code>?</code>。</p>
+<p>Active Record 會將 <code>?</code> 換成 <code>params[:orders]</code> 做查詢。也可宣告多個條件，條件式後的元素，對應到條件裡的每個 <code>?</code>。</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 Client.where("orders_count = ? AND locked = ?", params[:orders], false)
@@ -842,7 +842,7 @@ Client.order("orders_count ASC").order("created_at DESC")
 </div>
 <h3 id="選出特定欄位">4 選出特定欄位</h3>
 <p><code>Model.find</code> 預設會使用 <code>select *</code> 取出所有的欄位。</p>
-<p>只要取某些欄位的話，可以透過 <code>select</code> 方法來聲明。</p>
+<p>只要取某些欄位的話，可以透過 <code>select</code> 方法來宣告。</p>
 <p>比如，只要 <code>viewable_by</code> 與 <code>locked</code> 欄位：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
@@ -1285,7 +1285,7 @@ SELECT posts.* FROM posts
 </pre>
 </div>
 <p>用白話解釋是：“依分類來回傳文章物件，且文章至少有一則評論”。有多則評論的文章將會出現很多次。</p>
-<h5 id="連接一層巢狀關聯">12.2.3 連接一層巢狀關聯</h5>
+<h5 id="連接一層嵌套關聯">12.2.3 連接一層嵌套關聯</h5>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 Post.joins(comments: :guest)
@@ -1302,7 +1302,7 @@ SELECT posts.* FROM posts
 </pre>
 </div>
 <p>用白話解釋是：“回傳所有有訪客評論的文章”。</p>
-<h5 id="連接多層巢狀關聯">12.2.4 連接多層巢狀關聯</h5>
+<h5 id="連接多層嵌套關聯">12.2.4 連接多層嵌套關聯</h5>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 Category.joins(posts: [{comments: :guest}, :tags])
@@ -1329,7 +1329,7 @@ Client.joins(:orders).where('orders.created_at' =&gt; time_range)
 
 </pre>
 </div>
-<p>另一種更簡潔的寫法是使用巢狀 Hash：</p>
+<p>另一種更簡潔的寫法是使用嵌套 Hash：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 time_range = (Time.now.midnight - 1.day)..Time.now.midnight
@@ -1376,7 +1376,7 @@ SELECT addresses.* FROM addresses
 </pre>
 </div>
 <h4 id="eager-loading-多個關聯">13.1 Eager Loading 多個關聯</h4>
-<p>使用 <code>Model.find</code> 與 <code>includes</code> 方法，Active Record 可以 Eager Load 任意數量的關聯。關聯可以以陣列、Hash 或是巢狀 Hash（內有陣列、Hash）形式指定。</p>
+<p>使用 <code>Model.find</code> 與 <code>includes</code> 方法，Active Record 可以 Eager Load 任意數量的關聯。關聯可以以陣列、Hash 或是嵌套 Hash（內有陣列、Hash）形式指定。</p>
 <h5 id="陣列有多個關聯">13.1.1 陣列有多個關聯</h5>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
@@ -1385,7 +1385,7 @@ Post.includes(:category, :comments)
 </pre>
 </div>
 <p>會加載所有文章，以及每篇文章的類別與評論。</p>
-<h5 id="巢狀關聯-hash">13.1.2 巢狀關聯 Hash</h5>
+<h5 id="嵌套關聯-hash">13.1.2 嵌套關聯 Hash</h5>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 Category.includes(posts: [{comments: :guest}, :tags]).find(1)

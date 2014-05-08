@@ -61,7 +61,7 @@
                 <dd><a href="form_helpers.html">Action View 表單 Helpers</a></dd>
                 <dt>Controllers</dt>
                 <dd><a href="action_controller_overview.html">Action Controller 綜覽</a></dd>
-                <dd><a href="routing.html">Rails 路由：由表入裡</a></dd>
+                <dd><a href="routing.html">Rails 路由：深入淺出</a></dd>
               </dl>
               <dl class="R">
                 <dt>深入了解</dt>
@@ -117,7 +117,7 @@
               </optgroup>
               <optgroup label="Controllers">
                   <option value="action_controller_overview.html">Action Controller 綜覽</option>
-                  <option value="routing.html">Rails 路由：由表入裡</option>
+                  <option value="routing.html">Rails 路由：深入淺出</option>
               </optgroup>
               <optgroup label="深入了解">
                   <option value="active_support_core_extensions.html">Active Support 核心擴展</option>
@@ -446,7 +446,7 @@ physician.patients = patients
 </div>
 <p>會為新建立的關聯物件建立連接 Model，如果刪除了其中一個物件，也會刪除對應的資料庫記錄。</p>
 <div class="warning"><p>連接 Model 會自動刪除、直接執行，不會觸發任何 <code>destroy</code> 回呼。</p></div>
-<p><code>has_many :through</code> 關聯在簡化巢狀的 <code>has_many</code> 關聯很有用。比如文件有多個章節、段落。想要簡單地從文件取得所有段落，可以這麼寫：</p>
+<p><code>has_many :through</code> 關聯在簡化嵌套的 <code>has_many</code> 關聯很有用。比如文件有多個章節、段落。想要簡單地從文件取得所有段落，可以這麼寫：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Document &lt; ActiveRecord::Base

@@ -61,7 +61,7 @@
                 <dd><a href="form_helpers.html">Action View 表單 Helpers</a></dd>
                 <dt>Controllers</dt>
                 <dd><a href="action_controller_overview.html">Action Controller 綜覽</a></dd>
-                <dd><a href="routing.html">Rails 路由：由表入裡</a></dd>
+                <dd><a href="routing.html">Rails 路由：深入淺出</a></dd>
               </dl>
               <dl class="R">
                 <dt>深入了解</dt>
@@ -117,7 +117,7 @@
               </optgroup>
               <optgroup label="Controllers">
                   <option value="action_controller_overview.html">Action Controller 綜覽</option>
-                  <option value="routing.html">Rails 路由：由表入裡</option>
+                  <option value="routing.html">Rails 路由：深入淺出</option>
               </optgroup>
               <optgroup label="深入了解">
                   <option value="active_support_core_extensions.html">Active Support 核心擴展</option>
@@ -329,7 +329,7 @@ end
 </pre>
 </div>
 <h4 id="hash-與陣列參數">4.1 Hash 與陣列參數</h4>
-<p><code>params</code> Hash 不侷限於一維的 Hash，可以是巢狀結構，裡面可存陣列或巢狀的 Hash。</p>
+<p><code>params</code> Hash 不侷限於一維的 Hash，可以是嵌套結構，裡面可存陣列或嵌套的 Hash。</p>
 <p>若想以陣列形式來傳遞參數，在鍵的名稱後方附加 <code>[]</code> 即可，如下所示：</p>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
@@ -365,7 +365,7 @@ GET /clients?ids[]=1&amp;ids[]=2&amp;ids[]=3
 
 </pre>
 </div>
-<p>注意 <code>params[:client][:address]</code> 是巢狀的 Hash 結構。</p>
+<p>注意 <code>params[:client][:address]</code> 是嵌套的 Hash 結構。</p>
 <p><code>params</code> Hash 其實是 <code>ActiveSupport::HashWithIndifferentAccess</code> 的實體。<code>ActiveSupport::HashWithIndifferentAccess</code> 與一般 Hash 類似，不同之處是取出 Hash 的值時，鍵可以用字串與符號，即 <code>params[:foo]</code> 等同於 <code>params["foo"]</code>。</p>
 <h4 id="json-參數">4.2 JSON 參數</h4>
 <p>在寫 Web 服務的應用程式時，處理 JSON 格式的參數比其他種類的參數更好。若請求的 <code>"Content-Type"</code> 標頭檔（header）是 <code>"application/json"</code>，Rails 會自動將收到的 JSON 參數轉換好（將 JSON 轉成 Ruby 的 Hash），存至 <code>params</code> 裡。用起來與一般 Hash 相同。</p>
@@ -490,8 +490,8 @@ params.require(:log_entry).permit!
 </pre>
 </div>
 <p><code>params</code> 裡的 <code>:log_entry</code> hash 以及裡面所有的子 Hash 此時都允許做大量賦值。<strong>使用 <code>permit!</code> 要非常小心</strong>，因為這允許了 Model 所有的屬性，都可以做大量賦值，要是之後 Model 新增了 <code>admin</code> 屬性而沒注意到 <code>permit!</code>，可能就會出問題了。</p>
-<h5 id="巢狀參數">4.5.2 巢狀參數</h5>
-<p>要允許巢狀參數做大量賦值，比如：</p>
+<h5 id="嵌套參數">4.5.2 嵌套參數</h5>
+<p>要允許嵌套參數做大量賦值，比如：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 params.permit(:name, { emails: [] },

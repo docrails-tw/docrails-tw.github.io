@@ -61,7 +61,7 @@
                 <dd><a href="form_helpers.html">Action View 表單 Helpers</a></dd>
                 <dt>Controllers</dt>
                 <dd><a href="action_controller_overview.html">Action Controller 綜覽</a></dd>
-                <dd><a href="routing.html">Rails 路由：由表入裡</a></dd>
+                <dd><a href="routing.html">Rails 路由：深入淺出</a></dd>
               </dl>
               <dl class="R">
                 <dt>深入了解</dt>
@@ -117,7 +117,7 @@
               </optgroup>
               <optgroup label="Controllers">
                   <option value="action_controller_overview.html">Action Controller 綜覽</option>
-                  <option value="routing.html">Rails 路由：由表入裡</option>
+                  <option value="routing.html">Rails 路由：深入淺出</option>
               </optgroup>
               <optgroup label="深入了解">
                   <option value="active_support_core_extensions.html">Active Support 核心擴展</option>
@@ -233,6 +233,7 @@
 <ul>
 <li><p>Accessor 存取器</p></li>
 <li><p>Action 動作</p></li>
+<li><p>Anchor 錨點</p></li>
 <li><p>Authentication 認證</p></li>
 <li><p>Auxiliary Methods 輔助方法</p></li>
 </ul>
@@ -249,6 +250,9 @@
 </ul>
 <p>Model 的屬性、HTML 的屬性。</p>
 <h3 id="b">4 B</h3>
+<ul>
+<li>Bound Parameters 綁定參數</li>
+</ul>
 <h3 id="c">5 C</h3>
 <ul>
 <li><p>Callback 回呼</p></li>
@@ -259,6 +263,8 @@
 <ul>
 <li><p>CamelCase 駝峰形式</p></li>
 <li><p>Code 程式碼</p></li>
+<li><p>Collection Action 集合動作</p></li>
+<li><p>Collection Route 集合路由</p></li>
 <li><p>Column 欄位</p></li>
 </ul>
 <p>資料庫的欄位。</p>
@@ -288,6 +294,9 @@
 <li>Drop 刪除</li>
 </ul>
 <p>刪除整個資料庫、刪除整張資料表。</p>
+<ul>
+<li>Dynamic Segments 動態片段</li>
+</ul>
 <h3 id="e">7 E</h3>
 <ul>
 <li>exception 異常</li>
@@ -318,11 +327,18 @@
 </ul>
 <p>通常電子學的世界裡，我們有濾波器，給定輸入（以波的形式），經濾波器處理，再輸出，得名濾波器。但在 Rails 的世界裡，<code>before_filter</code> 總是用來過濾“動作”，或是在動作前執行程式。所以我用“濾動”這個詞。</p>
 <h3 id="g">9 G</h3>
+<ul>
+<li>Globbing 通配符號</li>
+</ul>
 <h3 id="h">10 H</h3>
 <ul>
 <li>Handler 處理函數</li>
 </ul>
 <p>JavaScript 給元素綁定的函數。</p>
+<ul>
+<li><p>Helpers 輔助方法</p></li>
+<li><p>Host 主機</p></li>
+</ul>
 <h3 id="i">11 I</h3>
 <ul>
 <li>Index 索引</li>
@@ -362,12 +378,15 @@
 <li><p>Migration 遷移</p></li>
 <li><p>Modifier 修飾符</p></li>
 <li><p>Middleware 中間件</p></li>
+<li><p>member action 成員動作</p></li>
+<li><p>member route 成員路由</p></li>
 </ul>
 <h3 id="n">16 N</h3>
 <ul>
 <li><p>Namespace 命名空間</p></li>
-<li><p>Nesting 巢狀的</p></li>
-<li><p>Nested 巢狀的</p></li>
+<li><p>Named Helpers 具名輔助方法</p></li>
+<li><p>Nesting 嵌套的</p></li>
+<li><p>Nested 嵌套的</p></li>
 </ul>
 <h3 id="o">17 O</h3>
 <ul>
@@ -378,6 +397,7 @@
 <h3 id="p">18 P</h3>
 <ul>
 <li><p>Path 路徑</p></li>
+<li><p>Port 埠口</p></li>
 <li><p>Predicate 謂詞</p></li>
 </ul>
 <p>謂詞，回傳真或假的條件式，比如 <code>Array#empty?</code>。</p>
@@ -385,7 +405,7 @@
 <li><p>Program (n.) 程式</p></li>
 <li><p>Program (v.) 編程</p></li>
 </ul>
-<p>編寫程式，取編寫的編，程式的程來代表。</p>
+<p>編寫程式，取編寫的編，程式的程來代表。亦作寫程式。</p>
 <h3 id="q">19 Q</h3>
 <ul>
 <li><p>Query 查詢</p></li>
@@ -400,12 +420,16 @@
 <p>拋出異常、拋出錯誤。</p>
 <ul>
 <li><p>Rake Task Rake 任務</p></li>
-<li><p>Referential Integrity 參照完整性</p></li>
 <li><p>Record 記錄</p></li>
 </ul>
 <p>資料庫裡的紀錄。</p>
 <ul>
-<li>Repository 原碼庫。</li>
+<li>Redirection</li>
+</ul>
+<p>轉址。</p>
+<ul>
+<li><p>Referential Integrity 參照完整性</p></li>
+<li><p>Repository 原碼庫。</p></li>
 </ul>
 <p>Repository 在生活中有倉庫的意思，在版本控制的世界裡，通常我們將原始碼提交到 Repository，叫做原碼庫。</p>
 <ul>
@@ -413,13 +437,19 @@
 </ul>
 <p>為 HTTP 協定裡的專有名詞，HTTP Request。</p>
 <ul>
-<li>Response 響應</li>
+<li><p>Resource routing 資源式路由</p></li>
+<li><p>Resource 資源</p></li>
+<li><p>Response 響應</p></li>
 </ul>
 <p>為 HTTP 協定裡的專有名詞，HTTP Response。</p>
 <ul>
 <li>Rollback 回滾</li>
 </ul>
 <p>資料庫恢復至以前的狀態。</p>
+<ul>
+<li>Router 路由器</li>
+</ul>
+<p>指得是以 <a href="https://github.com/rails/journey">Journey</a> 所實作的路由器。</p>
 <h3 id="s">21 S</h3>
 <ul>
 <li>Scaffold 鷹架</li>
@@ -433,8 +463,13 @@
 </ul>
 <p>資料庫的初始資料，通常寫在 <code>db/seeds.rb</code> 檔案裡。</p>
 <ul>
-<li><p>Serialize 序列化</p></li>
+<li><p>Segment 片段</p></li>
+<li><p>Segment Constraints 片段約束</p></li>
 <li><p>Self-Join 自連接</p></li>
+<li><p>Serialize 序列化</p></li>
+<li><p>Shallow Nesting 淺層嵌套</p></li>
+<li><p>Singular resource 單數資源</p></li>
+<li><p>Static Segments 靜態片段</p></li>
 <li><p>Stored Procedure 儲存過程</p></li>
 </ul>
 <p>在資料庫先寫好程式，供外部程式呼叫。</p>
@@ -467,7 +502,8 @@
 </ul>
 <h3 id="w">25 W</h3>
 <ul>
-<li>Web Service Web 服務</li>
+<li><p>Web Service Web 服務</p></li>
+<li><p>Wildcard 通配符號</p></li>
 </ul>
 <h3 id="x">26 X</h3>
 <h3 id="y">27 Y</h3>

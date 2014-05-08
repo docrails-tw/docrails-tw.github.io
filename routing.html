@@ -6,7 +6,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-<title>Rails Routing from the Outside In — Ruby on Rails 指南</title>
+<title>Rails 路由：深入淺出 — Ruby on Rails 指南</title>
 <link rel="stylesheet" type="text/css" href="stylesheets/style.css" />
 <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
 
@@ -61,7 +61,7 @@
                 <dd><a href="form_helpers.html">Action View 表單 Helpers</a></dd>
                 <dt>Controllers</dt>
                 <dd><a href="action_controller_overview.html">Action Controller 綜覽</a></dd>
-                <dd><a href="routing.html">Rails 路由：由表入裡</a></dd>
+                <dd><a href="routing.html">Rails 路由：深入淺出</a></dd>
               </dl>
               <dl class="R">
                 <dt>深入了解</dt>
@@ -117,7 +117,7 @@
               </optgroup>
               <optgroup label="Controllers">
                   <option value="action_controller_overview.html">Action Controller 綜覽</option>
-                  <option value="routing.html">Rails 路由：由表入裡</option>
+                  <option value="routing.html">Rails 路由：深入淺出</option>
               </optgroup>
               <optgroup label="深入了解">
                   <option value="active_support_core_extensions.html">Active Support 核心擴展</option>
@@ -161,13 +161,13 @@
 
   <div id="feature">
     <div class="wrapper">
-      <h2 id="rails-routing-from-the-outside-in">Rails Routing from the Outside In</h2><p>This guide covers the user-facing features of Rails routing.</p><p>After reading this guide, you will know:</p>
+      <h2 id="rails-路由：深入淺出">Rails 路由：深入淺出</h2><p>本篇介紹與使用者息息相關的路由功能。</p><p>讀完本篇，您將了解：</p>
 <ul>
-<li>How to interpret the code in <code>routes.rb</code>.</li>
-<li>How to construct your own routes, using either the preferred resourceful style or the <code>match</code> method.</li>
-<li>What parameters to expect an action to receive.</li>
-<li>How to automatically create paths and URLs using route helpers.</li>
-<li>Advanced techniques such as constraints and Rack endpoints.</li>
+<li>如何解讀 <code>routes.rb</code> 裡的程式碼。</li>
+<li>如何使用推薦的資源式寫法或使用 <code>match</code> 方法來撰寫路由。</li>
+<li>Controller 動作可接受的參數有那些。</li>
+<li>如何使用路由輔助方法來自動建立路徑與 URL。</li>
+<li>路由約束條件與 Rack Endpoint 等進階技巧。</li>
 </ul>
 
 
@@ -176,71 +176,71 @@
             <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
 <html><body><ol class="chapters">
 <li>
-<a href="#the-purpose-of-the-rails-router">The Purpose of the Rails Router</a>
+<a href="#rails-%E8%B7%AF%E7%94%B1%E5%99%A8%E7%9A%84%E7%9B%AE%E7%9A%84">Rails 路由器的目的</a>
 
 <ul>
-<li><a href="#connecting-urls-to-code">Connecting URLs to Code</a></li>
-<li><a href="#generating-paths-and-urls-from-code">Generating Paths and URLs from Code</a></li>
+<li><a href="#url-%E5%B7%A5%E4%BD%9C%E5%88%86%E6%B4%BE">URL 工作分派</a></li>
+<li><a href="#%E7%94%A2%E7%94%9F%E8%B7%AF%E5%BE%91%E8%88%87-url">產生路徑與 URL</a></li>
 </ul>
 </li>
 <li>
-<a href="#resource-routing:-the-rails-default">Resource Routing: the Rails Default</a>
+<a href="#%E8%B3%87%E6%BA%90%E5%BC%8F%E8%B7%AF%E7%94%B1%EF%BC%9Arails-%E7%9A%84%E9%A0%90%E8%A8%AD%E8%B7%AF%E7%94%B1">資源式路由：Rails 的預設路由</a>
 
 <ul>
-<li><a href="#resources-on-the-web">Resources on the Web</a></li>
-<li><a href="#crud,-verbs,-and-actions">CRUD, Verbs, and Actions</a></li>
-<li><a href="#path-and-url-helpers">Path and URL Helpers</a></li>
-<li><a href="#defining-multiple-resources-at-the-same-time">Defining Multiple Resources at the Same Time</a></li>
-<li><a href="#singular-resources">Singular Resources</a></li>
-<li><a href="#controller-namespaces-and-routing">Controller Namespaces and Routing</a></li>
-<li><a href="#nested-resources">Nested Resources</a></li>
-<li><a href="#routing-concerns">Routing concerns</a></li>
-<li><a href="#creating-paths-and-urls-from-objects">Creating Paths and URLs From Objects</a></li>
-<li><a href="#adding-more-restful-actions">Adding More RESTful Actions</a></li>
+<li><a href="#web-%E4%B8%96%E7%95%8C%E8%A3%A1%E7%9A%84%E8%B3%87%E6%BA%90">Web 世界裡的資源</a></li>
+<li><a href="#crud%E3%80%81http-%E5%8B%95%E8%A9%9E%E4%BB%A5%E5%8F%8A%E5%8B%95%E4%BD%9C">CRUD、HTTP 動詞以及動作</a></li>
+<li><a href="#%E8%B7%AF%E5%BE%91%E8%88%87-url-%E7%9A%84%E8%BC%94%E5%8A%A9%E6%96%B9%E6%B3%95">路徑與 URL 的輔助方法</a></li>
+<li><a href="#%E5%90%8C%E6%99%82%E5%AE%9A%E7%BE%A9%E5%A4%9A%E7%AD%86%E8%B3%87%E6%BA%90">同時定義多筆資源</a></li>
+<li><a href="#%E5%96%AE%E6%95%B8%E8%B3%87%E6%BA%90">單數資源</a></li>
+<li><a href="#controller-%E5%91%BD%E5%90%8D%E7%A9%BA%E9%96%93%E8%88%87%E8%B7%AF%E7%94%B1">Controller 命名空間與路由</a></li>
+<li><a href="#%E5%B5%8C%E5%A5%97%E8%B3%87%E6%BA%90">嵌套資源</a></li>
+<li><a href="#routing-concerns">Routing Concerns</a></li>
+<li><a href="#%E5%BE%9E%E7%89%A9%E4%BB%B6%E5%BB%BA%E7%AB%8B%E8%B7%AF%E5%BE%91%E8%88%87-url">從物件建立路徑與 URL</a></li>
+<li><a href="#%E6%96%B0%E5%A2%9E%E6%9B%B4%E5%A4%9A%E8%B3%87%E6%BA%90%E5%BC%8F%E8%B7%AF%E7%94%B1">新增更多資源式路由</a></li>
 </ul>
 </li>
 <li>
-<a href="#non-resourceful-routes">Non-Resourceful Routes</a>
+<a href="#%E9%9D%9E%E8%B3%87%E6%BA%90%E5%BC%8F%E8%B7%AF%E7%94%B1">非資源式路由</a>
 
 <ul>
-<li><a href="#bound-parameters">Bound Parameters</a></li>
-<li><a href="#dynamic-segments">Dynamic Segments</a></li>
-<li><a href="#static-segments">Static Segments</a></li>
-<li><a href="#the-query-string">The Query String</a></li>
-<li><a href="#defining-defaults">Defining Defaults</a></li>
-<li><a href="#naming-routes">Naming Routes</a></li>
-<li><a href="#http-verb-constraints">HTTP Verb Constraints</a></li>
-<li><a href="#segment-constraints">Segment Constraints</a></li>
-<li><a href="#request-based-constraints">Request-Based Constraints</a></li>
-<li><a href="#advanced-constraints">Advanced Constraints</a></li>
-<li><a href="#route-globbing-and-wildcard-segments">Route Globbing and Wildcard Segments</a></li>
-<li><a href="#redirection">Redirection</a></li>
-<li><a href="#routing-to-rack-applications">Routing to Rack Applications</a></li>
-<li><a href="#using-root">Using <code>root</code></a></li>
-<li><a href="#unicode-character-routes">Unicode character routes</a></li>
+<li><a href="#%E7%B6%81%E5%AE%9A%E5%8F%83%E6%95%B8">綁定參數</a></li>
+<li><a href="#%E5%8B%95%E6%85%8B%E7%89%87%E6%AE%B5">動態片段</a></li>
+<li><a href="#%E9%9D%9C%E6%85%8B%E7%89%87%E6%AE%B5">靜態片段</a></li>
+<li><a href="#%E6%9F%A5%E8%A9%A2%E5%AD%97%E4%B8%B2">查詢字串</a></li>
+<li><a href="#%E5%AE%9A%E7%BE%A9%E9%A0%90%E8%A8%AD%E5%80%BC">定義預設值</a></li>
+<li><a href="#%E5%91%BD%E5%90%8D%E8%B7%AF%E7%94%B1">命名路由</a></li>
+<li><a href="#http-%E5%8B%95%E8%A9%9E%E7%B4%84%E6%9D%9F%E6%A2%9D%E4%BB%B6">HTTP 動詞約束條件</a></li>
+<li><a href="#%E7%89%87%E6%AE%B5%E7%B4%84%E6%9D%9F">片段約束</a></li>
+<li><a href="#%E5%9F%BA%E6%96%BC%E8%AB%8B%E6%B1%82%E7%9A%84%E7%B4%84%E6%9D%9F%E6%A2%9D%E4%BB%B6">基於請求的約束條件</a></li>
+<li><a href="#%E9%80%B2%E9%9A%8E%E7%B4%84%E6%9D%9F%E6%A2%9D%E4%BB%B6">進階約束條件</a></li>
+<li><a href="#%E8%B7%AF%E7%94%B1%E9%80%9A%E9%85%8D%E7%89%87%E6%AE%B5">路由通配片段</a></li>
+<li><a href="#%E8%BD%89%E5%9D%80">轉址</a></li>
+<li><a href="#%E8%B7%AF%E7%94%B1%E5%88%B0-rack-%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F">路由到 Rack 應用程式</a></li>
+<li><a href="#%E4%BD%BF%E7%94%A8-root">使用 <code>root</code></a></li>
+<li><a href="#unicode-%E5%AD%97%E5%85%83%E7%9A%84%E8%B7%AF%E7%94%B1">Unicode 字元的路由</a></li>
 </ul>
 </li>
 <li>
-<a href="#customizing-resourceful-routes">Customizing Resourceful Routes</a>
+<a href="#%E5%AE%A2%E8%A3%BD%E5%8C%96%E8%B3%87%E6%BA%90%E5%BC%8F%E8%B7%AF%E7%94%B1">客製化資源式路由</a>
 
 <ul>
-<li><a href="#specifying-a-controller-to-use">Specifying a Controller to Use</a></li>
-<li><a href="#specifying-constraints">Specifying Constraints</a></li>
-<li><a href="#overriding-the-named-helpers">Overriding the Named Helpers</a></li>
-<li><a href="#overriding-the-new-and-edit-segments">Overriding the <code>new</code> and <code>edit</code> Segments</a></li>
-<li><a href="#prefixing-the-named-route-helpers">Prefixing the Named Route Helpers</a></li>
-<li><a href="#restricting-the-routes-created">Restricting the Routes Created</a></li>
-<li><a href="#translated-paths">Translated Paths</a></li>
-<li><a href="#overriding-the-singular-form">Overriding the Singular Form</a></li>
-<li><a href="#using-:as-in-nested-resources">Using <code>:as</code> in Nested Resources</a></li>
+<li><a href="#%E6%8C%87%E5%AE%9A%E4%BD%BF%E7%94%A8%E7%9A%84-controller">指定使用的 Controller</a></li>
+<li><a href="#%E6%8C%87%E5%AE%9A%E7%B4%84%E6%9D%9F%E6%A2%9D%E4%BB%B6">指定約束條件</a></li>
+<li><a href="#%E8%A6%86%E5%AF%AB%E5%85%B7%E5%90%8D%E8%BC%94%E5%8A%A9%E6%96%B9%E6%B3%95">覆寫具名輔助方法</a></li>
+<li><a href="#%E8%A6%86%E5%AF%AB-new-%E8%88%87-edit-%E7%89%87%E6%AE%B5">覆寫 <code>new</code> 與 <code>edit</code> 片段</a></li>
+<li><a href="#%E7%B5%A6%E5%85%B7%E5%90%8D%E8%BC%94%E5%8A%A9%E6%96%B9%E6%B3%95%E5%8A%A0%E5%89%8D%E7%B6%B4">給具名輔助方法加前綴</a></li>
+<li><a href="#%E9%99%90%E5%88%B6%E5%BB%BA%E7%AB%8B%E5%87%BA%E4%BE%86%E7%9A%84%E8%B7%AF%E7%94%B1">限制建立出來的路由</a></li>
+<li><a href="#%E7%BF%BB%E8%AD%AF%E8%B7%AF%E5%BE%91">翻譯路徑</a></li>
+<li><a href="#%E8%A6%86%E5%AF%AB%E5%96%AE%E6%95%B8%E5%BD%A2%E5%BC%8F">覆寫單數形式</a></li>
+<li><a href="#%E5%9C%A8%E5%B5%8C%E5%A5%97%E8%B3%87%E6%BA%90%E4%B8%AD%E4%BD%BF%E7%94%A8-:as-%E9%81%B8%E9%A0%85">在嵌套資源中使用 <code>:as</code> 選項</a></li>
 </ul>
 </li>
 <li>
-<a href="#inspecting-and-testing-routes">Inspecting and Testing Routes</a>
+<a href="#%E6%AA%A2%E6%9F%A5%E8%88%87%E6%B8%AC%E8%A9%A6%E8%B7%AF%E7%94%B1">檢查與測試路由</a>
 
 <ul>
-<li><a href="#listing-existing-routes">Listing Existing Routes</a></li>
-<li><a href="#testing-routes">Testing Routes</a></li>
+<li><a href="#%E5%88%97%E5%87%BA%E7%8F%BE%E6%9C%89%E7%9A%84%E8%B7%AF%E7%94%B1">列出現有的路由</a></li>
+<li><a href="#%E6%B8%AC%E8%A9%A6%E8%B7%AF%E7%94%B1">測試路由</a></li>
 </ul>
 </li>
 </ol></body></html>
@@ -255,153 +255,167 @@
       <div id="mainCol">
         <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
 <html><body>
-<h3 id="the-purpose-of-the-rails-router">1 The Purpose of the Rails Router</h3>
-<p>The Rails router recognizes URLs and dispatches them to a controller's action. It can also generate paths and URLs, avoiding the need to hardcode strings in your views.</p>
-<h4 id="connecting-urls-to-code">1.1 Connecting URLs to Code</h4>
-<p>When your Rails application receives an incoming request for:</p>
+<h3 id="rails-路由器的目的">1 Rails 路由器的目的</h3>
+<p>Rails 路由器（router）識別 URL，分配給對應的 Controller 動作處理。Rails 路由器同時也可用來產生路徑與 URL，避免在 View 裡面把路徑寫死。</p>
+<h4 id="url-工作分派">1.1 URL 工作分派</h4>
+<p>當 Rails 收到如下請求時：</p>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 GET /patients/17
 
 </pre>
 </div>
-<p>it asks the router to match it to a controller action. If the first matching route is:</p>
+<p>會詢問路由器，匹配的 Controller 動作是那個。若第一個匹配的路由為：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 get '/patients/:id', to: 'patients#show'
 
 </pre>
 </div>
-<p>the request is dispatched to the <code>patients</code> controller's <code>show</code> action with <code>{ id: '17' }</code> in <code>params</code>.</p>
-<h4 id="generating-paths-and-urls-from-code">1.2 Generating Paths and URLs from Code</h4>
-<p>You can also generate paths and URLs. If the route above is modified to be:</p>
+<p>則請求會分派給 <code>PatientsController</code> 的 <code>show</code> 動作處理，且 <code>params</code> 裡有 <code>{ id: '17' }</code> 參數。</p>
+<h4 id="產生路徑與-url">1.2 產生路徑與 URL</h4>
+<p>Rails 路由器也可以產生路徑與 URL。若上例的路由改寫為：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 get '/patients/:id', to: 'patients#show', as: 'patient'
 
 </pre>
 </div>
-<p>and your application contains this code in the controller:</p>
+<p>且應用程式 Controller 裡有以下程式碼：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 @patient = Patient.find(17)
 
 </pre>
 </div>
-<p>and this in the corresponding view:</p>
+<p>並有對應的 View：</p>
 <div class="code_container">
 <pre class="brush: ruby; html-script: true; gutter: false; toolbar: false">
 &lt;%= link_to 'Patient Record', patient_path(@patient) %&gt;
 
 </pre>
 </div>
-<p>then the router will generate the path <code>/patients/17</code>. This reduces the brittleness of your view and makes your code easier to understand. Note that the id does not need to be specified in the route helper.</p>
-<h3 id="resource-routing:-the-rails-default">2 Resource Routing: the Rails Default</h3>
-<p>Resource routing allows you to quickly declare all of the common routes for a given resourceful controller. Instead of declaring separate routes for your <code>index</code>, <code>show</code>, <code>new</code>, <code>edit</code>, <code>create</code>, <code>update</code> and <code>destroy</code> actions, a resourceful route declares them in a single line of code.</p>
-<h4 id="resources-on-the-web">2.1 Resources on the Web</h4>
-<p>Browsers request pages from Rails by making a request for a URL using a specific HTTP method, such as <code>GET</code>, <code>POST</code>, <code>PATCH</code>, <code>PUT</code> and <code>DELETE</code>. Each method is a request to perform an operation on the resource. A resource route maps a number of related requests to actions in a single controller.</p>
-<p>When your Rails application receives an incoming request for:</p>
+<p>則路由器便會給 <code>patient_path(@patient)</code> 產生路徑 <code>/patients/17</code>。這使得程式碼更容易了解。注意，使用路由輔助方法（<code>patient_path</code>）時，無需指定 ID。</p>
+<h3 id="資源式路由：rails-的預設路由">2 資源式路由：Rails 的預設路由</h3>
+<p>資源式路由允許替給定的資源式 Controller，快速宣告出所有常見的路由。與其替每個動作（ <code>index</code>、<code>show</code>、<code>new</code>、<code>edit</code>、<code>create</code>、<code>update</code> 以及 <code>destroy</code>）個別宣告路由，資源式路由宣告只需要一行即可。</p>
+<h4 id="web-世界裡的資源">2.1 Web 世界裡的資源</h4>
+<p>瀏覽器向 Rails 請求頁面時，透過使用具體的 HTTP 動詞，如 <code>GET</code>、<code>POST</code>、<code>PATCH</code>、<code>PUT</code> 以及 <code>DELETE</code>，往 URL 發出請求。每個動詞都是對資源的一種操作。資源式路由將相關的請求，對應到 Controller 的不同動作。</p>
+<p>當 Rails 應用程式收到下面這個請求時：</p>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 DELETE /photos/17
 
 </pre>
 </div>
-<p>it asks the router to map it to a controller action. If the first matching route is:</p>
+<p>會詢問路由器，該交給那個 Controller 的那個動作處理。若第一個匹配的路由為：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 resources :photos
 
 </pre>
 </div>
-<p>Rails would dispatch that request to the <code>destroy</code> method on the <code>photos</code> controller with <code>{ id: '17' }</code> in <code>params</code>.</p>
-<h4 id="crud,-verbs,-and-actions">2.2 CRUD, Verbs, and Actions</h4>
-<p>In Rails, a resourceful route provides a mapping between HTTP verbs and URLs to controller actions. By convention, each action also maps to particular CRUD operations in a database. A single entry in the routing file, such as:</p>
+<p>Rails 會將請求分派給 <code>photos</code> Controller 的 <code>destroy</code> 方法，且 <code>params</code> 裡有 <code>{ id: '17' }</code> 參數。</p>
+<h4 id="crud、http-動詞以及動作">2.2 CRUD、HTTP 動詞以及動作</h4>
+<p>在 Rails 裡，資源式路由提供 HTTP 動詞、URL、Controller 動作，這三者的對應關係。按照慣例，每個動作會對應到資料庫特定的 CRUD 操作。假設路由檔案裡有一條路由宣告為：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 resources :photos
 
 </pre>
 </div>
-<p>creates seven different routes in your application, all mapping to the <code>Photos</code> controller:</p>
+<p>會在應用程式建立出七筆不同的路由，皆對應到 <code>PhotosController</code>：</p>
 <table>
 <thead><tr>
-<th>HTTP Verb</th>
-<th>Path</th>
-<th>Controller#Action</th>
-<th>Used for</th>
+<th>HTTP 動詞</th>
+<th>路徑</th>
+<th>Controller#動作</th>
+<th>用途</th>
 </tr></thead>
 <tbody>
 <tr>
 <td>GET</td>
 <td>/photos</td>
 <td>photos#index</td>
-<td>display a list of all photos</td>
+<td>顯示所有圖片</td>
 </tr>
 <tr>
 <td>GET</td>
 <td>/photos/new</td>
 <td>photos#new</td>
-<td>return an HTML form for creating a new photo</td>
+<td>回傳建立新圖片的表單</td>
 </tr>
 <tr>
 <td>POST</td>
 <td>/photos</td>
 <td>photos#create</td>
-<td>create a new photo</td>
+<td>建立新圖片</td>
 </tr>
 <tr>
 <td>GET</td>
 <td>/photos/:id</td>
 <td>photos#show</td>
-<td>display a specific photo</td>
+<td>顯示特定圖片</td>
 </tr>
 <tr>
 <td>GET</td>
 <td>/photos/:id/edit</td>
 <td>photos#edit</td>
-<td>return an HTML form for editing a photo</td>
+<td>回傳編輯圖片的表單</td>
 </tr>
 <tr>
 <td>PATCH/PUT</td>
 <td>/photos/:id</td>
 <td>photos#update</td>
-<td>update a specific photo</td>
+<td>更新特定圖片</td>
 </tr>
 <tr>
 <td>DELETE</td>
 <td>/photos/:id</td>
 <td>photos#destroy</td>
-<td>delete a specific photo</td>
+<td>刪除特定圖片</td>
 </tr>
 </tbody>
 </table>
-<div class="note"><p>Because the router uses the HTTP verb and URL to match inbound requests, four URLs map to seven different actions.</p></div>
-<div class="note"><p>Rails routes are matched in the order they are specified, so if you have a <code>resources :photos</code> above a <code>get 'photos/poll'</code> the <code>show</code> action's route for the <code>resources</code> line will be matched before the <code>get</code> line. To fix this, move the <code>get</code> line <strong>above</strong> the <code>resources</code> line so that it is matched first.</p></div>
-<h4 id="path-and-url-helpers">2.3 Path and URL Helpers</h4>
-<p>Creating a resourceful route will also expose a number of helpers to the controllers in your application. In the case of <code>resources :photos</code>:</p>
-<ul>
-<li>
-<code>photos_path</code> returns <code>/photos</code>
-</li>
-<li>
-<code>new_photo_path</code> returns <code>/photos/new</code>
-</li>
-<li>
-<code>edit_photo_path(:id)</code> returns <code>/photos/:id/edit</code> (for instance, <code>edit_photo_path(10)</code> returns <code>/photos/10/edit</code>)</li>
-<li>
-<code>photo_path(:id)</code> returns <code>/photos/:id</code> (for instance, <code>photo_path(10)</code> returns <code>/photos/10</code>)</li>
-</ul>
-<p>Each of these helpers has a corresponding <code>_url</code> helper (such as <code>photos_url</code>) which returns the same path prefixed with the current host, port and path prefix.</p>
-<h4 id="defining-multiple-resources-at-the-same-time">2.4 Defining Multiple Resources at the Same Time</h4>
-<p>If you need to create routes for more than one resource, you can save a bit of typing by defining them all with a single call to <code>resources</code>:</p>
+<div class="note"><p>因為路由器使用 HTTP 動詞與 URL ，來匹配進來的請求，所以可以將四個 URL 對應到七種不同的動作。</p></div>
+<div class="note"><p>Rails 路由依據宣告的順序來匹配。若在 <code>get 'photos/poll'</code> 之前宣告了 <code>resources :photos</code>，則 <code>show</code> 動作會先匹配到 <code>resources :photos</code>。若想將 <code>get 'photos/poll'</code> 的匹配順序提前，提到 <code>resources :photos</code> 之前即可。</p></div>
+<h4 id="路徑與-url-的輔助方法">2.3 路徑與 URL 的輔助方法</h4>
+<p>新建一筆資源式的路由，同時會給 Controller 加入一些輔助方法。以 <code>resources :photos</code> 為例，可用的輔助方法有：</p>
+<table>
+<thead><tr>
+<th>輔助方法</th>
+<th>用途</th>
+</tr></thead>
+<tbody>
+<tr>
+<td><code>photos_path</code></td>
+<td>回傳 <code>/photos</code>
+</td>
+</tr>
+<tr>
+<td><code>new_photo_path</code></td>
+<td>回傳 <code>/photos/new</code>
+</td>
+</tr>
+<tr>
+<td><code>edit_photo_path(:id)</code></td>
+<td>回傳 <code>/photos/:id/edit</code> (例如 <code>edit_photo_path(10)</code> 會回傳 <code>/photos/10/edit</code>)</td>
+</tr>
+<tr>
+<td><code>photo_path(:id)</code></td>
+<td>回傳 <code>/photos/:id</code> (例如 <code>photo_path(10)</code> 回傳 <code>/photos/10</code>)</td>
+</tr>
+</tbody>
+</table>
+<p>這些輔助方法有對應的 <code>*_url</code> 形式（像是 <code>photos_url</code>），<code>*_url</code> 會回傳完整的路徑，包含了主機、埠口以及路徑。</p>
+<h4 id="同時定義多筆資源">2.4 同時定義多筆資源</h4>
+<p>如需要給多個資源建立路由時，可以用一行 <code>resources</code> 宣告完成，節省一些打字的時間：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 resources :photos, :books, :videos
 
 </pre>
 </div>
-<p>This works exactly the same as:</p>
+<p>等同於：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 resources :photos
@@ -410,98 +424,111 @@ resources :videos
 
 </pre>
 </div>
-<h4 id="singular-resources">2.5 Singular Resources</h4>
-<p>Sometimes, you have a resource that clients always look up without referencing an ID. For example, you would like <code>/profile</code> to always show the profile of the currently logged in user. In this case, you can use a singular resource to map <code>/profile</code> (rather than <code>/profile/:id</code>) to the <code>show</code> action:</p>
+<h4 id="單數資源">2.5 單數資源</h4>
+<p>有些資源不需要 ID 便能查詢。舉個例子，希望 <code>/profile</code> 顯示目前登入使用者的個人檔案。這個情況下可以使用單數資源（Singular resource），把 <code>/profile</code>（而不是 <code>/profile/:id</code>）對應到 <code>show</code> 動作：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 get 'profile', to: 'users#show'
 
 </pre>
 </div>
-<p>Passing a <code>String</code> to <code>get</code> will expect a <code>controller#action</code> format, while passing a <code>Symbol</code> will map directly to an action:</p>
+<p><code>:to</code> 選項傳入字串要使用 <code>controller#action</code> 的形式，傳入符號會直接對應到動作名稱。</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 get 'profile', to: :show
 
 </pre>
 </div>
-<p>This resourceful route:</p>
+<p>以下這筆單數資源式路由：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 resource :geocoder
 
 </pre>
 </div>
-<p>creates six different routes in your application, all mapping to the <code>Geocoders</code> controller:</p>
+<p>會建立出六筆不同的路由，皆對應到 <code>GeocodersController</code>：</p>
 <table>
 <thead><tr>
-<th>HTTP Verb</th>
-<th>Path</th>
-<th>Controller#Action</th>
-<th>Used for</th>
+<th>HTTP 動詞</th>
+<th>路徑</th>
+<th>Controller#動作</th>
+<th>用途</th>
 </tr></thead>
 <tbody>
 <tr>
 <td>GET</td>
 <td>/geocoder/new</td>
 <td>geocoders#new</td>
-<td>return an HTML form for creating the geocoder</td>
+<td>回傳建立 <code>geocoder</code> 的表單</td>
 </tr>
 <tr>
 <td>POST</td>
 <td>/geocoder</td>
 <td>geocoders#create</td>
-<td>create the new geocoder</td>
+<td>建立新 <code>geocoder</code>
+</td>
 </tr>
 <tr>
 <td>GET</td>
 <td>/geocoder</td>
 <td>geocoders#show</td>
-<td>display the one and only geocoder resource</td>
+<td>顯示唯一的 <code>geocoder</code> 資源</td>
 </tr>
 <tr>
 <td>GET</td>
 <td>/geocoder/edit</td>
 <td>geocoders#edit</td>
-<td>return an HTML form for editing the geocoder</td>
+<td>回傳編輯 <code>geocoder</code> 的表單</td>
 </tr>
 <tr>
 <td>PATCH/PUT</td>
 <td>/geocoder</td>
 <td>geocoders#update</td>
-<td>update the one and only geocoder resource</td>
+<td>更新唯一的 <code>geocoder</code> 資源</td>
 </tr>
 <tr>
 <td>DELETE</td>
 <td>/geocoder</td>
 <td>geocoders#destroy</td>
-<td>delete the geocoder resource</td>
+<td>刪除 <code>geocoder</code> 資源</td>
 </tr>
 </tbody>
 </table>
-<div class="note"><p>Because you might want to use the same controller for a singular route (<code>/account</code>) and a plural route (<code>/accounts/45</code>), singular resources map to plural controllers. So that, for example, <code>resource :photo</code> and <code>resources :photos</code> creates both singular and plural routes that map to the same controller (<code>PhotosController</code>).</p></div>
-<p>A singular resourceful route generates these helpers:</p>
-<ul>
-<li>
-<code>new_geocoder_path</code> returns <code>/geocoder/new</code>
-</li>
-<li>
-<code>edit_geocoder_path</code> returns <code>/geocoder/edit</code>
-</li>
-<li>
-<code>geocoder_path</code> returns <code>/geocoder</code>
-</li>
-</ul>
-<p>As with plural resources, the same helpers ending in <code>_url</code> will also include the host, port and path prefix.</p>
-<div class="warning"><p>A <a href="https://github.com/rails/rails/issues/1769">long-standing bug</a> prevents <code>form_for</code> from working automatically with singular resources. As a workaround, specify the URL for the form directly, like so:</p></div>
+<div class="note"><p>有時單數（<code>/account</code>）與複數路由（<code>/accounts/45</code>）想交給同樣的 Controller 處理，或是把單數資源對應到複數 Controller 上。舉個例子，<code>resource :photo</code> 與 <code>resources :photos</code> 同時建立出單數與複數的路由，皆對應到 <code>PhotosController</code>。</p></div>
+<p>單數的資源式路由會產生以下輔助方法：</p>
+<table>
+<thead><tr>
+<th>輔助方法</th>
+<th>用途</th>
+</tr></thead>
+<tbody>
+<tr>
+<td><code>new_geocoder_path</code></td>
+<td>回傳 <code>/geocoder/new</code>
+</td>
+</tr>
+<tr>
+<td><code>edit_geocoder_path</code></td>
+<td>回傳 <code>/geocoder/edit</code>
+</td>
+</tr>
+<tr>
+<td><code>geocoder_path</code></td>
+<td>回傳 <code>/geocoder</code>
+</td>
+</tr>
+</tbody>
+</table>
+<p>和複數資源的路由相同，皆有對應的 <code>*_url</code> 形式，會回傳完整的路徑，包含了主機、埠口以及路徑。</p>
+<div class="warning"><p>有一個<a href="https://github.com/rails/rails/issues/1769">存在已久的 Bug</a> 導致 <code>form_for</code> 無法自動處理好單數資源。解決辦法是給表單明確指定 URL：</p></div>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 form_for @geocoder, url: geocoder_path do |f|
 
 </pre>
 </div>
-<h4 id="controller-namespaces-and-routing">2.6 Controller Namespaces and Routing</h4>
-<p>You may wish to organize groups of controllers under a namespace. Most commonly, you might group a number of administrative controllers under an <code>Admin::</code> namespace. You would place these controllers under the <code>app/controllers/admin</code> directory, and you can group them together in your router:</p>
+<h4 id="controller-命名空間與路由">2.6 Controller 命名空間與路由</h4>
+<p>有時可能想把一堆 Controllers 放在同個命名空間下管理。最常見的場景是需要把管理用的 Controller 放在 <code>Admin::</code> 命名空間下。首先將這些 Controllers 搬到 <code>app/controllers/admin</code> 資料夾底下，接著在路由裡宣告：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 namespace :admin do
@@ -510,13 +537,13 @@ end
 
 </pre>
 </div>
-<p>This will create a number of routes for each of the <code>posts</code> and <code>comments</code> controller. For <code>Admin::PostsController</code>, Rails will create:</p>
+<p>會給 <code>Posts</code> 與 <code>Comments</code> Controllers 在 <code>Admin::</code> 命名空間下建出路由。比如 <code>Admin::PostsController</code>，Rails 會產生以下路由：</p>
 <table>
 <thead><tr>
-<th>HTTP Verb</th>
-<th>Path</th>
-<th>Controller#Action</th>
-<th>Named Helper</th>
+<th>HTTP 動詞</th>
+<th>路徑</th>
+<th>Controller#動作</th>
+<th>輔助方法</th>
 </tr></thead>
 <tbody>
 <tr>
@@ -563,7 +590,7 @@ end
 </tr>
 </tbody>
 </table>
-<p>If you want to route <code>/posts</code> (without the prefix <code>/admin</code>) to <code>Admin::PostsController</code>, you could use:</p>
+<p>若想把路徑拿掉 <code>/admin</code> 前綴，則可以這麼宣告：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 scope module: 'admin' do
@@ -572,14 +599,14 @@ end
 
 </pre>
 </div>
-<p>or, for a single case:</p>
+<p>如只有一筆資源，則可簡寫為：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 resources :posts, module: 'admin'
 
 </pre>
 </div>
-<p>If you want to route <code>/admin/posts</code> to <code>PostsController</code> (without the <code>Admin::</code> module prefix), you could use:</p>
+<p>若路由希望是 <code>/admin/posts</code>，但想拿掉 <code>Admin::</code> 的前綴，可以這麼宣告：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 scope '/admin' do
@@ -588,20 +615,20 @@ end
 
 </pre>
 </div>
-<p>or, for a single case:</p>
+<p>如只有一筆資源，則可簡寫為：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 resources :posts, path: '/admin/posts'
 
 </pre>
 </div>
-<p>In each of these cases, the named routes remain the same as if you did not use <code>scope</code>. In the last case, the following paths map to <code>PostsController</code>:</p>
+<p>以上這些例子，若沒有使用 <code>scope</code>，則輔助方法保持不變。看看上面最後一個使用 <code>scope</code> 的例子（與前個表格對比看看那裡不一樣），Rails 會產生以下路由：</p>
 <table>
 <thead><tr>
-<th>HTTP Verb</th>
-<th>Path</th>
-<th>Controller#Action</th>
-<th>Named Helper</th>
+<th>HTTP 動詞</th>
+<th>路徑</th>
+<th>Controller#動作</th>
+<th>輔助方法</th>
 </tr></thead>
 <tbody>
 <tr>
@@ -648,9 +675,9 @@ resources :posts, path: '/admin/posts'
 </tr>
 </tbody>
 </table>
-<div class="info"><p><em>If you need to use a different controller namespace inside a <code>namespace</code> block you can specify an absolute controller path, e.g: <code>get '/foo' =&gt; '/foo#index'</code>.</em></p></div>
-<h4 id="nested-resources">2.7 Nested Resources</h4>
-<p>It's common to have resources that are logically children of other resources. For example, suppose your application includes these models:</p>
+<div class="info"><p>若需要在 <code>namespace</code> 區塊裡，使用不同的命名空間。可以指定 Controller 的絕對路徑：<code>get '/foo' =&gt; '/foo#index'</code>。</p></div>
+<h4 id="嵌套資源">2.7 嵌套資源</h4>
+<p>資源是其它資源的子資源是很常見的情況。舉例來說，假設應用程式有雜誌與廣告兩個 Model：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Magazine &lt; ActiveRecord::Base
@@ -663,7 +690,7 @@ end
 
 </pre>
 </div>
-<p>Nested routes allow you to capture this relationship in your routing. In this case, you could include this route declaration:</p>
+<p>這種關係可以用嵌套路由來描述。在這個情況裡，可以這麼宣告路由：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 resources :magazines do
@@ -672,62 +699,62 @@ end
 
 </pre>
 </div>
-<p>In addition to the routes for magazines, this declaration will also route ads to an <code>AdsController</code>. The ad URLs require a magazine:</p>
+<p>上面會建立 <code>MagazinesController</code> 的路由，也會給 <code>AdsController</code> 建立路由。<code>Ad</code> 的路徑裡會需要引用 <code>Magazine</code> 資源：</p>
 <table>
 <thead><tr>
-<th>HTTP Verb</th>
-<th>Path</th>
-<th>Controller#Action</th>
-<th>Used for</th>
+<th>HTTP 動詞</th>
+<th>路徑</th>
+<th>Controller#動作</th>
+<th>用途</th>
 </tr></thead>
 <tbody>
 <tr>
 <td>GET</td>
 <td>/magazines/:magazine_id/ads</td>
 <td>ads#index</td>
-<td>display a list of all ads for a specific magazine</td>
+<td>顯示特定雜誌的所有廣告</td>
 </tr>
 <tr>
 <td>GET</td>
 <td>/magazines/:magazine_id/ads/new</td>
 <td>ads#new</td>
-<td>return an HTML form for creating a new ad belonging to a specific magazine</td>
+<td>回傳給特定雜誌新建廣告的表單</td>
 </tr>
 <tr>
 <td>POST</td>
 <td>/magazines/:magazine_id/ads</td>
 <td>ads#create</td>
-<td>create a new ad belonging to a specific magazine</td>
+<td>建立屬於特定雜誌的廣告</td>
 </tr>
 <tr>
 <td>GET</td>
 <td>/magazines/:magazine_id/ads/:id</td>
 <td>ads#show</td>
-<td>display a specific ad belonging to a specific magazine</td>
+<td>顯示屬於特定雜誌的廣告</td>
 </tr>
 <tr>
 <td>GET</td>
 <td>/magazines/:magazine_id/ads/:id/edit</td>
 <td>ads#edit</td>
-<td>return an HTML form for editing an ad belonging to a specific magazine</td>
+<td>回傳編輯屬於特定雜誌廣告的表單</td>
 </tr>
 <tr>
 <td>PATCH/PUT</td>
 <td>/magazines/:magazine_id/ads/:id</td>
 <td>ads#update</td>
-<td>update a specific ad belonging to a specific magazine</td>
+<td>更新屬於特定雜誌的廣告</td>
 </tr>
 <tr>
 <td>DELETE</td>
 <td>/magazines/:magazine_id/ads/:id</td>
 <td>ads#destroy</td>
-<td>delete a specific ad belonging to a specific magazine</td>
+<td>刪除屬於特定雜誌的廣告</td>
 </tr>
 </tbody>
 </table>
-<p>This will also create routing helpers such as <code>magazine_ads_url</code> and <code>edit_magazine_ad_path</code>. These helpers take an instance of Magazine as the first parameter (<code>magazine_ads_url(@magazine)</code>).</p>
-<h5 id="limits-to-nesting">2.7.1 Limits to Nesting</h5>
-<p>You can nest resources within other nested resources if you like. For example:</p>
+<p>同時這也會建立像是 <code>magazine_ads_url</code> 以及 <code>edit_magazine_ad_path</code> 的路由輔助方法。這些方法可接受 <code>Magazine</code> 的實體作為第一個參數：<code>magazine_ads_url(@magazine)</code>。</p>
+<h5 id="嵌套的限制">2.7.1 嵌套的限制</h5>
+<p>嵌套資源也可以放在其它的嵌套資源裡，譬如：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 resources :publishers do
@@ -738,17 +765,17 @@ end
 
 </pre>
 </div>
-<p>Deeply-nested resources quickly become cumbersome. In this case, for example, the application would recognize paths such as:</p>
+<p>多層嵌套很快的變得很難處理。在這個情況裡，應用程式需要識別像是下面的路由：</p>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 /publishers/1/magazines/2/photos/3
 
 </pre>
 </div>
-<p>The corresponding route helper would be <code>publisher_magazine_photo_url</code>, requiring you to specify objects at all three levels. Indeed, this situation is confusing enough that a popular <a href="http://weblog.jamisbuck.org/2007/2/5/nesting-resources">article</a> by Jamis Buck proposes a rule of thumb for good Rails design:</p>
-<div class="info"><p><em>Resources should never be nested more than 1 level deep.</em></p></div>
-<h5 id="shallow-nesting">2.7.2 Shallow Nesting</h5>
-<p>One way to avoid deep nesting (as recommended above) is to generate the collection actions scoped under the parent, so as to get a sense of the hierarchy, but to not nest the member actions. In other words, to only build routes with the minimal amount of information to uniquely identify the resource, like this:</p>
+<p>對應的路由輔助方法則變成： <code>publisher_magazine_photo_url</code>，需要指定三層的物件。這個情況已經足夠令人困惑，使得 Jamis Buck 寫出一篇流行的<a href="http://weblog.jamisbuck.org/2007/2/5/nesting-resources">文章</a>，文章總結了好的 Rails 的設計經驗準則：</p>
+<div class="info"><p>嵌套資源永遠不要超過 1 層。</p></div>
+<h5 id="淺層嵌套">2.7.2 淺層嵌套</h5>
+<p>避免多層嵌套的方法之一，是將 Controller 的集合動作放在父資源的作用域底下，這樣可以有階層的概念，但不需要嵌套的成員動作。也就是說，只用最少的資源資訊來表示路由，像是：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 resources :posts do
@@ -758,7 +785,7 @@ resources :comments, only: [:show, :edit, :update, :destroy]
 
 </pre>
 </div>
-<p>This idea strikes a balance between descriptive routes and deep nesting. There exists shorthand syntax to achieve just that, via the <code>:shallow</code> option:</p>
+<p>這種做法在有意義的描述路由與深層嵌套之間取得平衡。上例還可以使用 <code>:shallow</code> 選項來簡寫：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 resources :posts do
@@ -767,7 +794,7 @@ end
 
 </pre>
 </div>
-<p>This will generate the exact same routes as the first example. You can also specify the <code>:shallow</code> option in the parent resource, in which case all of the nested resources will be shallow:</p>
+<p>這種寫法產生的路由與上例相同。也可以對父資源指定 <code>:shallow</code> 選項，則父資源底下的資源都會是淺層嵌套：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 resources :posts, shallow: true do
@@ -778,7 +805,7 @@ end
 
 </pre>
 </div>
-<p>The <code>shallow</code> method of the DSL creates a scope inside of which every nesting is shallow. This generates the same routes as the previous example:</p>
+<p>另有一個 <code>shallow</code> 方法，建立一個作用域區塊，其中的路由皆是淺層嵌套。以下範例會產生與前例相同的路由：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 shallow do
@@ -791,7 +818,7 @@ end
 
 </pre>
 </div>
-<p>There exist two options for <code>scope</code> to customize shallow routes. <code>:shallow_path</code> prefixes member paths with the specified parameter:</p>
+<p><code>scope</code> 方法有兩個選項，可以用來客製化淺層路由。<code>:shallow_path</code> 可以在 member path 前加上指定的前綴：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 scope shallow_path: "sekret" do
@@ -802,7 +829,7 @@ end
 
 </pre>
 </div>
-<p>The comments resource here will have the following routes generated for it:</p>
+<p>comments 資源會有下列路由：</p>
 <table>
 <thead><tr>
 <th>HTTP Verb</th>
@@ -855,7 +882,7 @@ end
 </tr>
 </tbody>
 </table>
-<p>The <code>:shallow_prefix</code> option adds the specified parameter to the named helpers:</p>
+<p><code>:shallow_prefix</code> 選項則是給 named helpers 加上前綴:</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 scope shallow_prefix: "sekret" do
@@ -866,7 +893,7 @@ end
 
 </pre>
 </div>
-<p>The comments resource here will have the following routes generated for it:</p>
+<p>comments 資源會有下列路由：</p>
 <table>
 <thead><tr>
 <th>HTTP Verb</th>
@@ -919,8 +946,8 @@ end
 </tr>
 </tbody>
 </table>
-<h4 id="routing-concerns">2.8 Routing concerns</h4>
-<p>Routing Concerns allows you to declare common routes that can be reused inside other resources and routes. To define a concern:</p>
+<h4 id="routing-concerns">2.8 Routing Concerns</h4>
+<p>Routing Concerns 允許將常見的路由宣告為可重用的，可在其他資源與路由裡使用。定義一個 Routing Concerns：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 concern :commentable do
@@ -933,7 +960,7 @@ end
 
 </pre>
 </div>
-<p>These concerns can be used in resources to avoid code duplication and share behavior across routes:</p>
+<p>這些 Concerns 可以在資源裡使用，來避免寫重複的程式碼，以及讓路由之間可以共享行為：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 resources :messages, concerns: :commentable
@@ -942,7 +969,7 @@ resources :posts, concerns: [:commentable, :image_attachable]
 
 </pre>
 </div>
-<p>The above is equivalent to:</p>
+<p>上例等價於：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 resources :messages do
@@ -956,7 +983,7 @@ end
 
 </pre>
 </div>
-<p>Also you can use them in any place that you want inside the routes, for example in a scope or namespace call:</p>
+<p>Concerns 可以在任何地方使用，譬如在作用域，或是命名空間呼叫裡使用：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 namespace :posts do
@@ -965,8 +992,8 @@ end
 
 </pre>
 </div>
-<h4 id="creating-paths-and-urls-from-objects">2.9 Creating Paths and URLs From Objects</h4>
-<p>In addition to using the routing helpers, Rails can also create paths and URLs from an array of parameters. For example, suppose you have this set of routes:</p>
+<h4 id="從物件建立路徑與-url">2.9 從物件建立路徑與 URL</h4>
+<p>除了使用路由輔助方法之外，Rails 也可以從一組參數，建出路徑與 URL。舉例來說，假設有以下路由：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 resources :magazines do
@@ -975,46 +1002,43 @@ end
 
 </pre>
 </div>
-<p>When using <code>magazine_ad_path</code>, you can pass in instances of <code>Magazine</code> and <code>Ad</code> instead of the numeric IDs:</p>
+<p>在使用 <code>magazine_ad_path</code> 時，可以傳入 <code>Magazine</code> 與 <code>Ad</code> 的實體，而不需要傳入 ID：</p>
 <div class="code_container">
 <pre class="brush: ruby; html-script: true; gutter: false; toolbar: false">
 &lt;%= link_to 'Ad details', magazine_ad_path(@magazine, @ad) %&gt;
 
 </pre>
 </div>
-<p>You can also use <code>url_for</code> with a set of objects, and Rails will automatically determine which route you want:</p>
+<p>也可以使用 <code>url_for</code>，搭配一組物件，則 Rails 會自動決定要用那個路由：</p>
 <div class="code_container">
 <pre class="brush: ruby; html-script: true; gutter: false; toolbar: false">
 &lt;%= link_to 'Ad details', url_for([@magazine, @ad]) %&gt;
 
 </pre>
 </div>
-<p>In this case, Rails will see that <code>@magazine</code> is a <code>Magazine</code> and <code>@ad</code> is an <code>Ad</code> and will therefore use the <code>magazine_ad_path</code> helper. In helpers like <code>link_to</code>, you can specify just the object in place of the full <code>url_for</code> call:</p>
+<p>這個情況裡，Rails 看到 <code>@magazine</code> 與 <code>@ad</code>，會使用 <code>magazine_ad_path</code> 輔助方法。在像是 <code>link_to</code> 的輔助方法，可以直接指定物件，省略 <code>url_for</code>：</p>
 <div class="code_container">
 <pre class="brush: ruby; html-script: true; gutter: false; toolbar: false">
 &lt;%= link_to 'Ad details', [@magazine, @ad] %&gt;
 
 </pre>
 </div>
-<p>If you wanted to link to just a magazine:</p>
+<p>若想要只連到雜誌：</p>
 <div class="code_container">
 <pre class="brush: ruby; html-script: true; gutter: false; toolbar: false">
 &lt;%= link_to 'Magazine details', @magazine %&gt;
 
 </pre>
 </div>
-<p>For other actions, you just need to insert the action name as the first element of the array:</p>
-<div class="code_container">
-<pre class="brush: ruby; html-script: true; gutter: false; toolbar: false">
+<p>要連到不同的動作，在參數陣列的第一個元素，指定動作名稱即可：
+<code>erb
 &lt;%= link_to 'Edit Ad', [:edit, @magazine, @ad] %&gt;
-
-</pre>
-</div>
-<p>This allows you to treat instances of your models as URLs, and is a key advantage to using the resourceful style.</p>
-<h4 id="adding-more-restful-actions">2.10 Adding More RESTful Actions</h4>
-<p>You are not limited to the seven routes that RESTful routing creates by default. If you like, you may add additional routes that apply to the collection or individual members of the collection.</p>
-<h5 id="adding-member-routes">2.10.1 Adding Member Routes</h5>
-<p>To add a member route, just add a <code>member</code> block into the resource block:</p>
+</code></p>
+<p>這種用法可以將 Model 的實體當做 URL 看待，是使用資源式路由的主要優勢之一。</p>
+<h4 id="新增更多資源式路由">2.10 新增更多資源式路由</h4>
+<p>不受限於七個預設產生的資源式路由。還可以新增更多集合路由、成員路由。</p>
+<h5 id="新增成員路由">2.10.1 新增成員路由</h5>
+<p>要新增成員路由，只需要在 <code>resources</code> 區塊裡加入 <code>member</code> 區塊：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 resources :photos do
@@ -1025,11 +1049,8 @@ end
 
 </pre>
 </div>
-<p>This will recognize <code>/photos/1/preview</code> with GET, and route to the <code>preview</code> action of <code>PhotosController</code>, with the resource id value passed in <code>params[:id]</code>. It will also create the <code>preview_photo_url</code> and <code>preview_photo_path</code> helpers.</p>
-<p>Within the block of member routes, each route name specifies the HTTP verb
-will be recognized. You can use <code>get</code>, <code>patch</code>, <code>put</code>, <code>post</code>, or <code>delete</code> here
-. If you don't have multiple <code>member</code> routes, you can also pass <code>:on</code> to a
-route, eliminating the block:</p>
+<p>這會識別出 <code>/photos/1/preview</code> 的 GET 請求，交給 <code>PhotosController</code> 的 <code>preview</code> 動作處理，相片的 ID 會存在 <code>params[:id]</code>。也會新增 <code>preview_photo_path</code> 與 <code>preview_photo_url</code> 輔助方法。</p>
+<p>在成員路由的區塊裡，可以指定使用特定的 HTTP 動詞。可用的有：<code>get</code>、<code>patch</code>、<code>put</code>、<code>post</code> 或 <code>delete</code>。若成員路由只有一筆，可以使用 <code>:on</code>，便不需要以區塊形式宣告：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 resources :photos do
@@ -1038,9 +1059,9 @@ end
 
 </pre>
 </div>
-<p>You can leave out the <code>:on</code> option, this will create the same member route except that the resource id value will be available in <code>params[:photo_id]</code> instead of <code>params[:id]</code>.</p>
-<h5 id="adding-collection-routes">2.10.2 Adding Collection Routes</h5>
-<p>To add a route to the collection:</p>
+<p>也可以不使用 <code>:on</code> 選項，會得到相同的成員路由，只是 ID 會存在 <code>params[:photo_id]</code>，而不是 <code>params[:id]</code>。</p>
+<h5 id="新增集合路由">2.10.2 新增集合路由</h5>
+<p>新增一筆集合路由：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 resources :photos do
@@ -1051,8 +1072,8 @@ end
 
 </pre>
 </div>
-<p>This will enable Rails to recognize paths such as <code>/photos/search</code> with GET, and route to the <code>search</code> action of <code>PhotosController</code>. It will also create the <code>search_photos_url</code> and <code>search_photos_path</code> route helpers.</p>
-<p>Just as with member routes, you can pass <code>:on</code> to a route:</p>
+<p>這會使 Rails 識別出發送到 <code>/photos/search</code> 的 GET 請求，交給 <code>PhotosController</code> 的 <code>search</code> 動作處理。也會新增 <code>search_photos_path</code> 與 <code>search_photos_url</code> 輔助方法。</p>
+<p>和成員路由相同，可以傳入 <code>:on</code> 選項：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 resources :photos do
@@ -1061,8 +1082,8 @@ end
 
 </pre>
 </div>
-<h5 id="adding-routes-for-additional-new-actions">2.10.3 Adding Routes for Additional New Actions</h5>
-<p>To add an alternate new action using the <code>:on</code> shortcut:</p>
+<h5 id="給額外的新動作新增路由">2.10.3 給額外的新動作新增路由</h5>
+<p>要新增額外的 <code>new</code> 動作，可以使用 <code>:on</code> 選項：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 resources :comments do
@@ -1071,130 +1092,130 @@ end
 
 </pre>
 </div>
-<p>This will enable Rails to recognize paths such as <code>/comments/new/preview</code> with GET, and route to the <code>preview</code> action of <code>CommentsController</code>. It will also create the <code>preview_new_comment_url</code> and <code>preview_new_comment_path</code> route helpers.</p>
-<div class="info"><p>If you find yourself adding many extra actions to a resourceful route, it's time to stop and ask yourself whether you're disguising the presence of another resource.</p></div>
-<h3 id="non-resourceful-routes">3 Non-Resourceful Routes</h3>
-<p>In addition to resource routing, Rails has powerful support for routing arbitrary URLs to actions. Here, you don't get groups of routes automatically generated by resourceful routing. Instead, you set up each route within your application separately.</p>
-<p>While you should usually use resourceful routing, there are still many places where the simpler routing is more appropriate. There's no need to try to shoehorn every last piece of your application into a resourceful framework if that's not a good fit.</p>
-<p>In particular, simple routing makes it very easy to map legacy URLs to new Rails actions.</p>
-<h4 id="bound-parameters">3.1 Bound Parameters</h4>
-<p>When you set up a regular route, you supply a series of symbols that Rails maps to parts of an incoming HTTP request. Two of these symbols are special: <code>:controller</code> maps to the name of a controller in your application, and <code>:action</code> maps to the name of an action within that controller. For example, consider this route:</p>
+<p>這會使 Rails 識別出發送到 <code>/comments/new/preview</code> 的 GET 請求，交給 <code>CommentsController</code> 的 <code>preview</code> 動作處理。也會新增 <code>preview_new_comment_path</code> 與 <code>preview_new_comment_url</code> 輔助方法。</p>
+<div class="info"><p>若發現給資源新增了許多額外的動作，停下來想想是不是要拆成另一個資源。</p></div>
+<h3 id="非資源式路由">3 非資源式路由</h3>
+<p>除了資源式路由之外，將隨意的 URL 對應到動作，Rails 提供了強大的支持。這一節不像資源式路由，會獲得一組自動產生的路由。反而是自己在應用程式裡設定每一條路由。</p>
+<p>雖然通常應該要使用資源式路由，但仍有許多簡單的路由更合適的場景。也不用整個應用程式都得用資源式風格的路由才行，選擇最合適的解決方案。</p>
+<p>簡單的路由使得把傳統的 URL 對應到 Rails 動作變得特別簡單。</p>
+<h4 id="綁定參數">3.1 綁定參數</h4>
+<p>設定一般的路由時，提供一系列的符號給 Rails，Rails 會根據這些符號來對進來的 HTTP 請求做匹配。有兩個特殊符號：<code>:controller</code> 會對應到應用程式裡的 Controller 名稱，而 <code>:action</code> 則是對應到該 Controller 的動作。舉例來說，看下面這條路由：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 get ':controller(/:action(/:id))'
 
 </pre>
 </div>
-<p>If an incoming request of <code>/photos/show/1</code> is processed by this route (because it hasn't matched any previous route in the file), then the result will be to invoke the <code>show</code> action of the <code>PhotosController</code>, and to make the final parameter <code>"1"</code> available as <code>params[:id]</code>. This route will also route the incoming request of <code>/photos</code> to <code>PhotosController#index</code>, since <code>:action</code> and <code>:id</code> are optional parameters, denoted by parentheses.</p>
-<h4 id="dynamic-segments">3.2 Dynamic Segments</h4>
-<p>You can set up as many dynamic segments within a regular route as you like. Anything other than <code>:controller</code> or <code>:action</code> will be available to the action as part of <code>params</code>. If you set up this route:</p>
+<p>若發送到 <code>/photos/show/1</code> 的請求由這條路由處理（路由檔案裡沒有其它匹配的路由），則會呼叫 <code>PhotosController</code> 的 <code>show</code> 動作，並將 <code>params{:id]</code> 設為 <code>"1"</code>。這條路由也會處理發送到 <code>/photos</code> 的請求，將請求交給 <code>PhotosController#index</code> 處理。因為 <code>:action</code>、<code>:id</code> 放在括號裡代表是可選參數。</p>
+<h4 id="動態片段">3.2 動態片段</h4>
+<p>一般的路由裡可以設定多個動態片段。路由裡任何不是 <code>:controller</code>、<code>:action</code> 的選項，都會變成 <code>params</code> 的一部分。若有以下路由：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 get ':controller/:action/:id/:user_id'
 
 </pre>
 </div>
-<p>An incoming path of <code>/photos/show/1/2</code> will be dispatched to the <code>show</code> action of the <code>PhotosController</code>. <code>params[:id]</code> will be <code>"1"</code>, and <code>params[:user_id]</code> will be <code>"2"</code>.</p>
-<div class="note"><p>You can't use <code>:namespace</code> or <code>:module</code> with a <code>:controller</code> path segment. If you need to do this then use a constraint on :controller that matches the namespace you require. e.g:</p></div>
+<p>任何至 <code>/photos/show/1/2</code> 的請求會被分配給 <code>PhotosController</code> 的 <code>show</code> 動作處理，<code>params[:id]</code> 則會設為 <code>"1"</code>，而 <code>params[:user_id]</code> 則是 <code>"2"</code>。</p>
+<div class="note"><p>路徑片段有 <code>:controller</code> 時，無法與 <code>:namespace</code>、<code>:module</code> 一起使用。若需要這麼做的話，對 <code>:controller</code> 使用約束條件，明確指定要匹配的命名空間，譬如：</p></div>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 get ':controller(/:action(/:id))', controller: /admin\/[^\/]+/
 
 </pre>
 </div>
-<div class="info"><p>By default, dynamic segments don't accept dots - this is because the dot is used as a separator for formatted routes. If you need to use a dot within a dynamic segment, add a constraint that overrides this – for example, <code>id: /[^\/]+/</code> allows anything except a slash.</p></div>
-<h4 id="static-segments">3.3 Static Segments</h4>
-<p>You can specify static segments when creating a route by not prepending a colon to a fragment:</p>
+<div class="info"><p>動態片段預設不接受 <code>.</code> ── 這是因為 <code>.</code> 是格式化路由的分隔符。如需要在動態片段裡使用 <code>.</code>，用約束條件來處理 ── 例如，<code>id: /[^\/]+/</code> 允許斜線以外的所有字元。</p></div>
+<h4 id="靜態片段">3.3 靜態片段</h4>
+<p>建立路由時，可以指定靜態片段，片段前不加冒號即可：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 get ':controller/:action/:id/with_user/:user_id'
 
 </pre>
 </div>
-<p>This route would respond to paths such as <code>/photos/show/1/with_user/2</code>. In this case, <code>params</code> would be <code>{ controller: 'photos', action: 'show', id: '1', user_id: '2' }</code>.</p>
-<h4 id="the-query-string">3.4 The Query String</h4>
-<p>The <code>params</code> will also include any parameters from the query string. For example, with this route:</p>
+<p>這條路由會回應發送到 <code>/photos/show/1/with_user/2</code> 的請求，<code>params</code> 的內容則為 <code>{ controller: 'photos', action: 'show', id: '1', user_id: '2' }</code>。</p>
+<h4 id="查詢字串">3.4 查詢字串</h4>
+<p><code>params</code> 也會存放查詢字串的參數。舉個例子，看看以下這條路由：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 get ':controller/:action/:id'
 
 </pre>
 </div>
-<p>An incoming path of <code>/photos/show/1?user_id=2</code> will be dispatched to the <code>show</code> action of the <code>Photos</code> controller. <code>params</code> will be <code>{ controller: 'photos', action: 'show', id: '1', user_id: '2' }</code>.</p>
-<h4 id="defining-defaults">3.5 Defining Defaults</h4>
-<p>You do not need to explicitly use the <code>:controller</code> and <code>:action</code> symbols within a route. You can supply them as defaults:</p>
+<p>從 <code>/photos/show/1?user_id=2</code> 進來的請求會分配給 <code>PhotosController</code> 的 <code>show</code> 動作處理，<code>params</code> 的內容為 <code>{ controller: 'photos', action: 'show', id: '1', user_id: '2' }</code>。</p>
+<h4 id="定義預設值">3.5 定義預設值</h4>
+<p>路由裡不需要明確使用 <code>:controller</code> 與 <code>:action</code>。可以指定預設值：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 get 'photos/:id', to: 'photos#show'
 
 </pre>
 </div>
-<p>With this route, Rails will match an incoming path of <code>/photos/12</code> to the <code>show</code> action of <code>PhotosController</code>.</p>
-<p>You can also define other defaults in a route by supplying a hash for the <code>:defaults</code> option. This even applies to parameters that you do not specify as dynamic segments. For example:</p>
+<p>有了這條路由之後，Rails 會分配 <code>/photos/12</code> 給 <code>PhotosController</code> 的 <code>show</code> 動作。</p>
+<p>也可以傳 Hash 給 <code>:defaults</code> 選項，來給路由新增預設值。這對於沒有寫動態片段的路由也適用。舉例來說：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 get 'photos/:id', to: 'photos#show', defaults: { format: 'jpg' }
 
 </pre>
 </div>
-<p>Rails would match <code>photos/12</code> to the <code>show</code> action of <code>PhotosController</code>, and set <code>params[:format]</code> to <code>"jpg"</code>.</p>
-<h4 id="naming-routes">3.6 Naming Routes</h4>
-<p>You can specify a name for any route using the <code>:as</code> option:</p>
+<p>Rails 會匹配 <code>photos/12</code> to the <code>show</code> action of <code>PhotosController</code>, and set <code>params[:format]</code> to <code>"jpg"</code>.</p>
+<h4 id="命名路由">3.6 命名路由</h4>
+<p>可以使用 <code>:as</code> 選項給任何路由取名字：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 get 'exit', to: 'sessions#destroy', as: :logout
 
 </pre>
 </div>
-<p>This will create <code>logout_path</code> and <code>logout_url</code> as named helpers in your application. Calling <code>logout_path</code> will return <code>/exit</code></p>
-<p>You can also use this to override routing methods defined by resources, like this:</p>
+<p>會建立出 <code>logout_path</code> 與 <code>logout_url</code> 這兩個具名輔助方法。呼叫 <code>logout_path</code> 會回傳 <code>/exit</code>。</p>
+<p>也可以使用 <code>:as</code> 來覆寫 <code>resources</code> 預設定義的方法：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 get ':username', to: 'users#show', as: :user
 
 </pre>
 </div>
-<p>This will define a <code>user_path</code> method that will be available in controllers, helpers and views that will go to a route such as <code>/bob</code>. Inside the <code>show</code> action of <code>UsersController</code>, <code>params[:username]</code> will contain the username for the user. Change <code>:username</code> in the route definition if you do not want your parameter name to be <code>:username</code>.</p>
-<h4 id="http-verb-constraints">3.7 HTTP Verb Constraints</h4>
-<p>In general, you should use the <code>get</code>, <code>post</code>, <code>put</code>, <code>patch</code>  and <code>delete</code> methods to constrain a route to a particular verb. You can use the <code>match</code> method with the <code>:via</code> option to match multiple verbs at once:</p>
+<p>會定義 <code>user_path</code> 方法，在 Controller、輔助方法、以及 View 裡都可用，會回傳像是 <code>/bob</code> 的路徑。在 <code>UsersController</code> 的 <code>show</code> 動作裡，<code>params[:username]</code> 會有使用者的 <code>username</code>，如不喜歡參數名稱取名為 <code>:username</code> 可以修改這個值。</p>
+<h4 id="http-動詞約束條件">3.7 HTTP 動詞約束條件</h4>
+<p>通常應該使用 <code>get</code>、<code>post</code>、<code>put</code>、<code>patch</code> 以及 <code>delete</code> 方法來限制路由只處理特定的動詞。<code>match</code> 方法與 <code>:via</code> 選項可以一直匹配多個動詞：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 match 'photos', to: 'photos#show', via: [:get, :post]
 
 </pre>
 </div>
-<p>You can match all verbs to a particular route using <code>via: :all</code>:</p>
+<p>路由要匹配所有的動詞也可以，<code>via: :all</code>：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 match 'photos', to: 'photos#show', via: :all
 
 </pre>
 </div>
-<div class="note"><p>Routing both <code>GET</code> and <code>POST</code> requests to a single action has security implications. In general, you should avoid routing all verbs to an action unless you have a good reason to.</p></div>
-<h4 id="segment-constraints">3.8 Segment Constraints</h4>
-<p>You can use the <code>:constraints</code> option to enforce a format for a dynamic segment:</p>
+<div class="note"><p>將 <code>GET</code> 與 <code>POST</code> 請求路由到單一的動作有安全隱憂。除非有很好的理由，通常應該要避免將所有 HTTP 動詞對應到一個動作上。</p></div>
+<h4 id="片段約束">3.8 片段約束</h4>
+<p>使用 <code>:constraints</code> 選項限制動態片段的格式：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 get 'photos/:id', to: 'photos#show', constraints: { id: /[A-Z]\d{5}/ }
 
 </pre>
 </div>
-<p>This route would match paths such as <code>/photos/A12345</code>, but not <code>/photos/893</code>. You can more succinctly express the same route this way:</p>
+<p>這條路由會匹配像是 <code>/photos/A12345</code>，但不會匹配 <code>/photos/893</code>。可以進一步簡化為：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 get 'photos/:id', to: 'photos#show', id: /[A-Z]\d{5}/
 
 </pre>
 </div>
-<p><code>:constraints</code> takes regular expressions with the restriction that regexp anchors can't be used. For example, the following route will not work:</p>
+<p><code>:constraints</code> 雖然接受正規表示法，但不能使用錨點（anchors）。比如以下路由不會正常工作：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 get '/:id', to: 'posts#show', constraints: {id: /^\d/}
 
 </pre>
 </div>
-<p>However, note that you don't need to use anchors because all routes are anchored at the start.</p>
-<p>For example, the following routes would allow for <code>posts</code> with <code>to_param</code> values like <code>1-hello-world</code> that always begin with a number and <code>users</code> with <code>to_param</code> values like <code>david</code> that never begin with a number to share the root namespace:</p>
+<p>但其實不需要使用錨點，因為所有的路由皆從頭開始匹配。</p>
+<p>舉個例子，下面的路由，若 <code>posts</code> 呼叫 <code>to_param</code> 的值像是 <code>1-hello-world</code>，以數字開頭，就會把請求交給 <code>PostsController</code> 的 <code>show</code> 動作處理；而 <code>to_param</code> 的值不以數字開頭，像是 <code>david</code>，則會交給 <code>UsersController</code> 的 <code>show</code> 動作處理。</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 get '/:id', to: 'posts#show', constraints: { id: /\d.+/ }
@@ -1202,16 +1223,16 @@ get '/:username', to: 'users#show'
 
 </pre>
 </div>
-<h4 id="request-based-constraints">3.9 Request-Based Constraints</h4>
-<p>You can also constrain a route based on any method on the <a href="action_controller_overview.html#the-request-object">Request</a> object that returns a <code>String</code>.</p>
-<p>You specify a request-based constraint the same way that you specify a segment constraint:</p>
+<h4 id="基於請求的約束條件">3.9 基於請求的約束條件</h4>
+<p>也可以使用 <a href="action_controller_overview.html#request-%E7%89%A9%E4%BB%B6"><code>request</code> 物件</a>裡，任何會回傳字串的方法，來宣告路由的約束條件。</p>
+<p>基於 <code>request</code> 物件的約束條件的宣告方式與片段約束條件相同：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 get 'photos', constraints: {subdomain: 'admin'}
 
 </pre>
 </div>
-<p>You can also specify constraints in a block form:</p>
+<p>約束條件也可以使用區塊形式：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 namespace :admin do
@@ -1222,8 +1243,8 @@ end
 
 </pre>
 </div>
-<h4 id="advanced-constraints">3.10 Advanced Constraints</h4>
-<p>If you have a more advanced constraint, you can provide an object that responds to <code>matches?</code> that Rails should use. Let's say you wanted to route all users on a blacklist to the <code>BlacklistController</code>. You could do:</p>
+<h4 id="進階約束條件">3.10 進階約束條件</h4>
+<p>如有更進階的約束條件，可以傳入一個回應 <code>matches?</code> 的物件。假設需要將所有黑名單的使用者交給 <code>BlackListController</code> 處理，可以這麼做：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class BlacklistConstraint
@@ -1243,7 +1264,7 @@ end
 
 </pre>
 </div>
-<p>You can also specify constraints as a lambda:</p>
+<p>約束條件也可用 lambda 宣告：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 TwitterClone::Application.routes.draw do
@@ -1253,94 +1274,94 @@ end
 
 </pre>
 </div>
-<p>Both the <code>matches?</code> method and the lambda gets the <code>request</code> object as an argument.</p>
-<h4 id="route-globbing-and-wildcard-segments">3.11 Route Globbing and Wildcard Segments</h4>
-<p>Route globbing is a way to specify that a particular parameter should be matched to all the remaining parts of a route. For example:</p>
+<p><code>matches?</code> 方法與 lambda 都接受 <code>request</code> 物件作為參數。</p>
+<h4 id="路由通配片段">3.11 路由通配片段</h4>
+<p>路由通配是指定匹配參數的方法，比如：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 get 'photos/*other', to: 'photos#unknown'
 
 </pre>
 </div>
-<p>This route would match <code>photos/12</code> or <code>/photos/long/path/to/12</code>, setting <code>params[:other]</code> to <code>"12"</code> or <code>"long/path/to/12"</code>. The fragments prefixed with a star are called "wildcard segments".</p>
-<p>Wildcard segments can occur anywhere in a route. For example:</p>
+<p>這筆路由會匹配 <code>photos/12</code> 或 <code>/photos/long/path/to/12</code>，並將 <code>params[:other]</code> 設為 <code>"12"</code> 或 <code>"long/path/to/12"</code>。有星號前綴的片段稱之為“通配片段”。</p>
+<p>通配片段可在路由的任何位置出現，譬如：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 get 'books/*section/:title', to: 'books#show'
 
 </pre>
 </div>
-<p>would match <code>books/some/section/last-words-a-memoir</code> with <code>params[:section]</code> equals <code>'some/section'</code>, and <code>params[:title]</code> equals <code>'last-words-a-memoir'</code>.</p>
-<p>Technically, a route can have even more than one wildcard segment. The matcher assigns segments to parameters in an intuitive way. For example:</p>
+<p>會匹配 <code>books/some/section/last-words-a-memoir</code>，<code>params[:section]</code> 會設為 <code>"some/section"</code>，而 <code>params[:title]</code> 則是 <code>"last-words-a-memoir"</code>。</p>
+<p>技術上來說，路由可有多個通配片段。匹配器會以直觀的方式來將參數賦值給片段，比如：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 get '*a/foo/*b', to: 'test#index'
 
 </pre>
 </div>
-<p>would match <code>zoo/woo/foo/bar/baz</code> with <code>params[:a]</code> equals <code>'zoo/woo'</code>, and <code>params[:b]</code> equals <code>'bar/baz'</code>.</p>
-<div class="note"><p>By requesting <code>'/foo/bar.json'</code>, your <code>params[:pages]</code> will be equals to <code>'foo/bar'</code> with the request format of JSON. If you want the old 3.0.x behavior back, you could supply <code>format: false</code> like this:</p></div>
+<p>會匹配 <code>zoo/woo/foo/bar/baz</code>，<code>params[:a]</code> 會設為 <code>'zoo/woo'</code>，而 <code>params[:b]</code> 則是 <code>'bar/baz'</code>。</p>
+<div class="note"><p>若想請求 <code>"/foo/bar.json"</code>，<code>params[:pages]</code> 會設為 <code>"foo/bar"</code>，請求格式為 JSON。若想使用 3.0.x 的行為，可以傳一個 <code>format: false</code>：</p></div>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 get '*pages', to: 'pages#show', format: false
 
 </pre>
 </div>
-<div class="note"><p>If you want to make the format segment mandatory, so it cannot be omitted, you can supply <code>format: true</code> like this:</p></div>
+<div class="note"><p>若想要設定格式為必要參數，則可以傳 <code>format: true</code>：</p></div>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 get '*pages', to: 'pages#show', format: true
 
 </pre>
 </div>
-<h4 id="redirection">3.12 Redirection</h4>
-<p>You can redirect any path to another path using the <code>redirect</code> helper in your router:</p>
+<h4 id="轉址">3.12 轉址</h4>
+<p>可以使用 <code>redirect</code> 輔助方法將甲路徑轉到乙路徑：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 get '/stories', to: redirect('/posts')
 
 </pre>
 </div>
-<p>You can also reuse dynamic segments from the match in the path to redirect to:</p>
+<p>轉址也可以重複使用匹配路由的動態片段：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 get '/stories/:name', to: redirect('/posts/%{name}')
 
 </pre>
 </div>
-<p>You can also provide a block to redirect, which receives the symbolized path parameters and the request object:</p>
+<p><code>redirect</code> 也可以以區塊形式定義，接受 <code>path</code> 參數與 <code>request</code> 物件：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
-get '/stories/:name', to: redirect {|path_params, req| "/posts/#{path_params[:name].pluralize}" }
-get '/stories', to: redirect {|path_params, req| "/posts/#{req.subdomain}" }
+get '/stories/:name', to: redirect { |path_params, req| "/posts/#{path_params[:name].pluralize}" }
+get '/stories', to: redirect { |path_params, req| "/posts/#{req.subdomain}" }
 
 </pre>
 </div>
-<p>Please note that this redirection is a 301 "Moved Permanently" redirect. Keep in mind that some web browsers or proxy servers will cache this type of redirect, making the old page inaccessible.</p>
-<p>In all of these cases, if you don't provide the leading host (<code>http://www.example.com</code>), Rails will take those details from the current request.</p>
-<h4 id="routing-to-rack-applications">3.13 Routing to Rack Applications</h4>
-<p>Instead of a String like <code>'posts#index'</code>, which corresponds to the <code>index</code> action in the <code>PostsController</code>, you can specify any <a href="rails_on_rack.html">Rack application</a> as the endpoint for a matcher:</p>
+<p>Note: 轉址是 301 "Moved Permanently" 轉址。某些瀏覽器或代理伺服器會快取 301 轉址，導致舊的頁面無法存取。</p>
+<p>以上所有的情況裡，若沒有提供主機（<code>http://www.example.com</code>），Rails 會從當下的請求裡取得。</p>
+<h4 id="路由到-rack-應用程式">3.13 路由到 Rack 應用程式</h4>
+<p>除了使用像是 <code>"posts#index"</code> 的字串（會交給 <code>PostsController</code> 的 <code>index</code> 動作處理），還可以指定任何 <a href="/rails_on_rack.html">Rack 應用程式</a> 作為 Endpoint：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 match '/application.js', to: Sprockets, via: :all
 
 </pre>
 </div>
-<p>As long as <code>Sprockets</code> responds to <code>call</code> and returns a <code>[status, headers, body]</code>, the router won't know the difference between the Rack application and an action. This is an appropriate use of <code>via: :all</code>, as you will want to allow your Rack application to handle all verbs as it considers appropriate.</p>
-<div class="note"><p>For the curious, <code>'posts#index'</code> actually expands out to <code>PostsController.action(:index)</code>, which returns a valid Rack application.</p></div>
-<h4 id="using-root">3.14 Using <code>root</code>
+<p>只要 <code>Sprockets</code> 有回應 <code>call</code>，並回傳 <code>[status, headers, body]</code>，則路由器便不管這是一個 Rack 應用程式，還是單純一個動作。這是個應用 <code>via: :all</code> 的適當場景，因為希望 Rack 應用程式自己處理所有的 HTTP 動詞。</p>
+<div class="note"><p>針對比較好奇的朋友，<code>"posts#index</code> 其實會展開成 <code>PostsController.action(:index)</code>，會回傳一個合法的 Rack 應用程式。</p></div>
+<h4 id="使用-root">3.14 使用 <code>root</code>
 </h4>
-<p>You can specify what Rails should route <code>'/'</code> to with the <code>root</code> method:</p>
+<p>可以用 <code>root</code> 指定 Rails 要把 <code>"/"</code> 路由到那裡：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 root to: 'pages#main'
-root 'pages#main' # shortcut for the above
+root 'pages#main' # 上例的縮寫
 
 </pre>
 </div>
-<p>You should put the <code>root</code> route at the top of the file, because it is the most popular route and should be matched first.</p>
-<div class="note"><p>The <code>root</code> route only routes <code>GET</code> requests to the action.</p></div>
-<p>You can also use root inside namespaces and scopes as well. For example:</p>
+<p><code>root</code> 路由應放在 <code>config/routes.rb</code> 的最上方，因為這是最重要的路由，應該第一個匹配。</p>
+<div class="note"><p><code>root</code> 路由只處理對應動作的 <code>GET</code> 請求。</p></div>
+<p><code>root</code> 也可以在命名空間或是作用域裡使用：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 namespace :admin do
@@ -1351,25 +1372,25 @@ root to: "home#index"
 
 </pre>
 </div>
-<h4 id="unicode-character-routes">3.15 Unicode character routes</h4>
-<p>You can specify unicode character routes directly. For example:</p>
+<h4 id="unicode-字元的路由">3.15 Unicode 字元的路由</h4>
+<p>路由中可以直接指定 Unicode 字元：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 get 'こんにちは', to: 'welcome#index'
 
 </pre>
 </div>
-<h3 id="customizing-resourceful-routes">4 Customizing Resourceful Routes</h3>
-<p>While the default routes and helpers generated by <code>resources :posts</code> will usually serve you well, you may want to customize them in some way. Rails allows you to customize virtually any generic part of the resourceful helpers.</p>
-<h4 id="specifying-a-controller-to-use">4.1 Specifying a Controller to Use</h4>
-<p>The <code>:controller</code> option lets you explicitly specify a controller to use for the resource. For example:</p>
+<h3 id="客製化資源式路由">4 客製化資源式路由</h3>
+<p><code>resources :posts</code> 產生的預設路由與輔助方法通常可以滿足多數需求，但有時可能想在某種程度上進行客製化。Rails 允許資源式輔助方法的通用部分做客製化。</p>
+<h4 id="指定使用的-controller">4.1 指定使用的 Controller</h4>
+<p><code>:controller</code> 選項可明確指定資源要使用的 Controller：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 resources :photos, controller: 'images'
 
 </pre>
 </div>
-<p>will recognize incoming paths beginning with <code>/photos</code> but route to the <code>Images</code> controller:</p>
+<p>會識別出以 <code>/photos</code> 開頭的請求，交給 <code>Images</code> Controller 處理：</p>
 <table>
 <thead><tr>
 <th>HTTP Verb</th>
@@ -1422,29 +1443,26 @@ resources :photos, controller: 'images'
 </tr>
 </tbody>
 </table>
-<div class="note"><p>Use <code>photos_path</code>, <code>new_photo_path</code>, etc. to generate paths for this resource.</p></div>
-<p>For namespaced controllers you can use the directory notation. For example:</p>
+<div class="note"><p>產生路徑的輔助方法保持不變 <code>photos_path</code>、<code>new_photo_path</code>。</p></div>
+<p>具有命名空間的 Controller，指定時使用和目錄一樣的表示法即可：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 resources :user_permissions, controller: 'admin/user_permissions'
 
 </pre>
 </div>
-<p>This will route to the <code>Admin::UserPermissions</code> controller.</p>
-<div class="note"><p>Only the directory notation is supported. Specifying the
-controller with Ruby constant notation (eg. <code>controller: 'Admin::UserPermissions'</code>)
-can lead to routing problems and results in
-a warning.</p></div>
-<h4 id="specifying-constraints">4.2 Specifying Constraints</h4>
-<p>You can use the <code>:constraints</code> option to specify a required format on the implicit <code>id</code>. For example:</p>
+<p>會把路由交給 <code>Admin::UserPermissions</code> 處理。</p>
+<div class="note"><p>只支援目錄表示法。使用 Ruby 的常數表示法（如：<code>controller: "Admin::UserPermissions"</code>）會導致路由問題，並觸發警告。</p></div>
+<h4 id="指定約束條件">4.2 指定約束條件</h4>
+<p>可用 <code>:constraints</code> 選項來對 <code>id</code> 指定格式，譬如：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
-resources :photos, constraints: {id: /[A-Z][A-Z][0-9]+/}
+resources :photos, constraints: { id: /[A-Z][A-Z][0-9]+/ }
 
 </pre>
 </div>
-<p>This declaration constrains the <code>:id</code> parameter to match the supplied regular expression. So, in this case, the router would no longer match <code>/photos/1</code> to this route. Instead, <code>/photos/RR27</code> would match.</p>
-<p>You can specify a single constraint to apply to a number of routes by using the block form:</p>
+<p>這條宣告限制 <code>:id</code> 參數需符合指定的正規表示法。故這個情況裡，路由器不會匹配 <code>/photos/1</code>，而是會匹配 <code>/photos/RR27</code>。</p>
+<p>可以將約束條件應用至多條路由，使用以下的區塊形式：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 constraints(id: /[A-Z][A-Z][0-9]+/) do
@@ -1454,10 +1472,10 @@ end
 
 </pre>
 </div>
-<div class="note"><p>Of course, you can use the more advanced constraints available in non-resourceful routes in this context.</p></div>
-<div class="info"><p>By default the <code>:id</code> parameter doesn't accept dots - this is because the dot is used as a separator for formatted routes. If you need to use a dot within an <code>:id</code> add a constraint which overrides this - for example <code>id: /[^\/]+/</code> allows anything except a slash.</p></div>
-<h4 id="overriding-the-named-helpers">4.3 Overriding the Named Helpers</h4>
-<p>The <code>:as</code> option lets you override the normal naming for the named route helpers. For example:</p>
+<div class="note"><p>當然這裡也可以使用非資源式路由的進階約束條件。</p></div>
+<div class="info"><p><code>:id</code> 預設不接受 <code>.</code> ── 這是因為 <code>.</code> 是格式化路由的分隔符。如需要在 <code>:id</code> 裡使用 <code>.</code>，用約束條件來處理 ── 例如，<code>id: /[^\/]+/</code> 允許斜線以外的所有字元。</p></div>
+<h4 id="覆寫具名輔助方法">4.3 覆寫具名輔助方法</h4>
+<p><code>:as</code> 選項可以覆寫具名輔助方法的名稱。比如：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 resources :photos, as: 'images'
@@ -1517,15 +1535,15 @@ resources :photos, as: 'images'
 </tr>
 </tbody>
 </table>
-<h4 id="overriding-the-new-and-edit-segments">4.4 Overriding the <code>new</code> and <code>edit</code> Segments</h4>
-<p>The <code>:path_names</code> option lets you override the automatically-generated "new" and "edit" segments in paths:</p>
+<h4 id="覆寫-new-與-edit-片段">4.4 覆寫 <code>new</code> 與 <code>edit</code> 片段</h4>
+<p><code>:path_names</code> 選項可以覆寫自動在路徑裡產生的 <code>new</code> 與 <code>edit</code> 片段：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 resources :photos, path_names: { new: 'make', edit: 'change' }
 
 </pre>
 </div>
-<p>This would cause the routing to recognize paths such as:</p>
+<p>路由路徑變更為：</p>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 /photos/make
@@ -1533,8 +1551,8 @@ resources :photos, path_names: { new: 'make', edit: 'change' }
 
 </pre>
 </div>
-<div class="note"><p>The actual action names aren't changed by this option. The two paths shown would still route to the <code>new</code> and <code>edit</code> actions.</p></div>
-<div class="info"><p>If you find yourself wanting to change this option uniformly for all of your routes, you can use a scope.</p></div>
+<div class="note"><p>實際的動作名稱並沒有改變。這兩個路徑仍路由到 <code>new</code> and <code>edit</code> 動作。</p></div>
+<div class="info"><p>若發現一直使用 <code>:path_names</code> 的話，考慮使用 <code>scope</code>。</p></div>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 scope path_names: { new: 'make' } do
@@ -1543,8 +1561,8 @@ end
 
 </pre>
 </div>
-<h4 id="prefixing-the-named-route-helpers">4.5 Prefixing the Named Route Helpers</h4>
-<p>You can use the <code>:as</code> option to prefix the named route helpers that Rails generates for a route. Use this option to prevent name collisions between routes using a path scope. For example:</p>
+<h4 id="給具名輔助方法加前綴">4.5 給具名輔助方法加前綴</h4>
+<p><code>:as</code> 選項可以給具名輔助方法加上前綴。使用此選項用來避免路由之間的命名衝突，例如：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 scope 'admin' do
@@ -1555,8 +1573,8 @@ resources :photos
 
 </pre>
 </div>
-<p>This will provide route helpers such as <code>admin_photos_path</code>, <code>new_admin_photo_path</code> etc.</p>
-<p>To prefix a group of route helpers, use <code>:as</code> with <code>scope</code>:</p>
+<p>會產生像是 <code>admin_photos_path</code>、<code>new_admin_photo_path</code> 等路由輔助方法。</p>
+<p>要前綴一組路由輔助方法，使用 <code>scope</code> 與 <code>:as</code> 選項：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 scope 'admin', as: 'admin' do
@@ -1567,9 +1585,9 @@ resources :photos, :accounts
 
 </pre>
 </div>
-<p>This will generate routes such as <code>admin_photos_path</code> and <code>admin_accounts_path</code> which map to <code>/admin/photos</code> and <code>/admin/accounts</code> respectively.</p>
-<div class="note"><p>The <code>namespace</code> scope will automatically add <code>:as</code> as well as <code>:module</code> and <code>:path</code> prefixes.</p></div>
-<p>You can prefix routes with a named parameter also:</p>
+<p>這會產生像是 <code>admin_photos_path</code> 以及 <code>admin_accounts_path</code> 輔助方法，分別對應到 <code>/admin/photos</code> 以及 <code>/admin/accounts</code>。</p>
+<div class="note"><p><code>namespace</code> 作用域會自動新增 <code>:as</code>、<code>:module</code> 以及 <code>:path</code> 前綴。</p></div>
+<p>也可以使用具名參數給路由加上前綴：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 scope ':username' do
@@ -1578,27 +1596,27 @@ end
 
 </pre>
 </div>
-<p>This will provide you with URLs such as <code>/bob/posts/1</code> and will allow you to reference the <code>username</code> part of the path as <code>params[:username]</code> in controllers, helpers and views.</p>
-<h4 id="restricting-the-routes-created">4.6 Restricting the Routes Created</h4>
-<p>By default, Rails creates routes for the seven default actions (index, show, new, create, edit, update, and destroy) for every RESTful route in your application. You can use the <code>:only</code> and <code>:except</code> options to fine-tune this behavior. The <code>:only</code> option tells Rails to create only the specified routes:</p>
+<p>這會產生像是 <code>/bob/posts/1</code> 的路由，並允許在 Controller、View 以及輔助方法使用 <code>params[:username]</code> 來存取路徑傳入的 <code>username</code>。</p>
+<h4 id="限制建立出來的路由">4.6 限制建立出來的路由</h4>
+<p>Rails 預設會為以資源式風格宣告的路由的七個動作（index、show、new、create、edit、update 以及 destroy）建立路由。可用 <code>:only</code> 以及 <code>:except</code> 選項來調整這個行為。<code>:only</code> 選項告訴 Rails 只需要產生那些路由就好：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 resources :photos, only: [:index, :show]
 
 </pre>
 </div>
-<p>Now, a <code>GET</code> request to <code>/photos</code> would succeed, but a <code>POST</code> request to <code>/photos</code> (which would ordinarily be routed to the <code>create</code> action) will fail.</p>
-<p>The <code>:except</code> option specifies a route or list of routes that Rails should <em>not</em> create:</p>
+<p><code>/photos</code> 收到 GET 請求會正常工作，但 POST 請求（通常會路由到 <code>:create</code> 動作）則會失敗。</p>
+<p>The <code>:except</code> 選項指定不要建立的路由：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 resources :photos, except: :destroy
 
 </pre>
 </div>
-<p>In this case, Rails will create all of the normal routes except the route for <code>destroy</code> (a <code>DELETE</code> request to <code>/photos/:id</code>).</p>
-<div class="info"><p>If your application has many RESTful routes, using <code>:only</code> and <code>:except</code> to generate only the routes that you actually need can cut down on memory use and speed up the routing process.</p></div>
-<h4 id="translated-paths">4.7 Translated Paths</h4>
-<p>Using <code>scope</code>, we can alter path names generated by resources:</p>
+<p>這個情況 Rails 會建立出除了 <code>:destory</code> （發送 <code>DELETE</code> 請求到 <code>/photos/:id</code>）之外所有的路由。</p>
+<div class="info"><p>如應用程式有許多 RESTful 風格的路由，使用 <code>:only</code> 與 <code>:except</code> 選項來產生需要的路由。這樣可以減少記憶體的使用量，並加速路由過程。</p></div>
+<h4 id="翻譯路徑">4.7 翻譯路徑</h4>
+<p>使用 <code>scope</code>，可以修改由 <code>resources</code> 產生的路徑名稱：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 scope(path_names: { new: 'neu', edit: 'bearbeiten' }) do
@@ -1607,7 +1625,7 @@ end
 
 </pre>
 </div>
-<p>Rails now creates routes to the <code>CategoriesController</code>.</p>
+<p>產生的路由：</p>
 <table>
 <thead><tr>
 <th>HTTP Verb</th>
@@ -1660,8 +1678,8 @@ end
 </tr>
 </tbody>
 </table>
-<h4 id="overriding-the-singular-form">4.8 Overriding the Singular Form</h4>
-<p>If you want to define the singular form of a resource, you should add additional rules to the <code>Inflector</code>:</p>
+<h4 id="覆寫單數形式">4.8 覆寫單數形式</h4>
+<p>若想定義某個資源的單數形式，給 <code>Inflector</code> 新增額外的規則：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 ActiveSupport::Inflector.inflections do |inflect|
@@ -1670,8 +1688,8 @@ end
 
 </pre>
 </div>
-<h4 id="using-:as-in-nested-resources">4.9 Using <code>:as</code> in Nested Resources</h4>
-<p>The <code>:as</code> option overrides the automatically-generated name for the resource in nested route helpers. For example:</p>
+<h4 id="在嵌套資源中使用-:as-選項">4.9 在嵌套資源中使用 <code>:as</code> 選項</h4>
+<p><code>:as</code> 選項覆寫在嵌套資源裡，自動產生的路由輔助方法，例如：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 resources :magazines do
@@ -1680,19 +1698,19 @@ end
 
 </pre>
 </div>
-<p>This will create routing helpers such as <code>magazine_periodical_ads_url</code> and <code>edit_magazine_periodical_ad_path</code>.</p>
-<h3 id="inspecting-and-testing-routes">5 Inspecting and Testing Routes</h3>
-<p>Rails offers facilities for inspecting and testing your routes.</p>
-<h4 id="listing-existing-routes">5.1 Listing Existing Routes</h4>
-<p>To get a complete list of the available routes in your application, visit <code>http://localhost:3000/rails/info/routes</code> in your browser while your server is running in the <strong>development</strong> environment. You can also execute the <code>rake routes</code> command in your terminal to produce the same output.</p>
-<p>Both methods will list all of your routes, in the same order that they appear in <code>routes.rb</code>. For each route, you'll see:</p>
+<p>這會產生出像是：<code>edit_magazine_periodical_ad_path</code> 與 <code>magazine_periodical_ads_url</code> 等輔助方法。</p>
+<h3 id="檢查與測試路由">5 檢查與測試路由</h3>
+<p>Rails 有提供用來檢查與測試路由的工具。</p>
+<h4 id="列出現有的路由">5.1 列出現有的路由</h4>
+<p>要獲得應用程式完整可用的路由列表，在開發環境下啟動伺服器，瀏覽 <code>http://localhost:3000/rails/info/routes</code>。也可以在終端機裡執行 <code>rake routes</code> 命令。</p>
+<p>以上兩種方法都會列出所有的路由，順序與 <code>config/routes.rb</code> 裡定義的一樣，每條路由的內容會有：</p>
 <ul>
-<li>The route name (if any)</li>
-<li>The HTTP verb used (if the route doesn't respond to all verbs)</li>
-<li>The URL pattern to match</li>
-<li>The routing parameters for the route</li>
+<li>路由名稱（有的話）</li>
+<li>使用的 HTTP 動詞（若不是回應所有動詞的路由）</li>
+<li>匹配的 URL 模式。</li>
+<li>路由的參數。</li>
 </ul>
-<p>For example, here's a small section of the <code>rake routes</code> output for a RESTful route:</p>
+<p>舉個例子，以下是某個 RESTful 路由的 <code>rake routes</code> 輸出的一小部分：</p>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
     users GET    /users(.:format)          users#index
@@ -1702,23 +1720,23 @@ edit_user GET    /users/:id/edit(.:format) users#edit
 
 </pre>
 </div>
-<p>You may restrict the listing to the routes that map to a particular controller setting the <code>CONTROLLER</code> environment variable:</p>
+<p>可以使用環境變數 <code>CONTROLLER</code>，來限制僅列出特定 Controller 的路由：</p>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 $ CONTROLLER=users rake routes
 
 </pre>
 </div>
-<div class="info"><p>You'll find that the output from <code>rake routes</code> is much more readable if you widen your terminal window until the output lines don't wrap.</p></div>
-<h4 id="testing-routes">5.2 Testing Routes</h4>
-<p>Routes should be included in your testing strategy (just like the rest of your application). Rails offers three <a href="http://api.rubyonrails.org/classes/ActionDispatch/Assertions/RoutingAssertions.html">built-in assertions</a> designed to make testing routes simpler:</p>
+<div class="info"><p>若將終端機視窗拉寬到無斷行，會發現 <code>rake routes</code> 輸出的可讀性更高。</p></div>
+<h4 id="測試路由">5.2 測試路由</h4>
+<p>路由和其它部分的程式一樣，也需要測試。Rails 提供三個<a href="http://api.rubyonrails.org/classes/ActionDispatch/Assertions/RoutingAssertions.html">內建的斷言方法</a>，專門為簡化路由測試而設計：</p>
 <ul>
 <li><code>assert_generates</code></li>
 <li><code>assert_recognizes</code></li>
 <li><code>assert_routing</code></li>
 </ul>
-<h5 id="the-assert_generates-assertion">5.2.1 The <code>assert_generates</code> Assertion</h5>
-<p><code>assert_generates</code> asserts that a particular set of options generate a particular path and can be used with default routes or custom routes. For example:</p>
+<h5 id="assert_generates-斷言">5.2.1 <code>assert_generates</code> 斷言</h5>
+<p><code>assert_generates</code> 檢測給定選項產生出來的預設路由或自訂路由是否正確：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 assert_generates '/photos/1', { controller: 'photos', action: 'show', id: '1' }
@@ -1726,23 +1744,23 @@ assert_generates '/about', controller: 'pages', action: 'about'
 
 </pre>
 </div>
-<h5 id="the-assert_recognizes-assertion">5.2.2 The <code>assert_recognizes</code> Assertion</h5>
-<p><code>assert_recognizes</code> is the inverse of <code>assert_generates</code>. It asserts that a given path is recognized and routes it to a particular spot in your application. For example:</p>
+<h5 id="assert_recognizes-斷言">5.2.2 <code>assert_recognizes</code> 斷言</h5>
+<p><code>assert_recognizes</code> 與 <code>assert_generates</code> 相反。檢測給定的路徑是否能識別出來，並路由到正確的位置。比如：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 assert_recognizes({ controller: 'photos', action: 'show', id: '1' }, '/photos/1')
 
 </pre>
 </div>
-<p>You can supply a <code>:method</code> argument to specify the HTTP verb:</p>
+<p>可用 <code>:method</code> 參數來指定 HTTP 動詞：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 assert_recognizes({ controller: 'photos', action: 'create' }, { path: 'photos', method: :post })
 
 </pre>
 </div>
-<h5 id="the-assert_routing-assertion">5.2.3 The <code>assert_routing</code> Assertion</h5>
-<p>The <code>assert_routing</code> assertion checks the route both ways: it tests that the path generates the options, and that the options generate the path. Thus, it combines the functions of <code>assert_generates</code> and <code>assert_recognizes</code>:</p>
+<h5 id="assert_routing-斷言">5.2.3 <code>assert_routing</code> 斷言</h5>
+<p><code>assert_routing</code> 斷言雙向檢查路由：測試路徑產生的選項對不對，以及選項產生出來的路徑是否正確。因此，結合了 <code>assert_generates</code> 與 <code>assert_recognizes</code> 的功能：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 assert_routing({ path: 'photos', method: :post }, { controller: 'photos', action: 'create' })
