@@ -6,7 +6,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-<title>Creating and Customizing Rails Generators & Templates — Ruby on Rails 指南</title>
+<title>客製與新增 Rails Generator 與 Template — Ruby on Rails 指南</title>
 <link rel="stylesheet" type="text/css" href="stylesheets/style.css" />
 <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
 
@@ -161,15 +161,22 @@
 
   <div id="feature">
     <div class="wrapper">
-      <h2 id="creating-and-customizing-rails-generators-&amp;-templates">Creating and Customizing Rails Generators &amp; Templates</h2><p>Rails generators are an essential tool if you plan to improve your workflow. With this guide you will learn how to create generators and customize existing ones.</p><p>After reading this guide, you will know:</p>
+      <h2 id="客製與新增-rails-generator-與-template">客製與新增 Rails Generator 與 Template</h2><p>Rails generators are an essential tool if you plan to improve your workflow. With this guide you will learn how to create generators and customize existing ones.</p><p>讀完本篇，您將了解：</p>
 <ul>
-<li>How to see which generators are available in your application.</li>
-<li>How to create a generator using templates.</li>
-<li>How Rails searches for generators before invoking them.</li>
-<li>How to customize your scaffold by creating new generators.</li>
-<li>How to customize your scaffold by changing generator templates.</li>
-<li>How to use fallbacks to avoid overwriting a huge set of generators.</li>
-<li>How to create an application template.</li>
+<li>知道應用程式裡有哪些 Generator 可用。</li>
+<li>如何用 Template 產生 Generator。</li>
+<li>Rails 如何在調用 Generator 之前找到它們。</li>
+<li>如何用新的 Generator 來客製化鷹架。</li>
+<li>如何變更 Generator Template 來客製化鷹架。</li>
+<li>如何用替代方案避免覆寫一大組 Generator。</li>
+<li><p>如何新建應用程序 Template。</p></li>
+<li><p>How to see which generators are available in your application.</p></li>
+<li><p>How to create a generator using templates.</p></li>
+<li><p>How Rails searches for generators before invoking them.</p></li>
+<li><p>How to customize your scaffold by creating new generators.</p></li>
+<li><p>How to customize your scaffold by changing generator templates.</p></li>
+<li><p>How to use fallbacks to avoid overwriting a huge set of generators.</p></li>
+<li><p>How to create an application template.</p></li>
 </ul>
 
 
@@ -177,7 +184,7 @@
             <h3 class="chapter"><img src="images/chapters_icon.gif" alt="" />Chapters</h3>
             <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
 <html><body><ol class="chapters">
-<li><a href="#first-contact">First Contact</a></li>
+<li><a href="#%E5%88%9D%E6%AC%A1%E6%8E%A5%E8%A7%B8">初次接觸</a></li>
 <li><a href="#creating-your-first-generator">Creating Your First Generator</a></li>
 <li><a href="#creating-generators-with-generators">Creating Generators with Generators</a></li>
 <li><a href="#generators-lookup">Generators Lookup</a></li>
@@ -219,7 +226,7 @@
       <div id="mainCol">
         <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
 <html><body>
-<h3 id="first-contact">1 First Contact</h3>
+<h3 id="初次接觸">1 初次接觸</h3>
 <p>When you create an application using the <code>rails</code> command, you are in fact using a Rails generator. After that, you can get a list of all available generators by just invoking <code>rails generate</code>:</p>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
