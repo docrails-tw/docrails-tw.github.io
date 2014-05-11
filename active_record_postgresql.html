@@ -567,8 +567,9 @@ Document.where("to_tsvector('english', title || ' ' || body) @@ to_tsquery(?)",
 <ul>
 <li><a href="http://www.postgresql.org/docs/9.3/static/sql-createview.html">建立 View</a></li>
 </ul>
-<p>假設需要處理老舊的資料庫，資料表如下：
-<code>
+<p>假設需要處理老舊的資料庫，資料表如下：</p>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
 rails_pg_guide=# \d "TBL_ART"
                                         Table "public.TBL_ART"
    Column   |            Type             |                         Modifiers
@@ -580,7 +581,9 @@ rails_pg_guide=# \d "TBL_ART"
  BL_ARCH    | boolean                     | default false
 Indexes:
     "TBL_ART_pkey" PRIMARY KEY, btree ("INT_ID")
-</code></p>
+
+</pre>
+</div>
 <p>這張資料表完全沒有遵循 Rails 的慣例。
 因為簡單的 PostgreSQL View 預設便可以更新了，可以像下面這樣包起來：</p>
 <div class="code_container">
