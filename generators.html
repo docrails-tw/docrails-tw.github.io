@@ -168,7 +168,7 @@
 <li>Rails 如何找到產生器並呼叫它們。</li>
 <li>如何用新的產生器來客製化鷹架。</li>
 <li>如何變更產生器模版來客製化鷹架。</li>
-<li>如何用替代方案避免覆寫一大組產生器。</li>
+<li>如何用預備方案（Fall back）避免覆寫一大組產生器。</li>
 <li>如何新建應用程式模版。</li>
 </ul>
 
@@ -183,7 +183,7 @@
 <li><a href="#%E7%94%A2%E7%94%9F%E5%99%A8%E7%9A%84%E6%9F%A5%E6%89%BE%E9%A0%86%E5%BA%8F">產生器的查找順序</a></li>
 <li><a href="#%E5%AE%A2%E8%A3%BD%E5%8C%96%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B">客製化工作流程</a></li>
 <li><a href="#%E4%BF%AE%E6%94%B9%E7%94%A2%E7%94%9F%E5%99%A8%E6%A8%A1%E7%89%88%E4%BE%86%E5%AE%A2%E8%A3%BD%E5%8C%96%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B">修改產生器模版來客製化工作流程</a></li>
-<li><a href="#adding-generators-fallbacks">Adding Generators Fallbacks</a></li>
+<li><a href="#%E6%96%B0%E5%A2%9E%E7%94%A2%E7%94%9F%E5%99%A8%E7%9A%84%E9%A0%90%E5%82%99%E6%96%B9%E6%A1%88">新增產生器的預備方案</a></li>
 <li><a href="#%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F%E6%A8%A1%E7%89%88">應用程式模版</a></li>
 <li>
 <a href="#%E7%94%A2%E7%94%9F%E5%99%A8%E6%96%B9%E6%B3%95%E5%8F%83%E8%80%83%E6%89%8B%E5%86%8A">產生器方法參考手冊</a>
@@ -518,8 +518,8 @@ hook_for :test_framework, as: :helper
 </div>
 <p>現在重新執行鷹架，現在也會產生測試了！</p>
 <h3 id="修改產生器模版來客製化工作流程">6 修改產生器模版來客製化工作流程</h3>
-<p>In the step above we simply wanted to add a line to the generated helper, without adding any extra functionality. There is a simpler way to do that, and it's by replacing the templates of already existing generators, in that case <code>Rails::Generators::HelperGenerator</code>.</p>
-<p>In Rails 3.0 and above, generators don't just look in the source root for templates, they also search for templates in other paths. And one of them is <code>lib/templates</code>. Since we want to customize <code>Rails::Generators::HelperGenerator</code>, we can do that by simply making a template copy inside <code>lib/templates/rails/helper</code> with the name <code>helper.rb</code>. So let's create that file with the following content:</p>
+<p>上例我們不過想讓輔助方法產生出的輔助方法多一行程式碼，沒加別的功能。其實還有更簡單的方法可以辦到，換掉 Rails 內建的輔助方法產生器（<code>Rails::Generators::HelperGenerator</code>）原生的模版。</p>
+<p>Rails 3.0 之後，產生器不僅會在模版的 <code>source_root</code> 路徑下尋找，也會在其它路徑下，找看看有沒有模版存在，譬如：<code>lib/templates</code>。由於想客製的是 <code>Rails::Generators::HelperGenerator</code>，可以透過在 <code>lib/templates/rails/helper</code> 目錄下建立 <code>helper.rb</code>，填入以下內容：</p>
 <div class="code_container">
 <pre class="brush: ruby; html-script: true; gutter: false; toolbar: false">
 module &lt;%= class_name %&gt;Helper
@@ -528,7 +528,7 @@ end
 
 </pre>
 </div>
-<p>and revert the last change in <code>config/application.rb</code>:</p>
+<p>將 <code>config/application.rb</code> 上次的修改還原（刪除下面這段）：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 config.generators do |g|
@@ -541,10 +541,10 @@ end
 
 </pre>
 </div>
-<p>If you generate another resource, you can see that we get exactly the same result! This is useful if you want to customize your scaffold templates and/or layout by just creating <code>edit.html.erb</code>, <code>index.html.erb</code> and so on inside <code>lib/templates/erb/scaffold</code>.</p>
-<h3 id="adding-generators-fallbacks">7 Adding Generators Fallbacks</h3>
-<p>One last feature about generators which is quite useful for plugin generators is fallbacks. For example, imagine that you want to add a feature on top of TestUnit like <a href="https://github.com/thoughtbot/shoulda">shoulda</a> does. Since TestUnit already implements all generators required by Rails and shoulda just wants to overwrite part of it, there is no need for shoulda to reimplement some generators again, it can simply tell Rails to use a <code>TestUnit</code> generator if none was found under the <code>Shoulda</code> namespace.</p>
-<p>We can easily simulate this behavior by changing our <code>config/application.rb</code> once again:</p>
+<p>產生新的資源看看，可以看到相同的結果！若想要客製化鷹架模版，譬如想要客製化鷹架建立出來的 <code>index.html.erb</code> 與 <code>edit.html.erb</code>，在 <code>lib/templates/erb/scaffold/</code>，新建 <code>index.html.erb</code> 與 <code>edit.html.erb</code>，填入想產生的內容即可。</p>
+<h3 id="新增產生器的預備方案">7 新增產生器的預備方案</h3>
+<p>產生器最後要加入的功能是預備方案。舉個例子，假設想在 <code>TestUnit</code> 加入像是 <a href="https://github.com/thoughtbot/shoulda">shoulda</a> 的功能。由於 TestUnit 已實作所有 Rails 產生器所需要的方法，而 Shoulda 不過是覆寫某部分功能，不需要為了 Shoulda 重新實作這些產生器，可以告訴 Rails 在 <code>Shoulda</code> 命名空間下沒找到產生器時，可以用 <code>TestUnit</code> 來代替。</p>
+<p>看看怎麼實作，首先打開 <code>config/application.rb</code>，修改如下：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 config.generators do |g|
@@ -560,7 +560,7 @@ end
 
 </pre>
 </div>
-<p>Now, if you create a Comment scaffold, you will see that the shoulda generators are being invoked, and at the end, they are just falling back to TestUnit generators:</p>
+<p>現在用鷹架新建 <code>Comment</code>資源，會看到輸出裡呼叫了 <code>shoulda</code> 產生器，最下方預備方案使用了 TestUnit 產生器：</p>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 $ rails generate scaffold Comment body:text
@@ -597,7 +597,7 @@ $ rails generate scaffold Comment body:text
 
 </pre>
 </div>
-<p>Fallbacks allow your generators to have a single responsibility, increasing code reuse and reducing the amount of duplication.</p>
+<p>預備方案讓每個產生器各司其職、提高程式碼重用性、減少重複的程式碼。</p>
 <h3 id="應用程式模版">8 應用程式模版</h3>
 <p>已經見過如何在應用程式裡使用產生器，這些方法也可以用來產生應用程式。這種產生器叫做“模版”。以下是模版 API 的綜覽。更詳細的文件請參考 <a href="rails_application_templates.html">Rails 應用程式模版指南</a>。</p>
 <div class="code_container">
