@@ -168,7 +168,7 @@
 <li>Rails 如何找到產生器並呼叫它們。</li>
 <li>如何用新的產生器來客製化鷹架。</li>
 <li>如何變更產生器模版來客製化鷹架。</li>
-<li>如何用預備方案（Fall back）避免覆寫一大組產生器。</li>
+<li>如何用替代方案避免覆寫一大組產生器。</li>
 <li>如何新建應用程式模版。</li>
 </ul>
 
@@ -183,7 +183,7 @@
 <li><a href="#%E7%94%A2%E7%94%9F%E5%99%A8%E7%9A%84%E6%9F%A5%E6%89%BE%E9%A0%86%E5%BA%8F">產生器的查找順序</a></li>
 <li><a href="#%E5%AE%A2%E8%A3%BD%E5%8C%96%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B">客製化工作流程</a></li>
 <li><a href="#%E4%BF%AE%E6%94%B9%E7%94%A2%E7%94%9F%E5%99%A8%E6%A8%A1%E7%89%88%E4%BE%86%E5%AE%A2%E8%A3%BD%E5%8C%96%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B">修改產生器模版來客製化工作流程</a></li>
-<li><a href="#%E6%96%B0%E5%A2%9E%E7%94%A2%E7%94%9F%E5%99%A8%E7%9A%84%E9%A0%90%E5%82%99%E6%96%B9%E6%A1%88">新增產生器的預備方案</a></li>
+<li><a href="#%E6%96%B0%E5%A2%9E%E7%94%A2%E7%94%9F%E5%99%A8%E7%9A%84%E6%9B%BF%E4%BB%A3%E6%96%B9%E6%A1%88">新增產生器的替代方案</a></li>
 <li><a href="#%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F%E6%A8%A1%E7%89%88">應用程式模版</a></li>
 <li>
 <a href="#%E7%94%A2%E7%94%9F%E5%99%A8%E6%96%B9%E6%B3%95%E5%8F%83%E8%80%83%E6%89%8B%E5%86%8A">產生器方法參考手冊</a>
@@ -542,8 +542,8 @@ end
 </pre>
 </div>
 <p>產生新的資源看看，可以看到相同的結果！若想要客製化鷹架模版，譬如想要客製化鷹架建立出來的 <code>index.html.erb</code> 與 <code>edit.html.erb</code>，在 <code>lib/templates/erb/scaffold/</code>，新建 <code>index.html.erb</code> 與 <code>edit.html.erb</code>，填入想產生的內容即可。</p>
-<h3 id="新增產生器的預備方案">7 新增產生器的預備方案</h3>
-<p>產生器最後要加入的功能是預備方案。舉個例子，假設想在 <code>TestUnit</code> 加入像是 <a href="https://github.com/thoughtbot/shoulda">shoulda</a> 的功能。由於 TestUnit 已實作所有 Rails 產生器所需要的方法，而 Shoulda 不過是覆寫某部分功能，不需要為了 Shoulda 重新實作這些產生器，可以告訴 Rails 在 <code>Shoulda</code> 命名空間下沒找到產生器時，可以用 <code>TestUnit</code> 來代替。</p>
+<h3 id="新增產生器的替代方案">7 新增產生器的替代方案</h3>
+<p>產生器最後要加入的功能是替代方案。舉個例子，假設想在 <code>TestUnit</code> 加入像是 <a href="https://github.com/thoughtbot/shoulda">shoulda</a> 的功能。由於 TestUnit 已實作所有 Rails 產生器所需要的方法，而 Shoulda 不過是覆寫某部分功能，不需要為了 Shoulda 重新實作這些產生器，可以告訴 Rails 在 <code>Shoulda</code> 命名空間下沒找到產生器時，可以用 <code>TestUnit</code> 來代替。</p>
 <p>看看怎麼實作，首先打開 <code>config/application.rb</code>，修改如下：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
@@ -560,7 +560,7 @@ end
 
 </pre>
 </div>
-<p>現在用鷹架新建 <code>Comment</code>資源，會看到輸出裡呼叫了 <code>shoulda</code> 產生器，最下方預備方案使用了 TestUnit 產生器：</p>
+<p>現在用鷹架新建 <code>Comment</code>資源，會看到輸出裡呼叫了 <code>shoulda</code> 產生器，最下方替代方案使用了 TestUnit 產生器：</p>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 $ rails generate scaffold Comment body:text
@@ -597,7 +597,7 @@ $ rails generate scaffold Comment body:text
 
 </pre>
 </div>
-<p>預備方案讓每個產生器各司其職、提高程式碼重用性、減少重複的程式碼。</p>
+<p>替代方案讓每個產生器各司其職、提高程式碼重用性、減少重複的程式碼。</p>
 <h3 id="應用程式模版">8 應用程式模版</h3>
 <p>已經見過如何在應用程式裡使用產生器，這些方法也可以用來產生應用程式。這種產生器叫做“模版”。以下是模版 API 的綜覽。更詳細的文件請參考 <a href="rails_application_templates.html">Rails 應用程式模版指南</a>。</p>
 <div class="code_container">
