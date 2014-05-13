@@ -164,16 +164,12 @@
       <h2 id="客製與新增-rails-產生器與模版">客製與新增 Rails 產生器與模版</h2><p>如有計劃要改善工作流程，Rails 產生器（Generator）是基本工具。本篇教如何建立產生器以及如何客製化 Rails 內建的產生器。</p><p>讀完本篇，您將了解：</p>
 <ul>
 <li>如何看應用程式裡有那些產生器可用。</li>
-<li>如何用 Template 建立產生器。</li>
-<li>Rails 如何在呼叫 Generator 之前找到它們。</li>
-<li>如何用新的 Generator 來客製化鷹架。</li>
-<li>如何變更 Generator Template 來客製化鷹架。</li>
-<li>如何用替代方案避免覆寫一大組 Generator。</li>
-<li><p>如何新建應用程式模版。</p></li>
-<li><p>How Rails searches for generators before invoking them.</p></li>
-<li><p>How to customize your scaffold by creating new generators.</p></li>
-<li><p>How to customize your scaffold by changing generator templates.</p></li>
-<li><p>How to use fallbacks to avoid overwriting a huge set of generators.</p></li>
+<li>如何用模版建立產生器。</li>
+<li>Rails 如何找到產生器並呼叫它們。</li>
+<li>如何用新的產生器來客製化鷹架。</li>
+<li>如何變更產生器模版來客製化鷹架。</li>
+<li>如何用替代方案避免覆寫一大組產生器。</li>
+<li>如何新建應用程式模版。</li>
 </ul>
 
 
@@ -182,15 +178,15 @@
             <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
 <html><body><ol class="chapters">
 <li><a href="#%E5%88%9D%E6%AC%A1%E6%8E%A5%E8%A7%B8">初次接觸</a></li>
-<li><a href="#creating-your-first-generator">Creating Your First Generator</a></li>
-<li><a href="#creating-generators-with-generators">Creating Generators with Generators</a></li>
-<li><a href="#generators-lookup">Generators Lookup</a></li>
-<li><a href="#customizing-your-workflow">Customizing Your Workflow</a></li>
-<li><a href="#customizing-your-workflow-by-changing-generators-templates">Customizing Your Workflow by Changing Generators Templates</a></li>
+<li><a href="#%E5%BB%BA%E7%AB%8B%E7%AC%AC%E4%B8%80%E5%80%8B%E7%94%A2%E7%94%9F%E5%99%A8">建立第一個產生器</a></li>
+<li><a href="#%E7%94%A8%E7%8F%BE%E6%9C%89%E7%94%A2%E7%94%9F%E5%99%A8%E5%BB%BA%E7%AB%8B%E6%96%B0%E7%94%A2%E7%94%9F%E5%99%A8">用現有產生器建立新產生器</a></li>
+<li><a href="#generators-%E6%9F%A5%E6%89%BE%E9%A0%86%E5%BA%8F">Generators 查找順序</a></li>
+<li><a href="#%E5%AE%A2%E8%A3%BD%E5%8C%96%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B">客製化工作流程</a></li>
+<li><a href="#%E4%BF%AE%E6%94%B9%E7%94%A2%E7%94%9F%E5%99%A8%E6%A8%A1%E7%89%88%E4%BE%86%E5%AE%A2%E8%A3%BD%E5%8C%96%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B">修改產生器模版來客製化工作流程</a></li>
 <li><a href="#adding-generators-fallbacks">Adding Generators Fallbacks</a></li>
-<li><a href="#application-templates">Application Templates</a></li>
+<li><a href="#%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F%E6%A8%A1%E7%89%88">應用程式模版</a></li>
 <li>
-<a href="#generator-methods">Generator methods</a>
+<a href="#%E7%94%A2%E7%94%9F%E5%99%A8%E6%96%B9%E6%B3%95">產生器方法</a>
 
 <ul>
 <li><a href="#gem"><code>gem</code></a></li>
@@ -224,7 +220,7 @@
         <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
 <html><body>
 <h3 id="初次接觸">1 初次接觸</h3>
-<p>When you create an application using the <code>rails</code> command, you are in fact using a Rails generator. After that, you can get a list of all available generators by just invoking <code>rails generate</code>:</p>
+<p>使用 <code>rails</code> 指令時，其實就使用了 Rails 產生器。要查看 Rails 完整的產生器清單，輸入 <code>rails generate</code>：</p>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 $ rails new myapp
@@ -233,16 +229,17 @@ $ rails generate
 
 </pre>
 </div>
-<p>You will get a list of all generators that comes with Rails. If you need a detailed description of the helper generator, for example, you can simply do:</p>
+<p>需要特定產生器的詳細說明，可以傳入 <code>--help</code>，比如要瀏覽 helper 產生器的說明：</p>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 $ rails generate helper --help
 
 </pre>
 </div>
-<h3 id="creating-your-first-generator">2 Creating Your First Generator</h3>
-<p>Since Rails 3.0, generators are built on top of <a href="https://github.com/erikhuda/thor">Thor</a>. Thor provides powerful options parsing and a great API for manipulating files. For instance, let's build a generator that creates an initializer file named <code>initializer.rb</code> inside <code>config/initializers</code>.</p>
-<p>The first step is to create a file at <code>lib/generators/initializer_generator.rb</code> with the following content:</p>
+<h3 id="建立第一個產生器">2 建立第一個產生器</h3>
+<p>自 Rails 3.0 起，產生器用 <a href="https://github.com/erikhuda/thor">Thor</a>
+重寫了。Thor 負責解析命令行參數、具有強大的檔案處理 API。輕輕鬆鬆便能打造一個 Generator，如何寫個能在 <code>config/initializers</code> 目錄下產生 <code>initializer</code> 檔案（<code>initializer.rb</code>）的 Generator 呢？</p>
+<p>首先新建 <code>lib/generators/initializer_generator.rb</code> 檔案，填入如下內容：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class InitializerGenerator &lt; Rails::Generators::Base
@@ -253,23 +250,23 @@ end
 
 </pre>
 </div>
-<div class="note"><p><code>create_file</code> is a method provided by <code>Thor::Actions</code>. Documentation for <code>create_file</code> and other Thor methods can be found in <a href="http://rdoc.info/github/erikhuda/thor/master/Thor/Actions.html">Thor's documentation</a></p></div>
-<p>Our new generator is quite simple: it inherits from <code>Rails::Generators::Base</code> and has one method definition. When a generator is invoked, each public method in the generator is executed sequentially in the order that it is defined. Finally, we invoke the <code>create_file</code> method that will create a file at the given destination with the given content. If you are familiar with the Rails Application Templates API, you'll feel right at home with the new generators API.</p>
-<p>To invoke our new generator, we just need to do:</p>
+<div class="note"><p><code>create_file</code> 是 <code>Thor::Actions</code> 提供的方法。<code>create_file</code> 及其它 Thor 提供的方法請查閱 <a href="http://rdoc.info/github/wycats/thor/master/Thor/Actions.html">Thor 的 API 文件</a>。</p></div>
+<p>新的產生器非常簡單：從 <code>Rails::Generators::Base</code> 繼承而來，內有一個方法。呼叫產生器時，所有產生器的公有方法會依定義的順序執行。最後，呼叫 <code>create_file</code> 方法會在指定的路徑產生出檔案，檔案裡有給定的內容。如熟悉 Rails 應用程式模版的 API，便會感到這兩個 API 其實大同小異。</p>
+<p>要呼叫新的產生器，只需要：</p>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 $ rails generate initializer
 
 </pre>
 </div>
-<p>Before we go on, let's see our brand new generator description:</p>
+<p>在繼續解說之前，看看剛剛建立出來的產生器的說明文件：</p>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 $ rails generate initializer --help
 
 </pre>
 </div>
-<p>Rails is usually able to generate good descriptions if a generator is namespaced, as <code>ActiveRecord::Generators::ModelGenerator</code>, but not in this particular case. We can solve this problem in two ways. The first one is calling <code>desc</code> inside our generator:</p>
+<p>如果產生器放在適當的命名空間，譬如 <code>ActiveRecord::Generators::ModelGenerator</code>，Rails 通常可以產生出不錯的指令說明。但這個情況不適用。這個問題有兩個解決辦法，一是使用 <code>desc</code> 自己寫說明：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class InitializerGenerator &lt; Rails::Generators::Base
@@ -281,9 +278,9 @@ end
 
 </pre>
 </div>
-<p>Now we can see the new description by invoking <code>--help</code> on the new generator. The second way to add a description is by creating a file named <code>USAGE</code> in the same directory as our generator. We are going to do that in the next step.</p>
-<h3 id="creating-generators-with-generators">3 Creating Generators with Generators</h3>
-<p>Generators themselves have a generator:</p>
+<p>現在可以使用 <code>--help</code> 看到新的說明。第二種新增說明的方法是，在產生器所在的目錄裡面，建立一個叫做 <code>USAGE</code> 的檔案。</p>
+<h3 id="用現有產生器建立新產生器">3 用現有產生器建立新產生器</h3>
+<p>產生器本身也可以用產生器來產生：</p>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 $ rails generate generator initializer
@@ -294,7 +291,7 @@ $ rails generate generator initializer
 
 </pre>
 </div>
-<p>This is the generator just created:</p>
+<p>這是剛建立的產生器：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class InitializerGenerator &lt; Rails::Generators::NamedBase
@@ -303,8 +300,8 @@ end
 
 </pre>
 </div>
-<p>First, notice that we are inheriting from <code>Rails::Generators::NamedBase</code> instead of <code>Rails::Generators::Base</code>. This means that our generator expects at least one argument, which will be the name of the initializer, and will be available in our code in the variable <code>name</code>.</p>
-<p>We can see that by invoking the description of this new generator (don't forget to delete the old generator file):</p>
+<p>首先，注意到是繼承自 <code>Rails::Generators::NamedBase</code>，而不是 <code>Rails::Generators::Base</code>。這表示產生器至少接受一個參數，也就是 <code>initializer</code> 的名稱，會存在程式碼的 <code>name</code> 變數裡。</p>
+<p>可以透過呼叫新的產生器的說明看看（記得先刪除舊的產生器檔案）：</p>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 $ rails generate initializer --help
@@ -313,15 +310,15 @@ Usage:
 
 </pre>
 </div>
-<p>We can also see that our new generator has a class method called <code>source_root</code>. This method points to where our generator templates will be placed, if any, and by default it points to the created directory <code>lib/generators/initializer/templates</code>.</p>
-<p>In order to understand what a generator template means, let's create the file <code>lib/generators/initializer/templates/initializer.rb</code> with the following content:</p>
+<p>新的產生器有一個類別方法：<code>source_root</code>。這個方法指向產生器模版的位置，預設是指向 <code>lib/generators/initializer/templates</code>。</p>
+<p>為了要了解產生器模版是做什麼的，先建立 <code>lib/generators/initializer/templates/initializer.rb</code>，並填入以下內容：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 # Add initialization content here
 
 </pre>
 </div>
-<p>And now let's change the generator to copy this template when invoked:</p>
+<p>接著修改產生器，使產生器呼叫時，複製這個模版：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class InitializerGenerator &lt; Rails::Generators::NamedBase
@@ -334,17 +331,17 @@ end
 
 </pre>
 </div>
-<p>And let's execute our generator:</p>
+<p>接著執行：</p>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 $ rails generate initializer core_extensions
 
 </pre>
 </div>
-<p>We can see that now an initializer named core_extensions was created at <code>config/initializers/core_extensions.rb</code> with the contents of our template. That means that <code>copy_file</code> copied a file in our source root to the destination path we gave. The method <code>file_name</code> is automatically created when we inherit from <code>Rails::Generators::NamedBase</code>.</p>
-<p>The methods that are available for generators are covered in the <a href="#generator-methods">final section</a> of this guide.</p>
-<h3 id="generators-lookup">4 Generators Lookup</h3>
-<p>When you run <code>rails generate initializer core_extensions</code> Rails requires these files in turn until one is found:</p>
+<p>現在可以看到一個 <code>initializer</code>，叫做 <code>core_extensions</code> 被建立出來了，位置是：<code>config/initializers/core_extensions.rb</code>，內容是模版所填之內容。<code>copy_file</code> 在 <code>source_root</code> 複製檔案到指定的目標路徑。當繼承自 <code>Rails::Generators::NamedBase</code> 時，會自動建立 <code>file_name</code> 這個方法。</p>
+<p>產生器可用的方法在<a href="#">最後一節</a>說明。</p>
+<h3 id="generators-查找順序">4 Generators 查找順序</h3>
+<p>執行 <code>rails generate initializer core_extensions</code> 時，Rails 依序 <code>require</code> 這些檔案直到找到為止：</p>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 rails/generators/initializer/initializer_generator.rb
@@ -354,10 +351,10 @@ generators/initializer_generator.rb
 
 </pre>
 </div>
-<p>If none is found you get an error message.</p>
-<div class="info"><p>The examples above put files under the application's <code>lib</code> because said directory belongs to <code>$LOAD_PATH</code>.</p></div>
-<h3 id="customizing-your-workflow">5 Customizing Your Workflow</h3>
-<p>Rails own generators are flexible enough to let you customize scaffolding. They can be configured in <code>config/application.rb</code>, these are some defaults:</p>
+<p>若都沒有找到則會回錯誤訊息。</p>
+<div class="info"><p>上例將檔案放在應用程式的 <code>lib</code> 目錄下，因為該目錄屬於 <code>$LOAD_PATH</code>。</p></div>
+<h3 id="客製化工作流程">5 客製化工作流程</h3>
+<p>Rails 內建的產生器已經足夠靈活，可以用來客製化鷹架。可以在 <code>config/application.rb</code> 裡設定，以下是某些設定的預設值：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 config.generators do |g|
@@ -368,12 +365,12 @@ end
 
 </pre>
 </div>
-<p>Before we customize our workflow, let's first see what our scaffold looks like:</p>
+<p>在客製化工作流程之前，先看看預設的鷹架輸出是什麼：</p>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 $ rails generate scaffold User name:string
       invoke  active_record
-      create    db/migrate/20130924151154_create_users.rb
+      create    db/migrate/20140513182748_create_users.rb
       create    app/models/user.rb
       invoke    test_unit
       create      test/models/user_test.rb
@@ -408,8 +405,8 @@ $ rails generate scaffold User name:string
 
 </pre>
 </div>
-<p>Looking at this output, it's easy to understand how generators work in Rails 3.0 and above. The scaffold generator doesn't actually generate anything, it just invokes others to do the work. This allows us to add/replace/remove any of those invocations. For instance, the scaffold generator invokes the scaffold_controller generator, which invokes erb, test_unit and helper generators. Since each generator has a single responsibility, they are easy to reuse, avoiding code duplication.</p>
-<p>Our first customization on the workflow will be to stop generating stylesheets, javascripts and test fixtures for scaffolds. We can achieve that by changing our configuration to the following:</p>
+<p>看輸出便很容易可以了解，Rails 的產生器是如何工作的。鷹架產生器實際上沒有產生任何東西，只是去呼叫其它的產生器。我們便可以新增、更換、移除任何產生器的呼叫。譬如，鷹架產生器呼叫 <code>scaffold_controller</code>，<code>scaffold_controller</code> 在呼叫 <code>erb</code>、<code>test_unit</code>、<code>helper</code> 以及 <code>jbuilder</code>。每個產生器各司其職，很輕鬆便可以重複使用，減少重複的程式碼。</p>
+<p>對工作流程的第一個客製化，便是讓鷹架停止產生 CSS、JavaScript 以及測試用的假資料。可以透過修改設定檔：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 config.generators do |g|
@@ -422,8 +419,8 @@ end
 
 </pre>
 </div>
-<p>If we generate another resource with the scaffold generator, we can see that stylesheets, javascripts and fixtures are not created anymore. If you want to customize it further, for example to use DataMapper and RSpec instead of Active Record and TestUnit, it's just a matter of adding their gems to your application and configuring your generators.</p>
-<p>To demonstrate this, we are going to create a new helper generator that simply adds some instance variable readers. First, we create a generator within the rails namespace, as this is where rails searches for generators used as hooks:</p>
+<p>若使用產生器再產生一次，可以看到沒有建立出 CSS、JavaScripts 以及假資料。若想進一步客製化，譬如使用 DataMapper 與 RSpec 來取代 Active Record 與 TestUnit，只需要將 Gem 加到 Gemfile，並設定產生器即可。</p>
+<p>接著來客製化輔助方法產生器，先建立新的輔助方法產生器，這個產生器會幫輔助方法裡的實體變數自動加上 <code>attr_reader</code>。首先在 Rails 的命名空間下建立產生器，這樣 Rails 才能找到。</p>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 $ rails generate generator rails/my_helper
@@ -434,9 +431,7 @@ $ rails generate generator rails/my_helper
 
 </pre>
 </div>
-<p>After that, we can delete both the <code>templates</code> directory and the <code>source_root</code>
-class method call from our new generator, because we are not going to need them.
-Add the method below, so our generator looks like the following:</p>
+<p>接著刪掉不會使用到的 <code>templates</code> 資料夾，以及產生器的 <code>source_root</code> 這行。加入以下方法之後，產生器看起來會像是：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 # lib/generators/rails/my_helper/my_helper_generator.rb
@@ -452,7 +447,7 @@ end
 
 </pre>
 </div>
-<p>We can try out our new generator by creating a helper for users:</p>
+<p>可以建立輔助方法，來試試看新的產生器：</p>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 $ rails generate my_helper products
@@ -460,7 +455,7 @@ $ rails generate my_helper products
 
 </pre>
 </div>
-<p>And it will generate the following helper file in <code>app/helpers</code>:</p>
+<p>會在 <code>app/helpers</code> 產生出這個輔助方法：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 module ProductsHelper
@@ -469,7 +464,7 @@ end
 
 </pre>
 </div>
-<p>Which is what we expected. We can now tell scaffold to use our new helper generator by editing <code>config/application.rb</code> once again:</p>
+<p>與預期相符，現在可以讓鷹架使用新的輔助方法產生器了。編輯 <code>config/application.rb</code>：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 config.generators do |g|
@@ -483,7 +478,7 @@ end
 
 </pre>
 </div>
-<p>and see it in action when invoking the generator:</p>
+<p>再產生看看是否用了新加的輔助方法產生器：</p>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 $ rails generate scaffold Post body:text
@@ -493,9 +488,9 @@ $ rails generate scaffold Post body:text
 
 </pre>
 </div>
-<p>We can notice on the output that our new helper was invoked instead of the Rails default. However one thing is missing, which is tests for our new generator and to do that, we are going to reuse old helpers test generators.</p>
-<p>Since Rails 3.0, this is easy to do due to the hooks concept. Our new helper does not need to be focused in one specific test framework, it can simply provide a hook and a test framework just needs to implement this hook in order to be compatible.</p>
-<p>To do that, we can change the generator this way:</p>
+<p>可以看到這裡用了新寫的輔助方法產生器，而不是 Rails 內建的。但還少了一樣東西，產生測試的產生器。使用舊的產生器來修改。</p>
+<p>從 Rails 3.0 開始，因為引入了 <code>hook</code>，修改測試產生器變得非常簡單。不用綁在一個測試框架上，可以透過 hook，測試框架只需要實作 hook，就可以與 Rails 相容。</p>
+<p>將產生器修改為：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 # lib/generators/rails/my_helper/my_helper_generator.rb
@@ -513,7 +508,7 @@ end
 
 </pre>
 </div>
-<p>Now, when the helper generator is invoked and TestUnit is configured as the test framework, it will try to invoke both <code>Rails::TestUnitGenerator</code> and <code>TestUnit::MyHelperGenerator</code>. Since none of those are defined, we can tell our generator to invoke <code>TestUnit::Generators::HelperGenerator</code> instead, which is defined since it's a Rails generator. To do that, we just need to add:</p>
+<p>現在當輔助方法產生器被呼叫時，TestUnit 會被設定成測試框架，會試著執行 <code>Rails::TestUnitGenerator</code> 與 <code>TestUnit::MyHelperGenerator</code>。由於這兩者都沒有定義，可以跟產生器說，使用 Rails 內建的 <code>TestUnit::Generators::HelperGenerator</code> 來取代。將剛剛的 <code>hook_for</code> 新增一個 <code>:as</code> 選項即可：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 # Search for :helper instead of :my_helper
@@ -521,8 +516,8 @@ hook_for :test_framework, as: :helper
 
 </pre>
 </div>
-<p>And now you can re-run scaffold for another resource and see it generating tests as well!</p>
-<h3 id="customizing-your-workflow-by-changing-generators-templates">6 Customizing Your Workflow by Changing Generators Templates</h3>
+<p>現在重新執行鷹架，現在也會產生測試了！</p>
+<h3 id="修改產生器模版來客製化工作流程">6 修改產生器模版來客製化工作流程</h3>
 <p>In the step above we simply wanted to add a line to the generated helper, without adding any extra functionality. There is a simpler way to do that, and it's by replacing the templates of already existing generators, in that case <code>Rails::Generators::HelperGenerator</code>.</p>
 <p>In Rails 3.0 and above, generators don't just look in the source root for templates, they also search for templates in other paths. And one of them is <code>lib/templates</code>. Since we want to customize <code>Rails::Generators::HelperGenerator</code>, we can do that by simply making a template copy inside <code>lib/templates/rails/helper</code> with the name <code>helper.rb</code>. So let's create that file with the following content:</p>
 <div class="code_container">
@@ -603,7 +598,7 @@ $ rails generate scaffold Comment body:text
 </pre>
 </div>
 <p>Fallbacks allow your generators to have a single responsibility, increasing code reuse and reducing the amount of duplication.</p>
-<h3 id="application-templates">8 Application Templates</h3>
+<h3 id="應用程式模版">8 應用程式模版</h3>
 <p>Now that you've seen how generators can be used <em>inside</em> an application, did you know they can also be used to <em>generate</em> applications too? This kind of generator is referred as a "template". This is a brief overview of the Templates API. For detailed documentation see the <a href="rails_application_templates.html">Rails Application Templates guide</a>.</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
@@ -637,7 +632,7 @@ $ rails new thud -m https://gist.github.com/radar/722911/raw/
 </pre>
 </div>
 <p>Whilst the final section of this guide doesn't cover how to generate the most awesome template known to man, it will take you through the methods available at your disposal so that you can develop it yourself. These same methods are also available for generators.</p>
-<h3 id="generator-methods">9 Generator methods</h3>
+<h3 id="產生器方法">9 產生器方法</h3>
 <p>The following are methods available for both generators and templates for Rails.</p>
 <div class="note"><p>Methods provided by Thor are not covered this guide and can be found in <a href="http://rdoc.info/github/erikhuda/thor/master/Thor/Actions.html">Thor's documentation</a></p></div>
 <h4 id="gem">9.1 <code>gem</code>
