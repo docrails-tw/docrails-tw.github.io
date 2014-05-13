@@ -286,7 +286,7 @@ Profile.create(settings: { "color" =&gt; "blue", "resolution" =&gt; "800x600" })
 profile = Profile.first
 profile.settings # =&gt; {"color"=&gt;"blue", "resolution"=&gt;"800x600"}
 
-profile.settings = {"color" =&gt; "yellow", "resulution" =&gt; "1280x1024"}
+profile.settings = {"color" =&gt; "yellow", "resolution" =&gt; "1280x1024"}
 profile.save!
 
 ## you need to call _will_change! if you are editing the store in place
