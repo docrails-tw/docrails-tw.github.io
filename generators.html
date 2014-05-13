@@ -229,7 +229,7 @@ $ rails generate
 
 </pre>
 </div>
-<p>需要特定產生器的詳細說明，可以傳入 <code>--help</code>，比如要瀏覽 helper 產生器的說明：</p>
+<p>需要特定產生器的詳細說明，可以傳入 <code>--help</code>，比如要瀏覽輔助方法產生器的說明：</p>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 $ rails generate helper --help
@@ -599,10 +599,10 @@ $ rails generate scaffold Comment body:text
 </div>
 <p>Fallbacks allow your generators to have a single responsibility, increasing code reuse and reducing the amount of duplication.</p>
 <h3 id="應用程式模版">8 應用程式模版</h3>
-<p>Now that you've seen how generators can be used <em>inside</em> an application, did you know they can also be used to <em>generate</em> applications too? This kind of generator is referred as a "template". This is a brief overview of the Templates API. For detailed documentation see the <a href="rails_application_templates.html">Rails Application Templates guide</a>.</p>
+<p>已經見過如何在應用程式裡使用產生器，這些方法也可以用來產生應用程式。這種產生器叫做“模版”。以下是模版 API 的綜覽。更詳細的文件請參考 <a href="rails_application_templates.html">Rails 應用程式模版指南</a>。</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
-gem "rspec-rails", group: "test"
+gem "rspec-rails",    group: "test"
 gem "cucumber-rails", group: "test"
 
 if yes?("Would you like to install Devise?")
@@ -615,29 +615,29 @@ end
 
 </pre>
 </div>
-<p>In the above template we specify that the application relies on the <code>rspec-rails</code> and <code>cucumber-rails</code> gem so these two will be added to the <code>test</code> group in the <code>Gemfile</code>. Then we pose a question to the user about whether or not they would like to install Devise. If the user replies "y" or "yes" to this question, then the template will add Devise to the <code>Gemfile</code> outside of any group and then runs the <code>devise:install</code> generator. This template then takes the users input and runs the <code>devise</code> generator, with the user's answer from the last question being passed to this generator.</p>
-<p>Imagine that this template was in a file called <code>template.rb</code>. We can use it to modify the outcome of the <code>rails new</code> command by using the <code>-m</code> option and passing in the filename:</p>
+<p>上例中我們為產生的 Rails 應用程式新增了兩個 gem（<code>rspec-rails</code>、<code>cucumber-rails</code>），放在 <code>test</code> 群組，會自動加到 <code>Gemfile</code>。接著問使用者是否要安裝 Devise？若使用者回答 <code>y</code> 或 <code>yes</code>，則會把 <code>gem "devise"</code> 加到 <code>Gemfile</code>，並執行 <code>devise:install</code> 產生器，並詢問預設的使用者 Model 名稱為？並產生出該 Model。</p>
+<p>現在將上面的程式碼，存成 <code>template.rb</code>，便可在 <code>rails new</code> 輸入 <code>-m</code> 選項來使用這個 Template：</p>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 $ rails new thud -m template.rb
 
 </pre>
 </div>
-<p>This command will generate the <code>Thud</code> application, and then apply the template to the generated output.</p>
-<p>Templates don't have to be stored on the local system, the <code>-m</code> option also supports online templates:</p>
+<p>這個命令會使用 <code>template.rb</code> 來產生 <code>Thud</code> 應用程式。</p>
+<p>模版不需要存在本機，<code>-m</code> 選項也支援線上模版：</p>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 $ rails new thud -m https://gist.github.com/radar/722911/raw/
 
 </pre>
 </div>
-<p>Whilst the final section of this guide doesn't cover how to generate the most awesome template known to man, it will take you through the methods available at your disposal so that you can develop it yourself. These same methods are also available for generators.</p>
+<p>本文最後一節不會介紹如何產生最厲害的模版，而是會走一遍可用的方法有那些，了解之後便可以自己寫出模版。這些方法適用於產生器。</p>
 <h3 id="產生器方法參考手冊">9 產生器方法參考手冊</h3>
-<p>The following are methods available for both generators and templates for Rails.</p>
-<div class="note"><p>Methods provided by Thor are not covered this guide and can be found in <a href="http://rdoc.info/github/erikhuda/thor/master/Thor/Actions.html">Thor's documentation</a></p></div>
+<p>以下是 Rails 產生器與模版內可用的方法（<a href="https://github.com/rails/rails/blob/master/railties/lib/rails/generators/actions.rb">原始碼</a>）</p>
+<div class="note"><p>本文沒有介紹 Thor 所提供的方法，關於 Thor 提供的方法請查閱 <a href="http://rdoc.info/github/wycats/thor/master/Thor/Actions.html">Thor 的 API 文件</a>。</p></div>
 <h4 id="gem">9.1 <code>gem</code>
 </h4>
-<p>Specifies a gem dependency of the application.</p>
+<p>指定應用程式依賴的 Gem。</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 gem "rspec", group: "test", version: "2.1.0"
@@ -645,7 +645,7 @@ gem "devise", "1.1.5"
 
 </pre>
 </div>
-<p>Available options are:</p>
+<p>可用選項有：</p>
 <ul>
 <li>
 <code>:group</code> - The group in the <code>Gemfile</code> where this gem should go.</li>
@@ -654,14 +654,14 @@ gem "devise", "1.1.5"
 <li>
 <code>:git</code> - The URL to the git repository for this gem.</li>
 </ul>
-<p>Any additional options passed to this method are put on the end of the line:</p>
+<p>此方法任何其它可能傳入的選項，請放在行尾：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 gem "devise", git: "git://github.com/plataformatec/devise", branch: "master"
 
 </pre>
 </div>
-<p>The above code will put the following line into <code>Gemfile</code>:</p>
+<p>以上程式碼會將下行寫入 <code>Gemfile</code>:</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 gem "devise", git: "git://github.com/plataformatec/devise", branch: "master"
@@ -670,7 +670,7 @@ gem "devise", git: "git://github.com/plataformatec/devise", branch: "master"
 </div>
 <h4 id="gem_group">9.2 <code>gem_group</code>
 </h4>
-<p>Wraps gem entries inside a group:</p>
+<p>把 Gem 放入群組裡：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 gem_group :development, :test do
@@ -681,7 +681,7 @@ end
 </div>
 <h4 id="add_source">9.3 <code>add_source</code>
 </h4>
-<p>Adds a specified source to <code>Gemfile</code>:</p>
+<p>指定 <code>Gemfile</code> 使用的來源：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 add_source "http://gems.github.com"
@@ -690,7 +690,7 @@ add_source "http://gems.github.com"
 </div>
 <h4 id="inject_into_file">9.4 <code>inject_into_file</code>
 </h4>
-<p>Injects a block of code into a defined position in your file.</p>
+<p>注入一塊程式碼到檔案指定位置：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 inject_into_file 'name_of_file.rb', after: "#The code goes below this line. Don't forget the Line break at the end\n" do &lt;&lt;-'RUBY'
@@ -702,24 +702,24 @@ end
 </div>
 <h4 id="gsub_file">9.5 <code>gsub_file</code>
 </h4>
-<p>Replaces text inside a file.</p>
+<p>替換檔案裡的文字。</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 gsub_file 'name_of_file.rb', 'method.to_be_replaced', 'method.the_replacing_code'
 
 </pre>
 </div>
-<p>Regular Expressions can be used to make this method more precise. You can also use append_file and prepend_file in the same way to place code at the beginning and end of a file respectively.</p>
+<p>用正規表達式更簡潔。亦可用 <code>append_file</code> 及 <code>prepend_file</code> 來附加、插入程式碼到檔案裡。</p>
 <h4 id="application">9.6 <code>application</code>
 </h4>
-<p>Adds a line to <code>config/application.rb</code> directly after the application class definition.</p>
+<p>在 <code>config/application.rb</code> 應用程式類別定義後面，新增一行程式碼。</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 application "config.asset_host = 'http://example.com'"
 
 </pre>
 </div>
-<p>This method can also take a block:</p>
+<p>方法也可改寫成區塊形式：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 application do
@@ -728,10 +728,10 @@ end
 
 </pre>
 </div>
-<p>Available options are:</p>
+<p>可用選項有：</p>
 <ul>
 <li>
-<code>:env</code> - Specify an environment for this configuration option. If you wish to use this option with the block syntax the recommended syntax is as follows:</li>
+<code>:env</code> - 指定這個設定應用的環境。若要使用此選項，推薦使用區塊語法：</li>
 </ul>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
@@ -743,7 +743,7 @@ end
 </div>
 <h4 id="git">9.7 <code>git</code>
 </h4>
-<p>Runs the specified git command:</p>
+<p>執行特定的 <code>git</code> 命令：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 git :init
@@ -753,17 +753,17 @@ git add: "onefile.rb", rm: "badfile.cxx"
 
 </pre>
 </div>
-<p>The values of the hash here being the arguments or options passed to the specific git command. As per the final example shown here, multiple git commands can be specified at a time, but the order of their running is not guaranteed to be the same as the order that they were specified in.</p>
+<p>Hash 的值便是傳給 <code>git</code> 命令的值。一次可使用多條 git 命令，<strong>但不保證執行的順序與指定的順序相同</strong>。</p>
 <h4 id="vendor">9.8 <code>vendor</code>
 </h4>
-<p>Places a file into <code>vendor</code> which contains the specified code.</p>
+<p>將含有特定程式碼的檔案，放入 <code>vendor</code> 目錄。</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 vendor "sekrit.rb", '#top secret stuff'
 
 </pre>
 </div>
-<p>This method also takes a block:</p>
+<p>此方法接受區塊參數：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 vendor "seeds.rb" do
@@ -774,14 +774,14 @@ end
 </div>
 <h4 id="lib">9.9 <code>lib</code>
 </h4>
-<p>Places a file into <code>lib</code> which contains the specified code.</p>
+<p>將含有特定程式碼的檔案，放入 <code>lib</code> 目錄。</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 lib "special.rb", "p Rails.root"
 
 </pre>
 </div>
-<p>This method also takes a block:</p>
+<p>此方法接受區塊參數：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 lib "super_special.rb" do
@@ -792,14 +792,14 @@ end
 </div>
 <h4 id="rakefile">9.10 <code>rakefile</code>
 </h4>
-<p>Creates a Rake file in the <code>lib/tasks</code> directory of the application.</p>
+<p>在應用程式的 <code>lib/tasks</code> 新建一個 Rake 檔案：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 rakefile "test.rake", "hello there"
 
 </pre>
 </div>
-<p>This method also takes a block:</p>
+<p>此方法接受區塊參數</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 rakefile "test.rake" do
@@ -814,14 +814,14 @@ end
 </div>
 <h4 id="initializer">9.11 <code>initializer</code>
 </h4>
-<p>Creates an initializer in the <code>config/initializers</code> directory of the application:</p>
+<p>在應用程式的 <code>config/initializers</code> 新建一個 <code>initializer</code>：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 initializer "begin.rb", "puts 'this is the beginning'"
 
 </pre>
 </div>
-<p>This method also takes a block, expected to return a string:</p>
+<p>此方法也接受區塊，並預期回傳字串：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 initializer "begin.rb" do
@@ -832,7 +832,7 @@ end
 </div>
 <h4 id="generate">9.12 <code>generate</code>
 </h4>
-<p>Runs the specified generator where the first argument is the generator name and the remaining arguments are passed directly to the generator.</p>
+<p>執行特定的產生器，第一個參數為產生器的名字，其餘參數直接傳給產生器。</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 generate "scaffold", "forums title:string description:text"
@@ -841,23 +841,23 @@ generate "scaffold", "forums title:string description:text"
 </div>
 <h4 id="rake">9.13 <code>rake</code>
 </h4>
-<p>Runs the specified Rake task.</p>
+<p>執行特定的 Rake 任務。</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 rake "db:migrate"
 
 </pre>
 </div>
-<p>Available options are:</p>
+<p>可用選項有：</p>
 <ul>
 <li>
-<code>:env</code> - Specifies the environment in which to run this rake task.</li>
+<code>:env</code> - 指定執行此 Rake 任務的環境。</li>
 <li>
-<code>:sudo</code> - Whether or not to run this task using <code>sudo</code>. Defaults to <code>false</code>.</li>
+<code>:sudo</code> - 是否用 <code>sudo</code> 執行此任務，默認是 <code>false</code>。</li>
 </ul>
 <h4 id="capify!">9.14 <code>capify!</code>
 </h4>
-<p>Runs the <code>capify</code> command from Capistrano at the root of the application which generates Capistrano configuration.</p>
+<p>在應用程式根目錄執行 Capistrano 的 <code>capify</code> 指令，會產生出 Capistrano 的設定檔。</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 capify!
@@ -866,7 +866,7 @@ capify!
 </div>
 <h4 id="route">9.15 <code>route</code>
 </h4>
-<p>Adds text to the <code>config/routes.rb</code> file:</p>
+<p>新增一條路由至 <code>config/routes.rb</code>：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 route "resources :people"
@@ -875,7 +875,7 @@ route "resources :people"
 </div>
 <h4 id="readme">9.16 <code>readme</code>
 </h4>
-<p>Output the contents of a file in the template's <code>source_path</code>, usually a README.</p>
+<p>輸出模版 <code>source_path</code> 檔案的內容，通常是 <code>README</code>。</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 readme "README"
