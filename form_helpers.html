@@ -6,7 +6,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-<title>Action View 表單輔助方法 — Ruby on Rails 指南</title>
+<title>Form Helpers — Ruby on Rails 指南</title>
 <link rel="stylesheet" type="text/css" href="stylesheets/style.css" />
 <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
 
@@ -31,7 +31,6 @@
         <li class="more-info"><a href="https://github.com/rails/rails">原始碼</a></li>
         <li class="more-info"><a href="http://rubyonrails.org/screencasts">影片</a></li>
         <li class="more-info"><a href="http://rubyonrails.org/documentation">文件</a></li>
-        <li class="more-info"><a href="http://rubyonrails.org/ecosystem">生態圈</a></li>
         <li class="more-info"><a href="http://rubyonrails.org/community">社群</a></li>
         <li class="more-info"><a href="http://weblog.rubyonrails.org/">Blog</a></li>
       </ul>
@@ -58,7 +57,7 @@
                 <dd><a href="active_record_querying.html">Active Record 查詢</a></dd>
                 <dt>Views</dt>
                 <dd><a href="layouts_and_rendering.html">Rails 算繪與版型</a></dd>
-                <dd><a href="form_helpers.html">Action View 表單輔助方法</a></dd>
+                <dd><a href="form_helpers.html">Action View 表單 Helpers</a></dd>
                 <dt>Controllers</dt>
                 <dd><a href="action_controller_overview.html">Action Controller 綜覽</a></dd>
                 <dd><a href="routing.html">Rails 路由：深入淺出</a></dd>
@@ -113,7 +112,7 @@
               </optgroup>
               <optgroup label="Views">
                   <option value="layouts_and_rendering.html">Rails 算繪與版型</option>
-                  <option value="form_helpers.html">Action View 表單輔助方法</option>
+                  <option value="form_helpers.html">Action View 表單 Helpers</option>
               </optgroup>
               <optgroup label="Controllers">
                   <option value="action_controller_overview.html">Action Controller 綜覽</option>
@@ -161,15 +160,15 @@
 
   <div id="feature">
     <div class="wrapper">
-      <h2 id="action-view-表單輔助方法">Action View 表單輔助方法</h2><p>表單是 Web 應用程式裡，供使用者輸入的基本介面。然而表單的各種名稱與屬性，撰寫表單很快便變得繁瑣與難以維護。Rails 透過提供 View 輔助方法，來簡化表單的撰寫。但各種輔助方法的應用場景不盡相同，開發者需要知道輔助方法之間的差異，才能完善的使用這些輔助方法。</p><p>讀完本篇，您將了解：</p>
+      <h2 id="form-helpers">Form Helpers</h2><p>Forms in web applications are an essential interface for user input. However, form markup can quickly become tedious to write and maintain because of form control naming and their numerous attributes. Rails does away with these complexities by providing view helpers for generating form markup. However, since they have different use-cases, developers are required to know all the differences between similar helper methods before putting them to use.</p><p>After reading this guide, you will know:</p>
 <ul>
-<li>如何建立搜索表單與其它常見的通用表單。</li>
-<li>如何替 Model 打造出編輯與建立資料庫記錄的表單。</li>
-<li>如何從多種類型的資料產生 select boxes。</li>
-<li>Rails 提供的日期與時間輔助方法。</li>
-<li>上傳檔案表單的特別之處。</li>
-<li>打造供外部資源使用的表單。</li>
-<li>如何打造複雜表單。</li>
+<li>How to create search forms and similar kind of generic forms not representing any specific model in your application.</li>
+<li>How to make model-centric forms for creation and editing of specific database records.</li>
+<li>How to generate select boxes from multiple types of data.</li>
+<li>The date and time helpers Rails provides.</li>
+<li>What makes a file upload form different.</li>
+<li>Some cases of building forms to external resources.</li>
+<li>How to build complex forms.</li>
 </ul>
 
 
@@ -178,21 +177,21 @@
             <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
 <html><body><ol class="chapters">
 <li>
-<a href="#%E8%99%95%E7%90%86%E7%B0%A1%E5%96%AE%E7%9A%84%E8%A1%A8%E5%96%AE">處理簡單的表單</a>
+<a href="#dealing-with-basic-forms">Dealing with Basic Forms</a>
 
 <ul>
-<li><a href="#%E9%80%9A%E7%94%A8%E6%90%9C%E7%B4%A2%E8%A1%A8%E5%96%AE">通用搜索表單</a></li>
-<li><a href="#%E5%91%BC%E5%8F%AB%E8%A1%A8%E5%96%AE%E8%BC%94%E5%8A%A9%E6%96%B9%E6%B3%95%E5%90%8C%E6%99%82%E5%82%B3%E5%A4%9A%E5%80%8B-hash">呼叫表單輔助方法同時傳多個 Hash</a></li>
-<li><a href="#%E7%94%A2%E7%94%9F%E8%A1%A8%E5%96%AE%E5%85%83%E7%B4%A0%E7%9A%84%E8%BC%94%E5%8A%A9%E6%96%B9%E6%B3%95">產生表單元素的輔助方法</a></li>
-<li><a href="#%E5%85%B6%E5%AE%83%E7%9B%B8%E9%97%9C%E8%BC%94%E5%8A%A9%E6%96%B9%E6%B3%95">其它相關輔助方法</a></li>
+<li><a href="#a-generic-search-form">A Generic Search Form</a></li>
+<li><a href="#multiple-hashes-in-form-helper-calls">Multiple Hashes in Form Helper Calls</a></li>
+<li><a href="#helpers-for-generating-form-elements">Helpers for Generating Form Elements</a></li>
+<li><a href="#other-helpers-of-interest">Other Helpers of Interest</a></li>
 </ul>
 </li>
 <li>
-<a href="#%E8%99%95%E7%90%86-model-%E7%89%A9%E4%BB%B6">處理 Model 物件</a>
+<a href="#dealing-with-model-objects">Dealing with Model Objects</a>
 
 <ul>
-<li><a href="#model-%E7%89%A9%E4%BB%B6%E8%BC%94%E5%8A%A9%E6%96%B9%E6%B3%95">Model 物件輔助方法</a></li>
-<li><a href="#%E5%B0%87%E8%A1%A8%E5%96%AE%E7%B6%81%E5%AE%9A%E5%88%B0%E7%89%A9%E4%BB%B6">將表單綁定到物件</a></li>
+<li><a href="#model-object-helpers">Model Object Helpers</a></li>
+<li><a href="#binding-a-form-to-an-object">Binding a Form to an Object</a></li>
 <li><a href="#relying-on-record-identification">Relying on Record Identification</a></li>
 <li><a href="#how-do-forms-with-patch,-put,-or-delete-methods-work?">How do forms with PATCH, PUT, or DELETE methods work?</a></li>
 </ul>
@@ -260,9 +259,9 @@
       <div id="mainCol">
         <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
 <html><body>
-<div class="note"><p>本篇不是表單輔助方法完整的文件，完整文件請參考 <a href="http://api.rubyonrails.org/">Rails API 文件</a>。</p></div>
-<h3 id="處理簡單的表單">1 處理簡單的表單</h3>
-<p>最基本的表單輔助方法是 <code>form_tag</code>。</p>
+<div class="note"><p>This guide is not intended to be a complete documentation of available form helpers and their arguments. Please visit <a href="http://api.rubyonrails.org/">the Rails API documentation</a> for a complete reference.</p></div>
+<h3 id="dealing-with-basic-forms">1 Dealing with Basic Forms</h3>
+<p>The most basic form helper is <code>form_tag</code>.</p>
 <div class="code_container">
 <pre class="brush: ruby; html-script: true; gutter: false; toolbar: false">
 &lt;%= form_tag do %&gt;
@@ -271,11 +270,11 @@
 
 </pre>
 </div>
-<p>像這樣呼叫不傳參數時，會建立出 <code>&lt;form&gt;</code> 標籤。按下送出時，會對目前的頁面做 POST。舉例來說，假設目前的頁面是 <code>/home/index</code>，上例產生的 HTML 會像是（添加了某些斷行來提高可讀性）：</p>
+<p>When called without arguments like this, it creates a <code>&lt;form&gt;</code> tag which, when submitted, will POST to the current page. For instance, assuming the current page is <code>/home/index</code>, the generated HTML will look like this (some line breaks added for readability):</p>
 <div class="code_container">
 <pre class="brush: xml; gutter: false; toolbar: false">
 &lt;form accept-charset="UTF-8" action="/home/index" method="post"&gt;
-  &lt;div style="display:none"&gt;
+  &lt;div style="margin:0;padding:0"&gt;
     &lt;input name="utf8" type="hidden" value="&amp;#x2713;" /&gt;
     &lt;input name="authenticity_token" type="hidden" value="f755bb0ed134b76c432144748a6d4b7a7ddf2b71" /&gt;
   &lt;/div&gt;
@@ -284,17 +283,17 @@
 
 </pre>
 </div>
-<p>注意到 HTML 裡有個額外的 <code>div</code> 元素，裡面有兩個隱藏的 <code>input</code>。這個 <code>div</code> 很重要，沒有這個 <code>div</code> 表單便無法順利送出。第一個 <code>name</code> 屬性為 <code>utf8</code> 的 <code>input</code>，強制瀏覽器正確採用表單指定的編碼，所有 HTTP 動詞為 <code>GET</code> 或 <code>POST</code> 表單，Rails 都會產生這個 <code>input</code>。第二個 <code>name</code> 屬性為 <code>authenticity_token</code> 的 <code>input</code>，是 Rails 內建用來防止 <strong>CSRF (cross-site request forgery protection)</strong> 攻擊的安全機制，任何非 <code>GET</code> 的表單，Rails 都會產生一個這樣的 <code>input</code>（安全機制有啟用的話）。詳情請閱讀<a href="security.html#cross-site-request-forgery-csrf">安全指南</a>。</p>
-<div class="note"><p>為求行文簡潔，有隱藏輸入的 <code>div</code> 將省略不列在之後的範例裡。</p></div>
-<h4 id="通用搜索表單">1.1 通用搜索表單</h4>
-<p>Web 世界最基礎的表單之一便是「搜索表單」。通常具有以下元素：</p>
+<p>Now, you'll notice that the HTML contains something extra: a <code>div</code> element with two hidden input elements inside. This div is important, because the form cannot be successfully submitted without it. The first input element with name <code>utf8</code> enforces browsers to properly respect your form's character encoding and is generated for all forms whether their actions are "GET" or "POST". The second input element with name <code>authenticity_token</code> is a security feature of Rails called <strong>cross-site request forgery protection</strong>, and form helpers generate it for every non-GET form (provided that this security feature is enabled). You can read more about this in the <a href="./security.html#cross-site-request-forgery-csrf">Security Guide</a>.</p>
+<div class="note"><p>Throughout this guide, the <code>div</code> with the hidden input elements will be excluded from code samples for brevity.</p></div>
+<h4 id="a-generic-search-form">1.1 A Generic Search Form</h4>
+<p>One of the most basic forms you see on the web is a search form. This form contains:</p>
 <ul>
-<li>一個有 <code>GET</code> 動詞的表單</li>
-<li>文字欄位供輸入</li>
-<li>輸入有標籤</li>
-<li>送出元素</li>
+<li>a form element with "GET" method,</li>
+<li>a label for the input,</li>
+<li>a text input element, and</li>
+<li>a submit element.</li>
 </ul>
-<p>要建立搜索表單，可以使用 <code>form_tag</code>、<code>label_tag</code>、<code>text_field_tag</code>、以及 <code>submit_tag</code>：</p>
+<p>To create this form you will use <code>form_tag</code>, <code>label_tag</code>, <code>text_field_tag</code>, and <code>submit_tag</code>, respectively. Like this:</p>
 <div class="code_container">
 <pre class="brush: ruby; html-script: true; gutter: false; toolbar: false">
 &lt;%= form_tag("/search", method: "get") do %&gt;
@@ -305,10 +304,10 @@
 
 </pre>
 </div>
-<p>會產生出如下 HTML：</p>
+<p>This will generate the following HTML:</p>
 <div class="code_container">
 <pre class="brush: xml; gutter: false; toolbar: false">
-&lt;form accept-charset="UTF-8" action="/search" method="get"&gt;&lt;div style="display:none"&gt;&lt;input name="utf8" type="hidden" value="&amp;#x2713;" /&gt;&lt;/div&gt;
+&lt;form accept-charset="UTF-8" action="/search" method="get"&gt;&lt;div style="margin:0;padding:0;display:inline"&gt;&lt;input name="utf8" type="hidden" value="&amp;#x2713;" /&gt;&lt;/div&gt;
   &lt;label for="q"&gt;Search for:&lt;/label&gt;
   &lt;input id="q" name="q" type="text" /&gt;
   &lt;input name="commit" type="submit" value="Search" /&gt;
@@ -316,32 +315,32 @@
 
 </pre>
 </div>
-<div class="info"><p>每個表單的輸入 <code>input</code>，都會根據 <code>name</code> 屬性來產生 <code>ID</code> 屬性（上例為 <code>q</code>）。<code>ID</code> 給 CSS 新增樣式、或是 JavaScript 操作表單都很方便。</p></div>
-<p>除了 <code>text_field_tag</code> 與 <code>submit_tag</code> 之外，每個表單元素都有對應的輔助方法。</p>
-<div class="warning"><p>搜索表單永遠使用 <code>GET</code> 動詞。這允許使用者可以把搜索結果加入書籤，之後能透過書籤瀏覽。Rails 普遍鼓勵使用正確的 HTTP 動詞。</p></div>
-<h4 id="呼叫表單輔助方法同時傳多個-hash">1.2 呼叫表單輔助方法同時傳多個 Hash</h4>
-<p><code>form_tag</code> 輔助方法接受 2 個參數： <strong>表單送出的目標路徑，以及 Hash 選項</strong>。Hash 選項用來指定表單所使用的方法，以及其它 HTML 選項，如指定表單的 <code>class</code>。</p>
-<p>和 <code>link_to</code> 輔助方法類似，路徑不需要是字串。可以是 Rails Router 看的懂的 URL Hash，Rails 的路由機制會把 Hash 轉換為有效的 URL。但由於傳給 <code>form_tag</code> 的兩個參數都是 Hash，兩個都要指定便會碰到問題。譬如以下這個例子：</p>
+<div class="info"><p>For every form input, an ID attribute is generated from its name ("q" in the example). These IDs can be very useful for CSS styling or manipulation of form controls with JavaScript.</p></div>
+<p>Besides <code>text_field_tag</code> and <code>submit_tag</code>, there is a similar helper for <em>every</em> form control in HTML.</p>
+<div class="warning"><p>Always use "GET" as the method for search forms. This allows users to bookmark a specific search and get back to it. More generally Rails encourages you to use the right HTTP verb for an action.</p></div>
+<h4 id="multiple-hashes-in-form-helper-calls">1.2 Multiple Hashes in Form Helper Calls</h4>
+<p>The <code>form_tag</code> helper accepts 2 arguments: the path for the action and an options hash. This hash specifies the method of form submission and HTML options such as the form element's class.</p>
+<p>As with the <code>link_to</code> helper, the path argument doesn't have to be a string; it can be a hash of URL parameters recognizable by Rails' routing mechanism, which will turn the hash into a valid URL. However, since both arguments to <code>form_tag</code> are hashes, you can easily run into a problem if you would like to specify both. For instance, let's say you write this:</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 form_tag(controller: "people", action: "search", method: "get", class: "nifty_form")
-# =&gt; '&lt;form accept-charset="UTF-8" action="/people/search?class=nifty_form&amp;amp;method=get" method="post"&gt;'
+# =&gt; '&lt;form accept-charset="UTF-8" action="/people/search?method=get&amp;class=nifty_form" method="post"&gt;'
 
 </pre>
 </div>
-<p>這裡 <code>method</code> 與 <code>class</code> 變成了產生出來的 URL 的查詢字串，因為 Rails 將這四個參數認成了一個 Hash。需要把第一組 Hash 放在大括號裡（或兩組明確使用大括號亦可），才會產生出正確的 HTML：</p>
+<p>Here, <code>method</code> and <code>class</code> are appended to the query string of the generated URL because even though you mean to write two hashes, you really only specified one. So you need to tell Ruby which is which by delimiting the first hash (or both) with curly brackets. This will generate the HTML you expect:</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
-form_tag({ controller: "people", action: "search" }, method: "get", class: "nifty_form")
-# =&gt; '&lt;form accept-charset="UTF-8" action="/people/search" class="nifty_form" method="get"&gt;'
+form_tag({controller: "people", action: "search"}, method: "get", class: "nifty_form")
+# =&gt; '&lt;form accept-charset="UTF-8" action="/people/search" method="get" class="nifty_form"&gt;'
 
 </pre>
 </div>
-<h4 id="產生表單元素的輔助方法">1.3 產生表單元素的輔助方法</h4>
-<p>Rails 提供一系列的輔助方法，用來產生表單元素，像是多選方框（checkboxes）、文字欄位（text fields）以及單選按鈕（radio button）。名字以 <code>_tag</code> 結尾的輔助方法（譬如 <code>text_field_tag</code> 與 <code>check_box_tag</code>）只會產生一個 <code>&lt;input&gt;</code> 元素。這些輔助方法的第一個參數都是 <code>input</code> 的名稱（<code>name</code>）。表單送出時，<code>name</code> 會與表單資料一起送出，使用者輸入的資料會存在 <code>params</code> Hash 裡，可在 Controller 取用。舉個例子，若表單的 <code>input</code> 是 <code>&lt;%= text_field_tag(:query) %&gt;</code>，則可在 Controller 用 <code>params[:query]</code> 來獲得使用者的輸入。</p>
-<p>Rails 使用特定的慣例來命名 <code>input</code>，使得送出像是陣列與 Hash 的值，也可以在 <code>params</code> 裡取用。了解更多可閱讀<a href="#%E7%90%86%E8%A7%A3%E5%8F%83%E6%95%B8%E5%91%BD%E5%90%8D%E6%85%A3%E4%BE%8B">本文第七章：理解參數命名慣例</a>。這些輔助方法更精確的用途，請參考 <a href="http://api.rubyonrails.org/classes/ActionView/Helpers/FormTagHelper.html">API 文件</a>。</p>
-<h5 id="多選方框">1.3.1 多選方框</h5>
-<p>多選方框是一種表單控件，給使用者一組可啟用停用的選項：</p>
+<h4 id="helpers-for-generating-form-elements">1.3 Helpers for Generating Form Elements</h4>
+<p>Rails provides a series of helpers for generating form elements such as checkboxes, text fields, and radio buttons. These basic helpers, with names ending in "<em>tag" (such as <code>text_field_tag</code> and <code>check_box_tag</code>), generate just a single <code>&lt;input&gt;</code> element. The first parameter to these is always the name of the input. When the form is submitted, the name will be passed along with the form data, and will make its way to the <code>params</code> hash in the controller with the value entered by the user for that field. For example, if the form contains `&lt;%= text</em>field_tag(:query) %&gt;<code>, then you would be able to get the value of this field in the controller with</code>params[:query]`.</p>
+<p>When naming inputs, Rails uses certain conventions that make it possible to submit parameters with non-scalar values such as arrays or hashes, which will also be accessible in <code>params</code>. You can read more about them in <a href="#understanding-parameter-naming-conventions">chapter 7 of this guide</a>. For details on the precise usage of these helpers, please refer to the <a href="http://api.rubyonrails.org/classes/ActionView/Helpers/FormTagHelper.html">API documentation</a>.</p>
+<h5 id="checkboxes">1.3.1 Checkboxes</h5>
+<p>Checkboxes are form controls that give the user a set of options they can enable or disable:</p>
 <div class="code_container">
 <pre class="brush: ruby; html-script: true; gutter: false; toolbar: false">
 &lt;%= check_box_tag(:pet_dog) %&gt;
@@ -351,7 +350,7 @@ form_tag({ controller: "people", action: "search" }, method: "get", class: "nift
 
 </pre>
 </div>
-<p>產生的 HTML：</p>
+<p>This generates the following:</p>
 <div class="code_container">
 <pre class="brush: xml; gutter: false; toolbar: false">
 &lt;input id="pet_dog" name="pet_dog" type="checkbox" value="1" /&gt;
@@ -361,9 +360,9 @@ form_tag({ controller: "people", action: "search" }, method: "get", class: "nift
 
 </pre>
 </div>
-<p><code>checkbox_box_tag</code> 第一個參數是 <code>input</code> 的 <code>name</code>，第二個參數通常是 <code>input</code> 的 <code>value</code>，當該多選方框被選中時，<code>value</code> 會被包含在表單資料一併送出，便可在 <code>params</code> 取用。</p>
-<h5 id="單選按鈕">1.3.2 單選按鈕</h5>
-<p>單選按鈕與多選方框類似，但每個選項是互斥的（也就是只能選一個）：</p>
+<p>The first parameter to <code>check_box_tag</code>, of course, is the name of the input. The second parameter, naturally, is the value of the input. This value will be included in the form data (and be present in <code>params</code>) when the checkbox is checked.</p>
+<h5 id="radio-buttons">1.3.2 Radio Buttons</h5>
+<p>Radio buttons, while similar to checkboxes, are controls that specify a set of options in which they are mutually exclusive (i.e., the user can only pick one):</p>
 <div class="code_container">
 <pre class="brush: ruby; html-script: true; gutter: false; toolbar: false">
 &lt;%= radio_button_tag(:age, "child") %&gt;
@@ -373,7 +372,7 @@ form_tag({ controller: "people", action: "search" }, method: "get", class: "nift
 
 </pre>
 </div>
-<p>產生的 HTML：</p>
+<p>Output:</p>
 <div class="code_container">
 <pre class="brush: xml; gutter: false; toolbar: false">
 &lt;input id="age_child" name="age" type="radio" value="child" /&gt;
@@ -383,11 +382,15 @@ form_tag({ controller: "people", action: "search" }, method: "get", class: "nift
 
 </pre>
 </div>
-<p>和 <code>check_box_tag</code> 類似，<code>radio_button_tag</code> 的第二個參數同樣是 <code>input</code> 的 <code>value</code>。因為這兩個單選按鈕的 <code>name</code> 都是 <code>age</code>，使用者只能選一個， <code>params[:age]</code> 的值會是 <code>"child"</code> 或 <code>"adult"</code>。</p>
-<div class="note"><p>永遠記得幫多選方框與單選按鈕加上 <code>label</code>。<code>label</code> 可以為特定的輸入新增說明文字，也會加大可按範圍，讓使用者更容易選中。</p></div>
-<h4 id="其它相關輔助方法">1.4 其它相關輔助方法</h4>
-<p>其它值得一提的表單控件有：textareas、password fields、hidden fields、search fields、telephone fields、date fields、time fields、color fields、datetime fields、datetime-local fields、month fields、week fields、url fields、email fields、number fields 以及 range fields。</p>
-<div class="note"><p>search、telephone、date、time、color、datetime、datetime-local、month、week、url、email、number 以及 range，是 HTML5 才有的 <code>input</code> 類型。</p></div>
+<p>As with <code>check_box_tag</code>, the second parameter to <code>radio_button_tag</code> is the value of the input. Because these two radio buttons share the same name (age) the user will only be able to select one, and <code>params[:age]</code> will contain either "child" or "adult".</p>
+<div class="note"><p>Always use labels for checkbox and radio buttons. They associate text with a specific option and,
+by expanding the clickable region,
+make it easier for users to click the inputs.</p></div>
+<h4 id="other-helpers-of-interest">1.4 Other Helpers of Interest</h4>
+<p>Other form controls worth mentioning are textareas, password fields,
+hidden fields, search fields, telephone fields, date fields, time fields,
+color fields, datetime fields, datetime-local fields, month fields, week fields,
+URL fields, email fields, number fields and range fields:</p>
 <div class="code_container">
 <pre class="brush: ruby; html-script: true; gutter: false; toolbar: false">
 &lt;%= text_area_tag(:message, "Hi, nice site", size: "24x6") %&gt;
@@ -409,7 +412,7 @@ form_tag({ controller: "people", action: "search" }, method: "get", class: "nift
 
 </pre>
 </div>
-<p>產生的 HTML：</p>
+<p>Output:</p>
 <div class="code_container">
 <pre class="brush: xml; gutter: false; toolbar: false">
 &lt;textarea id="message" name="message" cols="24" rows="6"&gt;Hi, nice site&lt;/textarea&gt;
@@ -431,11 +434,18 @@ form_tag({ controller: "people", action: "search" }, method: "get", class: "nift
 
 </pre>
 </div>
-<p>Hidden inputs 不會顯示給使用者，但和其它文字輸入一樣可以存放資料。Hidden inputs 的值可以使用 JavaScript 來修改。</p>
-<div class="warning"><p>search、telephone、date、time、color、datetime、datetime-local、month、week、URL、email、number 以及 range inputs 是 HTML5 控件。若需要應用程式在舊版的瀏覽器也有一致的瀏覽體驗，需要使用 HTML5 polyfill（由 CSS 或 JavaScript 提供）。<a href="https://github.com/Modernizr/Modernizr/wiki/HTML5-Cross-Browser-Polyfills">雖然 polyfill 很好</a>，但目前主流工具是 <a href="http://www.modernizr.com/">Modernizr</a> 以及 <a href="http://yepnopejs.com/">yepnope</a>，這兩個工具提供一種簡單的方式，用來新增 HTML5 的新功能。</p></div>
-<div class="info"><p>若使用了 password input fields（不論用途），輸入的值可能不要記錄在 Log。詳細做法請參考<a href="security.html#logging">安全指南：logging 一節</a>。</p></div>
-<h3 id="處理-model-物件">2 處理 Model 物件</h3>
-<h4 id="model-物件輔助方法">2.1 Model 物件輔助方法</h4>
+<p>Hidden inputs are not shown to the user but instead hold data like any textual input. Values inside them can be changed with JavaScript.</p>
+<div class="warning"><p>The search, telephone, date, time, color, datetime, datetime-local,
+month, week, URL, email, number and range inputs are HTML5 controls.
+If you require your app to have a consistent experience in older browsers,
+you will need an HTML5 polyfill (provided by CSS and/or JavaScript).
+There is definitely <a href="https://github.com/Modernizr/Modernizr/wiki/HTML5-Cross-Browser-Polyfills">no shortage of solutions for this</a>, although a couple of popular tools at the moment are
+<a href="http://www.modernizr.com/">Modernizr</a> and <a href="http://yepnopejs.com/">yepnope</a>,
+which provide a simple way to add functionality based on the presence of
+detected HTML5 features.</p></div>
+<div class="info"><p>If you're using password input fields (for any purpose), you might want to configure your application to prevent those parameters from being logged. You can learn about this in the <a href="security.html#logging">Security Guide</a>.</p></div>
+<h3 id="dealing-with-model-objects">2 Dealing with Model Objects</h3>
+<h4 id="model-object-helpers">2.1 Model Object Helpers</h4>
 <p>A particularly common task for a form is editing or creating a model object. While the <code>*_tag</code> helpers can certainly be used for this task they are somewhat verbose as for each tag you would have to ensure the correct parameter name is used and set the default value of the input appropriately. Rails provides helpers tailored to this task. These helpers lack the <em>tag suffix, for example `text</em>field<code>,</code>text_area`.</p>
 <p>For these helpers the first argument is the name of an instance variable and the second is the name of a method (usually an attribute) to call on that object. Rails will set the value of the input control to the return value of that method for the object and set an appropriate input name. If your controller has defined <code>@person</code> and that person's name is Henry then a form containing:</p>
 <div class="code_container">
@@ -454,7 +464,7 @@ form_tag({ controller: "people", action: "search" }, method: "get", class: "nift
 <p>Upon form submission the value entered by the user will be stored in <code>params[:person][:name]</code>. The <code>params[:person]</code> hash is suitable for passing to <code>Person.new</code> or, if <code>@person</code> is an instance of Person, <code>@person.update</code>. While the name of an attribute is the most common second parameter to these helpers this is not compulsory. In the example above, as long as person objects have a <code>name</code> and a <code>name=</code> method Rails will be happy.</p>
 <div class="warning"><p>You must pass the name of an instance variable, i.e. <code>:person</code> or <code>"person"</code>, not an actual instance of your model object.</p></div>
 <p>Rails provides helpers for displaying the validation errors associated with a model object. These are covered in detail by the <a href="./active_record_validations.html#displaying-validation-errors-in-views">Active Record Validations</a> guide.</p>
-<h4 id="將表單綁定到物件">2.2 將表單綁定到物件</h4>
+<h4 id="binding-a-form-to-an-object">2.2 Binding a Form to an Object</h4>
 <p>While this is an increase in comfort it is far from perfect. If Person has many attributes to edit then we would be repeating the name of the edited object many times. What we want to do is somehow bind a form to a model object, which is exactly what <code>form_for</code> does.</p>
 <p>Assume we have a controller for dealing with articles <code>app/controllers/articles_controller.rb</code>:</p>
 <div class="code_container">
