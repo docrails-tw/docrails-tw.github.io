@@ -160,7 +160,7 @@
 
   <div id="feature">
     <div class="wrapper">
-      <h2 id="active-record-關聯">Active Record 關聯</h2><p>本篇介紹 Active Record 的關聯功能。</p><p>讀完本篇，您將了解：</p>
+      <h2>Active Record 關聯</h2><p>本篇介紹 Active Record 的關聯功能。</p><p>讀完本篇，您將了解：</p>
 <ul>
 <li>如何宣告 Active Record Model 之間的關聯。</li>
 <li>如何理解 Active Record 的各種關聯。</li>
@@ -170,8 +170,7 @@
 
                 <div id="subCol">
             <h3 class="chapter"><img src="images/chapters_icon.gif" alt="" />Chapters</h3>
-            <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
-<html><body><ol class="chapters">
+            <ol class="chapters">
 <li><a href="#%E7%82%BA%E4%BB%80%E9%BA%BC%E9%9C%80%E8%A6%81%E9%97%9C%E8%81%AF%EF%BC%9F">為什麼需要關聯？</a></li>
 <li>
 <a href="#%E9%97%9C%E8%81%AF%E7%A8%AE%E9%A1%9E">關聯種類</a>
@@ -212,7 +211,7 @@
 <li><a href="#%E6%93%B4%E5%85%85%E9%97%9C%E8%81%AF">擴充關聯</a></li>
 </ul>
 </li>
-</ol></body></html>
+</ol>
 
           </div>
 
@@ -222,11 +221,7 @@
   <div id="container">
     <div class="wrapper">
       <div id="mainCol">
-        <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
-<html><body>
-<h3 id="為什麼需要關聯？">1 為什麼需要關聯？</h3>
-<p>為什麼 Model 之間要有關聯？關聯簡化了常見的操作，程式碼撰寫起來更簡單。比如，一個簡單的 Rails 應用程式，有顧客與訂單 Model。每個顧客可有多筆訂單。若沒有關聯功能，則 Model 看起來會像是：</p>
-<div class="code_container">
+        <h3 id="為什麼需要關聯？">1 為什麼需要關聯？</h3><p>為什麼 Model 之間要有關聯？關聯簡化了常見的操作，程式碼撰寫起來更簡單。比如，一個簡單的 Rails 應用程式，有顧客與訂單 Model。每個顧客可有多筆訂單。若沒有關聯功能，則 Model 看起來會像是：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Customer &lt; ActiveRecord::Base
 end
@@ -236,15 +231,13 @@ end
 
 </pre>
 </div>
-<p>為顧客建筆新訂單：</p>
-<div class="code_container">
+<p>為顧客建筆新訂單：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 @order = Order.create(order_date: Time.now, customer_id: @customer.id)
 
 </pre>
 </div>
-<p>刪除顧客以及顧客所有相關的訂單：</p>
-<div class="code_container">
+<p>刪除顧客以及顧客所有相關的訂單：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 @orders = Order.where(customer_id: @customer.id)
 @orders.each do |order|
@@ -254,8 +247,7 @@ end
 
 </pre>
 </div>
-<p>有了 Active Record 關聯，可以透過告訴 Rails，Model 之間的關聯，來精簡上例。以下是簡化後的程式碼：</p>
-<div class="code_container">
+<p>有了 Active Record 關聯，可以透過告訴 Rails，Model 之間的關聯，來精簡上例。以下是簡化後的程式碼：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Customer &lt; ActiveRecord::Base
   has_many :orders, dependent: :destroy
@@ -267,23 +259,19 @@ end
 
 </pre>
 </div>
-<p>改寫成這樣後，給顧客建新訂單變得簡單許多：</p>
-<div class="code_container">
+<p>改寫成這樣後，給顧客建新訂單變得簡單許多：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 @order = @customer.orders.create(order_date: Time.now)
 
 </pre>
 </div>
-<p>刪除顧客以及有關訂單更是簡單多了：</p>
-<div class="code_container">
+<p>刪除顧客以及有關訂單更是簡單多了：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 @customer.destroy
 
 </pre>
 </div>
-<p>要了解各種關聯的用途，請閱讀下一節。下一節介紹關聯種類、各種關聯的秘訣與小技巧。本篇最後一節是 Rails 各種關聯的可用選項與方法的完整參考手冊。</p>
-<h3 id="關聯種類">2 關聯種類</h3>
-<p>在 Rails 的世界裡，<strong>關聯</strong>連結了兩個 Active Record Model。關聯使用宏風格（macro-style）的語法來呼叫，以宣告的形式加入功能到 Model。舉例來說，透過宣告一個 Model 屬於另一個，來告訴 Rails 如何維護兩者之間的主外鍵，同時獲得許多實用的方法。Rails 支援以下六種關聯：</p>
+<p>要了解各種關聯的用途，請閱讀下一節。下一節介紹關聯種類、各種關聯的秘訣與小技巧。本篇最後一節是 Rails 各種關聯的可用選項與方法的完整參考手冊。</p><h3 id="關聯種類">2 關聯種類</h3><p>在 Rails 的世界裡，<strong>關聯</strong>連結了兩個 Active Record Model。關聯使用宏風格（macro-style）的語法來呼叫，以宣告的形式加入功能到 Model。舉例來說，透過宣告一個 Model 屬於另一個，來告訴 Rails 如何維護兩者之間的主外鍵，同時獲得許多實用的方法。Rails 支援以下六種關聯：</p>
 <ul>
 <li><code>belongs_to</code></li>
 <li><code>has_one</code></li>
@@ -292,10 +280,7 @@ end
 <li><code>has_one :through</code></li>
 <li><code>has_and_belongs_to_many</code></li>
 </ul>
-<p>本篇之後細講各種關聯如何使用，首先介紹各種關聯的應用場景。</p>
-<h4 id="belongs_to-關聯">2.1 <code>belongs_to</code> 關聯</h4>
-<p><code>belongs_to</code> 關聯建立兩個 Model 之間的一對一關係。<code>belongs_to</code> 關聯宣告一個 Model 實體，屬於另一個 Model 實體。舉例來說，應用程式有顧客與訂單兩個 Model，每筆訂單只屬於一位顧客，訂單 Model 便如此宣告：</p>
-<div class="code_container">
+<p>本篇之後細講各種關聯如何使用，首先介紹各種關聯的應用場景。</p><h4 id="belongs_to-關聯">2.1 <code>belongs_to</code> 關聯</h4><p><code>belongs_to</code> 關聯建立兩個 Model 之間的一對一關係。<code>belongs_to</code> 關聯宣告一個 Model 實體，屬於另一個 Model 實體。舉例來說，應用程式有顧客與訂單兩個 Model，每筆訂單只屬於一位顧客，訂單 Model 便如此宣告：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Order &lt; ActiveRecord::Base
   belongs_to :customer
@@ -303,10 +288,7 @@ end
 
 </pre>
 </div>
-<p><img src="images/belongs_to.png" alt="belongs_to Association Diagram"></p>
-<div class="note"><p><code>belongs_to</code> 宣告<strong>必須</strong>使用單數形式。上例若使用複數形式，會報 <code>"uninitialized constant Order::Customers"</code> 錯誤。這是因為 Rails 自動從關聯名稱推斷出類別名稱。關聯名稱錯用複數，推斷出來的類別名稱自然也錯了。</p></div>
-<p>上例對應的遷移（Migration）看起來會像是：</p>
-<div class="code_container">
+<p><img src="images/belongs_to.png" alt="belongs_to Association Diagram"></p><div class="note"><p><code>belongs_to</code> 宣告<strong>必須</strong>使用單數形式。上例若使用複數形式，會報 <code>"uninitialized constant Order::Customers"</code> 錯誤。這是因為 Rails 自動從關聯名稱推斷出類別名稱。關聯名稱錯用複數，推斷出來的類別名稱自然也錯了。</p></div><p>上例對應的遷移（Migration）看起來會像是：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class CreateOrders &lt; ActiveRecord::Migration
   def change
@@ -325,9 +307,7 @@ end
 
 </pre>
 </div>
-<h4 id="has_one-關聯">2.2 <code>has_one</code> 關聯</h4>
-<p><code>has_one</code> 關聯建立兩個 Model 之間的一對一關係，但語義和結果與 <code>belongs_to</code> 不同。<code>has_one</code> 關聯宣告一個 Model 實體，含有（或持有）另一個 Model 實體。舉例來說，每個供應商在應用程式裡只有一個帳號，供應商 Model 便如此宣告：</p>
-<div class="code_container">
+<h4 id="has_one-關聯">2.2 <code>has_one</code> 關聯</h4><p><code>has_one</code> 關聯建立兩個 Model 之間的一對一關係，但語義和結果與 <code>belongs_to</code> 不同。<code>has_one</code> 關聯宣告一個 Model 實體，含有（或持有）另一個 Model 實體。舉例來說，每個供應商在應用程式裡只有一個帳號，供應商 Model 便如此宣告：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Supplier &lt; ActiveRecord::Base
   has_one :account
@@ -335,9 +315,7 @@ end
 
 </pre>
 </div>
-<p><img src="images/has_one.png" alt="has_one Association Diagram"></p>
-<p>上例對應的遷移看起來會像是：</p>
-<div class="code_container">
+<p><img src="images/has_one.png" alt="has_one Association Diagram"></p><p>上例對應的遷移看起來會像是：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class CreateSuppliers &lt; ActiveRecord::Migration
   def change
@@ -356,9 +334,7 @@ end
 
 </pre>
 </div>
-<h4 id="has_many-關聯">2.3 <code>has_many</code> 關聯</h4>
-<p><code>has_many</code> 關聯建立兩個 Model 之間的一對多關係。通常 <code>has_many</code> 另一邊對應的是 <code>belongs_to</code> 關聯。<code>has_many</code> 關聯宣告一個 Model 實體，有零個或多個另一個 Model 實體。舉例來說，應用程式有顧客與訂單兩個 Model，顧客可有多筆訂單，訂單 Model 便如此宣告：</p>
-<div class="code_container">
+<h4 id="has_many-關聯">2.3 <code>has_many</code> 關聯</h4><p><code>has_many</code> 關聯建立兩個 Model 之間的一對多關係。通常 <code>has_many</code> 另一邊對應的是 <code>belongs_to</code> 關聯。<code>has_many</code> 關聯宣告一個 Model 實體，有零個或多個另一個 Model 實體。舉例來說，應用程式有顧客與訂單兩個 Model，顧客可有多筆訂單，訂單 Model 便如此宣告：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Customer &lt; ActiveRecord::Base
   has_many :orders
@@ -366,10 +342,7 @@ end
 
 </pre>
 </div>
-<div class="note"><p>宣告 <code>has_many</code> 關聯名稱採<strong>複數</strong>。</p></div>
-<p><img src="images/has_many.png" alt="has_many Association Diagram"></p>
-<p>上例對應的遷移看起來會像是：</p>
-<div class="code_container">
+<div class="note"><p>宣告 <code>has_many</code> 關聯名稱採<strong>複數</strong>。</p></div><p><img src="images/has_many.png" alt="has_many Association Diagram"></p><p>上例對應的遷移看起來會像是：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class CreateCustomers &lt; ActiveRecord::Migration
   def change
@@ -388,9 +361,7 @@ end
 
 </pre>
 </div>
-<h4 id="has_many-:through-關聯">2.4 <code>has_many :through</code> 關聯</h4>
-<p><code>has_many :through</code> 關聯通常用來建立兩個 Model 之間的多對多關係。<code>has_many :through</code> 關聯<strong>透過（through）</strong>第三個 Model，宣告一個 Model 實體，可有零個或多個另一個 Model 實體。舉個醫療的例子，“病患”需要<strong>透過</strong>“預約”來見“物理治療師”。相對應的宣告如下：</p>
-<div class="code_container">
+<h4 id="has_many-:through-關聯">2.4 <code>has_many :through</code> 關聯</h4><p><code>has_many :through</code> 關聯通常用來建立兩個 Model 之間的多對多關係。<code>has_many :through</code> 關聯<strong>透過（through）</strong>第三個 Model，宣告一個 Model 實體，可有零個或多個另一個 Model 實體。舉個醫療的例子，“病患”需要<strong>透過</strong>“預約”來見“物理治療師”。相對應的宣告如下：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Physician &lt; ActiveRecord::Base
   has_many :appointments
@@ -409,9 +380,7 @@ end
 
 </pre>
 </div>
-<p><img src="images/has_many_through.png" alt="has_many :through Association Diagram"></p>
-<p>上例對應的遷移看起來會像是：</p>
-<div class="code_container">
+<p><img src="images/has_many_through.png" alt="has_many :through Association Diagram"></p><p>上例對應的遷移看起來會像是：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class CreateAppointments &lt; ActiveRecord::Migration
   def change
@@ -436,17 +405,13 @@ end
 
 </pre>
 </div>
-<p>連接 Model（Join Model）的集合可以用 API 關聯。比如：</p>
-<div class="code_container">
+<p>連接 Model（Join Model）的集合可以用 API 關聯。比如：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 physician.patients = patients
 
 </pre>
 </div>
-<p>會為新建立的關聯物件建立連接 Model，如果刪除了其中一個物件，也會刪除對應的資料庫記錄。</p>
-<div class="warning"><p>連接 Model 會自動刪除、直接執行，不會觸發任何 <code>destroy</code> 回呼。</p></div>
-<p><code>has_many :through</code> 關聯在簡化嵌套的 <code>has_many</code> 關聯很有用。比如文件有多個章節、段落。想要簡單地從文件取得所有段落，可以這麼寫：</p>
-<div class="code_container">
+<p>會為新建立的關聯物件建立連接 Model，如果刪除了其中一個物件，也會刪除對應的資料庫記錄。</p><div class="warning"><p>連接 Model 會自動刪除、直接執行，不會觸發任何 <code>destroy</code> 回呼。</p></div><p><code>has_many :through</code> 關聯在簡化嵌套的 <code>has_many</code> 關聯很有用。比如文件有多個章節、段落。想要簡單地從文件取得所有段落，可以這麼寫：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Document &lt; ActiveRecord::Base
   has_many :sections
@@ -464,16 +429,13 @@ end
 
 </pre>
 </div>
-<p>指定了 <code>has_many :paragraphs, through: :sections</code> 之後，Rails 便懂得如何透過章節，從文件中取得段落：</p>
-<div class="code_container">
+<p>指定了 <code>has_many :paragraphs, through: :sections</code> 之後，Rails 便懂得如何透過章節，從文件中取得段落：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 @document.paragraphs
 
 </pre>
 </div>
-<h4 id="has_one-:through-關聯">2.5 <code>has_one :through</code> 關聯</h4>
-<p><code>has_one :through</code> 關聯建立兩個 Model 之間的一對一關係。<code>has_one :through</code> 關聯<strong>透過（through）</strong>第三個 Model，宣告一個 Model 實體，可有另一個 Model 實體。舉例來說，供應商有一個帳號，每個帳號有帳號歷史，相對應的宣告如下：</p>
-<div class="code_container">
+<h4 id="has_one-:through-關聯">2.5 <code>has_one :through</code> 關聯</h4><p><code>has_one :through</code> 關聯建立兩個 Model 之間的一對一關係。<code>has_one :through</code> 關聯<strong>透過（through）</strong>第三個 Model，宣告一個 Model 實體，可有另一個 Model 實體。舉例來說，供應商有一個帳號，每個帳號有帳號歷史，相對應的宣告如下：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Supplier &lt; ActiveRecord::Base
   has_one :account
@@ -491,9 +453,7 @@ end
 
 </pre>
 </div>
-<p><img src="images/has_one_through.png" alt="has_one :through Association Diagram"></p>
-<p>上例對應的遷移看起來會像是：</p>
-<div class="code_container">
+<p><img src="images/has_one_through.png" alt="has_one :through Association Diagram"></p><p>上例對應的遷移看起來會像是：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class CreateAccountHistories &lt; ActiveRecord::Migration
   def change
@@ -518,9 +478,7 @@ end
 
 </pre>
 </div>
-<h4 id="has_and_belongs_to_many-關聯">2.6 <code>has_and_belongs_to_many</code> 關聯</h4>
-<p><code>has_and_belongs_to_many</code> 關聯建立兩個 Model 之間，<strong>直接的</strong>多對多關係。舉例來說，應用程式有組件（Assembly），組件下有部件（Part），可以如此宣告：</p>
-<div class="code_container">
+<h4 id="has_and_belongs_to_many-關聯">2.6 <code>has_and_belongs_to_many</code> 關聯</h4><p><code>has_and_belongs_to_many</code> 關聯建立兩個 Model 之間，<strong>直接的</strong>多對多關係。舉例來說，應用程式有組件（Assembly），組件下有部件（Part），可以如此宣告：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Assembly &lt; ActiveRecord::Base
   has_and_belongs_to_many :parts
@@ -532,9 +490,7 @@ end
 
 </pre>
 </div>
-<p><img src="images/habtm.png" alt="has_and_belongs_to_many Association Diagram"></p>
-<p>上例對應的遷移看起來會像是：</p>
-<div class="code_container">
+<p><img src="images/habtm.png" alt="has_and_belongs_to_many Association Diagram"></p><p>上例對應的遷移看起來會像是：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class CreateAssembliesAndParts &lt; ActiveRecord::Migration
   def change
@@ -557,10 +513,7 @@ end
 
 </pre>
 </div>
-<h4 id="belongs_to-與-has_one-的應用場景">2.7 <code>belongs_to</code> 與 <code>has_one</code> 的應用場景</h4>
-<p>如果想建立兩個 Model 之間的一對一關係，一邊宣告 <code>belongs_to</code>，另一邊宣告 <code>has_one</code>。怎麼知道那個要寫那個？</p>
-<p>差異在於外鍵放在那個 Model（<strong>外鍵放在宣告 <code>belongs_to</code> 的關聯的資料表</strong>）。但應該要考慮實際的語義。比如 <code>has_one</code> 關聯表示某物屬於你，也就是供應商有一個帳號，比帳號擁有供應商合理。所以正確的關聯應這麼宣告：</p>
-<div class="code_container">
+<h4 id="belongs_to-與-has_one-的應用場景">2.7 <code>belongs_to</code> 與 <code>has_one</code> 的應用場景</h4><p>如果想建立兩個 Model 之間的一對一關係，一邊宣告 <code>belongs_to</code>，另一邊宣告 <code>has_one</code>。怎麼知道那個要寫那個？</p><p>差異在於外鍵放在那個 Model（<strong>外鍵放在宣告 <code>belongs_to</code> 的關聯的資料表</strong>）。但應該要考慮實際的語義。比如 <code>has_one</code> 關聯表示某物屬於你，也就是供應商有一個帳號，比帳號擁有供應商合理。所以正確的關聯應這麼宣告：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Supplier &lt; ActiveRecord::Base
 end
@@ -571,8 +524,7 @@ end
 
 </pre>
 </div>
-<p>上例對應的遷移看起來會像是：</p>
-<div class="code_container">
+<p>上例對應的遷移看起來會像是：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class CreateSuppliers &lt; ActiveRecord::Migration
   def change
@@ -591,10 +543,7 @@ end
 
 </pre>
 </div>
-<div class="note"><p>使用 <code>t.integer :supplier_id</code> 讓外鍵看起來更明確。這種寫法可以使用 <code>t.references :supplier</code> 抽象掉實作細節。</p></div>
-<h4 id="has_many-:through-與-has_and_belongs_to_many-的應用場景">2.8 <code>has_many :through</code> 與 <code>has_and_belongs_to_many</code> 的應用場景</h4>
-<p>Rails 提供兩種方式來宣告多對多關係。簡單的方法是使用 <code>has_and_belongs_to_many</code> 來直接建立多對多關聯：</p>
-<div class="code_container">
+<div class="note"><p>使用 <code>t.integer :supplier_id</code> 讓外鍵看起來更明確。這種寫法可以使用 <code>t.references :supplier</code> 抽象掉實作細節。</p></div><h4 id="has_many-:through-與-has_and_belongs_to_many-的應用場景">2.8 <code>has_many :through</code> 與 <code>has_and_belongs_to_many</code> 的應用場景</h4><p>Rails 提供兩種方式來宣告多對多關係。簡單的方法是使用 <code>has_and_belongs_to_many</code> 來直接建立多對多關聯：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Assembly &lt; ActiveRecord::Base
   has_and_belongs_to_many :parts
@@ -606,8 +555,7 @@ end
 
 </pre>
 </div>
-<p>第二種建立多對多關係的方式是使用 <code>has_many :through</code>。這透過連接的 Model，間接建立出多對多關聯：</p>
-<div class="code_container">
+<p>第二種建立多對多關係的方式是使用 <code>has_many :through</code>。這透過連接的 Model，間接建立出多對多關聯：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Assembly &lt; ActiveRecord::Base
   has_many :manifests
@@ -626,11 +574,7 @@ end
 
 </pre>
 </div>
-<p>最簡單的經驗法則表示，當多對多關係中間的 Model 要獨立使用時，使用 <code>has_many :through</code>；不需要對多對多關係中間的 Model 做任何事時，保持簡單使用 <code>has_and_belongs_to_many</code>（但要記得在資料庫建立連接的資料表）。</p>
-<p>若是連接的資料表需要驗證、回呼或其他屬性時，使用 <code>has_many :through</code>。</p>
-<h4 id="多型關聯">2.9 多型關聯</h4>
-<p>一種更進階的關聯用法是<strong>多型關聯</strong>。使用多型關聯，單個關聯裡，Model 可屬於多個 Model。舉例來說，圖片 Model 可屬於員工或產品 Model。相對應的宣告如下：</p>
-<div class="code_container">
+<p>最簡單的經驗法則表示，當多對多關係中間的 Model 要獨立使用時，使用 <code>has_many :through</code>；不需要對多對多關係中間的 Model 做任何事時，保持簡單使用 <code>has_and_belongs_to_many</code>（但要記得在資料庫建立連接的資料表）。</p><p>若是連接的資料表需要驗證、回呼或其他屬性時，使用 <code>has_many :through</code>。</p><h4 id="多型關聯">2.9 多型關聯</h4><p>一種更進階的關聯用法是<strong>多型關聯</strong>。使用多型關聯，單個關聯裡，Model 可屬於多個 Model。舉例來說，圖片 Model 可屬於員工或產品 Model。相對應的宣告如下：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Picture &lt; ActiveRecord::Base
   belongs_to :imageable, polymorphic: true
@@ -646,9 +590,7 @@ end
 
 </pre>
 </div>
-<p>可以把多型的 <code>belongs_to</code> 宣告想成是一個介面，任何 Model 皆可使用的介面。在 <code>Employee</code> Model，可以透過 <code>@employee.pictures</code> 來取出所有圖片。同樣的，在 <code>Product</code> Model 亦然：<code>@product.pictures</code>。</p>
-<p>如果有一個 <code>Picture</code> Model 的實體，可以使用 <code>@picture.imageable</code> 看擁有這張圖片的是誰（父物件）。但首先需要先在遷移裡，加入外鍵（<code>*_id</code>）與類型（<code>*_type</code>）欄位。<code>*_type</code> 類型欄位用來宣告此 Model 擁有多型介面：</p>
-<div class="code_container">
+<p>可以把多型的 <code>belongs_to</code> 宣告想成是一個介面，任何 Model 皆可使用的介面。在 <code>Employee</code> Model，可以透過 <code>@employee.pictures</code> 來取出所有圖片。同樣的，在 <code>Product</code> Model 亦然：<code>@product.pictures</code>。</p><p>如果有一個 <code>Picture</code> Model 的實體，可以使用 <code>@picture.imageable</code> 看擁有這張圖片的是誰（父物件）。但首先需要先在遷移裡，加入外鍵（<code>*_id</code>）與類型（<code>*_type</code>）欄位。<code>*_type</code> 類型欄位用來宣告此 Model 擁有多型介面：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class CreatePictures &lt; ActiveRecord::Migration
   def change
@@ -663,8 +605,7 @@ end
 
 </pre>
 </div>
-<p>上例遷移可用 <code>t.references</code> 形式簡化：</p>
-<div class="code_container">
+<p>上例遷移可用 <code>t.references</code> 形式簡化：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class CreatePictures &lt; ActiveRecord::Migration
   def change
@@ -678,10 +619,7 @@ end
 
 </pre>
 </div>
-<p><img src="images/polymorphic.png" alt="Polymorphic Association Diagram"></p>
-<h4 id="自連接">2.10 自連接</h4>
-<p>在設計資料 Model 時會發現，有時會需要自己與自己有關係的 Model。舉例來說，可能會想把員工資料通通存在一張資料表，但又要能夠追蹤像是經理或下屬之間的關係。這種情況可以使用自連接（Self join）關聯：</p>
-<div class="code_container">
+<p><img src="images/polymorphic.png" alt="Polymorphic Association Diagram"></p><h4 id="自連接">2.10 自連接</h4><p>在設計資料 Model 時會發現，有時會需要自己與自己有關係的 Model。舉例來說，可能會想把員工資料通通存在一張資料表，但又要能夠追蹤像是經理或下屬之間的關係。這種情況可以使用自連接（Self join）關聯：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Employee &lt; ActiveRecord::Base
   has_many :subordinates, class_name: "Employee",
@@ -692,9 +630,7 @@ end
 
 </pre>
 </div>
-<p>這麼設定好後，可以使用 <code>@employee.subordinates</code> 與 <code>@employee.manager</code> 來取出經理與下屬。</p>
-<p>在遷移裡則是需要加入參照自己的欄位：</p>
-<div class="code_container">
+<p>這麼設定好後，可以使用 <code>@employee.subordinates</code> 與 <code>@employee.manager</code> 來取出經理與下屬。</p><p>在遷移裡則是需要加入參照自己的欄位：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class CreateEmployees &lt; ActiveRecord::Migration
   def change
@@ -707,8 +643,7 @@ end
 
 </pre>
 </div>
-<h3 id="秘訣、技巧與注意事項">3 秘訣、技巧與注意事項</h3>
-<p>以下是在 Rails 裡有效使用 Active Record 關聯所需要知道的二三事：</p>
+<h3 id="秘訣、技巧與注意事項">3 秘訣、技巧與注意事項</h3><p>以下是在 Rails 裡有效使用 Active Record 關聯所需要知道的二三事：</p>
 <ul>
 <li>控制快取</li>
 <li>避免命名衝突</li>
@@ -716,9 +651,7 @@ end
 <li>控制關聯作用域</li>
 <li>雙向關聯</li>
 </ul>
-<h4 id="控制快取">3.1 控制快取</h4>
-<p>所有關聯新增的方法皆圍繞著快取打轉。這些方法會保留最近的查詢結果，供之後的查詢使用。快取甚至可在方法之間共享，比如：</p>
-<div class="code_container">
+<h4 id="控制快取">3.1 控制快取</h4><p>所有關聯新增的方法皆圍繞著快取打轉。這些方法會保留最近的查詢結果，供之後的查詢使用。快取甚至可在方法之間共享，比如：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 customer.orders        # 從資料庫取出訂單，快取之。
 customer.orders.size   # 使用快取的訂單查詢數量
@@ -726,8 +659,7 @@ customer.orders.empty? # 使用快取的訂單檢查是否為空
 
 </pre>
 </div>
-<p>但要是應用程式某部分更新了資料，想重載快取呢？呼叫關聯方法時傳入 <code>true</code> 即可：</p>
-<div class="code_container">
+<p>但要是應用程式某部分更新了資料，想重載快取呢？呼叫關聯方法時傳入 <code>true</code> 即可：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 customer.orders              # 從資料庫取出訂單，快取。
 customer.orders.size         # 使用快取的訂單查詢數量
@@ -735,13 +667,7 @@ customer.orders(true).empty? # 捨棄快取的訂單，重新去資料庫取出�
 
 </pre>
 </div>
-<h4 id="避免命名衝突">3.2 避免命名衝突</h4>
-<p>關聯名稱不可隨意使用。因為在建立關聯時，會新增與關聯名稱相同的方法。若是關聯名稱與 <code>ActiveRecord::Base</code> 的實體方法相同時，關聯新增的方法會覆蓋掉 <code>ActiveRecord::Base</code> 的實體方法。比如 <code>attributes</code> 或 <code>connection</code> 是不好的關聯名稱。</p>
-<h4 id="更新資料庫綱要">3.3 更新資料庫綱要</h4>
-<p>關聯非常非常有用，但沒什麼神奇的。為關聯維護對應的資料庫綱要是開發者的責任。不同關聯需要做的事不同。對於 <code>belongs_to</code> 關聯來說，需要建立外鍵；對於 <code>has_and_belongs_to_many</code> 則需要建立適當的連接資料表。</p>
-<h5 id="為-belongs_to-關聯建立外鍵">3.3.1 為 <code>belongs_to</code> 關聯建立外鍵</h5>
-<p>當宣告了 <code>belongs_to</code> 關聯時，需要建立外鍵。看看下面這個 Model：</p>
-<div class="code_container">
+<h4 id="避免命名衝突">3.2 避免命名衝突</h4><p>關聯名稱不可隨意使用。因為在建立關聯時，會新增與關聯名稱相同的方法。若是關聯名稱與 <code>ActiveRecord::Base</code> 的實體方法相同時，關聯新增的方法會覆蓋掉 <code>ActiveRecord::Base</code> 的實體方法。比如 <code>attributes</code> 或 <code>connection</code> 是不好的關聯名稱。</p><h4 id="更新資料庫綱要">3.3 更新資料庫綱要</h4><p>關聯非常非常有用，但沒什麼神奇的。為關聯維護對應的資料庫綱要是開發者的責任。不同關聯需要做的事不同。對於 <code>belongs_to</code> 關聯來說，需要建立外鍵；對於 <code>has_and_belongs_to_many</code> 則需要建立適當的連接資料表。</p><h5 id="為-belongs_to-關聯建立外鍵">3.3.1 為 <code>belongs_to</code> 關聯建立外鍵</h5><p>當宣告了 <code>belongs_to</code> 關聯時，需要建立外鍵。看看下面這個 Model：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Order &lt; ActiveRecord::Base
   belongs_to :customer
@@ -749,8 +675,7 @@ end
 
 </pre>
 </div>
-<p>仍需要在訂單資料表，建立適當的外鍵才有效：</p>
-<div class="code_container">
+<p>仍需要在訂單資料表，建立適當的外鍵才有效：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class CreateOrders &lt; ActiveRecord::Migration
   def change
@@ -764,12 +689,7 @@ end
 
 </pre>
 </div>
-<p>若在建立 Model 之後才宣告關聯，記得使用 <code>add_column</code> 遷移，來提供所需的外鍵。</p>
-<h5 id="為-has_and_belongs_to_many-關聯建立連接資料表">3.3.2 為 <code>has_and_belongs_to_many</code> 關聯建立連接資料表</h5>
-<p>如果建立了 <code>has_and_belongs_to_many</code> 關聯，需要明確的建一張連接表。除非資料表已在 <code>:join_table</code> 選項中指定，否則 Active Record 會以關聯的類別名稱，依照詞法先後順序來命名這張連接資料表。假設有 <code>Customer</code> 與 <code>Order</code> Model ，則預設的連接表名稱是 <code>customers_orders</code>，因為在詞法順序當中，<code>c</code> 的地位高於 <code>o</code>。</p>
-<div class="warning"><p>Model 名稱的優先順序使用 <code>String</code> 的 <code>&lt;</code> 來計算。若字串不一樣長，比較最短長度時，兩個字串是相等的。但長字串詞法地位高於短字串。舉例來說，你可能認為 <code>paper_boxes</code> 與 <code>papers</code> 這兩個資料表產生的連接表名稱是 <code>papers_paper_boxes</code>，因為 <code>paper_boxes</code> 比 <code>papers</code> 長。但實際上是 <code>paper_boxes_papers</code>，因為在常見的編碼裡，<code>_</code> 的詞法地位高於 <code>s</code>。</p></div>
-<p>不論名稱為何，必須要在適當的遷移中，手動產生連接表。考慮下面的關聯範例：</p>
-<div class="code_container">
+<p>若在建立 Model 之後才宣告關聯，記得使用 <code>add_column</code> 遷移，來提供所需的外鍵。</p><h5 id="為-has_and_belongs_to_many-關聯建立連接資料表">3.3.2 為 <code>has_and_belongs_to_many</code> 關聯建立連接資料表</h5><p>如果建立了 <code>has_and_belongs_to_many</code> 關聯，需要明確的建一張連接表。除非資料表已在 <code>:join_table</code> 選項中指定，否則 Active Record 會以關聯的類別名稱，依照詞法先後順序來命名這張連接資料表。假設有 <code>Customer</code> 與 <code>Order</code> Model ，則預設的連接表名稱是 <code>customers_orders</code>，因為在詞法順序當中，<code>c</code> 的地位高於 <code>o</code>。</p><div class="warning"><p>Model 名稱的優先順序使用 <code>String</code> 的 <code>&lt;</code> 來計算。若字串不一樣長，比較最短長度時，兩個字串是相等的。但長字串詞法地位高於短字串。舉例來說，你可能認為 <code>paper_boxes</code> 與 <code>papers</code> 這兩個資料表產生的連接表名稱是 <code>papers_paper_boxes</code>，因為 <code>paper_boxes</code> 比 <code>papers</code> 長。但實際上是 <code>paper_boxes_papers</code>，因為在常見的編碼裡，<code>_</code> 的詞法地位高於 <code>s</code>。</p></div><p>不論名稱為何，必須要在適當的遷移中，手動產生連接表。考慮下面的關聯範例：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Assembly &lt; ActiveRecord::Base
   has_and_belongs_to_many :parts
@@ -781,8 +701,7 @@ end
 
 </pre>
 </div>
-<p>關聯要有效，還需寫一個遷移來建立 <code>assemblies_parts</code> 資料表。並且此表無主鍵：</p>
-<div class="code_container">
+<p>關聯要有效，還需寫一個遷移來建立 <code>assemblies_parts</code> 資料表。並且此表無主鍵：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class CreateAssembliesPartsJoinTable &lt; ActiveRecord::Migration
   def change
@@ -795,10 +714,7 @@ end
 
 </pre>
 </div>
-<p><code>create_table</code> 傳入 <code>id: false</code> 是因為，資料表無需表示一個 Model。這張資料表只是為了讓關聯可以正常工作。如果發現 <code>has_and_belongs_to_many</code> 關聯，出現任何奇怪的行為，像是 ID 錯位、ID 衝突，很可能就是因為忘記去掉主鍵。</p>
-<h4 id="控制關聯作用域">3.4 控制關聯作用域</h4>
-<p>預設關聯只會在目前模組的作用域裡尋找物件。這在模組裡宣告 Active Record Model 時很重要，比如：</p>
-<div class="code_container">
+<p><code>create_table</code> 傳入 <code>id: false</code> 是因為，資料表無需表示一個 Model。這張資料表只是為了讓關聯可以正常工作。如果發現 <code>has_and_belongs_to_many</code> 關聯，出現任何奇怪的行為，像是 ID 錯位、ID 衝突，很可能就是因為忘記去掉主鍵。</p><h4 id="控制關聯作用域">3.4 控制關聯作用域</h4><p>預設關聯只會在目前模組的作用域裡尋找物件。這在模組裡宣告 Active Record Model 時很重要，比如：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 module MyApplication
   module Business
@@ -814,8 +730,7 @@ end
 
 </pre>
 </div>
-<p>這沒什麼問題，因為 <code>Supplier</code> 與 <code>Account</code> 在相同的作用域裡定義。但以下不會正常工作，因為 <code>Supplier</code> 與 <code>Account</code> 定義在不同的作用域裡。</p>
-<div class="code_container">
+<p>這沒什麼問題，因為 <code>Supplier</code> 與 <code>Account</code> 在相同的作用域裡定義。但以下不會正常工作，因為 <code>Supplier</code> 與 <code>Account</code> 定義在不同的作用域裡。</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 module MyApplication
   module Business
@@ -833,8 +748,7 @@ end
 
 </pre>
 </div>
-<p>要將不同命名空間下的 Model 關聯起來，可以在宣告關聯時，指定完整的類別名稱：</p>
-<div class="code_container">
+<p>要將不同命名空間下的 Model 關聯起來，可以在宣告關聯時，指定完整的類別名稱：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 module MyApplication
   module Business
@@ -854,9 +768,7 @@ end
 
 </pre>
 </div>
-<h4 id="雙向關聯">3.5 雙向關聯</h4>
-<p>關聯兩邊都可以工作是很常見的需求，這需要在兩邊都宣告：</p>
-<div class="code_container">
+<h4 id="雙向關聯">3.5 雙向關聯</h4><p>關聯兩邊都可以工作是很常見的需求，這需要在兩邊都宣告：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Customer &lt; ActiveRecord::Base
   has_many :orders
@@ -868,8 +780,7 @@ end
 
 </pre>
 </div>
-<p>Active Record 預設不知道這些關聯的連結關係。這可能會導致複製一個物件的不同步：</p>
-<div class="code_container">
+<p>Active Record 預設不知道這些關聯的連結關係。這可能會導致複製一個物件的不同步：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 c = Customer.first
 o = c.orders.first
@@ -879,8 +790,7 @@ c.first_name == o.customer.first_name # =&gt; false
 
 </pre>
 </div>
-<p>之所以會這樣的原因是，<code>c</code> 與 <code>o.customer</code> 在記憶體裡是表示相同資料的兩種表示，改了一個不會自動改另一個。Active Record 提供了 <code>inverse_of</code> 選項，用來通知 Rails 關聯之間的關係：</p>
-<div class="code_container">
+<p>之所以會這樣的原因是，<code>c</code> 與 <code>o.customer</code> 在記憶體裡是表示相同資料的兩種表示，改了一個不會自動改另一個。Active Record 提供了 <code>inverse_of</code> 選項，用來通知 Rails 關聯之間的關係：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Customer &lt; ActiveRecord::Base
   has_many :orders, inverse_of: :customer
@@ -892,8 +802,7 @@ end
 
 </pre>
 </div>
-<p>加上了 <code>inverse_of</code> 後，Active Record 只會載入一個顧客物件，除了避免資料的不一致，還能提高應用程式的效率：</p>
-<div class="code_container">
+<p>加上了 <code>inverse_of</code> 後，Active Record 只會載入一個顧客物件，除了避免資料的不一致，還能提高應用程式的效率：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 c = Customer.first
 o = c.orders.first
@@ -917,12 +826,7 @@ c.first_name == o.customer.first_name # =&gt; true
 <li><code>:polymorphic</code></li>
 <li><code>:foreign_key</code></li>
 </ul>
-<h3 id="關聯完整參考手冊">4 關聯完整參考手冊</h3>
-<p>以下小節將完整給出每種關聯的細節，關聯新增的方法、宣告時可用的選項。</p>
-<h4 id="belongs_to-關聯參考手冊">4.1 <code>belongs_to</code> 關聯參考手冊</h4>
-<p><code>belongs_to</code> 關聯建立兩個 Model 之間的一對一關係。用資料庫的術語解釋，宣告 <code>belongs_to</code> 的這個類別有外鍵。若外鍵在另個類別，則應該使用 <code>has_one</code> 才是。</p>
-<h5 id="belongs_to-關聯新增的方法">4.1.1 <code>belongs_to</code> 關聯新增的方法</h5>
-<p>宣告 <code>belongs_to</code> 關聯時，宣告的類別獲得五個關聯方法：</p>
+<h3 id="關聯完整參考手冊">4 關聯完整參考手冊</h3><p>以下小節將完整給出每種關聯的細節，關聯新增的方法、宣告時可用的選項。</p><h4 id="belongs_to-關聯參考手冊">4.1 <code>belongs_to</code> 關聯參考手冊</h4><p><code>belongs_to</code> 關聯建立兩個 Model 之間的一對一關係。用資料庫的術語解釋，宣告 <code>belongs_to</code> 的這個類別有外鍵。若外鍵在另個類別，則應該使用 <code>has_one</code> 才是。</p><h5 id="belongs_to-關聯新增的方法">4.1.1 <code>belongs_to</code> 關聯新增的方法</h5><p>宣告 <code>belongs_to</code> 關聯時，宣告的類別獲得五個關聯方法：</p>
 <ul>
 <li><code>association(force_reload = false)</code></li>
 <li><code>association=(associate)</code></li>
@@ -930,8 +834,7 @@ c.first_name == o.customer.first_name # =&gt; true
 <li><code>create_association(attributes = {})</code></li>
 <li><code>create_association!(attributes = {})</code></li>
 </ul>
-<p>以上所有方法，<code>association</code> 會換成作為第一個參數傳給 <code>belongs_to</code> 的符號。比如：</p>
-<div class="code_container">
+<p>以上所有方法，<code>association</code> 會換成作為第一個參數傳給 <code>belongs_to</code> 的符號。比如：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Order &lt; ActiveRecord::Base
   belongs_to :customer
@@ -939,8 +842,7 @@ end
 
 </pre>
 </div>
-<p>現在每個 <code>Order</code> Model 的實體會有這些方法：</p>
-<div class="code_container">
+<p>現在每個 <code>Order</code> Model 的實體會有這些方法：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 customer
 customer=
@@ -950,52 +852,38 @@ create_customer!
 
 </pre>
 </div>
-<div class="note"><p>在初始化 <code>has_one</code> 或 <code>belongs_to</code> 關聯時，必須使用 <code>build_</code> 前綴的方法來新建關聯，而不是使用 <code>has_many</code> 或 <code>has_and_belongs_to_many</code> 關聯的 <code>association.build</code> 方法。要建立並存入資料庫，則使用 <code>create_</code> 前綴的方法。</p></div>
-<h6 id="association(force_reload-=-false)">4.1.1.1 <code>association(force_reload = false)</code>
-</h6>
-<p>關聯物件存在時，<code>association</code> 方法回傳關聯物件。沒有找到關聯物件時，回傳 <code>nil</code>。</p>
-<div class="code_container">
+<div class="note"><p>在初始化 <code>has_one</code> 或 <code>belongs_to</code> 關聯時，必須使用 <code>build_</code> 前綴的方法來新建關聯，而不是使用 <code>has_many</code> 或 <code>has_and_belongs_to_many</code> 關聯的 <code>association.build</code> 方法。要建立並存入資料庫，則使用 <code>create_</code> 前綴的方法。</p></div><h6 id="belongs_to-關聯新增的方法-association(force_reload-=-false)">4.1.1.1 <code>association(force_reload = false)</code>
+</h6><p>關聯物件存在時，<code>association</code> 方法回傳關聯物件。沒有找到關聯物件時，回傳 <code>nil</code>。</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 @customer = @order.customer
 
 </pre>
 </div>
-<p>如果關聯物件已從資料庫取出，則會回傳此物件的快取版本。要強制重新從資料庫讀取，將 <code>force_reload</code> 參數設為 <code>true</code>。</p>
-<h6 id="association=(associate)">4.1.1.2 <code>association=(associate)</code>
-</h6>
-<p><code>association=</code> 方法指定關聯的物件。背後的工作原理是，把物件的外鍵欄位設成關聯物件的主鍵。</p>
-<div class="code_container">
+<p>如果關聯物件已從資料庫取出，則會回傳此物件的快取版本。要強制重新從資料庫讀取，將 <code>force_reload</code> 參數設為 <code>true</code>。</p><h6 id="belongs_to-關聯新增的方法-association=(associate)">4.1.1.2 <code>association=(associate)</code>
+</h6><p><code>association=</code> 方法指定關聯的物件。背後的工作原理是，把物件的外鍵欄位設成關聯物件的主鍵。</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 @order.customer = @customer
 
 </pre>
 </div>
-<h6 id="build_association(attributes-=-{})">4.1.1.3 <code>build_association(attributes = {})</code>
-</h6>
-<p><code>build_association</code> 方法回傳關聯類型的新物件。這個物件透過傳入的屬性來初始化，同時會自動設定外鍵。但關聯物件<strong>仍未儲存至資料庫</strong>。</p>
-<div class="code_container">
+<h6 id="belongs_to-關聯新增的方法-build_association(attributes-=-{})">4.1.1.3 <code>build_association(attributes = {})</code>
+</h6><p><code>build_association</code> 方法回傳關聯類型的新物件。這個物件透過傳入的屬性來初始化，同時會自動設定外鍵。但關聯物件<strong>仍未儲存至資料庫</strong>。</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 @customer = @order.build_customer(customer_number: 123,
                                   customer_name: "John Doe")
 
 </pre>
 </div>
-<h6 id="create_association(attributes-=-{})">4.1.1.4 <code>create_association(attributes = {})</code>
-</h6>
-<p><code>create_association</code> 方法回傳關聯類型的新物件。 這個物件透過傳入的屬性來初始化，同時會自動設定外鍵。一旦通過所有 Model 的驗證規則時，便把此關聯物件存入資料庫。</p>
-<div class="code_container">
+<h6 id="belongs_to-關聯新增的方法-create_association(attributes-=-{})">4.1.1.4 <code>create_association(attributes = {})</code>
+</h6><p><code>create_association</code> 方法回傳關聯類型的新物件。 這個物件透過傳入的屬性來初始化，同時會自動設定外鍵。一旦通過所有 Model 的驗證規則時，便把此關聯物件存入資料庫。</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 @customer = @order.create_customer(customer_number: 123,
                                    customer_name: "John Doe")
 
 </pre>
 </div>
-<h6 id="create_association!(attributes-=-{})">4.1.1.5 <code>create_association!(attributes = {})</code>
-</h6>
-<p>與 <code>create_association</code> 方法相同，但在驗證失敗時會拋出 <code>ActiveRecord::RecordInvalid</code> 異常。</p>
-<h5 id="belongs_to-關聯可用選項">4.1.2 <code>belongs_to</code> 關聯可用選項</h5>
-<p>Rails 聰明的預設設定足夠應付多數場景，但總會有需要客製化 <code>belongs_to</code> 關聯行為的時候。這種時候透過傳入選項，以及建立關聯時傳入作用域區塊便可輕易完成。舉例來說，下面的關聯使用了兩個選項：</p>
-<div class="code_container">
+<h6 id="belongs_to-關聯新增的方法-create_association-bang(attributes-=-{})">4.1.1.5 <code>create_association!(attributes = {})</code>
+</h6><p>與 <code>create_association</code> 方法相同，但在驗證失敗時會拋出 <code>ActiveRecord::RecordInvalid</code> 異常。</p><h5 id="belongs_to-關聯可用選項">4.1.2 <code>belongs_to</code> 關聯可用選項</h5><p>Rails 聰明的預設設定足夠應付多數場景，但總會有需要客製化 <code>belongs_to</code> 關聯行為的時候。這種時候透過傳入選項，以及建立關聯時傳入作用域區塊便可輕易完成。舉例來說，下面的關聯使用了兩個選項：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Order &lt; ActiveRecord::Base
   belongs_to :customer, dependent: :destroy,
@@ -1016,13 +904,9 @@ end
 <li><code>:touch</code></li>
 <li><code>:validate</code></li>
 </ul>
-<h6 id=":autosave">4.1.2.1 <code>:autosave</code>
-</h6>
-<p>若 <code>autosave</code> 選項為 <code>true</code>，Rails 會在儲存父物件時，自動保存子物件。如子物件標記為刪除，也會在儲存時自動刪除。</p>
-<h6 id=":class_name">4.1.2.2 <code>:class_name</code>
-</h6>
-<p>如果關聯 Model 名稱推論不出來時，可以使用 <code>:class_name</code> 選項來指定。舉例來說，訂單屬於顧客，但顧客的 Model 名是 <code>Patron</code>，則可以這麼指定：</p>
-<div class="code_container">
+<h6 id="belongs_to-關聯可用選項-:autosave">4.1.2.1 <code>:autosave</code>
+</h6><p>若 <code>autosave</code> 選項為 <code>true</code>，Rails 會在儲存父物件時，自動保存子物件。如子物件標記為刪除，也會在儲存時自動刪除。</p><h6 id="belongs_to-關聯可用選項-:class_name">4.1.2.2 <code>:class_name</code>
+</h6><p>如果關聯 Model 名稱推論不出來時，可以使用 <code>:class_name</code> 選項來指定。舉例來說，訂單屬於顧客，但顧客的 Model 名是 <code>Patron</code>，則可以這麼指定：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Order &lt; ActiveRecord::Base
   belongs_to :customer, class_name: "Patron"
@@ -1031,9 +915,7 @@ end
 </pre>
 </div>
 <h6 id=":counter_cache">4.1.2.3 <code>:counter_cache</code>
-</h6>
-<p><code>:counter_cache</code> 選項可以更有效的找出所屬物件的數量。</p>
-<div class="code_container">
+</h6><p><code>:counter_cache</code> 選項可以更有效的找出所屬物件的數量。</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Order &lt; ActiveRecord::Base
   belongs_to :customer
@@ -1044,8 +926,7 @@ end
 
 </pre>
 </div>
-<p>如上宣告關聯後，詢問 <code>@customer.orders.size</code> 需要對資料庫下一條 <code>COUNT(*)</code> 查詢。要避免此操作，可以在 <code>belongs_to</code> 的 Model 加上 <code>counter_cache: true</code>。</p>
-<div class="code_container">
+<p>如上宣告關聯後，詢問 <code>@customer.orders.size</code> 需要對資料庫下一條 <code>COUNT(*)</code> 查詢。要避免此操作，可以在 <code>belongs_to</code> 的 Model 加上 <code>counter_cache: true</code>。</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Order &lt; ActiveRecord::Base
   belongs_to :customer, counter_cache: true
@@ -1056,9 +937,7 @@ end
 
 </pre>
 </div>
-<p>如此一來 Rails 確保快取是最新的，並對 <code>size</code> 方法回傳快取的值。</p>
-<p>雖然 <code>:counter_cache</code> 在 <code>belongs_to</code> 的 Model 裡指定。但實際的欄位必須加在關聯的 Model。上例則是需要在 <code>Customer</code> Model 加入 <code>orders_count</code> 欄位。欄位名稱需要與預設不同的的話可以：</p>
-<div class="code_container">
+<p>如此一來 Rails 確保快取是最新的，並對 <code>size</code> 方法回傳快取的值。</p><p>雖然 <code>:counter_cache</code> 在 <code>belongs_to</code> 的 Model 裡指定。但實際的欄位必須加在關聯的 Model。上例則是需要在 <code>Customer</code> Model 加入 <code>orders_count</code> 欄位。欄位名稱需要與預設不同的的話可以：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Order &lt; ActiveRecord::Base
   belongs_to :customer, counter_cache: :count_of_orders
@@ -1069,21 +948,16 @@ end
 
 </pre>
 </div>
-<p>Counter Cache 欄位透過 <code>attr_readonly</code> 加到關聯模型的唯讀列表裡。</p>
-<h6 id=":dependent">4.1.2.4 <code>:dependent</code>
-</h6>
-<p><code>:dependent</code> 選項可設為：</p>
+<p>Counter Cache 欄位透過 <code>attr_readonly</code> 加到關聯模型的唯讀列表裡。</p><h6 id="belongs_to-關聯可用選項-:dependent">4.1.2.4 <code>:dependent</code>
+</h6><p><code>:dependent</code> 選項可設為：</p>
 <ul>
 <li>
 <code>:destroy</code>：物件刪除時，會對關聯物件呼叫 <code>destroy</code>。</li>
 <li>
 <code>:delete</code>：物件刪除時，不會對關聯物件呼叫 <code>destroy</code>，而是直接從資料庫中刪除。</li>
 </ul>
-<div class="warning"><p>不應該在與 <code>has_many</code> 連結的 <code>belongs_to</code> 關聯裡使用此選項。會導致資料庫出現孤兒記錄。</p></div>
-<h6 id=":foreign_key">4.1.2.5 <code>:foreign_key</code>
-</h6>
-<p>Rails 的外鍵慣例是關聯的 Model 名稱加上 <code>_id</code> 後綴。<code>:foreign_key</code> 選項可以修改外鍵名稱：</p>
-<div class="code_container">
+<div class="warning"><p>不應該在與 <code>has_many</code> 連結的 <code>belongs_to</code> 關聯裡使用此選項。會導致資料庫出現孤兒記錄。</p></div><h6 id="belongs_to-關聯可用選項-:foreign_key">4.1.2.5 <code>:foreign_key</code>
+</h6><p>Rails 的外鍵慣例是關聯的 Model 名稱加上 <code>_id</code> 後綴。<code>:foreign_key</code> 選項可以修改外鍵名稱：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Order &lt; ActiveRecord::Base
   belongs_to :customer, class_name: "Patron",
@@ -1092,11 +966,8 @@ end
 
 </pre>
 </div>
-<div class="info"><p>所有情況下，Rails 都不會幫您建立外鍵。需要自己在遷移中明確定義外鍵。</p></div>
-<h6 id=":inverse_of">4.1.2.6 <code>:inverse_of</code>
-</h6>
-<p><code>:inverse_of</code> 選項指定 <code>belongs_to</code> 關聯另一端的關聯名稱。無法與 <code>:polymorphic</code> 同時使用。</p>
-<div class="code_container">
+<div class="info"><p>所有情況下，Rails 都不會幫您建立外鍵。需要自己在遷移中明確定義外鍵。</p></div><h6 id="belongs_to-關聯可用選項-:inverse_of">4.1.2.6 <code>:inverse_of</code>
+</h6><p><code>:inverse_of</code> 選項指定 <code>belongs_to</code> 關聯另一端的關聯名稱。無法與 <code>:polymorphic</code> 同時使用。</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Customer &lt; ActiveRecord::Base
   has_many :orders, inverse_of: :customer
@@ -1109,12 +980,8 @@ end
 </pre>
 </div>
 <h6 id=":polymorphic">4.1.2.7 <code>:polymorphic</code>
-</h6>
-<p><code>:polymorphic</code> 為 <code>true</code> 時，表示這是個多型關聯。多型關聯在<a href="#%E5%A4%9A%E5%9E%8B%E9%97%9C%E8%81%AF">前面已詳細介紹過</a>。</p>
-<h6 id=":touch">4.1.2.8 <code>:touch</code>
-</h6>
-<p><code>touch</code> 為 <code>true</code> 時，儲存或刪除關聯物件時，關聯物件的 <code>updated_at</code> 或 <code>updated_on</code> 的時間戳會自動設成當前時間。</p>
-<div class="code_container">
+</h6><p><code>:polymorphic</code> 為 <code>true</code> 時，表示這是個多型關聯。多型關聯在<a href="#%E5%A4%9A%E5%9E%8B%E9%97%9C%E8%81%AF">前面已詳細介紹過</a>。</p><h6 id=":touch">4.1.2.8 <code>:touch</code>
+</h6><p><code>touch</code> 為 <code>true</code> 時，儲存或刪除關聯物件時，關聯物件的 <code>updated_at</code> 或 <code>updated_on</code> 的時間戳會自動設成當前時間。</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Order &lt; ActiveRecord::Base
   belongs_to :customer, touch: true
@@ -1126,8 +993,7 @@ end
 
 </pre>
 </div>
-<p>上例刪除或儲存訂單時，都會更新相關顧客的時間戳。可以指定要更新的時間戳欄位：</p>
-<div class="code_container">
+<p>上例刪除或儲存訂單時，都會更新相關顧客的時間戳。可以指定要更新的時間戳欄位：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Order &lt; ActiveRecord::Base
   belongs_to :customer, touch: :orders_updated_at
@@ -1135,12 +1001,8 @@ end
 
 </pre>
 </div>
-<h6 id=":validate">4.1.2.9 <code>:validate</code>
-</h6>
-<p>若 <code>:validate</code> 設為 <code>true</code>，則關聯物件會在儲存時觸發驗證。預設為 <code>false</code>，儲存物件時不會驗證關聯物件。</p>
-<h5 id="belongs_to-的作用域">4.1.3 <code>belongs_to</code> 的作用域</h5>
-<p>有時候可能想客製化 <code>belongs_to</code> 使用的查詢語句。可以透過傳入作用域區塊來達到，比如：</p>
-<div class="code_container">
+<h6 id="belongs_to-關聯可用選項-:validate">4.1.2.9 <code>:validate</code>
+</h6><p>若 <code>:validate</code> 設為 <code>true</code>，則關聯物件會在儲存時觸發驗證。預設為 <code>false</code>，儲存物件時不會驗證關聯物件。</p><h5 id="belongs_to-的作用域">4.1.3 <code>belongs_to</code> 的作用域</h5><p>有時候可能想客製化 <code>belongs_to</code> 使用的查詢語句。可以透過傳入作用域區塊來達到，比如：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Order &lt; ActiveRecord::Base
   belongs_to :customer, -&gt; { where active: true },
@@ -1156,10 +1018,8 @@ end
 <li><code>readonly</code></li>
 <li><code>select</code></li>
 </ul>
-<h6 id="where">4.1.3.1 <code>where</code>
-</h6>
-<p><code>where</code> 方法指定關聯物件必須滿足的條件。</p>
-<div class="code_container">
+<h6 id="belongs_to-的作用域-where">4.1.3.1 <code>where</code>
+</h6><p><code>where</code> 方法指定關聯物件必須滿足的條件。</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Order &lt; ActiveRecord::Base
   belongs_to :customer, -&gt; { where active: true }
@@ -1167,10 +1027,8 @@ end
 
 </pre>
 </div>
-<h6 id="includes">4.1.3.2 <code>includes</code>
-</h6>
-<p><code>includes</code> 方法用來指定需要 Eager Loading 的第二層關聯。看看下面這個例子：</p>
-<div class="code_container">
+<h6 id="belongs_to-的作用域-includes">4.1.3.2 <code>includes</code>
+</h6><p><code>includes</code> 方法用來指定需要 Eager Loading 的第二層關聯。看看下面這個例子：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class LineItem &lt; ActiveRecord::Base
   belongs_to :order
@@ -1187,8 +1045,7 @@ end
 
 </pre>
 </div>
-<p>若需要頻繁地從訂單細目裡取出顧客（<code>@line_item.order.customer</code>），那麼在 <code>LineItem</code> 的 <code>belongs_to</code> 關聯裡載入顧客，程式會更有效率：</p>
-<div class="code_container">
+<p>若需要頻繁地從訂單細目裡取出顧客（<code>@line_item.order.customer</code>），那麼在 <code>LineItem</code> 的 <code>belongs_to</code> 關聯裡載入顧客，程式會更有效率：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class LineItem &lt; ActiveRecord::Base
   belongs_to :order, -&gt; { includes :customer }
@@ -1205,17 +1062,9 @@ end
 
 </pre>
 </div>
-<div class="note"><p>直接關聯不需要使用 <code>includes</code>，比如 <code>Order belongs_to :customer</code>，則預設會 Eager Loading 顧客。</p></div>
-<h6 id="readonly">4.1.3.3 <code>readonly</code>
-</h6>
-<p>如果設定了 <code>readonly</code> 選項，則關聯物件取出時為唯讀。</p>
-<h6 id="select">4.1.3.4 <code>select</code>
-</h6>
-<p><code>select</code> 方法可以覆寫用來取出關聯的 <code>SELECT</code> 子句。預設會取出所有欄位。</p>
-<div class="info"><p>若對 <code>belongs_to</code> 關聯使用了 <code>select</code> 方法，則應該要設定 <code>:foreign_key</code> 選項確保結果是正確的。</p></div>
-<h5 id="檢查關聯物件是否存在?">4.1.4 檢查關聯物件是否存在?</h5>
-<p>使用 <code>association.nil?</code> 來檢查關聯物件是否存在：</p>
-<div class="code_container">
+<div class="note"><p>直接關聯不需要使用 <code>includes</code>，比如 <code>Order belongs_to :customer</code>，則預設會 Eager Loading 顧客。</p></div><h6 id="belongs_to-的作用域-readonly">4.1.3.3 <code>readonly</code>
+</h6><p>如果設定了 <code>readonly</code> 選項，則關聯物件取出時為唯讀。</p><h6 id="belongs_to-的作用域-select">4.1.3.4 <code>select</code>
+</h6><p><code>select</code> 方法可以覆寫用來取出關聯的 <code>SELECT</code> 子句。預設會取出所有欄位。</p><div class="info"><p>若對 <code>belongs_to</code> 關聯使用了 <code>select</code> 方法，則應該要設定 <code>:foreign_key</code> 選項確保結果是正確的。</p></div><h5 id="belongs_to-關聯參考手冊-檢查關聯物件是否存在-questionmark">4.1.4 檢查關聯物件是否存在?</h5><p>使用 <code>association.nil?</code> 來檢查關聯物件是否存在：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 if @order.customer.nil?
   @msg = "No customer found for this order"
@@ -1223,12 +1072,7 @@ end
 
 </pre>
 </div>
-<h5 id="物件何時被儲存？">4.1.5 物件何時被儲存？</h5>
-<p>把物件賦值給 <code>belongs_to</code> 關聯不會自動儲存物件，也不會儲存關聯的物件。</p>
-<h4 id="has_one-關聯參考手冊">4.2 <code>has_one</code> 關聯參考手冊</h4>
-<p><code>has_one</code> 關聯建立兩個 Model 之間的一對一關係。用資料庫的術語解釋，宣告 <code>has_one</code> 的這個類別沒有外鍵。若外鍵在這個類別，則應該使用 <code>belongs_to</code> 才是。</p>
-<h5 id="has_one-關聯新增的方法">4.2.1 <code>has_one</code> 關聯新增的方法</h5>
-<p>宣告 <code>has_one</code> 關聯時，宣告的類別獲得五個關聯方法：</p>
+<h5 id="belongs_to-關聯參考手冊-物件何時被儲存？">4.1.5 物件何時被儲存？</h5><p>把物件賦值給 <code>belongs_to</code> 關聯不會自動儲存物件，也不會儲存關聯的物件。</p><h4 id="has_one-關聯參考手冊">4.2 <code>has_one</code> 關聯參考手冊</h4><p><code>has_one</code> 關聯建立兩個 Model 之間的一對一關係。用資料庫的術語解釋，宣告 <code>has_one</code> 的這個類別沒有外鍵。若外鍵在這個類別，則應該使用 <code>belongs_to</code> 才是。</p><h5 id="has_one-關聯新增的方法">4.2.1 <code>has_one</code> 關聯新增的方法</h5><p>宣告 <code>has_one</code> 關聯時，宣告的類別獲得五個關聯方法：</p>
 <ul>
 <li><code>association(force_reload = false)</code></li>
 <li><code>association=(associate)</code></li>
@@ -1236,8 +1080,7 @@ end
 <li><code>create_association(attributes = {})</code></li>
 <li><code>create_association!(attributes = {})</code></li>
 </ul>
-<p>以上所有方法，<code>association</code> 會換成作為第一個參數傳給 <code>has_one</code> 的符號。比如：</p>
-<div class="code_container">
+<p>以上所有方法，<code>association</code> 會換成作為第一個參數傳給 <code>has_one</code> 的符號。比如：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Supplier &lt; ActiveRecord::Base
   has_one :account
@@ -1245,8 +1088,7 @@ end
 
 </pre>
 </div>
-<p>現在每個 <code>Supplier</code> Model 的實體會有這些方法：</p>
-<div class="code_container">
+<p>現在每個 <code>Supplier</code> Model 的實體會有這些方法：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 account
 account=
@@ -1256,50 +1098,36 @@ create_account!
 
 </pre>
 </div>
-<div class="note"><p>在初始化 <code>has_one</code> 或 <code>belongs_to</code> 關聯時，必須使用 <code>build_</code> 前綴的方法來新建關聯，而不是使用 <code>has_many</code> 或 <code>has_and_belongs_to_many</code> 關聯的 <code>association.build</code> 方法。要建立並存入資料庫，則使用 <code>create_</code> 前綴的方法。</p></div>
-<h6 id="association(force_reload-=-false)">4.2.1.1 <code>association(force_reload = false)</code>
-</h6>
-<p>關聯物件存在時，<code>association</code> 方法回傳關聯物件。沒有找到關聯物件時，回傳 <code>nil</code>。</p>
-<div class="code_container">
+<div class="note"><p>在初始化 <code>has_one</code> 或 <code>belongs_to</code> 關聯時，必須使用 <code>build_</code> 前綴的方法來新建關聯，而不是使用 <code>has_many</code> 或 <code>has_and_belongs_to_many</code> 關聯的 <code>association.build</code> 方法。要建立並存入資料庫，則使用 <code>create_</code> 前綴的方法。</p></div><h6 id="has_one-關聯新增的方法-association(force_reload-=-false)">4.2.1.1 <code>association(force_reload = false)</code>
+</h6><p>關聯物件存在時，<code>association</code> 方法回傳關聯物件。沒有找到關聯物件時，回傳 <code>nil</code>。</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 @account = @supplier.account
 
 </pre>
 </div>
-<p>如果關聯物件已從資料庫取出，則會回傳此物件的快取版本。要強制重新從資料庫讀取，將 <code>force_reload</code> 參數設為 <code>true</code>。</p>
-<h6 id="association=(associate)">4.2.1.2 <code>association=(associate)</code>
-</h6>
-<p><code>association=</code> 方法指定關聯的物件。背後的工作原理是，把物件的外鍵欄位設成關聯物件的主鍵。</p>
-<div class="code_container">
+<p>如果關聯物件已從資料庫取出，則會回傳此物件的快取版本。要強制重新從資料庫讀取，將 <code>force_reload</code> 參數設為 <code>true</code>。</p><h6 id="has_one-關聯新增的方法-association=(associate)">4.2.1.2 <code>association=(associate)</code>
+</h6><p><code>association=</code> 方法指定關聯的物件。背後的工作原理是，把物件的外鍵欄位設成關聯物件的主鍵。</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 @supplier.account = @account
 
 </pre>
 </div>
-<h6 id="build_association(attributes-=-{})">4.2.1.3 <code>build_association(attributes = {})</code>
-</h6>
-<p><code>build_association</code> 方法回傳關聯類型的新物件。這個物件透過傳入的屬性來初始化，同時會自動設定外鍵。但關聯物件<strong>仍未儲存至資料庫</strong>。</p>
-<div class="code_container">
+<h6 id="has_one-關聯新增的方法-build_association(attributes-=-{})">4.2.1.3 <code>build_association(attributes = {})</code>
+</h6><p><code>build_association</code> 方法回傳關聯類型的新物件。這個物件透過傳入的屬性來初始化，同時會自動設定外鍵。但關聯物件<strong>仍未儲存至資料庫</strong>。</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 @account = @supplier.build_account(terms: "Net 30")
 
 </pre>
 </div>
-<h6 id="create_association(attributes-=-{})">4.2.1.4 <code>create_association(attributes = {})</code>
-</h6>
-<p><code>create_association</code> 方法回傳關聯類型的新物件。 這個物件透過傳入的屬性來初始化，同時會自動設定外鍵。一旦通過所有 Model 的驗證規則時，便把此關聯物件存入資料庫。</p>
-<div class="code_container">
+<h6 id="has_one-關聯新增的方法-create_association(attributes-=-{})">4.2.1.4 <code>create_association(attributes = {})</code>
+</h6><p><code>create_association</code> 方法回傳關聯類型的新物件。 這個物件透過傳入的屬性來初始化，同時會自動設定外鍵。一旦通過所有 Model 的驗證規則時，便把此關聯物件存入資料庫。</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 @account = @supplier.create_account(terms: "Net 30")
 
 </pre>
 </div>
-<h6 id="create_association!(attributes-=-{})">4.2.1.5 <code>create_association!(attributes = {})</code>
-</h6>
-<p>與 <code>create_association</code> 方法相同，但在驗證失敗時會拋出 <code>ActiveRecord::RecordInvalid</code> 異常。</p>
-<h5 id="has_one-關聯可用選項">4.2.2 <code>has_one</code> 關聯可用選項</h5>
-<p>Rails 聰明的預設設定足夠應付多數場景，但總會有需要客製化 <code>has_one</code> 關聯行為的時候。這種時候透過傳入選項，以及建立關聯時傳入作用域區塊便可輕易完成。舉例來說，下面的關聯使用了兩個選項：</p>
-<div class="code_container">
+<h6 id="has_one-關聯新增的方法-create_association-bang(attributes-=-{})">4.2.1.5 <code>create_association!(attributes = {})</code>
+</h6><p>與 <code>create_association</code> 方法相同，但在驗證失敗時會拋出 <code>ActiveRecord::RecordInvalid</code> 異常。</p><h5 id="has_one-關聯可用選項">4.2.2 <code>has_one</code> 關聯可用選項</h5><p>Rails 聰明的預設設定足夠應付多數場景，但總會有需要客製化 <code>has_one</code> 關聯行為的時候。這種時候透過傳入選項，以及建立關聯時傳入作用域區塊便可輕易完成。舉例來說，下面的關聯使用了兩個選項：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Supplier &lt; ActiveRecord::Base
   has_one :account, class_name: "Billing", dependent: :nullify
@@ -1321,16 +1149,10 @@ end
 <li><code>:through</code></li>
 <li><code>:validate</code></li>
 </ul>
-<h6 id=":as">4.2.2.1 <code>:as</code>
-</h6>
-<p>設定 <code>:as</code> 選項表示這是一個多型關聯。多型關聯在<a href="#%E5%A4%9A%E5%9E%8B%E9%97%9C%E8%81%AF">前面已詳細介紹過</a>。</p>
-<h6 id=":autosave">4.2.2.2 <code>:autosave</code>
-</h6>
-<p>若 <code>autosave</code> 選項為 <code>true</code>，Rails 會在儲存父物件時，自動保存子物件。如子物件標記為刪除，也會在儲存時自動刪除。</p>
-<h6 id=":class_name">4.2.2.3 <code>:class_name</code>
-</h6>
-<p>如果關聯 Model 名稱推論不出來時，可以使用 <code>:class_name</code> 選項來指定。舉例來說，訂單屬於顧客，但顧客的 Model 名是 <code>Billing</code>，則可以這麼指定：</p>
-<div class="code_container">
+<h6 id="has_one-關聯可用選項-:as">4.2.2.1 <code>:as</code>
+</h6><p>設定 <code>:as</code> 選項表示這是一個多型關聯。多型關聯在<a href="#%E5%A4%9A%E5%9E%8B%E9%97%9C%E8%81%AF">前面已詳細介紹過</a>。</p><h6 id="has_one-關聯可用選項-:autosave">4.2.2.2 <code>:autosave</code>
+</h6><p>若 <code>autosave</code> 選項為 <code>true</code>，Rails 會在儲存父物件時，自動保存子物件。如子物件標記為刪除，也會在儲存時自動刪除。</p><h6 id="has_one-關聯可用選項-:class_name">4.2.2.3 <code>:class_name</code>
+</h6><p>如果關聯 Model 名稱推論不出來時，可以使用 <code>:class_name</code> 選項來指定。舉例來說，訂單屬於顧客，但顧客的 Model 名是 <code>Billing</code>，則可以這麼指定：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Supplier &lt; ActiveRecord::Base
   has_one :account, class_name: "Billing"
@@ -1338,9 +1160,8 @@ end
 
 </pre>
 </div>
-<h6 id=":dependent">4.2.2.4 <code>:dependent</code>
-</h6>
-<p>在刪除關聯物件擁有者時該如何處理關聯物件：</p>
+<h6 id="has_one-關聯可用選項-:dependent">4.2.2.4 <code>:dependent</code>
+</h6><p>在刪除關聯物件擁有者時該如何處理關聯物件：</p>
 <ul>
 <li>
 <code>:destroy</code>：同時刪除關聯物件。</li>
@@ -1353,11 +1174,8 @@ end
 <li>
 <code>:restrict_with_error</code>：有關聯物件的話，向擁有者拋出錯誤。</li>
 </ul>
-<p>若在資料庫設定了 <code>NOT NULL</code> 約束條件，則不要使用 <code>:nullify</code>。此時若沒有把 <code>:dependent</code> 設為 <code>destroy</code>，會無法修改關聯物件，因為原本關聯物件的外鍵會被設為不允許的 <code>NULL</code>。</p>
-<h6 id=":foreign_key">4.2.2.5 <code>:foreign_key</code>
-</h6>
-<p>Rails 的外鍵慣例是關聯的 Model 名稱加上 <code>_id</code> 後綴。<code>:foreign_key</code> 選項可以修改外鍵名稱：</p>
-<div class="code_container">
+<p>若在資料庫設定了 <code>NOT NULL</code> 約束條件，則不要使用 <code>:nullify</code>。此時若沒有把 <code>:dependent</code> 設為 <code>destroy</code>，會無法修改關聯物件，因為原本關聯物件的外鍵會被設為不允許的 <code>NULL</code>。</p><h6 id="has_one-關聯可用選項-:foreign_key">4.2.2.5 <code>:foreign_key</code>
+</h6><p>Rails 的外鍵慣例是關聯的 Model 名稱加上 <code>_id</code> 後綴。<code>:foreign_key</code> 選項可以修改外鍵名稱：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Supplier &lt; ActiveRecord::Base
   has_one :account, foreign_key: "supp_id"
@@ -1365,11 +1183,8 @@ end
 
 </pre>
 </div>
-<div class="info"><p>所有情況下，Rails 都不會幫您建立外鍵。需要自己在遷移中明確定義外鍵。</p></div>
-<h6 id=":inverse_of">4.2.2.6 <code>:inverse_of</code>
-</h6>
-<p><code>:inverse_of</code> 選項指定 <code>has_one</code> 關聯另一端的關聯名稱。無法與 <code>:through</code> 或 <code>:as</code> 同時使用。</p>
-<div class="code_container">
+<div class="info"><p>所有情況下，Rails 都不會幫您建立外鍵。需要自己在遷移中明確定義外鍵。</p></div><h6 id="has_one-關聯可用選項-:inverse_of">4.2.2.6 <code>:inverse_of</code>
+</h6><p><code>:inverse_of</code> 選項指定 <code>has_one</code> 關聯另一端的關聯名稱。無法與 <code>:through</code> 或 <code>:as</code> 同時使用。</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Supplier &lt; ActiveRecord::Base
   has_one :account, : :supplier
@@ -1381,24 +1196,12 @@ end
 
 </pre>
 </div>
-<h6 id=":primary_key">4.2.2.7 <code>:primary_key</code>
-</h6>
-<p>Rails 的主鍵慣例是 <code>id</code>。可以使用 <code>:primary_key</code> 選項來修改主鍵名稱。</p>
-<h6 id=":source">4.2.2.8 <code>:source</code>
-</h6>
-<p><code>:source</code> 選項給 <code>has_one :through</code> 關聯指定來源關聯名稱。</p>
-<h6 id=":source_type">4.2.2.9 <code>:source_type</code>
-</h6>
-<p><code>:source_type</code> 選項給透過多型關聯的 <code>has_one :through</code> 關聯指定來源類型。</p>
-<h6 id=":through">4.2.2.10 <code>:through</code>
-</h6>
-<p><code>:through</code> 選項用來指定下查詢的連接表。<code>has_one :through</code> 關聯在<a href="#has_one-:through-%E9%97%9C%E8%81%AF">前面已詳細介紹過</a>。</p>
-<h6 id=":validate">4.2.2.11 <code>:validate</code>
-</h6>
-<p>若 <code>:validate</code> 設為 <code>true</code>，則關聯物件會在儲存時觸發驗證。預設為 <code>false</code>，儲存物件時不會驗證關聯物件。</p>
-<h5 id="has_one-的作用域">4.2.3 <code>has_one</code> 的作用域</h5>
-<p>有時候可能想客製化 <code>has_one</code> 使用的查詢語句。可以透過傳入作用域區塊來達到，比如：</p>
-<div class="code_container">
+<h6 id="has_one-關聯可用選項-:primary_key">4.2.2.7 <code>:primary_key</code>
+</h6><p>Rails 的主鍵慣例是 <code>id</code>。可以使用 <code>:primary_key</code> 選項來修改主鍵名稱。</p><h6 id="has_one-關聯可用選項-:source">4.2.2.8 <code>:source</code>
+</h6><p><code>:source</code> 選項給 <code>has_one :through</code> 關聯指定來源關聯名稱。</p><h6 id="has_one-關聯可用選項-:source_type">4.2.2.9 <code>:source_type</code>
+</h6><p><code>:source_type</code> 選項給透過多型關聯的 <code>has_one :through</code> 關聯指定來源類型。</p><h6 id="has_one-關聯可用選項-:through">4.2.2.10 <code>:through</code>
+</h6><p><code>:through</code> 選項用來指定下查詢的連接表。<code>has_one :through</code> 關聯在<a href="#has_one-:through-%E9%97%9C%E8%81%AF">前面已詳細介紹過</a>。</p><h6 id="has_one-關聯可用選項-:validate">4.2.2.11 <code>:validate</code>
+</h6><p>若 <code>:validate</code> 設為 <code>true</code>，則關聯物件會在儲存時觸發驗證。預設為 <code>false</code>，儲存物件時不會驗證關聯物件。</p><h5 id="has_one-的作用域">4.2.3 <code>has_one</code> 的作用域</h5><p>有時候可能想客製化 <code>has_one</code> 使用的查詢語句。可以透過傳入作用域區塊來達到，比如：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Supplier &lt; ActiveRecord::Base
   has_one :account, -&gt; { where active: true }
@@ -1413,10 +1216,8 @@ end
 <li><code>readonly</code></li>
 <li><code>select</code></li>
 </ul>
-<h6 id="where">4.2.3.1 <code>where</code>
-</h6>
-<p><code>where</code> 方法指定關聯物件必須滿足的條件。</p>
-<div class="code_container">
+<h6 id="has_one-的作用域-where">4.2.3.1 <code>where</code>
+</h6><p><code>where</code> 方法指定關聯物件必須滿足的條件。</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Supplier &lt; ActiveRecord::Base
   has_one :account, -&gt; { where "confirmed = 1" }
@@ -1424,10 +1225,8 @@ end
 
 </pre>
 </div>
-<h6 id="includes">4.2.3.2 <code>includes</code>
-</h6>
-<p><code>includes</code> 方法用來指定需要 Eager Loading 的第二層關聯。看看下面這個例子：</p>
-<div class="code_container">
+<h6 id="has_one-的作用域-includes">4.2.3.2 <code>includes</code>
+</h6><p><code>includes</code> 方法用來指定需要 Eager Loading 的第二層關聯。看看下面這個例子：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Supplier &lt; ActiveRecord::Base
   has_one :account
@@ -1444,8 +1243,7 @@ end
 
 </pre>
 </div>
-<p>若需要頻繁地從供應商裡取出代表人（<code>@supplier.account.representative</code>），那麼在 <code>Supplier</code> 的 <code>has_one</code> 關聯裡載入代表人，程式會更有效率：</p>
-<div class="code_container">
+<p>若需要頻繁地從供應商裡取出代表人（<code>@supplier.account.representative</code>），那麼在 <code>Supplier</code> 的 <code>has_one</code> 關聯裡載入代表人，程式會更有效率：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Supplier &lt; ActiveRecord::Base
   has_one :account, -&gt; { includes :representative }
@@ -1462,15 +1260,9 @@ end
 
 </pre>
 </div>
-<h6 id="readonly">4.2.3.3 <code>readonly</code>
-</h6>
-<p>如果設定了 <code>readonly</code> 選項，則關聯物件取出時為唯讀。</p>
-<h6 id="select">4.2.3.4 <code>select</code>
-</h6>
-<p><code>select</code> 方法可以覆寫用來取出關聯的 <code>SELECT</code> 子句。預設會取出所有欄位。</p>
-<h5 id="檢查關聯物件是否存在?">4.2.4 檢查關聯物件是否存在?</h5>
-<p>使用 <code>association.nil?</code> 來檢查關聯物件是否存在：</p>
-<div class="code_container">
+<h6 id="has_one-的作用域-readonly">4.2.3.3 <code>readonly</code>
+</h6><p>如果設定了 <code>readonly</code> 選項，則關聯物件取出時為唯讀。</p><h6 id="has_one-的作用域-select">4.2.3.4 <code>select</code>
+</h6><p><code>select</code> 方法可以覆寫用來取出關聯的 <code>SELECT</code> 子句。預設會取出所有欄位。</p><h5 id="has_one-關聯參考手冊-檢查關聯物件是否存在-questionmark">4.2.4 檢查關聯物件是否存在?</h5><p>使用 <code>association.nil?</code> 來檢查關聯物件是否存在：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 if @supplier.account.nil?
   @msg = "No account found for this supplier"
@@ -1478,16 +1270,8 @@ end
 
 </pre>
 </div>
-<h5 id="物件何時被儲存？">4.2.5 物件何時被儲存？</h5>
-<p>把物件賦值給 <code>has_one</code> 關聯會自動儲存物件（因為要更新外鍵）。除此之外，用來賦值的物件也會自動儲存，因為外鍵變了。</p>
-<p>如果驗證失敗時，則賦值的敘述句會回傳 <code>false</code>，賦值也會被取消。</p>
-<p>若父物件（有 <code>has_one</code> 的 Model）尚未儲存（<code>new_record?</code> 回傳 <code>true</code>），則不會儲存子物件。只有在父物件儲存時，才會儲存子物件。</p>
-<p>若想給 <code>has_one</code> 關聯賦物件而不儲存，使用 <code>association.build</code> 方法。</p>
-<h4 id="has_many-關聯參考手冊">4.3 <code>has_many</code> 關聯參考手冊</h4>
-<p><code>has_many</code> 關聯建立兩個 Model 之間的一對多關係。用資料庫的術語解釋，宣告 <code>
-has_many</code> 的這個類別沒有外鍵。外鍵在與之關聯的類別，參照到這個類別的實體。</p>
-<h5 id="has_many-關聯新增的方法">4.3.1 <code>has_many</code> 關聯新增的方法</h5>
-<p>宣告 <code>has_many</code> 關聯時，宣告的類別獲得 16 個關聯方法：</p>
+<h5 id="has_one-關聯參考手冊-物件何時被儲存？">4.2.5 物件何時被儲存？</h5><p>把物件賦值給 <code>has_one</code> 關聯會自動儲存物件（因為要更新外鍵）。除此之外，用來賦值的物件也會自動儲存，因為外鍵變了。</p><p>如果驗證失敗時，則賦值的敘述句會回傳 <code>false</code>，賦值也會被取消。</p><p>若父物件（有 <code>has_one</code> 的 Model）尚未儲存（<code>new_record?</code> 回傳 <code>true</code>），則不會儲存子物件。只有在父物件儲存時，才會儲存子物件。</p><p>若想給 <code>has_one</code> 關聯賦物件而不儲存，使用 <code>association.build</code> 方法。</p><h4 id="has_many-關聯參考手冊">4.3 <code>has_many</code> 關聯參考手冊</h4><p><code>has_many</code> 關聯建立兩個 Model 之間的一對多關係。用資料庫的術語解釋，宣告 <code>
+has_many</code> 的這個類別沒有外鍵。外鍵在與之關聯的類別，參照到這個類別的實體。</p><h5 id="has_many-關聯新增的方法">4.3.1 <code>has_many</code> 關聯新增的方法</h5><p>宣告 <code>has_many</code> 關聯時，宣告的類別獲得 16 個關聯方法：</p>
 <ul>
 <li><code>collection(force_reload = false)</code></li>
 <li><code>collection&lt;&lt;(object, ...)</code></li>
@@ -1506,8 +1290,7 @@ has_many</code> 的這個類別沒有外鍵。外鍵在與之關聯的類別，�
 <li><code>collection.create(attributes = {})</code></li>
 <li><code>collection.create!(attributes = {})</code></li>
 </ul>
-<p>以上所有方法，<code>collection</code> 會換成作為第一個參數傳給 <code>has_many</code> 的符號。而 <code>collection_singular</code> 會換成第一個參數傳給 <code>has_many</code> 的符號的單數形式。比如：</p>
-<div class="code_container">
+<p>以上所有方法，<code>collection</code> 會換成作為第一個參數傳給 <code>has_many</code> 的符號。而 <code>collection_singular</code> 會換成第一個參數傳給 <code>has_many</code> 的符號的單數形式。比如：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Customer &lt; ActiveRecord::Base
   has_many :orders
@@ -1515,8 +1298,7 @@ end
 
 </pre>
 </div>
-<p>現在每個 <code>Customer</code> Model 的實體會有這些方法：</p>
-<div class="code_container">
+<p>現在每個 <code>Customer</code> Model 的實體會有這些方法：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 orders(force_reload = false)
 orders&lt;&lt;(object, ...)
@@ -1537,66 +1319,46 @@ orders.create!(attributes = {})
 
 </pre>
 </div>
-<h6 id="collection(force_reload-=-false)">4.3.1.1 <code>collection(force_reload = false)</code>
-</h6>
-<p><code>collection</code> 會回傳包含所有關聯物件的陣列。沒有關聯物件時，回傳空陣列。</p>
-<div class="code_container">
+<h6 id="has_many-關聯新增的方法-collection(force_reload-=-false)">4.3.1.1 <code>collection(force_reload = false)</code>
+</h6><p><code>collection</code> 會回傳包含所有關聯物件的陣列。沒有關聯物件時，回傳空陣列。</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 @orders = @customer.orders
 
 </pre>
 </div>
-<h6 id="collection&lt;&lt;(object,-...)">4.3.1.2 <code>collection&lt;&lt;(object, ...)</code>
-</h6>
-<p><code>collection&lt;&lt;</code> 方法透過將外鍵設為加入物件的主鍵，新增一個或多個物件到關聯集合。</p>
-<div class="code_container">
+<h6 id="has_many-關聯新增的方法-collection&lt;&lt;(object,-...)">4.3.1.2 <code>collection&lt;&lt;(object, ...)</code>
+</h6><p><code>collection&lt;&lt;</code> 方法透過將外鍵設為加入物件的主鍵，新增一個或多個物件到關聯集合。</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 @customer.orders &lt;&lt; @order1
 
 </pre>
 </div>
-<h6 id="collection.delete(object,-...)">4.3.1.3 <code>collection.delete(object, ...)</code>
-</h6>
-<p><code>collection.delete</code> 透過將外鍵設為 <code>NULL</code>，從關聯集合中移除一個或多個物件。</p>
-<div class="code_container">
+<h6 id="has_many-關聯新增的方法-collection.delete(object,-...)">4.3.1.3 <code>collection.delete(object, ...)</code>
+</h6><p><code>collection.delete</code> 透過將外鍵設為 <code>NULL</code>，從關聯集合中移除一個或多個物件。</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 @customer.orders.delete(@order1)
 
 </pre>
 </div>
-<div class="warning"><p>除此之外，若關聯設定了 <code>dependent: :destroy</code>，則關聯物件會被 <code>destroy</code>；若關聯設定了 <code>dependent: :delete_all</code>，則關聯物件會被 <code>delete</code>。</p></div>
-<h6 id="collection.destroy(object,-...)">4.3.1.4 <code>collection.destroy(object, ...)</code>
-</h6>
-<p><code>collection.destroy</code> 方法透過對物件呼叫 <code>destroy</code> 來移除物件。</p>
-<div class="code_container">
+<div class="warning"><p>除此之外，若關聯設定了 <code>dependent: :destroy</code>，則關聯物件會被 <code>destroy</code>；若關聯設定了 <code>dependent: :delete_all</code>，則關聯物件會被 <code>delete</code>。</p></div><h6 id="has_many-關聯新增的方法-collection.destroy(object,-...)">4.3.1.4 <code>collection.destroy(object, ...)</code>
+</h6><p><code>collection.destroy</code> 方法透過對物件呼叫 <code>destroy</code> 來移除物件。</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 @customer.orders.destroy(@order1)
 
 </pre>
 </div>
-<div class="warning"><p>無論 <code>:dependent</code> 選項是什麼，物件都會從資料庫裡刪除。</p></div>
-<h6 id="collection=objects">4.3.1.5 <code>collection=objects</code>
-</h6>
-<p><code>collection=</code> 方法更改集合內容，根據提供的物件來決定要刪除還是新增。</p>
-<h6 id="collection_singular_ids">4.3.1.6 <code>collection_singular_ids</code>
-</h6>
-<p><code>collection_singular_ids</code> 方法回傳集合陣列中各物件的 ID。</p>
-<div class="code_container">
+<div class="warning"><p>無論 <code>:dependent</code> 選項是什麼，物件都會從資料庫裡刪除。</p></div><h6 id="has_many-關聯新增的方法-collection=objects">4.3.1.5 <code>collection=objects</code>
+</h6><p><code>collection=</code> 方法更改集合內容，根據提供的物件來決定要刪除還是新增。</p><h6 id="has_many-關聯新增的方法-collection_singular_ids">4.3.1.6 <code>collection_singular_ids</code>
+</h6><p><code>collection_singular_ids</code> 方法回傳集合陣列中各物件的 ID。</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 @order_ids = @customer.order_ids
 
 </pre>
 </div>
-<h6 id="collection_singular_ids=ids">4.3.1.7 <code>collection_singular_ids=ids</code>
-</h6>
-<p><code>collection_singular_ids=</code> 方法更改集合擁有物件的 ID，根據所提供的主鍵值來決定要刪除還是新增。</p>
-<h6 id="collection.clear">4.3.1.8 <code>collection.clear</code>
-</h6>
-<p><code>collection.clear</code> 方法移除集合中的所有物件。若有設定 <code>dependent: :destroy</code> 選項，則會 <code>destory</code> 關聯物件；若設定的是 <code>dependent: :delete_all</code> 選項，則會直接從資料庫刪除關聯物件；其他情況會將外鍵設為 <code>NULL</code>。</p>
-<h6 id="collection.empty?">4.3.1.9 <code>collection.empty?</code>
-</h6>
-<p><code>collection.empty?</code> 方法在集合沒有任何關聯物件時回傳 <code>true</code>。</p>
-<div class="code_container">
+<h6 id="has_many-關聯新增的方法-collection_singular_ids=ids">4.3.1.7 <code>collection_singular_ids=ids</code>
+</h6><p><code>collection_singular_ids=</code> 方法更改集合擁有物件的 ID，根據所提供的主鍵值來決定要刪除還是新增。</p><h6 id="has_many-關聯新增的方法-collection.clear">4.3.1.8 <code>collection.clear</code>
+</h6><p><code>collection.clear</code> 方法移除集合中的所有物件。若有設定 <code>dependent: :destroy</code> 選項，則會 <code>destory</code> 關聯物件；若設定的是 <code>dependent: :delete_all</code> 選項，則會直接從資料庫刪除關聯物件；其他情況會將外鍵設為 <code>NULL</code>。</p><h6 id="has_many-關聯新增的方法-collection.empty-questionmark">4.3.1.9 <code>collection.empty?</code>
+</h6><p><code>collection.empty?</code> 方法在集合沒有任何關聯物件時回傳 <code>true</code>。</p><div class="code_container">
 <pre class="brush: ruby; html-script: true; gutter: false; toolbar: false">
 &lt;% if @customer.orders.empty? %&gt;
   No Orders Found
@@ -1604,63 +1366,47 @@ orders.create!(attributes = {})
 
 </pre>
 </div>
-<h6 id="collection.size">4.3.1.10 <code>collection.size</code>
-</h6>
-<p><code>collection.size</code> 方法回傳集合中物件的數量。</p>
-<div class="code_container">
+<h6 id="has_many-關聯新增的方法-collection.size">4.3.1.10 <code>collection.size</code>
+</h6><p><code>collection.size</code> 方法回傳集合中物件的數量。</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 @order_count = @customer.orders.size
 
 </pre>
 </div>
-<h6 id="collection.find(...)">4.3.1.11 <code>collection.find(...)</code>
-</h6>
-<p><code>collection.find</code> 方法在集合中查詢物件。語法和選項與 <code>ActiveRecord::Base.find</code> 相同。</p>
-<div class="code_container">
+<h6 id="has_many-關聯新增的方法-collection.find(...)">4.3.1.11 <code>collection.find(...)</code>
+</h6><p><code>collection.find</code> 方法在集合中查詢物件。語法和選項與 <code>ActiveRecord::Base.find</code> 相同。</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 @open_orders = @customer.orders.find(1)
 
 </pre>
 </div>
-<h6 id="collection.where(...)">4.3.1.12 <code>collection.where(...)</code>
-</h6>
-<p><code>collection.where</code> 方法根據提供的條件來查找物件，預設是惰性載入，僅在需要用到物件才會去資料庫做查詢。</p>
-<div class="code_container">
+<h6 id="has_many-關聯新增的方法-collection.where(...)">4.3.1.12 <code>collection.where(...)</code>
+</h6><p><code>collection.where</code> 方法根據提供的條件來查找物件，預設是惰性載入，僅在需要用到物件才會去資料庫做查詢。</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 @open_orders = @customer.orders.where(open: true) # No query yet
 @open_order = @open_orders.first # Now the database will be queried
 
 </pre>
 </div>
-<h6 id="collection.exists?(...)">4.3.1.13 <code>collection.exists?(...)</code>
-</h6>
-<p><code>collection.exists?</code> 方法依提供的條件檢查物件存在集合裡。語法和選項與 <code>ActiveRecord::Base.exists?</code> 相同。</p>
-<h6 id="collection.build(attributes-=-{},-...)">4.3.1.14 <code>collection.build(attributes = {}, ...)</code>
-</h6>
-<p><code>collection.build</code> 方法回傳一個或多個新關聯物件。這些物件由傳入的屬性來初始化，同時會自動設定外鍵。但關聯物件<strong>仍未儲存至資料庫</strong>。</p>
-<div class="code_container">
+<h6 id="has_many-關聯新增的方法-collection.exists-questionmark(...)">4.3.1.13 <code>collection.exists?(...)</code>
+</h6><p><code>collection.exists?</code> 方法依提供的條件檢查物件存在集合裡。語法和選項與 <code>ActiveRecord::Base.exists?</code> 相同。</p><h6 id="collection.build(attributes-=-{},-...)">4.3.1.14 <code>collection.build(attributes = {}, ...)</code>
+</h6><p><code>collection.build</code> 方法回傳一個或多個新關聯物件。這些物件由傳入的屬性來初始化，同時會自動設定外鍵。但關聯物件<strong>仍未儲存至資料庫</strong>。</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 @order = @customer.orders.build(order_date: Time.now,
                                 order_number: "A12345")
 
 </pre>
 </div>
-<h6 id="collection.create(attributes-=-{})">4.3.1.15 <code>collection.create(attributes = {})</code>
-</h6>
-<p><code>collection.create</code> 方法回傳關聯類型的新物件。 這個物件透過傳入的屬性來初始化，同時會自動設定外鍵。一旦通過所有 Model 的驗證規則時，便把此關聯物件存入資料庫。</p>
-<div class="code_container">
+<h6 id="has_many-關聯新增的方法-collection.create(attributes-=-{})">4.3.1.15 <code>collection.create(attributes = {})</code>
+</h6><p><code>collection.create</code> 方法回傳關聯類型的新物件。 這個物件透過傳入的屬性來初始化，同時會自動設定外鍵。一旦通過所有 Model 的驗證規則時，便把此關聯物件存入資料庫。</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 @order = @customer.orders.create(order_date: Time.now,
                                  order_number: "A12345")
 
 </pre>
 </div>
-<h6 id="collection.create!(attributes-=-{})">4.3.1.16 <code>collection.create!(attributes = {})</code>
-</h6>
-<p>與 <code>collection.create</code> 方法相同，但在驗證失敗時會拋出 <code>ActiveRecord::RecordInvalid</code> 異常。</p>
-<h5 id="has_many-關聯可用選項">4.3.2 <code>has_many</code> 關聯可用選項</h5>
-<p>Rails 聰明的預設設定足夠應付多數場景，但總會有需要客製化 <code>has_many</code> 關聯行為的時候。這種時候透過傳入選項，以及建立關聯時傳入作用域區塊便可輕易完成。舉例來說，下面的關聯使用了兩個選項：</p>
-<div class="code_container">
+<h6 id="has_many-關聯新增的方法-collection.create-bang(attributes-=-{})">4.3.1.16 <code>collection.create!(attributes = {})</code>
+</h6><p>與 <code>collection.create</code> 方法相同，但在驗證失敗時會拋出 <code>ActiveRecord::RecordInvalid</code> 異常。</p><h5 id="has_many-關聯可用選項">4.3.2 <code>has_many</code> 關聯可用選項</h5><p>Rails 聰明的預設設定足夠應付多數場景，但總會有需要客製化 <code>has_many</code> 關聯行為的時候。這種時候透過傳入選項，以及建立關聯時傳入作用域區塊便可輕易完成。舉例來說，下面的關聯使用了兩個選項：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Customer &lt; ActiveRecord::Base
   has_many :orders, dependent: :delete_all, validate: :false
@@ -1682,16 +1428,10 @@ end
 <li><code>:through</code></li>
 <li><code>:validate</code></li>
 </ul>
-<h6 id=":as">4.3.2.1 <code>:as</code>
-</h6>
-<p>設定 <code>:as</code> 選項表示這是一個多型關聯。多型關聯在<a href="#%E5%A4%9A%E5%9E%8B%E9%97%9C%E8%81%AF">前面已詳細介紹過</a>。</p>
-<h6 id=":autosave">4.3.2.2 <code>:autosave</code>
-</h6>
-<p>若 <code>autosave</code> 選項為 <code>true</code>，Rails 會在儲存父物件時，自動保存子物件。如子物件標記為刪除，也會在儲存時自動刪除。</p>
-<h6 id=":class_name">4.3.2.3 <code>:class_name</code>
-</h6>
-<p>如果關聯 Model 名稱推論不出來時，可以使用 <code>:class_name</code> 選項來指定。舉例來說，顧客有許多訂單，但訂單的 Model 名是 <code>Transaction</code>，則可以這麼指定：</p>
-<div class="code_container">
+<h6 id="has_many-關聯可用選項-:as">4.3.2.1 <code>:as</code>
+</h6><p>設定 <code>:as</code> 選項表示這是一個多型關聯。多型關聯在<a href="#%E5%A4%9A%E5%9E%8B%E9%97%9C%E8%81%AF">前面已詳細介紹過</a>。</p><h6 id="has_many-關聯可用選項-:autosave">4.3.2.2 <code>:autosave</code>
+</h6><p>若 <code>autosave</code> 選項為 <code>true</code>，Rails 會在儲存父物件時，自動保存子物件。如子物件標記為刪除，也會在儲存時自動刪除。</p><h6 id="has_many-關聯可用選項-:class_name">4.3.2.3 <code>:class_name</code>
+</h6><p>如果關聯 Model 名稱推論不出來時，可以使用 <code>:class_name</code> 選項來指定。舉例來說，顧客有許多訂單，但訂單的 Model 名是 <code>Transaction</code>，則可以這麼指定：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Customer &lt; ActiveRecord::Base
   has_many :orders, class_name: "Transaction"
@@ -1700,8 +1440,7 @@ end
 </pre>
 </div>
 <h6 id=":dependent">4.3.2.4 <code>:dependent</code>
-</h6>
-<p>在刪除關聯物件擁有者時該如何處理關聯物件：</p>
+</h6><p>在刪除關聯物件擁有者時該如何處理關聯物件：</p>
 <ul>
 <li>
 <code>:destroy</code>：同時刪除關聯物件。</li>
@@ -1714,11 +1453,8 @@ end
 <li>
 <code>:restrict_with_error</code>：有關聯物件的話，向擁有者拋出錯誤。</li>
 </ul>
-<div class="note"><p>關聯若使用了 <code>:through</code> 選項，則會忽略 <code>:dependent</code> 選項。</p></div>
-<h6 id=":foreign_key">4.3.2.5 <code>:foreign_key</code>
-</h6>
-<p>Rails 的外鍵慣例是關聯的 Model 名稱加上 <code>_id</code> 後綴。<code>:foreign_key</code> 選項可以修改外鍵名稱：</p>
-<div class="code_container">
+<div class="note"><p>關聯若使用了 <code>:through</code> 選項，則會忽略 <code>:dependent</code> 選項。</p></div><h6 id="has_many-關聯可用選項-:foreign_key">4.3.2.5 <code>:foreign_key</code>
+</h6><p>Rails 的外鍵慣例是關聯的 Model 名稱加上 <code>_id</code> 後綴。<code>:foreign_key</code> 選項可以修改外鍵名稱：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Customer &lt; ActiveRecord::Base
   has_many :orders, foreign_key: "cust_id"
@@ -1726,11 +1462,8 @@ end
 
 </pre>
 </div>
-<div class="info"><p>所有情況下，Rails 都不會幫您建立外鍵。需要自己在遷移中明確定義外鍵。</p></div>
-<h6 id=":inverse_of">4.3.2.6 <code>:inverse_of</code>
-</h6>
-<p><code>:inverse_of</code> 選項指定 <code>belongs_to</code> 關聯另一端的關聯名稱。無法與 <code>:through</code> 或 <code>:as</code> 同時使用。</p>
-<div class="code_container">
+<div class="info"><p>所有情況下，Rails 都不會幫您建立外鍵。需要自己在遷移中明確定義外鍵。</p></div><h6 id=":inverse_of">4.3.2.6 <code>:inverse_of</code>
+</h6><p><code>:inverse_of</code> 選項指定 <code>belongs_to</code> 關聯另一端的關聯名稱。無法與 <code>:through</code> 或 <code>:as</code> 同時使用。</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Customer &lt; ActiveRecord::Base
   has_many :orders, inverse_of: :customer
@@ -1742,11 +1475,8 @@ end
 
 </pre>
 </div>
-<h6 id=":primary_key">4.3.2.7 <code>:primary_key</code>
-</h6>
-<p>Rails 的主鍵慣例是 <code>id</code>。可以使用 <code>:primary_key</code> 選項來修改主鍵名稱。</p>
-<p>假設 <code>users</code> 資料表的主鍵是 <code>id</code>，但同時擁有 <code>guid</code> 欄位。現在加入一個新的需求，<code>todos</code> 資料表，使用者的主鍵用 <code>guid</code> 來存，而不是 <code>id</code> 的話，可以這麼做：</p>
-<div class="code_container">
+<h6 id="has_many-關聯可用選項-:primary_key">4.3.2.7 <code>:primary_key</code>
+</h6><p>Rails 的主鍵慣例是 <code>id</code>。可以使用 <code>:primary_key</code> 選項來修改主鍵名稱。</p><p>假設 <code>users</code> 資料表的主鍵是 <code>id</code>，但同時擁有 <code>guid</code> 欄位。現在加入一個新的需求，<code>todos</code> 資料表，使用者的主鍵用 <code>guid</code> 來存，而不是 <code>id</code> 的話，可以這麼做：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class User &lt; ActiveRecord::Base
   has_many :todos, primary_key: :guid
@@ -1754,22 +1484,11 @@ end
 
 </pre>
 </div>
-<p>現在執行 <code>@user.todos.create</code> 時，<code>@todo</code> 的 <code>user_id</code> 是 <code>@user</code> 的 <code>guid</code>。</p>
-<h6 id=":source">4.3.2.8 <code>:source</code>
-</h6>
-<p><code>:source</code> 選項給 <code>has_many :through</code> 關聯指定來源關聯名稱。這個選項只有在來源關聯名稱無法自動推論出來的時候才使用。</p>
-<h6 id=":source_type">4.3.2.9 <code>:source_type</code>
-</h6>
-<p><code>:source_type</code> 選項給透過多型關聯的 <code>has_many :through</code> 關聯指定來源類型。</p>
-<h6 id=":through">4.3.2.10 <code>:through</code>
-</h6>
-<p><code>:through</code> 選項用來指定下查詢的連接表。<code>has_many :through</code> 關聯在<a href="#has_many-:through-%E9%97%9C%E8%81%AF">前面已詳細介紹過</a>。</p>
-<h6 id=":validate">4.3.2.11 <code>:validate</code>
-</h6>
-<p>若 <code>:validate</code> 設為 <code>false</code>，則關聯物件會在儲存時觸發驗證。預設為 <code>true</code>，會在儲存物件時驗證關聯物件。</p>
-<h5 id="has_many-的作用域">4.3.3 <code>has_many</code> 的作用域</h5>
-<p>有時候可能想客製化 <code>has_many</code> 使用的查詢語句。可以透過傳入作用域區塊來達到，比如：</p>
-<div class="code_container">
+<p>現在執行 <code>@user.todos.create</code> 時，<code>@todo</code> 的 <code>user_id</code> 是 <code>@user</code> 的 <code>guid</code>。</p><h6 id="has_many-關聯可用選項-:source">4.3.2.8 <code>:source</code>
+</h6><p><code>:source</code> 選項給 <code>has_many :through</code> 關聯指定來源關聯名稱。這個選項只有在來源關聯名稱無法自動推論出來的時候才使用。</p><h6 id="has_many-關聯可用選項-:source_type">4.3.2.9 <code>:source_type</code>
+</h6><p><code>:source_type</code> 選項給透過多型關聯的 <code>has_many :through</code> 關聯指定來源類型。</p><h6 id="has_many-關聯可用選項-:through">4.3.2.10 <code>:through</code>
+</h6><p><code>:through</code> 選項用來指定下查詢的連接表。<code>has_many :through</code> 關聯在<a href="#has_many-:through-%E9%97%9C%E8%81%AF">前面已詳細介紹過</a>。</p><h6 id="has_many-關聯可用選項-:validate">4.3.2.11 <code>:validate</code>
+</h6><p>若 <code>:validate</code> 設為 <code>false</code>，則關聯物件會在儲存時觸發驗證。預設為 <code>true</code>，會在儲存物件時驗證關聯物件。</p><h5 id="has_many-的作用域">4.3.3 <code>has_many</code> 的作用域</h5><p>有時候可能想客製化 <code>has_many</code> 使用的查詢語句。可以透過傳入作用域區塊來達到，比如：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Customer &lt; ActiveRecord::Base
   has_many :orders, -&gt; { where processed: true }
@@ -1790,10 +1509,8 @@ end
 <li><code>select</code></li>
 <li><code>uniq</code></li>
 </ul>
-<h6 id="where">4.3.3.1 <code>where</code>
-</h6>
-<p><code>where</code> 方法指定關聯物件必須滿足的條件。</p>
-<div class="code_container">
+<h6 id="has_many-的作用域-where">4.3.3.1 <code>where</code>
+</h6><p><code>where</code> 方法指定關聯物件必須滿足的條件。</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Customer &lt; ActiveRecord::Base
   has_many :confirmed_orders, -&gt; { where "confirmed = 1" },
@@ -1802,8 +1519,7 @@ end
 
 </pre>
 </div>
-<p>條件也可透過 Hash 指定：</p>
-<div class="code_container">
+<p>條件也可透過 Hash 指定：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Customer &lt; ActiveRecord::Base
   has_many :confirmed_orders, -&gt; { where confirmed: true },
@@ -1812,14 +1528,9 @@ end
 
 </pre>
 </div>
-<p>若使用了 Hash 風格的 <code>where</code> 選項，產生出來的記錄會自動使用 Hash 的作用域。上例中，使用 <code>@customer.confirmed_orders.create</code> 或 <code>@customer.confirmed_orders.build</code> 會建立出 <code>confirmed</code> 欄位為 <code>true</code> 的訂單。</p>
-<h6 id="extending">4.3.3.2 <code>extending</code>
-</h6>
-<p><code>extending</code> 方法指定一個模組名稱，用來擴充關聯代理（association proxy）。 擴充關聯<a href="#%E6%93%B4%E5%85%85%E9%97%9C%E8%81%AF">之後</a>會詳細介紹。</p>
-<h6 id="group">4.3.3.3 <code>group</code>
-</h6>
-<p><code>group</code> 方法提供一個屬性名稱，用在 SQL 的 <code>GROUP BY</code> 子句裡，用來對結果做分組。</p>
-<div class="code_container">
+<p>若使用了 Hash 風格的 <code>where</code> 選項，產生出來的記錄會自動使用 Hash 的作用域。上例中，使用 <code>@customer.confirmed_orders.create</code> 或 <code>@customer.confirmed_orders.build</code> 會建立出 <code>confirmed</code> 欄位為 <code>true</code> 的訂單。</p><h6 id="has_many-的作用域-extending">4.3.3.2 <code>extending</code>
+</h6><p><code>extending</code> 方法指定一個模組名稱，用來擴充關聯代理（association proxy）。 擴充關聯<a href="#%E6%93%B4%E5%85%85%E9%97%9C%E8%81%AF">之後</a>會詳細介紹。</p><h6 id="has_many-的作用域-group">4.3.3.3 <code>group</code>
+</h6><p><code>group</code> 方法提供一個屬性名稱，用在 SQL 的 <code>GROUP BY</code> 子句裡，用來對結果做分組。</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Customer &lt; ActiveRecord::Base
   has_many :line_items, -&gt; { group 'orders.id' },
@@ -1828,10 +1539,8 @@ end
 
 </pre>
 </div>
-<h6 id="includes">4.3.3.4 <code>includes</code>
-</h6>
-<p><code>includes</code> 方法用來指定需要 Eager Loading 的第二層關聯。看看下面這個例子：</p>
-<div class="code_container">
+<h6 id="has_many-的作用域-includes">4.3.3.4 <code>includes</code>
+</h6><p><code>includes</code> 方法用來指定需要 Eager Loading 的第二層關聯。看看下面這個例子：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Customer &lt; ActiveRecord::Base
   has_many :orders
@@ -1848,8 +1557,7 @@ end
 
 </pre>
 </div>
-<p>若需要頻繁地從顧客裡取出訂單細目（<code>@customer.orders.line_items</code>），那麼在 <code>Customer</code> 的 <code>has_many</code> 關聯裡載入細目，程式會更有效率：</p>
-<div class="code_container">
+<p>若需要頻繁地從顧客裡取出訂單細目（<code>@customer.orders.line_items</code>），那麼在 <code>Customer</code> 的 <code>has_many</code> 關聯裡載入細目，程式會更有效率：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Customer &lt; ActiveRecord::Base
   has_many :orders, -&gt; { includes :line_items }
@@ -1866,10 +1574,8 @@ end
 
 </pre>
 </div>
-<h6 id="limit">4.3.3.5 <code>limit</code>
-</h6>
-<p><code>limit</code> 方法可限制透過關聯取出物件的數量。</p>
-<div class="code_container">
+<h6 id="has_many-的作用域-limit">4.3.3.5 <code>limit</code>
+</h6><p><code>limit</code> 方法可限制透過關聯取出物件的數量。</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Customer &lt; ActiveRecord::Base
   has_many :recent_orders,
@@ -1879,13 +1585,9 @@ end
 
 </pre>
 </div>
-<h6 id="offset">4.3.3.6 <code>offset</code>
-</h6>
-<p><code>offset</code> 方法可指定開始從關聯取出物件的偏移量。比如 <code>-&gt; { offset(11) }</code> 會忽略前 11 個物件。</p>
-<h6 id="order">4.3.3.7 <code>order</code>
-</h6>
-<p><code>order</code> 方法指定關聯物件取出後的排序方式（語法為 SQL 的 <code>ORDER BY</code> 子句）。</p>
-<div class="code_container">
+<h6 id="has_many-的作用域-offset">4.3.3.6 <code>offset</code>
+</h6><p><code>offset</code> 方法可指定開始從關聯取出物件的偏移量。比如 <code>-&gt; { offset(11) }</code> 會忽略前 11 個物件。</p><h6 id="has_many-的作用域-order">4.3.3.7 <code>order</code>
+</h6><p><code>order</code> 方法指定關聯物件取出後的排序方式（語法為 SQL 的 <code>ORDER BY</code> 子句）。</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Customer &lt; ActiveRecord::Base
   has_many :orders, -&gt; { order "date_confirmed DESC" }
@@ -1893,74 +1595,54 @@ end
 
 </pre>
 </div>
-<h6 id="readonly">4.3.3.8 <code>readonly</code>
-</h6>
-<p>如果設定了 <code>readonly</code> 選項，則關聯物件取出時為唯讀。</p>
-<h6 id="select">4.3.3.9 <code>select</code>
-</h6>
-<p><code>select</code> 方法可以覆寫用來取出關聯的 <code>SELECT</code> 子句。預設會取出所有欄位。</p>
-<div class="warning"><p>若使用了 <code>select</code>，記得要選出關聯的主鍵與外鍵欄位，否則 Rails 會拋出錯誤。</p></div>
-<h6 id="distinct">4.3.3.10 <code>distinct</code>
-</h6>
-<p><code>distinct</code> 方法確保集合中沒有重複的物件。與 <code>:through</code> 選項時使用最有用。</p>
-<div class="code_container">
+<h6 id="has_many-的作用域-readonly">4.3.3.8 <code>readonly</code>
+</h6><p>如果設定了 <code>readonly</code> 選項，則關聯物件取出時為唯讀。</p><h6 id="has_many-的作用域-select">4.3.3.9 <code>select</code>
+</h6><p><code>select</code> 方法可以覆寫用來取出關聯的 <code>SELECT</code> 子句。預設會取出所有欄位。</p><div class="warning"><p>若使用了 <code>select</code>，記得要選出關聯的主鍵與外鍵欄位，否則 Rails 會拋出錯誤。</p></div><h6 id="distinct">4.3.3.10 <code>distinct</code>
+</h6><p><code>distinct</code> 方法確保集合中沒有重複的物件。與 <code>:through</code> 選項時使用最有用。</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Person &lt; ActiveRecord::Base
   has_many :readings
-  has_many :posts, through: :readings
+  has_many :articles, through: :readings
 end
 
 person = Person.create(name: 'John')
-post   = Post.create(name: 'a1')
-person.posts &lt;&lt; post
-person.posts &lt;&lt; post
-person.posts.inspect # =&gt; [#&lt;Post id: 5, name: "a1"&gt;, #&lt;Post id: 5, name: "a1"&gt;]
-Reading.all.inspect  # =&gt; [#&lt;Reading id: 12, person_id: 5, post_id: 5&gt;, #&lt;Reading id: 13, person_id: 5, post_id: 5&gt;]
+article   = Article.create(name: 'a1')
+person.articles &lt;&lt; a
+person.articles &lt;&lt; a
+person.articles.inspect # =&gt; [#&lt;Article id: 5, name: "a1"&gt;, #&lt;Article id: 5, name: "a1"&gt;]
+Reading.all.inspect  # =&gt; [#&lt;Reading id: 12, person_id: 5, article_id: 5&gt;, #&lt;Reading id: 13, person_id: 5, article_id: 5&gt;]
 
 </pre>
 </div>
-<p>上例中，人有兩篇文章要讀，雖然這兩篇是相同的文章，但 <code>person.posts</code> 會回傳兩篇文章。</p>
-<p>使用 <code>distinct</code>：</p>
-<div class="code_container">
+<p>上例中，人有兩篇文章要讀，雖然這兩篇是相同的文章，但 <code>person.articles</code> 會回傳兩篇文章。</p><p>使用 <code>distinct</code>：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Person
   has_many :readings
-  has_many :posts, -&gt; { distinct }, through: :readings
+  has_many :articles, -&gt; { distinct }, through: :readings
 end
 
 person = Person.create(name: 'Honda')
-post   = Post.create(name: 'a1')
-person.posts &lt;&lt; post
-person.posts &lt;&lt; post
-person.posts.inspect # =&gt; [#&lt;Post id: 7, name: "a1"&gt;]
-Reading.all.inspect  # =&gt; [#&lt;Reading id: 16, person_id: 7, post_id: 7&gt;, #&lt;Reading id: 17, person_id: 7, post_id: 7&gt;]
+article   = Article.create(name: 'a1')
+person.articles &lt;&lt; article
+person.articles &lt;&lt; article
+person.articles.inspect # =&gt; [#&lt;Article id: 7, name: "a1"&gt;]
+Reading.all.inspect  # =&gt; [#&lt;Reading id: 16, person_id: 7, article_id: 7&gt;, #&lt;Reading id: 17, person_id: 7, article_id: 7&gt;]
 
 </pre>
 </div>
-<p>上例仍有兩篇文章要讀，但 <code>person.posts</code> 僅回傳一篇文章，因為集合只載入唯一的記錄。</p>
-<p>若想確保不插入重複的資料到資料庫（這樣取出來就確定是不重複的記錄了），應該要在資料表上新增一個唯一性的索引。舉例來說，如果有 <code>person_posts</code> 資料表，想確保所有文章不重複，可加入下面這個遷移：</p>
-<div class="code_container">
+<p>上例仍有兩篇文章要讀，但 <code>person.articles</code> 僅回傳一篇文章，因為集合只載入唯一的記錄。</p><p>若想確保不插入重複的資料到資料庫（這樣取出來就確定是不重複的記錄了），應該要在資料表上新增一個唯一性的索引。舉例來說，如果有 <code>person_articles</code> 資料表，想確保所有文章不重複，可加入下面這個遷移：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
-add_index :person_posts, :post, unique: true
+add_index :person_articles, :article, unique: true
 
 </pre>
 </div>
-<p>使用 <code>include?</code> 來檢唯一性可能會導致競態條件（Race Condition）。不要使用 <code>include?</code> 來確保集合的唯一性。同樣以前面文章為例，以下的程式碼會導致競態條件，因為多個使用者可能同時加入文章：</p>
-<div class="code_container">
+<p>使用 <code>include?</code> 來檢唯一性可能會導致競態條件（Race Condition）。不要使用 <code>include?</code> 來確保集合的唯一性。同樣以前面文章為例，以下的程式碼會導致競態條件，因為多個使用者可能同時加入文章：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
-person.posts &lt;&lt; post unless person.posts.include?(post)
+person.articles &lt;&lt; article unless person.articles.include?(article)
 
 </pre>
 </div>
-<h5 id="物件何時被儲存？">4.3.4 物件何時被儲存？</h5>
-<p>把物件賦值給 <code>has_many</code> 關聯會自動儲存物件（因為要更新外鍵）。除此之外，用來賦值的物件也會自動儲存，因為外鍵變了。</p>
-<p>如果驗證失敗時，則賦值的敘述句會回傳 <code>false</code>，賦值也會被取消。</p>
-<p>若父物件（有 <code>has_many</code> 的 Model）尚未儲存（<code>new_record?</code> 回傳 <code>true</code>），則不會儲存子物件。只有在父物件儲存時，才會儲存子物件。</p>
-<p>若想給 <code>has_many</code> 關聯賦物件而不儲存，使用 <code>collection.build</code> 方法。</p>
-<h4 id="has_and_belongs_to_many-關聯參考手冊">4.4 <code>has_and_belongs_to_many</code> 關聯參考手冊</h4>
-<p><code>has_and_belongs_to_many</code> 關聯建立兩個 Model 之間的多對多關係。用資料庫的術語解釋，透過直接的連接資料表將兩個 Model 關聯起來，連接資料表記錄了兩個類別的外鍵。</p>
-<h5 id="has_and_belongs_to_many-關聯新增的方法">4.4.1 <code>has_and_belongs_to_many</code> 關聯新增的方法</h5>
-<p>宣告 <code>has_and_belongs_to_many</code> 關聯時，宣告的類別獲得 16 個關聯方法：</p>
+<h5 id="has_many-關聯參考手冊-物件何時被儲存？">4.3.4 物件何時被儲存？</h5><p>把物件賦值給 <code>has_many</code> 關聯會自動儲存物件（因為要更新外鍵）。除此之外，用來賦值的物件也會自動儲存，因為外鍵變了。</p><p>如果驗證失敗時，則賦值的敘述句會回傳 <code>false</code>，賦值也會被取消。</p><p>若父物件（有 <code>has_many</code> 的 Model）尚未儲存（<code>new_record?</code> 回傳 <code>true</code>），則不會儲存子物件。只有在父物件儲存時，才會儲存子物件。</p><p>若想給 <code>has_many</code> 關聯賦物件而不儲存，使用 <code>collection.build</code> 方法。</p><h4 id="has_and_belongs_to_many-關聯參考手冊">4.4 <code>has_and_belongs_to_many</code> 關聯參考手冊</h4><p><code>has_and_belongs_to_many</code> 關聯建立兩個 Model 之間的多對多關係。用資料庫的術語解釋，透過直接的連接資料表將兩個 Model 關聯起來，連接資料表記錄了兩個類別的外鍵。</p><h5 id="has_and_belongs_to_many-關聯新增的方法">4.4.1 <code>has_and_belongs_to_many</code> 關聯新增的方法</h5><p>宣告 <code>has_and_belongs_to_many</code> 關聯時，宣告的類別獲得 16 個關聯方法：</p>
 <ul>
 <li><code>collection(force_reload = false)</code></li>
 <li><code>collection&lt;&lt;(object, ...)</code></li>
@@ -1979,8 +1661,7 @@ person.posts &lt;&lt; post unless person.posts.include?(post)
 <li><code>collection.create(attributes = {})</code></li>
 <li><code>collection.create!(attributes = {})</code></li>
 </ul>
-<p>以上所有方法，<code>collection</code> 會換成作為第一個參數傳給 <code>has_and_belongs_to_many</code> 的符號。而 <code>collection_singular</code> 會換成第一個參數傳給 <code>has_and_belongs_to_many</code> 的符號的單數形式。比如：</p>
-<div class="code_container">
+<p>以上所有方法，<code>collection</code> 會換成作為第一個參數傳給 <code>has_and_belongs_to_many</code> 的符號。而 <code>collection_singular</code> 會換成第一個參數傳給 <code>has_and_belongs_to_many</code> 的符號的單數形式。比如：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Part &lt; ActiveRecord::Base
   has_and_belongs_to_many :assemblies
@@ -1988,8 +1669,7 @@ end
 
 </pre>
 </div>
-<p>現在每個 <code>Part</code> Model 的實體會有這些方法：</p>
-<div class="code_container">
+<p>現在每個 <code>Part</code> Model 的實體會有這些方法：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 assemblies(force_reload = false)
 assemblies&lt;&lt;(object, ...)
@@ -2010,69 +1690,46 @@ assemblies.create!(attributes = {})
 
 </pre>
 </div>
-<h6 id="額外的欄位方法">4.4.1.1 額外的欄位方法</h6>
-<p>若 <code>has_and_belongs_to_many</code> 關聯的連接資料表除了外鍵外，還有其他欄位時，這些欄位會新增到取出的關聯裡，變成關聯的屬性。這些額外的欄位是唯讀的，因為 Rails 無從得知如何儲存這些屬性的變動。</p>
-<div class="warning"><p>在 <code>has_and_belongs_to_many</code> 關聯的連接資料表裡使用額外的欄位已棄用。若多對多關係需要如此複雜的行為，應該使用 `has_many :through 關聯。.</p></div>
-<h6 id="collection(force_reload-=-false)">4.4.1.2 <code>collection(force_reload = false)</code>
-</h6>
-<p><code>collection</code> 會回傳包含所有關聯物件的陣列。沒有關聯物件時，回傳空陣列。</p>
-<div class="code_container">
+<h6 id="額外的欄位方法">4.4.1.1 額外的欄位方法</h6><p>若 <code>has_and_belongs_to_many</code> 關聯的連接資料表除了外鍵外，還有其他欄位時，這些欄位會新增到取出的關聯裡，變成關聯的屬性。這些額外的欄位是唯讀的，因為 Rails 無從得知如何儲存這些屬性的變動。</p><div class="warning"><p>在 <code>has_and_belongs_to_many</code> 關聯的連接資料表裡使用額外的欄位已棄用。若多對多關係需要如此複雜的行為，應該使用 `has_many :through 關聯。.</p></div><h6 id="has_and_belongs_to_many-關聯新增的方法-collection(force_reload-=-false)">4.4.1.2 <code>collection(force_reload = false)</code>
+</h6><p><code>collection</code> 會回傳包含所有關聯物件的陣列。沒有關聯物件時，回傳空陣列。</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 @assemblies = @part.assemblies
 
 </pre>
 </div>
-<h6 id="collection&lt;&lt;(object,-...)">4.4.1.3 <code>collection&lt;&lt;(object, ...)</code>
-</h6>
-<p><code>collection&lt;&lt;</code> 方法透過在連接資料表裡新增記錄，來新增一個或多個物件至集合。</p>
-<div class="code_container">
+<h6 id="has_and_belongs_to_many-關聯新增的方法-collection&lt;&lt;(object,-...)">4.4.1.3 <code>collection&lt;&lt;(object, ...)</code>
+</h6><p><code>collection&lt;&lt;</code> 方法透過在連接資料表裡新增記錄，來新增一個或多個物件至集合。</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 @part.assemblies &lt;&lt; @assembly1
 
 </pre>
 </div>
-<div class="note"><p>這個方法是 <code>collection.concat</code> 與 <code>collection.push</code> 的別名。</p></div>
-<h6 id="collection.delete(object,-...)">4.4.1.4 <code>collection.delete(object, ...)</code>
-</h6>
-<p><code>collection.delete</code> 方法透過刪除連接資料表中的記錄，來移除集合中一個或多個物件。但並不會刪除關聯物件。</p>
-<div class="code_container">
+<div class="note"><p>這個方法是 <code>collection.concat</code> 與 <code>collection.push</code> 的別名。</p></div><h6 id="has_and_belongs_to_many-關聯新增的方法-collection.delete(object,-...)">4.4.1.4 <code>collection.delete(object, ...)</code>
+</h6><p><code>collection.delete</code> 方法透過刪除連接資料表中的記錄，來移除集合中一個或多個物件。但並不會刪除關聯物件。</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 @part.assemblies.delete(@assembly1)
 
 </pre>
 </div>
-<div class="warning"><p>不會觸發連接資料表記錄的回呼。</p></div>
-<h6 id="collection.destroy(object,-...)">4.4.1.5 <code>collection.destroy(object, ...)</code>
-</h6>
-<p><code>collection.destroy</code> 方法透過對連接資料表的物件呼叫 <code>destroy</code>，包含回呼，來移除集合中一個或多個物件。但並不會刪除關聯物件。</p>
-<div class="code_container">
+<div class="warning"><p>不會觸發連接資料表記錄的回呼。</p></div><h6 id="has_and_belongs_to_many-關聯新增的方法-collection.destroy(object,-...)">4.4.1.5 <code>collection.destroy(object, ...)</code>
+</h6><p><code>collection.destroy</code> 方法透過對連接資料表的物件呼叫 <code>destroy</code>，包含回呼，來移除集合中一個或多個物件。但並不會刪除關聯物件。</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 @part.assemblies.destroy(@assembly1)
 
 </pre>
 </div>
-<h6 id="collection=objects">4.4.1.6 <code>collection=objects</code>
-</h6>
-<p><code>collection=</code> 方法更改集合內容，根據提供的物件來決定要刪除還是新增。</p>
-<h6 id="collection_singular_ids">4.4.1.7 <code>collection_singular_ids</code>
-</h6>
-<p><code>collection_singular_ids</code> 方法回傳集合陣列中各物件的 ID。</p>
-<div class="code_container">
+<h6 id="has_and_belongs_to_many-關聯新增的方法-collection=objects">4.4.1.6 <code>collection=objects</code>
+</h6><p><code>collection=</code> 方法更改集合內容，根據提供的物件來決定要刪除還是新增。</p><h6 id="has_and_belongs_to_many-關聯新增的方法-collection_singular_ids">4.4.1.7 <code>collection_singular_ids</code>
+</h6><p><code>collection_singular_ids</code> 方法回傳集合陣列中各物件的 ID。</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 @assembly_ids = @part.assembly_ids
 
 </pre>
 </div>
-<h6 id="collection_singular_ids=ids">4.4.1.8 <code>collection_singular_ids=ids</code>
-</h6>
-<p><code>collection_singular_ids=</code> 方法更改集合擁有物件的 ID，根據所提供的主鍵值來決定要刪除還是新增。</p>
-<h6 id="collection.clear">4.4.1.9 <code>collection.clear</code>
-</h6>
-<p><code>collection.clear</code> 方法透過刪除連接資料表的列來移除集合中的所有物件。但並不會刪除關聯物件。</p>
-<h6 id="collection.empty?">4.4.1.10 <code>collection.empty?</code>
-</h6>
-<p><code>collection.empty?</code> 方法在集合沒有任何關聯物件時回傳 <code>true</code>。</p>
-<div class="code_container">
+<h6 id="has_and_belongs_to_many-關聯新增的方法-collection_singular_ids=ids">4.4.1.8 <code>collection_singular_ids=ids</code>
+</h6><p><code>collection_singular_ids=</code> 方法更改集合擁有物件的 ID，根據所提供的主鍵值來決定要刪除還是新增。</p><h6 id="has_and_belongs_to_many-關聯新增的方法-collection.clear">4.4.1.9 <code>collection.clear</code>
+</h6><p><code>collection.clear</code> 方法透過刪除連接資料表的列來移除集合中的所有物件。但並不會刪除關聯物件。</p><h6 id="has_and_belongs_to_many-關聯新增的方法-collection.empty-questionmark">4.4.1.10 <code>collection.empty?</code>
+</h6><p><code>collection.empty?</code> 方法在集合沒有任何關聯物件時回傳 <code>true</code>。</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 &lt;% if @part.assemblies.empty? %&gt;
   This part is not used in any assemblies
@@ -2080,60 +1737,44 @@ assemblies.create!(attributes = {})
 
 </pre>
 </div>
-<h6 id="collection.size">4.4.1.11 <code>collection.size</code>
-</h6>
-<p><code>collection.size</code> 方法回傳集合中物件的數量。</p>
-<div class="code_container">
+<h6 id="has_and_belongs_to_many-關聯新增的方法-collection.size">4.4.1.11 <code>collection.size</code>
+</h6><p><code>collection.size</code> 方法回傳集合中物件的數量。</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 @assembly_count = @part.assemblies.size
 
 </pre>
 </div>
-<h6 id="collection.find(...)">4.4.1.12 <code>collection.find(...)</code>
-</h6>
-<p><code>collection.find</code> 方法在集合中查詢物件。語法和選項與 <code>ActiveRecord::Base.find</code> 相同。同時加入了另外一條條件，物件必須在集合裡。</p>
-<div class="code_container">
+<h6 id="has_and_belongs_to_many-關聯新增的方法-collection.find(...)">4.4.1.12 <code>collection.find(...)</code>
+</h6><p><code>collection.find</code> 方法在集合中查詢物件。語法和選項與 <code>ActiveRecord::Base.find</code> 相同。同時加入了另外一條條件，物件必須在集合裡。</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 @assembly = @part.assemblies.find(1)
 
 </pre>
 </div>
-<h6 id="collection.where(...)">4.4.1.13 <code>collection.where(...)</code>
-</h6>
-<p><code>collection.where</code> 方法根據提供的條件來查找物件，預設是惰性載入，僅在需要用到物件才會去資料庫做查詢。同時加入了另外一條條件，物件必須在集合裡。</p>
-<div class="code_container">
+<h6 id="has_and_belongs_to_many-關聯新增的方法-collection.where(...)">4.4.1.13 <code>collection.where(...)</code>
+</h6><p><code>collection.where</code> 方法根據提供的條件來查找物件，預設是惰性載入，僅在需要用到物件才會去資料庫做查詢。同時加入了另外一條條件，物件必須在集合裡。</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 @new_assemblies = @part.assemblies.where("created_at &gt; ?", 2.days.ago)
 
 </pre>
 </div>
-<h6 id="collection.exists?(...)">4.4.1.14 <code>collection.exists?(...)</code>
-</h6>
-<p><code>collection.exists?</code> 方法依提供的條件檢查物件存在集合裡。語法和選項與 <code>ActiveRecord::Base.exists?</code> 相同。</p>
-<h6 id="collection.build(attributes-=-{})">4.4.1.15 <code>collection.build(attributes = {})</code>
-</h6>
-<p><code>collection.build</code> 方法回傳一個或多個新關聯物件。這些物件由傳入的屬性來初始化，自動在連接資料表建立新記錄，並設定好外鍵。但關聯物件<strong>仍未儲存至資料庫</strong>。</p>
-<div class="code_container">
+<h6 id="has_and_belongs_to_many-關聯新增的方法-collection.exists-questionmark(...)">4.4.1.14 <code>collection.exists?(...)</code>
+</h6><p><code>collection.exists?</code> 方法依提供的條件檢查物件存在集合裡。語法和選項與 <code>ActiveRecord::Base.exists?</code> 相同。</p><h6 id="collection.build(attributes-=-{})">4.4.1.15 <code>collection.build(attributes = {})</code>
+</h6><p><code>collection.build</code> 方法回傳一個或多個新關聯物件。這些物件由傳入的屬性來初始化，自動在連接資料表建立新記錄，並設定好外鍵。但關聯物件<strong>仍未儲存至資料庫</strong>。</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 @assembly = @part.assemblies.build({assembly_name: "Transmission housing"})
 
 </pre>
 </div>
-<h6 id="collection.create(attributes-=-{})">4.4.1.16 <code>collection.create(attributes = {})</code>
-</h6>
-<p><code>collection.create</code> 方法回傳關聯類型的新物件。 這個物件透過傳入的屬性來初始化，自動在連接資料表建立新記錄，並設定好外鍵。一旦通過所有 Model 的驗證規則時，便把此關聯物件存入資料庫。</p>
-<div class="code_container">
+<h6 id="has_and_belongs_to_many-關聯新增的方法-collection.create(attributes-=-{})">4.4.1.16 <code>collection.create(attributes = {})</code>
+</h6><p><code>collection.create</code> 方法回傳關聯類型的新物件。 這個物件透過傳入的屬性來初始化，自動在連接資料表建立新記錄，並設定好外鍵。一旦通過所有 Model 的驗證規則時，便把此關聯物件存入資料庫。</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 @assembly = @part.assemblies.create({assembly_name: "Transmission housing"})
 
 </pre>
 </div>
-<h6 id="collection.create!(attributes-=-{})">4.4.1.17 <code>collection.create!(attributes = {})</code>
-</h6>
-<p>與 <code>collection.create</code> 方法相同，但在驗證失敗時會拋出 <code>ActiveRecord::RecordInvalid</code> 異常。</p>
-<h5 id="has_and_belongs_to_many-關聯可用選項">4.4.2 <code>has_and_belongs_to_many</code> 關聯可用選項</h5>
-<p>Rails 聰明的預設設定足夠應付多數場景，但總會有需要客製化 <code>has_and_belongs_to_many</code> 關聯行為的時候。這種時候透過傳入選項，以及建立關聯時傳入作用域區塊便可輕易完成。舉例來說，下面的關聯使用了兩個選項：</p>
-<div class="code_container">
+<h6 id="has_and_belongs_to_many-關聯新增的方法-collection.create-bang(attributes-=-{})">4.4.1.17 <code>collection.create!(attributes = {})</code>
+</h6><p>與 <code>collection.create</code> 方法相同，但在驗證失敗時會拋出 <code>ActiveRecord::RecordInvalid</code> 異常。</p><h5 id="has_and_belongs_to_many-關聯可用選項">4.4.2 <code>has_and_belongs_to_many</code> 關聯可用選項</h5><p>Rails 聰明的預設設定足夠應付多數場景，但總會有需要客製化 <code>has_and_belongs_to_many</code> 關聯行為的時候。這種時候透過傳入選項，以及建立關聯時傳入作用域區塊便可輕易完成。舉例來說，下面的關聯使用了兩個選項：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Parts &lt; ActiveRecord::Base
   has_and_belongs_to_many :assemblies, autosave: true,
@@ -2153,10 +1794,7 @@ end
 <li><code>:readonly</code></li>
 </ul>
 <h6 id=":association_foreign_key">4.4.2.1 <code>:association_foreign_key</code>
-</h6>
-<p>依照慣例，Rails 假定連接資料表的外鍵名稱為 Model 名稱加上 <code>_id</code> 後綴。<code>association_foreign_key</code> 可以直接修改外鍵名稱：</p>
-<div class="info"><p><code>:foreign_key</code> 與 <code>:association_foreign_key</code> 選項在設定自連接的多對多關係時很有用，譬如：</p></div>
-<div class="code_container">
+</h6><p>依照慣例，Rails 假定連接資料表的外鍵名稱為 Model 名稱加上 <code>_id</code> 後綴。<code>association_foreign_key</code> 可以直接修改外鍵名稱：</p><div class="info"><p><code>:foreign_key</code> 與 <code>:association_foreign_key</code> 選項在設定自連接的多對多關係時很有用，譬如：</p></div><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class User &lt; ActiveRecord::Base
   has_and_belongs_to_many :friends,
@@ -2167,13 +1805,9 @@ end
 
 </pre>
 </div>
-<h6 id=":autosave">4.4.2.2 <code>:autosave</code>
-</h6>
-<p>若 <code>autosave</code> 選項為 <code>true</code>，Rails 會在儲存父物件時，自動保存子物件。如子物件標記為刪除，也會在儲存時自動刪除。</p>
-<h6 id=":class_name">4.4.2.3 <code>:class_name</code>
-</h6>
-<p>如果關聯 Model 名稱推論不出來時，可以使用 <code>:class_name</code> 選項來指定。舉例來說，部件屬於組件，但組件的 Model 名是 <code>Gadget</code>，則可以這麼指定：</p>
-<div class="code_container">
+<h6 id="has_and_belongs_to_many-關聯可用選項-:autosave">4.4.2.2 <code>:autosave</code>
+</h6><p>若 <code>autosave</code> 選項為 <code>true</code>，Rails 會在儲存父物件時，自動保存子物件。如子物件標記為刪除，也會在儲存時自動刪除。</p><h6 id="has_and_belongs_to_many-關聯可用選項-:class_name">4.4.2.3 <code>:class_name</code>
+</h6><p>如果關聯 Model 名稱推論不出來時，可以使用 <code>:class_name</code> 選項來指定。舉例來說，部件屬於組件，但組件的 Model 名是 <code>Gadget</code>，則可以這麼指定：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Parts &lt; ActiveRecord::Base
   has_and_belongs_to_many :assemblies, class_name: "Gadget"
@@ -2181,10 +1815,8 @@ end
 
 </pre>
 </div>
-<h6 id=":foreign_key">4.4.2.4 <code>:foreign_key</code>
-</h6>
-<p>Rails 的外鍵慣例是關聯的 Model 名稱加上 <code>_id</code> 後綴。<code>:foreign_key</code> 選項可以修改外鍵名稱：</p>
-<div class="code_container">
+<h6 id="has_and_belongs_to_many-關聯可用選項-:foreign_key">4.4.2.4 <code>:foreign_key</code>
+</h6><p>Rails 的外鍵慣例是關聯的 Model 名稱加上 <code>_id</code> 後綴。<code>:foreign_key</code> 選項可以修改外鍵名稱：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class User &lt; ActiveRecord::Base
   has_and_belongs_to_many :friends,
@@ -2196,14 +1828,8 @@ end
 </pre>
 </div>
 <h6 id=":join_table">4.4.2.5 <code>:join_table</code>
-</h6>
-<p>資料連接表的名稱，基於詞法序推出。若想變更名稱可使用 <code>:join_table</code> 選項來覆蓋掉預設值。</p>
-<h6 id=":validate">4.4.2.6 <code>:validate</code>
-</h6>
-<p>若 <code>:validate</code> 設為 <code>false</code>，則關聯物件會在儲存時觸發驗證。預設為 <code>true</code>，會在儲存物件時驗證關聯物件。</p>
-<h5 id="has_and_belongs_to_many-的作用域">4.4.3 <code>has_and_belongs_to_many</code> 的作用域</h5>
-<p>有時候可能想客製化 <code>has_and_belongs_to_many</code> 使用的查詢語句。可以透過傳入作用域區塊來達到，比如：</p>
-<div class="code_container">
+</h6><p>資料連接表的名稱，基於詞法序推出。若想變更名稱可使用 <code>:join_table</code> 選項來覆蓋掉預設值。</p><h6 id="has_and_belongs_to_many-關聯可用選項-:validate">4.4.2.6 <code>:validate</code>
+</h6><p>若 <code>:validate</code> 設為 <code>false</code>，則關聯物件會在儲存時觸發驗證。預設為 <code>true</code>，會在儲存物件時驗證關聯物件。</p><h5 id="has_and_belongs_to_many-的作用域">4.4.3 <code>has_and_belongs_to_many</code> 的作用域</h5><p>有時候可能想客製化 <code>has_and_belongs_to_many</code> 使用的查詢語句。可以透過傳入作用域區塊來達到，比如：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Parts &lt; ActiveRecord::Base
   has_and_belongs_to_many :assemblies, -&gt; { where active: true }
@@ -2224,10 +1850,8 @@ end
 <li><code>select</code></li>
 <li><code>uniq</code></li>
 </ul>
-<h6 id="where">4.4.3.1 <code>where</code>
-</h6>
-<p><code>where</code> 方法指定關聯物件必須滿足的條件。</p>
-<div class="code_container">
+<h6 id="has_and_belongs_to_many-的作用域-where">4.4.3.1 <code>where</code>
+</h6><p><code>where</code> 方法指定關聯物件必須滿足的條件。</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Parts &lt; ActiveRecord::Base
   has_and_belongs_to_many :assemblies,
@@ -2236,8 +1860,7 @@ end
 
 </pre>
 </div>
-<p>條件也可透過 Hash 指定：</p>
-<div class="code_container">
+<p>條件也可透過 Hash 指定：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Parts &lt; ActiveRecord::Base
   has_and_belongs_to_many :assemblies,
@@ -2246,14 +1869,9 @@ end
 
 </pre>
 </div>
-<p>若使用了 Hash 風格的 <code>where</code> 選項，產生出來的記錄會自動使用 Hash 的作用域。上例中，使用 <code>@parts.assemblies.create</code> 或 <code>@parts.assemblies.build</code> 會建立出 <code>factory</code> 欄位為 <code>'Seattle'</code> 的訂單。</p>
-<h6 id="extending">4.4.3.2 <code>extending</code>
-</h6>
-<p><code>extending</code> 方法指定一個模組名稱，用來擴充關聯代理（association proxy）。 擴充關聯<a href="#%E6%93%B4%E5%85%85%E9%97%9C%E8%81%AF">之後</a>會詳細介紹。</p>
-<h6 id="group">4.4.3.3 <code>group</code>
-</h6>
-<p><code>group</code> 方法提供一個屬性名稱，用在 SQL 的 <code>GROUP BY</code> 子句裡，用來對結果做分組。</p>
-<div class="code_container">
+<p>若使用了 Hash 風格的 <code>where</code> 選項，產生出來的記錄會自動使用 Hash 的作用域。上例中，使用 <code>@parts.assemblies.create</code> 或 <code>@parts.assemblies.build</code> 會建立出 <code>factory</code> 欄位為 <code>'Seattle'</code> 的訂單。</p><h6 id="has_and_belongs_to_many-的作用域-extending">4.4.3.2 <code>extending</code>
+</h6><p><code>extending</code> 方法指定一個模組名稱，用來擴充關聯代理（association proxy）。 擴充關聯<a href="#%E6%93%B4%E5%85%85%E9%97%9C%E8%81%AF">之後</a>會詳細介紹。</p><h6 id="has_and_belongs_to_many-的作用域-group">4.4.3.3 <code>group</code>
+</h6><p><code>group</code> 方法提供一個屬性名稱，用在 SQL 的 <code>GROUP BY</code> 子句裡，用來對結果做分組。</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Parts &lt; ActiveRecord::Base
   has_and_belongs_to_many :assemblies, -&gt; { group "factory" }
@@ -2261,13 +1879,9 @@ end
 
 </pre>
 </div>
-<h6 id="includes">4.4.3.4 <code>includes</code>
-</h6>
-<p><code>includes</code> 方法用來指定需要 Eager Loading 的第二層關聯。看看下面這個例子：</p>
-<h6 id="limit">4.4.3.5 <code>limit</code>
-</h6>
-<p><code>limit</code> 方法可限制透過關聯取出物件的數量。</p>
-<div class="code_container">
+<h6 id="has_and_belongs_to_many-的作用域-includes">4.4.3.4 <code>includes</code>
+</h6><p><code>includes</code> 方法用來指定需要 Eager Loading 的第二層關聯。看看下面這個例子：</p><h6 id="has_and_belongs_to_many-的作用域-limit">4.4.3.5 <code>limit</code>
+</h6><p><code>limit</code> 方法可限制透過關聯取出物件的數量。</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Parts &lt; ActiveRecord::Base
   has_and_belongs_to_many :assemblies,
@@ -2276,13 +1890,9 @@ end
 
 </pre>
 </div>
-<h6 id="offset">4.4.3.6 <code>offset</code>
-</h6>
-<p><code>offset</code> 方法可指定開始從關聯取出物件的偏移量。比如 <code>-&gt; { offset(11) }</code> 會忽略前 11 個物件。</p>
-<h6 id="order">4.4.3.7 <code>order</code>
-</h6>
-<p><code>order</code> 方法指定關聯物件取出後的排序方式（語法為 SQL 的 <code>ORDER BY</code> 子句）。</p>
-<div class="code_container">
+<h6 id="has_and_belongs_to_many-的作用域-offset">4.4.3.6 <code>offset</code>
+</h6><p><code>offset</code> 方法可指定開始從關聯取出物件的偏移量。比如 <code>-&gt; { offset(11) }</code> 會忽略前 11 個物件。</p><h6 id="has_and_belongs_to_many-的作用域-order">4.4.3.7 <code>order</code>
+</h6><p><code>order</code> 方法指定關聯物件取出後的排序方式（語法為 SQL 的 <code>ORDER BY</code> 子句）。</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Parts &lt; ActiveRecord::Base
   has_and_belongs_to_many :assemblies,
@@ -2291,29 +1901,14 @@ end
 
 </pre>
 </div>
-<h6 id="readonly">4.4.3.8 <code>readonly</code>
-</h6>
-<p>如果設定了 <code>readonly</code> 選項，則關聯物件取出時為唯讀。</p>
-<h6 id="select">4.4.3.9 <code>select</code>
-</h6>
-<p><code>select</code> 方法可以覆寫用來取出關聯的 <code>SELECT</code> 子句。預設會取出所有欄位。</p>
-<h6 id="uniq">4.4.3.10 <code>uniq</code>
-</h6>
-<p><code>uniq</code> 方法用來移除集合裡重複的物件。</p>
-<h5 id="物件何時被儲存？">4.4.4 物件何時被儲存？</h5>
-<p>把物件賦值給 <code>has_and_belongs_to_many</code> 關聯會自動儲存物件（因為要更新資料連接表）。一次賦值多個物件，所有的物件都會被儲存。</p>
-<p>如果驗證失敗時，則賦值的敘述句會回傳 <code>false</code>，賦值也會被取消。</p>
-<p>若父物件（有 <code>has_and_belongs_to_many</code> 的 Model）尚未儲存（<code>new_record?</code> 回傳 <code>true</code>），則不會儲存子物件。只有在父物件儲存時，才會儲存子物件。</p>
-<p>若想給 <code>has_and_belongs_to_many</code> 關聯賦物件而不儲存，使用 <code>collection.build</code> 方法。</p>
-<h4 id="關聯回呼">4.5 關聯回呼</h4>
-<p>一般回呼會介入 Active Record 物件的生命週期，允許在不同的時間點，對這些物件做處理。舉例來說，可以使用 <code>:before_save</code> 回呼在物件儲存前做處理。</p>
-<p>關聯的回呼與一般回呼類似，但是由集合生命週期的事件觸發。有四種可用的關聯回呼：
+<h6 id="has_and_belongs_to_many-的作用域-readonly">4.4.3.8 <code>readonly</code>
+</h6><p>如果設定了 <code>readonly</code> 選項，則關聯物件取出時為唯讀。</p><h6 id="has_and_belongs_to_many-的作用域-select">4.4.3.9 <code>select</code>
+</h6><p><code>select</code> 方法可以覆寫用來取出關聯的 <code>SELECT</code> 子句。預設會取出所有欄位。</p><h6 id="uniq">4.4.3.10 <code>uniq</code>
+</h6><p><code>uniq</code> 方法用來移除集合裡重複的物件。</p><h5 id="has_and_belongs_to_many-關聯參考手冊-物件何時被儲存？">4.4.4 物件何時被儲存？</h5><p>把物件賦值給 <code>has_and_belongs_to_many</code> 關聯會自動儲存物件（因為要更新資料連接表）。一次賦值多個物件，所有的物件都會被儲存。</p><p>如果驗證失敗時，則賦值的敘述句會回傳 <code>false</code>，賦值也會被取消。</p><p>若父物件（有 <code>has_and_belongs_to_many</code> 的 Model）尚未儲存（<code>new_record?</code> 回傳 <code>true</code>），則不會儲存子物件。只有在父物件儲存時，才會儲存子物件。</p><p>若想給 <code>has_and_belongs_to_many</code> 關聯賦物件而不儲存，使用 <code>collection.build</code> 方法。</p><h4 id="關聯回呼">4.5 關聯回呼</h4><p>一般回呼會介入 Active Record 物件的生命週期，允許在不同的時間點，對這些物件做處理。舉例來說，可以使用 <code>:before_save</code> 回呼在物件儲存前做處理。</p><p>關聯的回呼與一般回呼類似，但是由集合生命週期的事件觸發。有四種可用的關聯回呼：
 * <code>before_add</code>
 * <code>after_add</code>
 * <code>before_remove</code>
-* <code>after_remove</code></p>
-<p>宣告關聯時新增選項來定義關聯回呼，比如：</p>
-<div class="code_container">
+* <code>after_remove</code></p><p>宣告關聯時新增選項來定義關聯回呼，比如：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Customer &lt; ActiveRecord::Base
   has_many :orders, before_add: :check_credit_limit
@@ -2325,9 +1920,7 @@ end
 
 </pre>
 </div>
-<p>Rails 將新增或刪除的物件傳入回呼裡。</p>
-<p>單一事件可觸發多個回呼，以陣列形式指定多個回呼：</p>
-<div class="code_container">
+<p>Rails 將新增或刪除的物件傳入回呼裡。</p><p>單一事件可觸發多個回呼，以陣列形式指定多個回呼：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Customer &lt; ActiveRecord::Base
   has_many :orders,
@@ -2344,10 +1937,7 @@ end
 
 </pre>
 </div>
-<p>若 <code>:before_add</code> 回呼拋出異常，則物件不會加入至集合裡。同樣地，若 <code>:before_remove</code> 回呼拋出異常，則物件不會從集合裡移除。</p>
-<h4 id="擴充關聯">4.6 擴充關聯</h4>
-<p>不必侷限於 Rails 給關聯代理物件所加入的功能。可以透過匿名模組、加入新的查詢方法、建立物件的新方法或其他方法給關聯物件擴充功能，比如：</p>
-<div class="code_container">
+<p>若 <code>:before_add</code> 回呼拋出異常，則物件不會加入至集合裡。同樣地，若 <code>:before_remove</code> 回呼拋出異常，則物件不會從集合裡移除。</p><h4 id="擴充關聯">4.6 擴充關聯</h4><p>不必侷限於 Rails 給關聯代理物件所加入的功能。可以透過匿名模組、加入新的查詢方法、建立物件的新方法或其他方法給關聯物件擴充功能，比如：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Customer &lt; ActiveRecord::Base
   has_many :orders do
@@ -2359,8 +1949,7 @@ end
 
 </pre>
 </div>
-<p>若是有功能可讓許多關聯共享，可以使用命名的擴充模組，比如：</p>
-<div class="code_container">
+<p>若是有功能可讓許多關聯共享，可以使用命名的擴充模組，比如：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 module FindRecentExtension
   def find_recent
@@ -2387,7 +1976,6 @@ end
 <li>
 <code>proxy_association.target</code>：回傳 <code>belongs_to</code> 或 <code>has_one</code> 的關聯物件，或是 <code>has_many</code> 或 <code>has_and_belongs_to_many</code> 的關聯物件集合。</li>
 </ul>
-</body></html>
 
 
         <h3>反饋</h3>

@@ -164,8 +164,7 @@
 
                 <div id="subCol">
             <h3 class="chapter"><img src="images/chapters_icon.gif" alt="" />Chapters</h3>
-            <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
-<html><body><ol class="chapters">
+            <ol class="chapters">
 <li>
 <a href="#general-advice">General Advice</a>
 
@@ -191,6 +190,7 @@
 <li><a href="#mutator-methods-called-on-relation">Mutator methods called on Relation</a></li>
 <li><a href="#changes-on-default-scopes">Changes on Default Scopes</a></li>
 <li><a href="#rendering-content-from-string">Rendering content from string</a></li>
+<li><a href="#postgresql-json-and-hstore-datatypes">PostgreSQL json and hstore datatypes</a></li>
 </ul>
 </li>
 <li>
@@ -198,9 +198,9 @@
 
 <ul>
 <li><a href="#http-patch">HTTP PATCH</a></li>
-<li><a href="#gemfile">Gemfile</a></li>
-<li><a href="#vendor/plugins">vendor/plugins</a></li>
-<li><a href="#active-record">Active Record</a></li>
+<li><a href="#upgrading-from-rails-3.2-to-rails-4.0-gemfile">Gemfile</a></li>
+<li><a href="#upgrading-from-rails-3.2-to-rails-4.0-vendor/plugins">vendor/plugins</a></li>
+<li><a href="#upgrading-from-rails-3.2-to-rails-4.0-active-record">Active Record</a></li>
 <li><a href="#active-resource">Active Resource</a></li>
 <li><a href="#active-model">Active Model</a></li>
 <li><a href="#action-pack">Action Pack</a></li>
@@ -215,11 +215,11 @@
 <a href="#upgrading-from-rails-3.1-to-rails-3.2">Upgrading from Rails 3.1 to Rails 3.2</a>
 
 <ul>
-<li><a href="#gemfile">Gemfile</a></li>
-<li><a href="#config/environments/development.rb">config/environments/development.rb</a></li>
-<li><a href="#config/environments/test.rb">config/environments/test.rb</a></li>
-<li><a href="#vendor/plugins">vendor/plugins</a></li>
-<li><a href="#active-record">Active Record</a></li>
+<li><a href="#upgrading-from-rails-3.1-to-rails-3.2-gemfile">Gemfile</a></li>
+<li><a href="#upgrading-from-rails-3.1-to-rails-3.2-config/environments/development.rb">config/environments/development.rb</a></li>
+<li><a href="#upgrading-from-rails-3.1-to-rails-3.2-config/environments/test.rb">config/environments/test.rb</a></li>
+<li><a href="#upgrading-from-rails-3.1-to-rails-3.2-vendor/plugins">vendor/plugins</a></li>
+<li><a href="#upgrading-from-rails-3.1-to-rails-3.2-active-record">Active Record</a></li>
 </ul>
 </li>
 <li>
@@ -228,15 +228,15 @@
 <ul>
 <li><a href="#gemfile">Gemfile</a></li>
 <li><a href="#config/application.rb">config/application.rb</a></li>
-<li><a href="#config/environments/development.rb">config/environments/development.rb</a></li>
+<li><a href="#upgrading-from-rails-3.0-to-rails-3.1-config/environments/development.rb">config/environments/development.rb</a></li>
 <li><a href="#config/environments/production.rb">config/environments/production.rb</a></li>
-<li><a href="#config/environments/test.rb">config/environments/test.rb</a></li>
+<li><a href="#upgrading-from-rails-3.0-to-rails-3.1-config/environments/test.rb">config/environments/test.rb</a></li>
 <li><a href="#config/initializers/wrap_parameters.rb">config/initializers/wrap_parameters.rb</a></li>
 <li><a href="#config/initializers/session_store.rb">config/initializers/session_store.rb</a></li>
 <li><a href="#remove-:cache-and-:concat-options-in-asset-helpers-references-in-views">Remove :cache and :concat options in asset helpers references in views</a></li>
 </ul>
 </li>
-</ol></body></html>
+</ol>
 
           </div>
 
@@ -246,48 +246,28 @@
   <div id="container">
     <div class="wrapper">
       <div id="mainCol">
-        <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
-<html><body>
-<h2 id="a-guide-for-upgrading-ruby-on-rails">A Guide for Upgrading Ruby on Rails</h2>
-<p>This guide provides steps to be followed when you upgrade your applications to a newer version of Ruby on Rails. These steps are also available in individual release guides.</p>
-<h3 id="general-advice">1 General Advice</h3>
-<p>Before attempting to upgrade an existing application, you should be sure you have a good reason to upgrade. You need to balance out several factors: the need for new features, the increasing difficulty of finding support for old code, and your available time and skills, to name a few.</p>
-<h4 id="test-coverage">1.1 Test Coverage</h4>
-<p>The best way to be sure that your application still works after upgrading is to have good test coverage before you start the process. If you don't have automated tests that exercise the bulk of your application, you'll need to spend time manually exercising all the parts that have changed. In the case of a Rails upgrade, that will mean every single piece of functionality in the application. Do yourself a favor and make sure your test coverage is good <em>before</em> you start an upgrade.</p>
-<h4 id="ruby-versions">1.2 Ruby Versions</h4>
-<p>Rails generally stays close to the latest released Ruby version when it's released:</p>
+        <h2>A Guide for Upgrading Ruby on Rails</h2><p>This guide provides steps to be followed when you upgrade your applications to a newer version of Ruby on Rails. These steps are also available in individual release guides.</p><h3 id="general-advice">1 General Advice</h3><p>Before attempting to upgrade an existing application, you should be sure you have a good reason to upgrade. You need to balance out several factors: the need for new features, the increasing difficulty of finding support for old code, and your available time and skills, to name a few.</p><h4 id="test-coverage">1.1 Test Coverage</h4><p>The best way to be sure that your application still works after upgrading is to have good test coverage before you start the process. If you don't have automated tests that exercise the bulk of your application, you'll need to spend time manually exercising all the parts that have changed. In the case of a Rails upgrade, that will mean every single piece of functionality in the application. Do yourself a favor and make sure your test coverage is good <em>before</em> you start an upgrade.</p><h4 id="ruby-versions">1.2 Ruby Versions</h4><p>Rails generally stays close to the latest released Ruby version when it's released:</p>
 <ul>
 <li>Rails 3 and above require Ruby 1.8.7 or higher. Support for all of the previous Ruby versions has been dropped officially. You should upgrade as early as possible.</li>
 <li>Rails 3.2.x is the last branch to support Ruby 1.8.7.</li>
 <li>Rails 4 prefers Ruby 2.0 and requires 1.9.3 or newer.</li>
 </ul>
-<div class="info"><p>Ruby 1.8.7 p248 and p249 have marshaling bugs that crash Rails. Ruby Enterprise Edition has these fixed since the release of 1.8.7-2010.02. On the 1.9 front, Ruby 1.9.1 is not usable because it outright segfaults, so if you want to use 1.9.x, jump straight to 1.9.3 for smooth sailing.</p></div>
-<h3 id="upgrading-from-rails-4.0-to-rails-4.1">2 Upgrading from Rails 4.0 to Rails 4.1</h3>
-<div class="note"><p>This section is a work in progress.</p></div>
-<h4 id="csrf-protection-from-remote-&lt;script&gt;-tags">2.1 CSRF protection from remote <code>&lt;script&gt;</code> tags</h4>
-<p>Or, "whaaat my tests are failing!!!?"</p>
-<p>Cross-site request forgery (CSRF) protection now covers GET requests with
+<div class="info"><p>Ruby 1.8.7 p248 and p249 have marshaling bugs that crash Rails. Ruby Enterprise Edition has these fixed since the release of 1.8.7-2010.02. On the 1.9 front, Ruby 1.9.1 is not usable because it outright segfaults, so if you want to use 1.9.x, jump straight to 1.9.3 for smooth sailing.</p></div><h3 id="upgrading-from-rails-4.0-to-rails-4.1">2 Upgrading from Rails 4.0 to Rails 4.1</h3><h4 id="csrf-protection-from-remote-&lt;script&gt;-tags">2.1 CSRF protection from remote <code>&lt;script&gt;</code> tags</h4><p>Or, "whaaat my tests are failing!!!?"</p><p>Cross-site request forgery (CSRF) protection now covers GET requests with
 JavaScript responses, too. That prevents a third-party site from referencing
-your JavaScript URL and attempting to run it to extract sensitive data.</p>
-<p>This means that your functional and integration tests that use</p>
-<div class="code_container">
+your JavaScript URL and attempting to run it to extract sensitive data.</p><p>This means that your functional and integration tests that use</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 get :index, format: :js
 
 </pre>
 </div>
-<p>will now trigger CSRF protection. Switch to</p>
-<div class="code_container">
+<p>will now trigger CSRF protection. Switch to</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 xhr :get, :index, format: :js
 
 </pre>
 </div>
-<p>to explicitly test an XmlHttpRequest.</p>
-<p>If you really mean to load JavaScript from remote <code>&lt;script&gt;</code> tags, skip CSRF
-protection on that action.</p>
-<h4 id="spring">2.2 Spring</h4>
-<p>If you want to use Spring as your application preloader you need to:</p>
+<p>to explicitly test an XmlHttpRequest.</p><p>If you really mean to load JavaScript from remote <code>&lt;script&gt;</code> tags, skip CSRF
+protection on that action.</p><h4 id="spring">2.2 Spring</h4><p>If you want to use Spring as your application preloader you need to:</p>
 <ol>
 <li>Add <code>gem 'spring', group: :development</code> to your <code>Gemfile</code>.</li>
 <li>Install spring using <code>bundle install</code>.</li>
@@ -295,10 +275,8 @@ protection on that action.</p>
 </ol>
 <div class="note"><p>User defined rake tasks will run in the <code>development</code> environment by
 default. If you want them to run in other environments consult the
-<a href="https://github.com/rails/spring#rake">Spring README</a>.</p></div>
-<h4 id="config/secrets.yml">2.3 <code>config/secrets.yml</code>
-</h4>
-<p>If you want to use the new <code>secrets.yml</code> convention to store your application's
+<a href="https://github.com/rails/spring#rake">Spring README</a>.</p></div><h4 id="config/secrets.yml">2.3 <code>config/secrets.yml</code>
+</h4><p>If you want to use the new <code>secrets.yml</code> convention to store your application's
 secrets, you need to:</p>
 <ol>
 <li>
@@ -312,38 +290,35 @@ test:
   secret_key_base:
 
 production:
-  secret_key_base:
+  secret_key_base: &lt;%= ENV["SECRET_KEY_BASE"] %&gt;
 
 </pre>
 </div>
 </li>
-<li><p>Copy the existing <code>secret_key_base</code> from the <code>secret_token.rb</code> initializer to
-<code>secrets.yml</code> under the <code>production</code> section.</p></li>
+<li><p>Use your existing <code>secret_key_base</code> from the <code>secret_token.rb</code> initializer to
+set the SECRET_KEY_BASE environment variable for whichever users run the Rails
+app in production mode. Alternately, you can simply copy the existing
+<code>secret_key_base</code> from the <code>secret_token.rb</code> initializer to <code>secrets.yml</code>
+under the <code>production</code> section, replacing '&lt;%= ENV["SECRET_KEY_BASE"] %&gt;'.</p></li>
 <li><p>Remove the <code>secret_token.rb</code> initializer.</p></li>
 <li><p>Use <code>rake secret</code> to generate new keys for the <code>development</code> and <code>test</code> sections.</p></li>
 <li><p>Restart your server.</p></li>
 </ol>
-<h4 id="changes-to-test-helper">2.4 Changes to test helper</h4>
-<p>If your test helper contains a call to
+<h4 id="changes-to-test-helper">2.4 Changes to test helper</h4><p>If your test helper contains a call to
 <code>ActiveRecord::Migration.check_pending!</code> this can be removed. The check
 is now done automatically when you <code>require 'test_help'</code>, although
-leaving this line in your helper is not harmful in any way.</p>
-<h4 id="cookies-serializer">2.5 Cookies serializer</h4>
-<p>Applications created before Rails 4.1 uses <code>Marshal</code> to serialize cookie values into
+leaving this line in your helper is not harmful in any way.</p><h4 id="cookies-serializer">2.5 Cookies serializer</h4><p>Applications created before Rails 4.1 uses <code>Marshal</code> to serialize cookie values into
 the signed and encrypted cookie jars. If you want to use the new <code>JSON</code>-based format
-in your application, you can add an initializer file with the following content:</p>
-<div class="code_container">
+in your application, you can add an initializer file with the following content:</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
-  Rails.application.config.cookies_serializer :hybrid
+Rails.application.config.action_dispatch.cookies_serializer = :hybrid
 
 </pre>
 </div>
 <p>This would transparently migrate your existing <code>Marshal</code>-serialized cookies into the
-new <code>JSON</code>-based format.</p>
-<p>When using the <code>:json</code> or <code>:hybrid</code> serializer, you should beware that not all
+new <code>JSON</code>-based format.</p><p>When using the <code>:json</code> or <code>:hybrid</code> serializer, you should beware that not all
 Ruby objects can be serialized as JSON. For example, <code>Date</code> and <code>Time</code> objects
-will be serialized as strings, and <code>Hash</code>es will have their keys stringified.</p>
-<div class="code_container">
+will be serialized as strings, and <code>Hash</code>es will have their keys stringified.</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class CookiesController &lt; ApplicationController
   def set_cookie
@@ -360,15 +335,11 @@ end
 </div>
 <p>It's advisable that you only store simple data (strings and numbers) in cookies.
 If you have to store complex objects, you would need to handle the conversion
-manually when reading the values on subsequent requests.</p>
-<p>If you use the cookie session store, this would apply to the <code>session</code> and
-<code>flash</code> hash as well.</p>
-<h4 id="flash-structure-changes">2.6 Flash structure changes</h4>
-<p>Flash message keys are
+manually when reading the values on subsequent requests.</p><p>If you use the cookie session store, this would apply to the <code>session</code> and
+<code>flash</code> hash as well.</p><h4 id="flash-structure-changes">2.6 Flash structure changes</h4><p>Flash message keys are
 <a href="https://github.com/rails/rails/commit/a668beffd64106a1e1fedb71cc25eaaa11baf0c1">normalized to strings</a>. They
 can still be accessed using either symbols or strings. Lopping through the flash
-will always yield string keys:</p>
-<div class="code_container">
+will always yield string keys:</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 flash["string"] = "a string"
 flash[:symbol] = "a symbol"
@@ -381,28 +352,19 @@ flash.keys # =&gt; ["string", "symbol"]
 
 </pre>
 </div>
-<p>Make sure you are comparing Flash message keys against strings.</p>
-<h4 id="changes-in-json-handling">2.7 Changes in JSON handling</h4>
-<p>There are a few major changes related to JSON handling in Rails 4.1.</p>
-<h5 id="multijson-removal">2.7.1 MultiJSON removal</h5>
-<p>MultiJSON has reached its <a href="https://github.com/rails/rails/pull/10576">end-of-life</a>
-and has been removed from Rails.</p>
-<p>If your application currently depend on MultiJSON directly, you have a few options:</p>
+<p>Make sure you are comparing Flash message keys against strings.</p><h4 id="changes-in-json-handling">2.7 Changes in JSON handling</h4><p>There are a few major changes related to JSON handling in Rails 4.1.</p><h5 id="multijson-removal">2.7.1 MultiJSON removal</h5><p>MultiJSON has reached its <a href="https://github.com/rails/rails/pull/10576">end-of-life</a>
+and has been removed from Rails.</p><p>If your application currently depend on MultiJSON directly, you have a few options:</p>
 <ol>
 <li><p>Add 'multi_json' to your Gemfile. Note that this might cease to work in the future</p></li>
 <li><p>Migrate away from MultiJSON by using <code>obj.to_json</code>, and <code>JSON.parse(str)</code> instead.</p></li>
 </ol>
 <div class="warning"><p>Do not simply replace <code>MultiJson.dump</code> and <code>MultiJson.load</code> with
 <code>JSON.dump</code> and <code>JSON.load</code>. These JSON gem APIs are meant for serializing and
-deserializing arbitrary Ruby objects and are generally <a href="http://www.ruby-doc.org/stdlib-2.0.0/libdoc/json/rdoc/JSON.html#method-i-load">unsafe</a>.</p></div>
-<h5 id="json-gem-compatibility">2.7.2 JSON gem compatibility</h5>
-<p>Historically, Rails had some compatibility issues with the JSON gem. Using
+deserializing arbitrary Ruby objects and are generally <a href="http://www.ruby-doc.org/stdlib-2.0.0/libdoc/json/rdoc/JSON.html#method-i-load">unsafe</a>.</p></div><h5 id="json-gem-compatibility">2.7.2 JSON gem compatibility</h5><p>Historically, Rails had some compatibility issues with the JSON gem. Using
 <code>JSON.generate</code> and <code>JSON.dump</code> inside a Rails application could produce
-unexpected errors.</p>
-<p>Rails 4.1 fixed these issues by isolating its own encoder from the JSON gem. The
+unexpected errors.</p><p>Rails 4.1 fixed these issues by isolating its own encoder from the JSON gem. The
 JSON gem APIs will function as normal, but they will not have access to any
-Rails-specific features. For example:</p>
-<div class="code_container">
+Rails-specific features. For example:</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class FooBar
   def as_json(options = nil)
@@ -415,8 +377,7 @@ end
 
 </pre>
 </div>
-<h5 id="new-json-encoder">2.7.3 New JSON encoder</h5>
-<p>The JSON encoder in Rails 4.1 has been rewritten to take advantage of the JSON
+<h5 id="new-json-encoder">2.7.3 New JSON encoder</h5><p>The JSON encoder in Rails 4.1 has been rewritten to take advantage of the JSON
 gem. For most applications, this should be a transparent change. However, as
 part of the rewrite, the following features have been removed from the encoder:</p>
 <ol>
@@ -426,10 +387,7 @@ part of the rewrite, the following features have been removed from the encoder:<
 </ol>
 <p>If your application depends on one of these features, you can get them back by
 adding the <a href="https://github.com/rails/activesupport-json_encoder"><code>activesupport-json_encoder</code></a>
-gem to your Gemfile.</p>
-<h4 id="usage-of-return-within-inline-callback-blocks">2.8 Usage of <code>return</code> within inline callback blocks</h4>
-<p>Previously, Rails allowed inline callback blocks to use <code>return</code> this way:</p>
-<div class="code_container">
+gem to your Gemfile.</p><h4 id="usage-of-return-within-inline-callback-blocks">2.8 Usage of <code>return</code> within inline callback blocks</h4><p>Previously, Rails allowed inline callback blocks to use <code>return</code> this way:</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class ReadOnlyModel &lt; ActiveRecord::Base
   before_save { return false } # BAD
@@ -440,10 +398,8 @@ end
 <p>This behaviour was never intentionally supported. Due to a change in the internals
 of <code>ActiveSupport::Callbacks</code>, this is no longer allowed in Rails 4.1. Using a
 <code>return</code> statement in an inline callback block causes a <code>LocalJumpError</code> to
-be raised when the callback is executed.</p>
-<p>Inline callback blocks using <code>return</code> can be refactored to evaluate to the
-returned value:</p>
-<div class="code_container">
+be raised when the callback is executed.</p><p>Inline callback blocks using <code>return</code> can be refactored to evaluate to the
+returned value:</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class ReadOnlyModel &lt; ActiveRecord::Base
   before_save { false } # GOOD
@@ -452,8 +408,7 @@ end
 </pre>
 </div>
 <p>Alternatively, if <code>return</code> is preferred it is recommended to explicitly define
-a method:</p>
-<div class="code_container">
+a method:</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class ReadOnlyModel &lt; ActiveRecord::Base
   before_save :before_save_callback # GOOD
@@ -468,16 +423,11 @@ end
 </div>
 <p>This change applies to most places in Rails where callbacks are used, including
 Active Record and Active Model callbacks, as well as filters in Action
-Controller (e.g. <code>before_action</code>).</p>
-<p>See <a href="https://github.com/rails/rails/pull/13271">this pull request</a> for more
-details.</p>
-<h4 id="methods-defined-in-active-record-fixtures">2.9 Methods defined in Active Record fixtures</h4>
-<p>Rails 4.1 evaluates each fixture's ERB in a separate context, so helper methods
-defined in a fixture will not be available in other fixtures.</p>
-<p>Helper methods that are used in multiple fixtures should be defined on modules
+Controller (e.g. <code>before_action</code>).</p><p>See <a href="https://github.com/rails/rails/pull/13271">this pull request</a> for more
+details.</p><h4 id="methods-defined-in-active-record-fixtures">2.9 Methods defined in Active Record fixtures</h4><p>Rails 4.1 evaluates each fixture's ERB in a separate context, so helper methods
+defined in a fixture will not be available in other fixtures.</p><p>Helper methods that are used in multiple fixtures should be defined on modules
 included in the newly introduced <code>ActiveRecord::FixtureSet.context_class</code>, in
-<code>test_helper.rb</code>.</p>
-<div class="code_container">
+<code>test_helper.rb</code>.</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class FixtureFileHelpers
   def file_sha(path)
@@ -488,13 +438,10 @@ ActiveRecord::FixtureSet.context_class.send :include, FixtureFileHelpers
 
 </pre>
 </div>
-<h4 id="i18n-enforcing-available-locales">2.10 I18n enforcing available locales</h4>
-<p>Rails 4.1 now defaults the I18n option <code>enforce_available_locales</code> to <code>true</code>,
+<h4 id="i18n-enforcing-available-locales">2.10 I18n enforcing available locales</h4><p>Rails 4.1 now defaults the I18n option <code>enforce_available_locales</code> to <code>true</code>,
 meaning that it will make sure that all locales passed to it must be declared in
-the <code>available_locales</code> list.</p>
-<p>To disable it (and allow I18n to accept <em>any</em> locale option) add the following
-configuration to your application:</p>
-<div class="code_container">
+the <code>available_locales</code> list.</p><p>To disable it (and allow I18n to accept <em>any</em> locale option) add the following
+configuration to your application:</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 config.i18n.enforce_available_locales = false
 
@@ -502,13 +449,9 @@ config.i18n.enforce_available_locales = false
 </div>
 <p>Note that this option was added as a security measure, to ensure user input could
 not be used as locale information unless previously known, so it's recommended not
-to disable this option unless you have a strong reason for doing so.</p>
-<h4 id="mutator-methods-called-on-relation">2.11 Mutator methods called on Relation</h4>
-<p><code>Relation</code> no longer has mutator methods like <code>#map!</code> and <code>#delete_if</code>. Convert
-to an <code>Array</code> by calling <code>#to_a</code> before using these methods.</p>
-<p>It intends to prevent odd bugs and confusion in code that call mutator
-methods directly on the <code>Relation</code>.</p>
-<div class="code_container">
+to disable this option unless you have a strong reason for doing so.</p><h4 id="mutator-methods-called-on-relation">2.11 Mutator methods called on Relation</h4><p><code>Relation</code> no longer has mutator methods like <code>#map!</code> and <code>#delete_if</code>. Convert
+to an <code>Array</code> by calling <code>#to_a</code> before using these methods.</p><p>It intends to prevent odd bugs and confusion in code that call mutator
+methods directly on the <code>Relation</code>.</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 # Instead of this
 Author.where(name: 'Hank Moody').compact!
@@ -519,13 +462,9 @@ authors.compact!
 
 </pre>
 </div>
-<h4 id="changes-on-default-scopes">2.12 Changes on Default Scopes</h4>
-<p>Default scopes are no longer overriden by chained conditions.</p>
-<p>In previous versions when you defined a <code>default_scope</code> in a model
+<h4 id="changes-on-default-scopes">2.12 Changes on Default Scopes</h4><p>Default scopes are no longer overriden by chained conditions.</p><p>In previous versions when you defined a <code>default_scope</code> in a model
 it was overriden by chained conditions in the same field. Now it
-is merged like any other scope.</p>
-<p>Before:</p>
-<div class="code_container">
+is merged like any other scope.</p><p>Before:</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class User &lt; ActiveRecord::Base
   default_scope { where state: 'pending' }
@@ -544,8 +483,7 @@ User.where(state: 'inactive')
 
 </pre>
 </div>
-<p>After:</p>
-<div class="code_container">
+<p>After:</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class User &lt; ActiveRecord::Base
   default_scope { where state: 'pending' }
@@ -566,8 +504,7 @@ User.where(state: 'inactive')
 </div>
 <p>To get the previous behavior it is needed to explicitly remove the
 <code>default_scope</code> condition using <code>unscoped</code>, <code>unscope</code>, <code>rewhere</code> or
-<code>except</code>.</p>
-<div class="code_container">
+<code>except</code>.</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class User &lt; ActiveRecord::Base
   default_scope { where state: 'pending' }
@@ -586,8 +523,7 @@ User.inactive
 
 </pre>
 </div>
-<h4 id="rendering-content-from-string">2.13 Rendering content from string</h4>
-<p>Rails 4.1 introduces <code>:plain</code>, <code>:html</code>, and <code>:body</code> options to <code>render</code>. Those
+<h4 id="rendering-content-from-string">2.13 Rendering content from string</h4><p>Rails 4.1 introduces <code>:plain</code>, <code>:html</code>, and <code>:body</code> options to <code>render</code>. Those
 options are now the preferred way to render string-based content, as it allows
 you to specify which content type you want the response sent as.</p>
 <ul>
@@ -602,20 +538,17 @@ you to specify which content type you want the response sent as.</p>
 </ul>
 <p>From the security standpoint, if you don't expect to have any markup in your
 response body, you should be using <code>render :plain</code> as most browsers will escape
-unsafe content in the response for you.</p>
-<p>We will be deprecating the use of <code>render :text</code> in a future version. So please
+unsafe content in the response for you.</p><p>We will be deprecating the use of <code>render :text</code> in a future version. So please
 start using the more precise <code>:plain:</code>, <code>:html</code>, and <code>:body</code> options instead.
 Using <code>render :text</code> may pose a security risk, as the content is sent as
-<code>text/html</code>.</p>
-<h3 id="upgrading-from-rails-3.2-to-rails-4.0">3 Upgrading from Rails 3.2 to Rails 4.0</h3>
-<p>If your application is currently on any version of Rails older than 3.2.x, you should upgrade to Rails 3.2 before attempting one to Rails 4.0.</p>
-<p>The following changes are meant for upgrading your application to Rails 4.0.</p>
-<h4 id="http-patch">3.1 HTTP PATCH</h4>
-<p>Rails 4 now uses <code>PATCH</code> as the primary HTTP verb for updates when a RESTful
+<code>text/html</code>.</p><h4 id="postgresql-json-and-hstore-datatypes">2.14 PostgreSQL json and hstore datatypes</h4><p>Rails 4.1 will map <code>json</code> and <code>hstore</code> columns to a string-keyed Ruby <code>Hash</code>.
+In earlier versions a <code>HashWithIndifferentAccess</code> was used. This means that
+symbol access is no longer supported. This is also the case for
+<code>store_accessors</code> based on top of <code>json</code> or <code>hstore</code> columns. Make sure to use
+string keys consistently.</p><h3 id="upgrading-from-rails-3.2-to-rails-4.0">3 Upgrading from Rails 3.2 to Rails 4.0</h3><p>If your application is currently on any version of Rails older than 3.2.x, you should upgrade to Rails 3.2 before attempting one to Rails 4.0.</p><p>The following changes are meant for upgrading your application to Rails 4.0.</p><h4 id="http-patch">3.1 HTTP PATCH</h4><p>Rails 4 now uses <code>PATCH</code> as the primary HTTP verb for updates when a RESTful
 resource is declared in <code>config/routes.rb</code>. The <code>update</code> action is still used,
 and <code>PUT</code> requests will continue to be routed to the <code>update</code> action as well.
-So, if you're using only the standard RESTful routes, no changes need to be made:</p>
-<div class="code_container">
+So, if you're using only the standard RESTful routes, no changes need to be made:</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 resources :users
 
@@ -638,8 +571,7 @@ end
 </pre>
 </div>
 <p>However, you will need to make a change if you are using <code>form_for</code> to update
-a resource in conjunction with a custom route using the <code>PUT</code> HTTP method:</p>
-<div class="code_container">
+a resource in conjunction with a custom route using the <code>PUT</code> HTTP method:</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 resources :users, do
   put :update_name, on: :member
@@ -664,11 +596,9 @@ end
 </pre>
 </div>
 <p>If the action is not being used in a public API and you are free to change the
-HTTP method, you can update your route to use <code>patch</code> instead of <code>put</code>:</p>
-<p><code>PUT</code> requests to <code>/users/:id</code> in Rails 4 get routed to <code>update</code> as they are
+HTTP method, you can update your route to use <code>patch</code> instead of <code>put</code>:</p><p><code>PUT</code> requests to <code>/users/:id</code> in Rails 4 get routed to <code>update</code> as they are
 today. So, if you have an API that gets real PUT requests it is going to work.
-The router also routes <code>PATCH</code> requests to <code>/users/:id</code> to the <code>update</code> action.</p>
-<div class="code_container">
+The router also routes <code>PATCH</code> requests to <code>/users/:id</code> to the <code>update</code> action.</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 resources :users do
   patch :update_name, on: :member
@@ -677,28 +607,24 @@ end
 </pre>
 </div>
 <p>If the action is being used in a public API and you can't change to HTTP method
-being used, you can update your form to use the <code>PUT</code> method instead:</p>
-<div class="code_container">
+being used, you can update your form to use the <code>PUT</code> method instead:</p><div class="code_container">
 <pre class="brush: ruby; html-script: true; gutter: false; toolbar: false">
 &lt;%= form_for [ :update_name, @user ], method: :put do |f| %&gt;
 
 </pre>
 </div>
-<p>For more on PATCH and why this change was made, see <a href="http://weblog.rubyonrails.org/2012/2/26/edge-rails-patch-is-the-new-primary-http-method-for-updates/">this post</a>
-on the Rails blog.</p>
-<h5 id="a-note-about-media-types">3.1.1 A note about media types</h5>
-<p>The errata for the <code>PATCH</code> verb <a href="http://www.rfc-editor.org/errata_search.php?rfc=5789">specifies that a 'diff' media type should be
+<p>For more on PATCH and why this change was made, see <a href="http://weblog.rubyonrails.org/2012/2/25/edge-rails-patch-is-the-new-primary-http-method-for-updates/">this post</a>
+on the Rails blog.</p><h5 id="a-note-about-media-types">3.1.1 A note about media types</h5><p>The errata for the <code>PATCH</code> verb <a href="http://www.rfc-editor.org/errata_search.php?rfc=5789">specifies that a 'diff' media type should be
 used with <code>PATCH</code></a>. One
 such format is <a href="http://tools.ietf.org/html/rfc6902">JSON Patch</a>. While Rails
-does not support JSON Patch natively, it's easy enough to add support:</p>
-<div class="code_container">
+does not support JSON Patch natively, it's easy enough to add support:</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 # in your controller
 def update
   respond_to do |format|
     format.json do
       # perform a partial update
-      @post.update params[:post]
+      @article.update params[:article]
     end
 
     format.json_patch do
@@ -715,12 +641,9 @@ Mime::Type.register 'application/json-patch+json', :json_patch
 <p>As JSON Patch was only recently made into an RFC, there aren't a lot of great
 Ruby libraries yet. Aaron Patterson's
 <a href="https://github.com/tenderlove/hana">hana</a> is one such gem, but doesn't have
-full support for the last few changes in the specification.</p>
-<h4 id="gemfile">3.2 Gemfile</h4>
-<p>Rails 4.0 removed the <code>assets</code> group from Gemfile. You'd need to remove that
+full support for the last few changes in the specification.</p><h4 id="upgrading-from-rails-3.2-to-rails-4.0-gemfile">3.2 Gemfile</h4><p>Rails 4.0 removed the <code>assets</code> group from Gemfile. You'd need to remove that
 line from your Gemfile when upgrading. You should also update your application
-file (in <code>config/application.rb</code>):</p>
-<div class="code_container">
+file (in <code>config/application.rb</code>):</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -728,9 +651,7 @@ Bundler.require(:default, Rails.env)
 
 </pre>
 </div>
-<h4 id="vendor/plugins">3.3 vendor/plugins</h4>
-<p>Rails 4.0 no longer supports loading plugins from <code>vendor/plugins</code>. You must replace any plugins by extracting them to gems and adding them to your Gemfile. If you choose not to make them gems, you can move them into, say, <code>lib/my_plugin/*</code> and add an appropriate initializer in <code>config/initializers/my_plugin.rb</code>.</p>
-<h4 id="active-record">3.4 Active Record</h4>
+<h4 id="upgrading-from-rails-3.2-to-rails-4.0-vendor/plugins">3.3 vendor/plugins</h4><p>Rails 4.0 no longer supports loading plugins from <code>vendor/plugins</code>. You must replace any plugins by extracting them to gems and adding them to your Gemfile. If you choose not to make them gems, you can move them into, say, <code>lib/my_plugin/*</code> and add an appropriate initializer in <code>config/initializers/my_plugin.rb</code>.</p><h4 id="upgrading-from-rails-3.2-to-rails-4.0-active-record">3.4 Active Record</h4>
 <ul>
 <li><p>Rails 4.0 has removed the identity map from Active Record, due to <a href="https://github.com/rails/rails/commit/302c912bf6bcd0fa200d964ec2dc4a44abe328a6">some inconsistencies with associations</a>. If you have manually enabled it in your application, you will have to remove the following config that has no effect anymore: <code>config.active_record.identity_map</code>.</p></li>
 <li><p>The <code>delete</code> method in collection associations can now receive <code>Fixnum</code> or <code>String</code> arguments as record ids, besides records, pretty much like the <code>destroy</code> method does. Previously it raised <code>ActiveRecord::AssociationTypeMismatch</code> for such arguments. From Rails 4.0 on <code>delete</code> automatically tries to find the records matching the given ids before deleting them.</p></li>
@@ -776,9 +697,7 @@ Here's how you can handle the changes:</p>
 <li><p>These equivalent methods may not execute the same SQL as the previous implementation.</p></li>
 <li><p>To re-enable the old finders, you can use the <a href="https://github.com/rails/activerecord-deprecated_finders">activerecord-deprecated_finders gem</a>.</p></li>
 </ul>
-<h4 id="active-resource">3.5 Active Resource</h4>
-<p>Rails 4.0 extracted Active Resource to its own gem. If you still need the feature you can add the <a href="https://github.com/rails/activeresource">Active Resource gem</a> in your Gemfile.</p>
-<h4 id="active-model">3.6 Active Model</h4>
+<h4 id="active-resource">3.5 Active Resource</h4><p>Rails 4.0 extracted Active Resource to its own gem. If you still need the feature you can add the <a href="https://github.com/rails/activeresource">Active Resource gem</a> in your Gemfile.</p><h4 id="active-model">3.6 Active Model</h4>
 <ul>
 <li><p>Rails 4.0 has changed how errors attach with the <code>ActiveModel::Validations::ConfirmationValidator</code>. Now when confirmation validations fail, the error will be attached to <code>:#{attribute}_confirmation</code> instead of <code>attribute</code>.</p></li>
 <li><p>Rails 4.0 has changed <code>ActiveModel::Serializers::JSON.include_root_in_json</code> default value to <code>false</code>. Now, Active Model Serializers and Active Record objects have the same default behaviour. This means that you can comment or remove the following option in the <code>config/initializers/wrap_parameters.rb</code> file:</p></li>
@@ -804,8 +723,7 @@ Here's how you can handle the changes:</p>
 
 </pre>
 </div>
-<p>Please note that you should wait to set <code>secret_key_base</code> until you have 100% of your userbase on Rails 4.x and are reasonably sure you will not need to rollback to Rails 3.x. This is because cookies signed based on the new <code>secret_key_base</code> in Rails 4.x are not backwards compatible with Rails 3.x. You are free to leave your existing <code>secret_token</code> in place, not set the new <code>secret_key_base</code>, and ignore the deprecation warnings until you are reasonably sure that your upgrade is otherwise complete.</p>
-<p>If you are relying on the ability for external applications or Javascript to be able to read your Rails app's signed session cookies (or signed cookies in general) you should not set <code>secret_key_base</code> until you have decoupled these concerns.</p>
+<p>Please note that you should wait to set <code>secret_key_base</code> until you have 100% of your userbase on Rails 4.x and are reasonably sure you will not need to rollback to Rails 3.x. This is because cookies signed based on the new <code>secret_key_base</code> in Rails 4.x are not backwards compatible with Rails 3.x. You are free to leave your existing <code>secret_token</code> in place, not set the new <code>secret_key_base</code>, and ignore the deprecation warnings until you are reasonably sure that your upgrade is otherwise complete.</p><p>If you are relying on the ability for external applications or Javascript to be able to read your Rails app's signed session cookies (or signed cookies in general) you should not set <code>secret_key_base</code> until you have decoupled these concerns.</p>
 <ul>
 <li>Rails 4.0 encrypts the contents of cookie-based sessions if <code>secret_key_base</code> has been set. Rails 3.x signed, but did not encrypt, the contents of cookie-based session. Signed cookies are "secure" in that they are verified to have been generated by your app and are tamper-proof. However, the contents can be viewed by end users, and encrypting the contents eliminates this caveat/concern without a significant performance penalty.</li>
 </ul>
@@ -851,8 +769,7 @@ get Rack::Utils.escape('こんにちは'), controller: 'welcome', action: 'index
 
 </pre>
 </div>
-<p>becomes</p>
-<div class="code_container">
+<p>becomes</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 get 'こんにちは', controller: 'welcome', action: 'index'
 
@@ -879,8 +796,7 @@ get 'こんにちは', controller: 'welcome', action: 'index'
 <ul>
 <li>Rails 4.0 has removed <code>ActionDispatch::BestStandardsSupport</code> middleware, <code>&lt;!DOCTYPE html&gt;</code> already triggers standards mode per <a href="http://msdn.microsoft.com/en-us/library/jj676915(v=vs.85).aspx">http://msdn.microsoft.com/en-us/library/jj676915(v=vs.85).aspx</a> and ChromeFrame header has been moved to <code>config.action_dispatch.default_headers</code>.</li>
 </ul>
-<p>Remember you must also remove any references to the middleware from your application code, for example:</p>
-<div class="code_container">
+<p>Remember you must also remove any references to the middleware from your application code, for example:</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 # Raise exception
 config.middleware.insert_before(Rack::Lock, ActionDispatch::BestStandardsSupport)
@@ -902,13 +818,7 @@ config.middleware.insert_before(Rack::Lock, ActionDispatch::BestStandardsSupport
 <li><p>Rails 4.0 deprecated <code>ActionController::Response</code> in favor of <code>ActionDispatch::Response</code>.</p></li>
 <li><p>Rails 4.0 deprecated <code>ActionController::Routing</code> in favor of <code>ActionDispatch::Routing</code>.</p></li>
 </ul>
-<h4 id="active-support">3.8 Active Support</h4>
-<p>Rails 4.0 removes the <code>j</code> alias for <code>ERB::Util#json_escape</code> since <code>j</code> is already used for <code>ActionView::Helpers::JavaScriptHelper#escape_javascript</code>.</p>
-<h4 id="helpers-loading-order">3.9 Helpers Loading Order</h4>
-<p>The order in which helpers from more than one directory are loaded has changed in Rails 4.0. Previously, they were gathered and then sorted alphabetically. After upgrading to Rails 4.0, helpers will preserve the order of loaded directories and will be sorted alphabetically only within each directory. Unless you explicitly use the <code>helpers_path</code> parameter, this change will only impact the way of loading helpers from engines. If you rely on the ordering, you should check if correct methods are available after upgrade. If you would like to change the order in which engines are loaded, you can use <code>config.railties_order=</code> method.</p>
-<h4 id="active-record-observer-and-action-controller-sweeper">3.10 Active Record Observer and Action Controller Sweeper</h4>
-<p>Active Record Observer and Action Controller Sweeper have been extracted to the <code>rails-observers</code> gem. You will need to add the <code>rails-observers</code> gem if you require these features.</p>
-<h4 id="sprockets-rails">3.11 sprockets-rails</h4>
+<h4 id="active-support">3.8 Active Support</h4><p>Rails 4.0 removes the <code>j</code> alias for <code>ERB::Util#json_escape</code> since <code>j</code> is already used for <code>ActionView::Helpers::JavaScriptHelper#escape_javascript</code>.</p><h4 id="helpers-loading-order">3.9 Helpers Loading Order</h4><p>The order in which helpers from more than one directory are loaded has changed in Rails 4.0. Previously, they were gathered and then sorted alphabetically. After upgrading to Rails 4.0, helpers will preserve the order of loaded directories and will be sorted alphabetically only within each directory. Unless you explicitly use the <code>helpers_path</code> parameter, this change will only impact the way of loading helpers from engines. If you rely on the ordering, you should check if correct methods are available after upgrade. If you would like to change the order in which engines are loaded, you can use <code>config.railties_order=</code> method.</p><h4 id="active-record-observer-and-action-controller-sweeper">3.10 Active Record Observer and Action Controller Sweeper</h4><p>Active Record Observer and Action Controller Sweeper have been extracted to the <code>rails-observers</code> gem. You will need to add the <code>rails-observers</code> gem if you require these features.</p><h4 id="sprockets-rails">3.11 sprockets-rails</h4>
 <ul>
 <li>
 <code>assets:precompile:primary</code> and <code>assets:precompile:all</code> have been removed. Use <code>assets:precompile</code> instead.</li>
@@ -925,13 +835,8 @@ config.assets.js_compressor = :uglifier
 <li>
 <code>asset-url</code> with two arguments is deprecated. For example: <code>asset-url("rails.png", image)</code> becomes <code>asset-url("rails.png")</code>.</li>
 </ul>
-<h3 id="upgrading-from-rails-3.1-to-rails-3.2">4 Upgrading from Rails 3.1 to Rails 3.2</h3>
-<p>If your application is currently on any version of Rails older than 3.1.x, you should upgrade to Rails 3.1 before attempting an update to Rails 3.2.</p>
-<p>The following changes are meant for upgrading your application to Rails 3.2.17,
-the last 3.2.x version of Rails.</p>
-<h4 id="gemfile">4.1 Gemfile</h4>
-<p>Make the following changes to your <code>Gemfile</code>.</p>
-<div class="code_container">
+<h3 id="upgrading-from-rails-3.1-to-rails-3.2">4 Upgrading from Rails 3.1 to Rails 3.2</h3><p>If your application is currently on any version of Rails older than 3.1.x, you should upgrade to Rails 3.1 before attempting an update to Rails 3.2.</p><p>The following changes are meant for upgrading your application to Rails 3.2.17,
+the last 3.2.x version of Rails.</p><h4 id="upgrading-from-rails-3.1-to-rails-3.2-gemfile">4.1 Gemfile</h4><p>Make the following changes to your <code>Gemfile</code>.</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 gem 'rails', '3.2.17'
 
@@ -943,9 +848,7 @@ end
 
 </pre>
 </div>
-<h4 id="config/environments/development.rb">4.2 config/environments/development.rb</h4>
-<p>There are a couple of new configuration settings that you should add to your development environment:</p>
-<div class="code_container">
+<h4 id="upgrading-from-rails-3.1-to-rails-3.2-config/environments/development.rb">4.2 config/environments/development.rb</h4><p>There are a couple of new configuration settings that you should add to your development environment:</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 # Raise exception on mass assignment protection for Active Record models
 config.active_record.mass_assignment_sanitizer = :strict
@@ -956,25 +859,14 @@ config.active_record.auto_explain_threshold_in_seconds = 0.5
 
 </pre>
 </div>
-<h4 id="config/environments/test.rb">4.3 config/environments/test.rb</h4>
-<p>The <code>mass_assignment_sanitizer</code> configuration setting should also be be added to <code>config/environments/test.rb</code>:</p>
-<div class="code_container">
+<h4 id="upgrading-from-rails-3.1-to-rails-3.2-config/environments/test.rb">4.3 config/environments/test.rb</h4><p>The <code>mass_assignment_sanitizer</code> configuration setting should also be be added to <code>config/environments/test.rb</code>:</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 # Raise exception on mass assignment protection for Active Record models
 config.active_record.mass_assignment_sanitizer = :strict
 
 </pre>
 </div>
-<h4 id="vendor/plugins">4.4 vendor/plugins</h4>
-<p>Rails 3.2 deprecates <code>vendor/plugins</code> and Rails 4.0 will remove them completely. While it's not strictly necessary as part of a Rails 3.2 upgrade, you can start replacing any plugins by extracting them to gems and adding them to your Gemfile. If you choose not to make them gems, you can move them into, say, <code>lib/my_plugin/*</code> and add an appropriate initializer in <code>config/initializers/my_plugin.rb</code>.</p>
-<h4 id="active-record">4.5 Active Record</h4>
-<p>Option <code>:dependent =&gt; :restrict</code> has been removed from <code>belongs_to</code>. If you want to prevent deleting the object if there are any associated objects, you can set <code>:dependent =&gt; :destroy</code> and return <code>false</code> after checking for existence of association from any of the associated object's destroy callbacks.</p>
-<h3 id="upgrading-from-rails-3.0-to-rails-3.1">5 Upgrading from Rails 3.0 to Rails 3.1</h3>
-<p>If your application is currently on any version of Rails older than 3.0.x, you should upgrade to Rails 3.0 before attempting an update to Rails 3.1.</p>
-<p>The following changes are meant for upgrading your application to Rails 3.1.12, the last 3.1.x version of Rails.</p>
-<h4 id="gemfile">5.1 Gemfile</h4>
-<p>Make the following changes to your <code>Gemfile</code>.</p>
-<div class="code_container">
+<h4 id="upgrading-from-rails-3.1-to-rails-3.2-vendor/plugins">4.4 vendor/plugins</h4><p>Rails 3.2 deprecates <code>vendor/plugins</code> and Rails 4.0 will remove them completely. While it's not strictly necessary as part of a Rails 3.2 upgrade, you can start replacing any plugins by extracting them to gems and adding them to your Gemfile. If you choose not to make them gems, you can move them into, say, <code>lib/my_plugin/*</code> and add an appropriate initializer in <code>config/initializers/my_plugin.rb</code>.</p><h4 id="upgrading-from-rails-3.1-to-rails-3.2-active-record">4.5 Active Record</h4><p>Option <code>:dependent =&gt; :restrict</code> has been removed from <code>belongs_to</code>. If you want to prevent deleting the object if there are any associated objects, you can set <code>:dependent =&gt; :destroy</code> and return <code>false</code> after checking for existence of association from any of the associated object's destroy callbacks.</p><h3 id="upgrading-from-rails-3.0-to-rails-3.1">5 Upgrading from Rails 3.0 to Rails 3.1</h3><p>If your application is currently on any version of Rails older than 3.0.x, you should upgrade to Rails 3.0 before attempting an update to Rails 3.1.</p><p>The following changes are meant for upgrading your application to Rails 3.1.12, the last 3.1.x version of Rails.</p><h4 id="gemfile">5.1 Gemfile</h4><p>Make the following changes to your <code>Gemfile</code>.</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 gem 'rails', '3.1.12'
 gem 'mysql2'
@@ -991,27 +883,21 @@ gem 'jquery-rails'
 
 </pre>
 </div>
-<h4 id="config/application.rb">5.2 config/application.rb</h4>
-<p>The asset pipeline requires the following additions:</p>
-<div class="code_container">
+<h4 id="config/application.rb">5.2 config/application.rb</h4><p>The asset pipeline requires the following additions:</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 config.assets.enabled = true
 config.assets.version = '1.0'
 
 </pre>
 </div>
-<p>If your application is using an "/assets" route for a resource you may want change the prefix used for assets to avoid conflicts:</p>
-<div class="code_container">
+<p>If your application is using an "/assets" route for a resource you may want change the prefix used for assets to avoid conflicts:</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 # Defaults to '/assets'
 config.assets.prefix = '/asset-files'
 
 </pre>
 </div>
-<h4 id="config/environments/development.rb">5.3 config/environments/development.rb</h4>
-<p>Remove the RJS setting <code>config.action_view.debug_rjs = true</code>.</p>
-<p>Add these settings if you enable the asset pipeline:</p>
-<div class="code_container">
+<h4 id="upgrading-from-rails-3.0-to-rails-3.1-config/environments/development.rb">5.3 config/environments/development.rb</h4><p>Remove the RJS setting <code>config.action_view.debug_rjs = true</code>.</p><p>Add these settings if you enable the asset pipeline:</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 # Do not compress assets
 config.assets.compress = false
@@ -1021,9 +907,7 @@ config.assets.debug = true
 
 </pre>
 </div>
-<h4 id="config/environments/production.rb">5.4 config/environments/production.rb</h4>
-<p>Again, most of the changes below are for the asset pipeline. You can read more about these in the <a href="asset_pipeline.html">Asset Pipeline</a> guide.</p>
-<div class="code_container">
+<h4 id="config/environments/production.rb">5.4 config/environments/production.rb</h4><p>Again, most of the changes below are for the asset pipeline. You can read more about these in the <a href="asset_pipeline.html">Asset Pipeline</a> guide.</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 # Compress JavaScripts and CSS
 config.assets.compress = true
@@ -1045,9 +929,7 @@ config.assets.digest = true
 
 </pre>
 </div>
-<h4 id="config/environments/test.rb">5.5 config/environments/test.rb</h4>
-<p>You can help test performance with these additions to your test environment:</p>
-<div class="code_container">
+<h4 id="upgrading-from-rails-3.0-to-rails-3.1-config/environments/test.rb">5.5 config/environments/test.rb</h4><p>You can help test performance with these additions to your test environment:</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 # Configure static asset server for tests with Cache-Control for performance
 config.serve_static_assets = true
@@ -1055,9 +937,7 @@ config.static_cache_control = 'public, max-age=3600'
 
 </pre>
 </div>
-<h4 id="config/initializers/wrap_parameters.rb">5.6 config/initializers/wrap_parameters.rb</h4>
-<p>Add this file with the following contents, if you wish to wrap parameters into a nested hash. This is on by default in new applications.</p>
-<div class="code_container">
+<h4 id="config/initializers/wrap_parameters.rb">5.6 config/initializers/wrap_parameters.rb</h4><p>Add this file with the following contents, if you wish to wrap parameters into a nested hash. This is on by default in new applications.</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 # Be sure to restart your server when you modify this file.
 # This file contains settings for ActionController::ParamsWrapper which
@@ -1075,19 +955,16 @@ end
 
 </pre>
 </div>
-<h4 id="config/initializers/session_store.rb">5.7 config/initializers/session_store.rb</h4>
-<p>You need to change your session key to something new, or remove all sessions:</p>
-<div class="code_container">
+<h4 id="config/initializers/session_store.rb">5.7 config/initializers/session_store.rb</h4><p>You need to change your session key to something new, or remove all sessions:</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 # in config/initializers/session_store.rb
 AppName::Application.config.session_store :cookie_store, key: 'SOMETHINGNEW'
 
 </pre>
 </div>
-<p>or</p>
-<div class="code_container">
+<p>or</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
-$ rake db:sessions:clear
+$ bin/rake db:sessions:clear
 
 </pre>
 </div>
@@ -1095,7 +972,6 @@ $ rake db:sessions:clear
 <ul>
 <li>With the Asset Pipeline the :cache and :concat options aren't used anymore, delete these options from your views.</li>
 </ul>
-</body></html>
 
 
         <h3>反饋</h3>

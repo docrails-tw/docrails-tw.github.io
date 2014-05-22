@@ -160,7 +160,7 @@
 
   <div id="feature">
     <div class="wrapper">
-      <h2 id="active-record-postgresql">Active Record PostgreSQL</h2><p>本篇介紹 Active Record PostgreSQL 的具體用法。</p><p>PostgreSQL 的最低版本要求為 8.2。舊版不支援。</p><p>開始使用 PostgreSQL 之前，請先看看<a href="configuring.html#configuring-a-postgresql-database">如何為 Active Record 設定 PostgreSQL 資料庫</a>。</p><p>讀完本篇，您將了解：</p>
+      <h2>Active Record PostgreSQL</h2><p>本篇介紹 Active Record PostgreSQL 的具體用法。</p><p>讀完本篇，您將了解：</p>
 <ul>
 <li>如何使用 PostgreSQL 的資料類型。</li>
 <li>如何使用 UUID 主鍵。</li>
@@ -170,8 +170,7 @@
 
                 <div id="subCol">
             <h3 class="chapter"><img src="images/chapters_icon.gif" alt="" />Chapters</h3>
-            <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
-<html><body><ol class="chapters">
+            <ol class="chapters">
 <li>
 <a href="#%E8%B3%87%E6%96%99%E9%A1%9E%E5%9E%8B">資料類型</a>
 
@@ -192,7 +191,7 @@
 <li><a href="#uuid-%E4%B8%BB%E9%8D%B5">UUID 主鍵</a></li>
 <li><a href="#%E5%85%A8%E6%96%87%E6%90%9C%E7%B4%A2">全文搜索</a></li>
 <li><a href="#views">Views</a></li>
-</ol></body></html>
+</ol>
 
           </div>
 
@@ -202,11 +201,7 @@
   <div id="container">
     <div class="wrapper">
       <div id="mainCol">
-        <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
-<html><body>
-<h3 id="資料類型">1 資料類型</h3>
-<p>PostgreSQL 提供許多具體的資料類型。以下是 PostgreSQL 連接器所支援的類型列表。</p>
-<h4 id="bytea-類型">1.1 Bytea 類型</h4>
+        <p>PostgreSQL 的最低版本要求為 8.2。舊版不支援。</p><p>開始使用 PostgreSQL 之前，請先看看<a href="configuring.html#configuring-a-postgresql-database">如何為 Active Record 設定 PostgreSQL 資料庫</a>。</p><h3 id="資料類型">1 資料類型</h3><p>PostgreSQL 提供許多具體的資料類型。以下是 PostgreSQL 連接器所支援的類型列表。</p><h4 id="bytea-類型">1.1 Bytea 類型</h4>
 <ul>
 <li><a href="http://www.postgresql.org/docs/9.3/static/datatype-binary.html">類型定義</a></li>
 <li><a href="http://www.postgresql.org/docs/9.3/static/functions-binarystring.html">函數與運算元</a></li>
@@ -327,8 +322,7 @@ Event.where("payload-&gt;'kind' = ?", "user_renamed")
 <li><a href="http://www.postgresql.org/docs/9.3/static/rangetypes.html">類型定義</a></li>
 <li><a href="http://www.postgresql.org/docs/9.3/static/functions-range.html">函數與運算元</a></li>
 </ul>
-<p>此類型映射到 Ruby 的 <a href="http://www.ruby-doc.org/core-2.1.1/Range.html"><code>Range</code></a> 物件</p>
-<div class="code_container">
+<p>此類型映射到 Ruby 的 <a href="http://www.ruby-doc.org/core-2.1.1/Range.html"><code>Range</code></a> 物件</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 # db/migrate/20130923065404_create_events.rb
 create_table :events do |t|
@@ -362,8 +356,7 @@ event.ends_at # =&gt; Thu, 13 Feb 2014
 <ul>
 <li><a href="http://www.postgresql.org/docs/9.3/static/rowtypes.html">類型定義</a></li>
 </ul>
-<p>複合類型映射到一般的 <code>text</code> 欄位。</p>
-<div class="code_container">
+<p>複合類型映射到一般的 <code>text</code> 欄位。</p><div class="code_container">
 <pre class="brush: sql; gutter: false; toolbar: false">
 CREATE TYPE full_address AS
 (
@@ -404,8 +397,7 @@ contact.save!
 <ul>
 <li><a href="http://www.postgresql.org/docs/9.3/static/datatype-enum.html">類型定義</a></li>
 </ul>
-<p>枚舉類型映射到一般的 <code>text</code> 欄位。</p>
-<div class="code_container">
+<p>枚舉類型映射到一般的 <code>text</code> 欄位。</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 # db/migrate/20131220144913_create_events.rb
 execute &lt;&lt;-SQL
@@ -483,8 +475,7 @@ user.save!
 <ul>
 <li><a href="http://www.postgresql.org/docs/9.3/static/datatype-net-types.html">類型定義</a></li>
 </ul>
-<p><code>inet</code> 與 <code>cidr</code> 類型映射到 Ruby 的 <a href="http://www.ruby-doc.org/stdlib-2.1.1/libdoc/ipaddr/rdoc/IPAddr.html"><code>IPAddr</code></a> 物件。<code>macaddr</code> 類型映射到一般的 <code>text</code> 欄位。</p>
-<div class="code_container">
+<p><code>inet</code> 與 <code>cidr</code> 類型映射到 Ruby 的 <a href="http://www.ruby-doc.org/stdlib-2.1.1/libdoc/ipaddr/rdoc/IPAddr.html"><code>IPAddr</code></a> 物件。<code>macaddr</code> 類型映射到一般的 <code>text</code> 欄位。</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 # db/migrate/20140508144913_create_devices.rb
 create_table(:devices, force: true) do |t|
@@ -517,10 +508,7 @@ macbook.address
 <ul>
 <li><a href="http://www.postgresql.org/docs/9.3/static/datatype-geometric.html">類型定義</a></li>
 </ul>
-<p>幾何類型映射到一般的 <code>text</code> 欄位。</p>
-<h3 id="uuid-主鍵">2 UUID 主鍵</h3>
-<div class="note"><p>需要啟用 <code>uuid-ossp</code> 擴充功能才可以產生 UUID。</p></div>
-<div class="code_container">
+<p>幾何類型映射到一般的 <code>text</code> 欄位。</p><h3 id="uuid-主鍵">2 UUID 主鍵</h3><div class="note"><p>需要啟用 <code>uuid-ossp</code> 擴充功能才可以產生 UUID。</p></div><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 # db/migrate/20131220144913_create_devices.rb
 enable_extension 'uuid-ossp' unless extension_enabled?('uuid-ossp')
@@ -538,8 +526,7 @@ device.id # =&gt; "814865cd-5a1d-4771-9306-4268f188fe9e"
 
 </pre>
 </div>
-<h3 id="全文搜索">3 全文搜索</h3>
-<div class="code_container">
+<h3 id="全文搜索">3 全文搜索</h3><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 # db/migrate/20131220144913_create_documents.rb
 create_table :documents do |t|
@@ -566,8 +553,7 @@ Document.where("to_tsvector('english', title || ' ' || body) @@ to_tsquery(?)",
 <ul>
 <li><a href="http://www.postgresql.org/docs/9.3/static/sql-createview.html">建立 View</a></li>
 </ul>
-<p>假設需要處理老舊的資料庫，資料表如下：</p>
-<div class="code_container">
+<p>假設需要處理老舊的資料庫，資料表如下：</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 rails_pg_guide=# \d "TBL_ART"
                                         Table "public.TBL_ART"
@@ -584,8 +570,7 @@ Indexes:
 </pre>
 </div>
 <p>這張資料表完全沒有遵循 Rails 的慣例。
-因為簡單的 PostgreSQL View 預設便可以更新了，可以像下面這樣包起來：</p>
-<div class="code_container">
+因為簡單的 PostgreSQL View 預設便可以更新了，可以像下面這樣包起來：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 # db/migrate/20131220144913_create_articles_view.rb
 execute &lt;&lt;-SQL
@@ -622,8 +607,6 @@ p Article.count # =&gt; 2
 </pre>
 </div>
 <p>Note: 這個應用程式只專注在尚未歸檔的 <code>Articles</code>。View 也允許使用條件式，所以我們可以直接排除掉已歸檔的 <code>Articles</code>。</p>
-</body></html>
-
 
         <h3>反饋</h3>
         <p>

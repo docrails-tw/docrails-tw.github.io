@@ -160,7 +160,7 @@
 
   <div id="feature">
     <div class="wrapper">
-      <h2 id="active-record-查詢">Active Record 查詢</h2><p>本篇詳細介紹各種用 Active Record 多種從資料庫取出資料的方法。</p><p>讀完本篇，您將了解：</p>
+      <h2>Active Record 查詢</h2><p>本篇詳細介紹各種用 Active Record 多種從資料庫取出資料的方法。</p><p>讀完本篇，您將了解：</p>
 <ul>
 <li>如何使用各種方法與條件來取出資料庫記錄（record）。</li>
 <li>如何排序、取出某幾個屬性、分組、其它用來找出資料庫記錄的特性。</li>
@@ -174,8 +174,7 @@
 
                 <div id="subCol">
             <h3 class="chapter"><img src="images/chapters_icon.gif" alt="" />Chapters</h3>
-            <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
-<html><body><ol class="chapters">
+            <ol class="chapters">
 <li>
 <a href="#%E5%8F%96%E5%87%BA%E8%B3%87%E6%96%99">取出資料</a>
 
@@ -204,7 +203,6 @@
 <a href="#%E8%A6%86%E8%93%8B%E6%A2%9D%E4%BB%B6">覆蓋條件</a>
 
 <ul>
-<li><a href="#except"><code>except</code></a></li>
 <li><a href="#unscope"><code>unscope</code></a></li>
 <li><a href="#only"><code>only</code></a></li>
 <li><a href="#reorder"><code>reorder</code></a></li>
@@ -254,7 +252,7 @@
 
 <ul>
 <li><a href="#find_or_create_by"><code>find_or_create_by</code></a></li>
-<li><a href="#find_or_create_by!"><code>find_or_create_by!</code></a></li>
+<li><a href="#find_or_create_by-bang"><code>find_or_create_by!</code></a></li>
 <li><a href="#find_or_initialize_by"><code>find_or_initialize_by</code></a></li>
 </ul>
 </li>
@@ -286,7 +284,7 @@
 <li><a href="#%E8%A7%A3%E8%AE%80-explain">解讀 EXPLAIN</a></li>
 </ul>
 </li>
-</ol></body></html>
+</ol>
 
           </div>
 
@@ -296,12 +294,7 @@
   <div id="container">
     <div class="wrapper">
       <div id="mainCol">
-        <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
-<html><body>
-<p>如果習慣寫純 SQL 來查詢資料庫，則會發現在 Rails 裡有更好的方式可以執行同樣的操作。Active Record 適用於大多數場景，需要寫 SQL 的場景會變得非常少。</p>
-<p>本篇之後的例子都會用下列的 Model 來講解：</p>
-<div class="info"><p>除非特別說明，否則下列 Model 都用 <code>id</code> 作為主鍵。</p></div>
-<div class="code_container">
+        <p>如果習慣寫純 SQL 來查詢資料庫，則會發現在 Rails 裡有更好的方式可以執行同樣的操作。Active Record 適用於大多數場景，需要寫 SQL 的場景會變得非常少。</p><p>本篇之後的例子都會用下列的 Model 來講解：</p><div class="info"><p>除非特別說明，否則下列 Model 都用 <code>id</code> 作為主鍵。</p></div><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Client &lt; ActiveRecord::Base
   has_one  :address
@@ -335,10 +328,7 @@ end
 
 </pre>
 </div>
-<p>Active Record 幫你對資料庫做查詢，相容多數資料庫（MySQL、PostgreSQL 以及 SQLite 等）。不管用的是何種資料庫，Active Record 方法格式保持一致。</p>
-<h3 id="取出資料">1 取出資料</h3>
-<p>Active Record 提供了多種 Finder 方法，用來從資料庫裡取出物件。每個 Finder 方法允許傳參數，來對資料庫執行不同的查詢，而無需直接寫純 SQL。</p>
-<p>Finder 方法有：</p>
+<p>Active Record 幫你對資料庫做查詢，相容多數資料庫（MySQL、PostgreSQL 以及 SQLite 等）。不管用的是何種資料庫，Active Record 方法格式保持一致。</p><h3 id="取出資料">1 取出資料</h3><p>Active Record 提供了多種 Finder 方法，用來從資料庫裡取出物件。每個 Finder 方法允許傳參數，來對資料庫執行不同的查詢，而無需直接寫純 SQL。</p><p>Finder 方法有：</p>
 <ul>
 <li><code>bind</code></li>
 <li><code>create_with</code></li>
@@ -364,19 +354,14 @@ end
 <li><code>uniq</code></li>
 <li><code>where</code></li>
 </ul>
-<p>以上方法皆會回傳一個 <code>ActiveRecord::Relation</code> 實體。</p>
-<p><code>Model.find(options)</code> 的主要操作可以總結如下：</p>
+<p>以上方法皆會回傳一個 <code>ActiveRecord::Relation</code> 實體。</p><p><code>Model.find(options)</code> 的主要操作可以總結如下：</p>
 <ul>
 <li>將傳入的參數轉換成對應的 SQL 語句。</li>
 <li>執行 SQL 語句，去資料庫取回對應的結果。</li>
 <li>將每個查詢結果，根據適當的 Model 實體化出 Ruby 物件。</li>
 <li>有 <code>after_find</code> 回呼的話，執行它們。</li>
 </ul>
-<h4 id="取出單一物件">1.1 取出單一物件</h4>
-<p>Active Record 提供數種方式來取出一個物件。</p>
-<h5 id="透過主鍵">1.1.1 透過主鍵</h5>
-<p>使用 <code>Model.find(primary_key)</code> 來取出給定主鍵的物件，比如：</p>
-<div class="code_container">
+<h4 id="取出單一物件">1.1 取出單一物件</h4><p>Active Record 提供數種方式來取出一個物件。</p><h5 id="透過主鍵">1.1.1 透過主鍵</h5><p>使用 <code>Model.find(primary_key)</code> 來取出給定主鍵的物件，比如：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 # Find the client with primary key (id) 10.
 client = Client.find(10)
@@ -384,73 +369,56 @@ client = Client.find(10)
 
 </pre>
 </div>
-<p>對應的 SQL：</p>
-<div class="code_container">
+<p>對應的 SQL：</p><div class="code_container">
 <pre class="brush: sql; gutter: false; toolbar: false">
 SELECT * FROM clients WHERE (clients.id = 10) LIMIT 1
 
 </pre>
 </div>
-<p>如果 <code>Model.find(primary_key)</code> 沒找到符合條件的記錄，則會拋出 <code>ActiveRecord::RecordNotFound</code> 異常。</p>
-<h5 id="take">1.1.2 <code>take</code>
-</h5>
-<p><code>Model.take</code> 從資料庫取出一筆記錄，不考慮順序，比如：</p>
-<div class="code_container">
+<p>如果 <code>Model.find(primary_key)</code> 沒找到符合條件的記錄，則會拋出 <code>ActiveRecord::RecordNotFound</code> 異常。</p><h5 id="取出單一物件-take">1.1.2 <code>take</code>
+</h5><p><code>Model.take</code> 從資料庫取出一筆記錄，不考慮順序，比如：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 client = Client.take
 # =&gt; #&lt;Client id: 1, first_name: "Lifo"&gt;
 
 </pre>
 </div>
-<p>對應的 SQL：</p>
-<div class="code_container">
+<p>對應的 SQL：</p><div class="code_container">
 <pre class="brush: sql; gutter: false; toolbar: false">
 SELECT * FROM clients LIMIT 1
 
 </pre>
 </div>
-<p>如果沒找到記錄，<code>Model.take</code> 會回傳 <code>nil</code>，不會拋出異常。</p>
-<div class="info"><p>取得的記錄根據使用的資料庫引擎會有不同結果。</p></div>
-<h5 id="first">1.1.3 <code>first</code>
-</h5>
-<p><code>Model.first</code> 按主鍵排序，取出第一筆資料，比如：</p>
-<div class="code_container">
+<p>如果沒找到記錄，<code>Model.take</code> 會回傳 <code>nil</code>，不會拋出異常。</p><div class="info"><p>取得的記錄根據使用的資料庫引擎會有不同結果。</p></div><h5 id="取出單一物件-first">1.1.3 <code>first</code>
+</h5><p><code>Model.first</code> 按主鍵排序，取出第一筆資料，比如：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 client = Client.first
 # =&gt; #&lt;Client id: 1, first_name: "Lifo"&gt;
 
 </pre>
 </div>
-<p>對應的 SQL：</p>
-<div class="code_container">
+<p>對應的 SQL：</p><div class="code_container">
 <pre class="brush: sql; gutter: false; toolbar: false">
 SELECT * FROM clients ORDER BY clients.id ASC LIMIT 1
 
 </pre>
 </div>
-<p>如果沒找到記錄，<code>Model.first</code> 會回傳 <code>nil</code>，不會拋出異常。</p>
-<h5 id="last">1.1.4 <code>last</code>
-</h5>
-<p><code>Model.last</code> 按主鍵排序，取出最後一筆資料，比如：</p>
-<div class="code_container">
+<p>如果沒找到記錄，<code>Model.first</code> 會回傳 <code>nil</code>，不會拋出異常。</p><h5 id="取出單一物件-last">1.1.4 <code>last</code>
+</h5><p><code>Model.last</code> 按主鍵排序，取出最後一筆資料，比如：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 client = Client.last
 # =&gt; #&lt;Client id: 221, first_name: "Russel"&gt;
 
 </pre>
 </div>
-<p>對應的 SQL：</p>
-<div class="code_container">
+<p>對應的 SQL：</p><div class="code_container">
 <pre class="brush: sql; gutter: false; toolbar: false">
 SELECT * FROM clients ORDER BY clients.id DESC LIMIT 1
 
 </pre>
 </div>
-<p>如果沒找到記錄，<code>Model.last</code> 會回傳 <code>nil</code>，不會拋出異常。</p>
-<h5 id="find_by">1.1.5 <code>find_by</code>
-</h5>
-<p><code>Model.find_by</code> 找第一筆符合條件的記錄：</p>
-<div class="code_container">
+<p>如果沒找到記錄，<code>Model.last</code> 會回傳 <code>nil</code>，不會拋出異常。</p><h5 id="find_by">1.1.5 <code>find_by</code>
+</h5><p><code>Model.find_by</code> 找第一筆符合條件的記錄：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 Client.find_by first_name: 'Lifo'
 # =&gt; #&lt;Client id: 1, first_name: "Lifo"&gt;
@@ -460,71 +428,56 @@ Client.find_by first_name: 'Jon'
 
 </pre>
 </div>
-<p>等同於：</p>
-<div class="code_container">
+<p>等同於：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 Client.where(first_name: 'Lifo').take
 
 </pre>
 </div>
-<h5 id="take!">1.1.6 <code>take!</code>
-</h5>
-<p><code>Model.take!</code> 從資料庫取出一筆記錄，不考慮任何順序，比如：</p>
-<div class="code_container">
+<h5 id="take-bang">1.1.6 <code>take!</code>
+</h5><p><code>Model.take!</code> 從資料庫取出一筆記錄，不考慮任何順序，比如：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 client = Client.take!
 # =&gt; #&lt;Client id: 1, first_name: "Lifo"&gt;
 
 </pre>
 </div>
-<p>對應的 SQL：</p>
-<div class="code_container">
+<p>對應的 SQL：</p><div class="code_container">
 <pre class="brush: sql; gutter: false; toolbar: false">
 SELECT * FROM clients LIMIT 1
 
 </pre>
 </div>
-<p>如果沒找到記錄，<code>Model.take!</code> 會拋出 <code>ActiveRecord::RecordNotFound</code>。</p>
-<h5 id="first!">1.1.7 <code>first!</code>
-</h5>
-<p><code>Model.first!</code> 按主鍵排序，取出第一筆資料，比如：</p>
-<div class="code_container">
+<p>如果沒找到記錄，<code>Model.take!</code> 會拋出 <code>ActiveRecord::RecordNotFound</code>。</p><h5 id="first-bang">1.1.7 <code>first!</code>
+</h5><p><code>Model.first!</code> 按主鍵排序，取出第一筆資料，比如：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 client = Client.first!
 # =&gt; #&lt;Client id: 1, first_name: "Lifo"&gt;
 
 </pre>
 </div>
-<p>對應的 SQL：</p>
-<div class="code_container">
+<p>對應的 SQL：</p><div class="code_container">
 <pre class="brush: sql; gutter: false; toolbar: false">
 SELECT * FROM clients ORDER BY clients.id ASC LIMIT 1
 
 </pre>
 </div>
-<p>如果沒找到記錄，<code>Model.first!</code> 會拋出 <code>ActiveRecord::RecordNotFound</code> 異常。</p>
-<h5 id="last!">1.1.8 <code>last!</code>
-</h5>
-<p><code>Model.last!</code> 按主鍵排序，取出最後一筆資料，比如：</p>
-<div class="code_container">
+<p>如果沒找到記錄，<code>Model.first!</code> 會拋出 <code>ActiveRecord::RecordNotFound</code> 異常。</p><h5 id="last-bang">1.1.8 <code>last!</code>
+</h5><p><code>Model.last!</code> 按主鍵排序，取出最後一筆資料，比如：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 client = Client.last!
 # =&gt; #&lt;Client id: 221, first_name: "Russel"&gt;
 
 </pre>
 </div>
-<p>對應的 SQL：</p>
-<div class="code_container">
+<p>對應的 SQL：</p><div class="code_container">
 <pre class="brush: sql; gutter: false; toolbar: false">
 SELECT * FROM clients ORDER BY clients.id DESC LIMIT 1
 
 </pre>
 </div>
-<p>如果沒找到記錄，<code>Model.last!</code> 會拋出 <code>ActiveRecord::RecordNotFound</code> 異常。</p>
-<h5 id="find_by!">1.1.9 <code>find_by!</code>
-</h5>
-<p><code>Model.find_by!</code> 找第一筆符合條件的紀錄。</p>
-<div class="code_container">
+<p>如果沒找到記錄，<code>Model.last!</code> 會拋出 <code>ActiveRecord::RecordNotFound</code> 異常。</p><h5 id="find_by-bang">1.1.9 <code>find_by!</code>
+</h5><p><code>Model.find_by!</code> 找第一筆符合條件的紀錄。</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 Client.find_by! first_name: 'Lifo'
 # =&gt; #&lt;Client id: 1, first_name: "Lifo"&gt;
@@ -534,18 +487,13 @@ Client.find_by! first_name: 'Jon'
 
 </pre>
 </div>
-<p>等同於：</p>
-<div class="code_container">
+<p>等同於：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 Client.where(first_name: 'Lifo').take!
 
 </pre>
 </div>
-<p>如果沒找到符合條件的記錄，<code>Model.find_by!</code> 會拋出 <code>ActiveRecord::RecordNotFound</code> 異常。</p>
-<h4 id="取出多個物件">1.2 取出多個物件</h4>
-<h5 id="使用多個主鍵">1.2.1 使用多個主鍵</h5>
-<p><code>Model.find(array_of_primary_key)</code> 接受以主鍵組成的陣列，並以陣列形式返回所有匹配的結果，比如：</p>
-<div class="code_container">
+<p>如果沒找到符合條件的記錄，<code>Model.find_by!</code> 會拋出 <code>ActiveRecord::RecordNotFound</code> 異常。</p><h4 id="取出多個物件">1.2 取出多個物件</h4><h5 id="使用多個主鍵">1.2.1 使用多個主鍵</h5><p><code>Model.find(array_of_primary_key)</code> 接受以主鍵組成的陣列，並以陣列形式返回所有匹配的結果，比如：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 # Find the clients with primary keys 1 and 10.
 client = Client.find([1, 10]) # Or even Client.find(1, 10)
@@ -553,18 +501,14 @@ client = Client.find([1, 10]) # Or even Client.find(1, 10)
 
 </pre>
 </div>
-<p>對應的 SQL：</p>
-<div class="code_container">
+<p>對應的 SQL：</p><div class="code_container">
 <pre class="brush: sql; gutter: false; toolbar: false">
 SELECT * FROM clients WHERE (clients.id IN (1,10))
 
 </pre>
 </div>
-<div class="warning"><p>只要有一個主鍵沒找到對應的紀錄，<code>Model.find(array_of_primary_key)</code> 會拋出 ActiveRecord::RecordNotFound` 異常。</p></div>
-<h5 id="take">1.2.2 <code>take</code>
-</h5>
-<p><code>Model.take(limit)</code> 取出 <code>limit</code> 筆記錄，不考慮順序：</p>
-<div class="code_container">
+<div class="warning"><p>只要有一個主鍵沒找到對應的紀錄，<code>Model.find(array_of_primary_key)</code> 會拋出 ActiveRecord::RecordNotFound` 異常。</p></div><h5 id="取出多個物件-take">1.2.2 <code>take</code>
+</h5><p><code>Model.take(limit)</code> 取出 <code>limit</code> 筆記錄，不考慮順序：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 Client.take(2)
 # =&gt; [#&lt;Client id: 1, first_name: "Lifo"&gt;,
@@ -572,17 +516,14 @@ Client.take(2)
 
 </pre>
 </div>
-<p>對應的 SQL：</p>
-<div class="code_container">
+<p>對應的 SQL：</p><div class="code_container">
 <pre class="brush: sql; gutter: false; toolbar: false">
 SELECT * FROM clients LIMIT 2
 
 </pre>
 </div>
-<h5 id="first">1.2.3 <code>first</code>
-</h5>
-<p><code>Model.first(limit)</code> 按主鍵排序，取出 <code>limit</code> 筆記錄：</p>
-<div class="code_container">
+<h5 id="取出多個物件-first">1.2.3 <code>first</code>
+</h5><p><code>Model.first(limit)</code> 按主鍵排序，取出 <code>limit</code> 筆記錄：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 Client.first(2)
 # =&gt; [#&lt;Client id: 1, first_name: "Lifo"&gt;,
@@ -590,17 +531,14 @@ Client.first(2)
 
 </pre>
 </div>
-<p>對應的 SQL：</p>
-<div class="code_container">
+<p>對應的 SQL：</p><div class="code_container">
 <pre class="brush: sql; gutter: false; toolbar: false">
 SELECT * FROM clients ORDER BY id ASC LIMIT 2
 
 </pre>
 </div>
-<h5 id="last">1.2.4 <code>last</code>
-</h5>
-<p><code>Model.last(limit)</code> 按主鍵排序，從後取出 <code>limit</code> 筆記錄：</p>
-<div class="code_container">
+<h5 id="取出多個物件-last">1.2.4 <code>last</code>
+</h5><p><code>Model.last(limit)</code> 按主鍵排序，從後取出 <code>limit</code> 筆記錄：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 Client.last(2)
 # =&gt; [#&lt;Client id: 10, first_name: "Ryan"&gt;,
@@ -608,17 +546,13 @@ Client.last(2)
 
 </pre>
 </div>
-<p>對應的 SQL：</p>
-<div class="code_container">
+<p>對應的 SQL：</p><div class="code_container">
 <pre class="brush: sql; gutter: false; toolbar: false">
 SELECT * FROM clients ORDER BY id DESC LIMIT 2
 
 </pre>
 </div>
-<h4 id="批次取出多筆記錄">1.3 批次取出多筆記錄</h4>
-<p>處理多筆記錄是常見的需求，比如寄信給使用者，轉出資料。</p>
-<p>直覺可能會這麼做：</p>
-<div class="code_container">
+<h4 id="批次取出多筆記錄">1.3 批次取出多筆記錄</h4><p>處理多筆記錄是常見的需求，比如寄信給使用者，轉出資料。</p><p>直覺可能會這麼做：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 # 如果有數千個使用者，效率非常差。
 User.all.each do |user|
@@ -627,13 +561,8 @@ end
 
 </pre>
 </div>
-<p>但在資料表很大的時候，這個方法便不實用了。由於 <code>User.all.each</code> 告訴 Active Record 一次去把整張表抓出來，再為表的每一列建出物件，最後將所有的物件放到記憶體裡。如果資料庫裡存了非常多筆記錄，可能會把記憶體用光。</p>
-<p>Rails 提供了兩個方法來解決這個問題，將記錄針對記憶體來說有效率的大小，分批處理。第一個方法是 <code>find_each</code>，取出一批記錄，並將每筆記錄傳入至區塊裡，可取單一筆記錄。第二個方法是 <code>find_in_batches</code>，一次取一批記錄，整批放至區塊裡，整批記錄以陣列形式取用。</p>
-<div class="info"><p><code>find_each</code> 與 <code>find_in_batches</code> 方法專門用來解決大量記錄，處理無法一次放至記憶體的大量記錄。如果只是一千筆資料，使用平常的查詢方法便足夠了。</p></div>
-<h5 id="find_each">1.3.1 <code>find_each</code>
-</h5>
-<p><code>find_each</code> 方法取出一批記錄，將每筆記錄傳入區塊裡。下面的例子，將以 <code>find_each</code> 來取出 1000 筆記錄（<code>find_each</code> 與 <code>find_in_batches</code> 的預設值），並傳至區塊。一次處理 1000 筆，直至記錄通通處理完畢為止：</p>
-<div class="code_container">
+<p>但在資料表很大的時候，這個方法便不實用了。由於 <code>User.all.each</code> 告訴 Active Record 一次去把整張表抓出來，再為表的每一列建出物件，最後將所有的物件放到記憶體裡。如果資料庫裡存了非常多筆記錄，可能會把記憶體用光。</p><p>Rails 提供了兩個方法來解決這個問題，將記錄針對記憶體來說有效率的大小，分批處理。第一個方法是 <code>find_each</code>，取出一批記錄，並將每筆記錄傳入至區塊裡，可取單一筆記錄。第二個方法是 <code>find_in_batches</code>，一次取一批記錄，整批放至區塊裡，整批記錄以陣列形式取用。</p><div class="info"><p><code>find_each</code> 與 <code>find_in_batches</code> 方法專門用來解決大量記錄，處理無法一次放至記憶體的大量記錄。如果只是一千筆資料，使用平常的查詢方法便足夠了。</p></div><h5 id="find_each">1.3.1 <code>find_each</code>
+</h5><p><code>find_each</code> 方法取出一批記錄，將每筆記錄傳入區塊裡。下面的例子，將以 <code>find_each</code> 來取出 1000 筆記錄（<code>find_each</code> 與 <code>find_in_batches</code> 的預設值），並傳至區塊。一次處理 1000 筆，直至記錄通通處理完畢為止：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 User.find_each do |user|
   NewsLetter.weekly_deliver(user)
@@ -641,12 +570,7 @@ end
 
 </pre>
 </div>
-<h6 id="find_each-選項">1.3.1.1 <code>find_each</code> 選項</h6>
-<p><code>find_each</code> 方法接受多數 <code>find</code> 所允許的選項，除了 <code>:order</code> 與 <code>:limit</code>，這兩個選項保留供 <code>find_each</code> 內部使用。</p>
-<p>此外有兩個額外的選項，<code>:batch_size</code> 與 <code>:start</code>。</p>
-<p><strong><code>:batch_size</code></strong></p>
-<p><code>:batch_size</code> 選項允許你在將各筆記錄傳進區塊前，指定一批要取多少筆記錄。比如一次取 5000 筆：</p>
-<div class="code_container">
+<h6 id="find_each-選項">1.3.1.1 <code>find_each</code> 選項</h6><p><code>find_each</code> 方法接受多數 <code>find</code> 所允許的選項，除了 <code>:order</code> 與 <code>:limit</code>，這兩個選項保留供 <code>find_each</code> 內部使用。</p><p>此外有兩個額外的選項，<code>:batch_size</code> 與 <code>:start</code>。</p><p><strong><code>:batch_size</code></strong></p><p><code>:batch_size</code> 選項允許你在將各筆記錄傳進區塊前，指定一批要取多少筆記錄。比如一次取 5000 筆：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 User.find_each(batch_size: 5000) do |user|
   NewsLetter.weekly_deliver(user)
@@ -654,10 +578,7 @@ end
 
 </pre>
 </div>
-<p><strong><code>:start</code></strong></p>
-<p>預設記錄按主鍵升序取出，主鍵類型必須是整數。批次預設從最小的 ID 開始，可用 <code>:start</code> 選項可以設定批次的起始 ID。在前次被中斷的批量處理重新開始的場景下很有用。</p>
-<p>舉例來說，本週總共有 5000 封信要發。1-1999 已經發過了，便可以使用此選項從 2000 開始發信：</p>
-<div class="code_container">
+<p><strong><code>:start</code></strong></p><p>預設記錄按主鍵升序取出，主鍵類型必須是整數。批次預設從最小的 ID 開始，可用 <code>:start</code> 選項可以設定批次的起始 ID。在前次被中斷的批量處理重新開始的場景下很有用。</p><p>舉例來說，本週總共有 5000 封信要發。1-1999 已經發過了，便可以使用此選項從 2000 開始發信：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 User.find_each(start: 2000, batch_size: 5000) do |user|
   NewsLetter.weekly_deliver(user)
@@ -665,11 +586,8 @@ end
 
 </pre>
 </div>
-<p>另個例子是想要多個 worker 處理同個佇列時。可以使用 <code>:start</code> 讓每個 worker 分別處理 10000 筆記錄。</p>
-<h5 id="find_in_batches">1.3.2 <code>find_in_batches</code>
-</h5>
-<p><code>find_in_batches</code> 方法與 <code>find_each</code> 類似，皆用來取出記錄。差別在於 <code>find_in_batchs</code> 取出記錄放入陣列傳至區塊，而 <code>find_each</code> 是一筆一筆放入區塊。下例會一次將 1000 張發票拿到區塊裡處理：</p>
-<div class="code_container">
+<p>另個例子是想要多個 worker 處理同個佇列時。可以使用 <code>:start</code> 讓每個 worker 分別處理 10000 筆記錄。</p><h5 id="find_in_batches">1.3.2 <code>find_in_batches</code>
+</h5><p><code>find_in_batches</code> 方法與 <code>find_each</code> 類似，皆用來取出記錄。差別在於 <code>find_in_batchs</code> 取出記錄放入陣列傳至區塊，而 <code>find_each</code> 是一筆一筆放入區塊。下例會一次將 1000 張發票拿到區塊裡處理：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 # Give add_invoices an array of 1000 invoices at a time
 Invoice.find_in_batches(include: :invoice_lines) do |invoices|
@@ -678,126 +596,86 @@ end
 
 </pre>
 </div>
-<div class="note"><p><code>:include</code> 選項可以指定需要跟 Model 一起載入的關聯。</p></div>
-<h6 id="find_in_batches-接受的選項">1.3.2.1 <code>find_in_batches</code> 接受的選項</h6>
-<p><code>find_in_batches</code> 方法接受和 <code>find_each</code> 一樣的選項： <code>:batch_size</code> 與 <code>:start</code>，以及多數 <code>find</code> 接受的參數，除了 <code>:order</code> 與 <code>:limit</code> 之外。</p>
-<p><code>find_in_batches</code> 方法接受和 <code>find_each</code> 一樣的選項： <code>:batch_size</code> 與 <code>:start</code>，以及多數 <code>find</code> 接受的參數，除了 <code>:order</code> 與 <code>:limit</code> 之外。這兩個選項保留供 <code>find_in_batches</code> 內部使用。</p>
-<h3 id="條件">2 條件</h3>
-<p><code>where</code> 方法允許取出符合條件的記錄，<code>where</code> 即代表了 SQL 語句的 <code>WHERE</code> 部分。</p>
-<p>條件可以是字串、陣列、或是 Hash。</p>
-<h4 id="字串條件">2.1 字串條件</h4>
-<p>直接將要使用的條件，以字串形式傳入 <code>where</code> 即可。如 <code>Client.where("orders_count = '2'")</code> 會回傳所有 <code>orders_count</code> 是 2 的 clients。</p>
-<div class="warning"><p>條件是純字串可能有 SQL injection 的風險。舉例來說，<code>Client.where("first_name LIKE '%#{params[:first_name]}%'")</code> 是不安全的，參考下節如何將字串條件改用陣列來處理。</p></div>
-<h4 id="陣列條件">2.2 陣列條件</h4>
-<p>如果我們要找的 <code>orders_count</code>，不一定固定是 2，可能是不定的數字：</p>
-<div class="code_container">
+<div class="note"><p><code>:include</code> 選項可以指定需要跟 Model 一起載入的關聯。</p></div><h6 id="find_in_batches-接受的選項">1.3.2.1 <code>find_in_batches</code> 接受的選項</h6><p><code>find_in_batches</code> 方法接受和 <code>find_each</code> 一樣的選項： <code>:batch_size</code> 與 <code>:start</code>，以及多數 <code>find</code> 接受的參數，除了 <code>:order</code> 與 <code>:limit</code> 之外。</p><p><code>find_in_batches</code> 方法接受和 <code>find_each</code> 一樣的選項： <code>:batch_size</code> 與 <code>:start</code>，以及多數 <code>find</code> 接受的參數，除了 <code>:order</code> 與 <code>:limit</code> 之外。這兩個選項保留供 <code>find_in_batches</code> 內部使用。</p><h3 id="條件">2 條件</h3><p><code>where</code> 方法允許取出符合條件的記錄，<code>where</code> 即代表了 SQL 語句的 <code>WHERE</code> 部分。</p><p>條件可以是字串、陣列、或是 Hash。</p><h4 id="字串條件">2.1 字串條件</h4><p>直接將要使用的條件，以字串形式傳入 <code>where</code> 即可。如 <code>Client.where("orders_count = '2'")</code> 會回傳所有 <code>orders_count</code> 是 2 的 clients。</p><div class="warning"><p>條件是純字串可能有 SQL injection 的風險。舉例來說，<code>Client.where("first_name LIKE '%#{params[:first_name]}%'")</code> 是不安全的，參考下節如何將字串條件改用陣列來處理。</p></div><h4 id="陣列條件">2.2 陣列條件</h4><p>如果我們要找的 <code>orders_count</code>，不一定固定是 2，可能是不定的數字：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 Client.where("orders_count = ?", params[:orders])
 
 </pre>
 </div>
-<p>Active Record 會將 <code>?</code> 換成 <code>params[:orders]</code> 做查詢。也可宣告多個條件，條件式後的元素，對應到條件裡的每個 <code>?</code>。</p>
-<div class="code_container">
+<p>Active Record 會將 <code>?</code> 換成 <code>params[:orders]</code> 做查詢。也可宣告多個條件，條件式後的元素，對應到條件裡的每個 <code>?</code>。</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 Client.where("orders_count = ? AND locked = ?", params[:orders], false)
 
 </pre>
 </div>
-<p>上例第一個 <code>?</code> 會換成 <code>params[:orders]</code>，第二個則會換成 SQL 裡的 <code>false</code> （根據不同的 adapter 而異）。</p>
-<p>這麼寫</p>
-<div class="code_container">
+<p>上例第一個 <code>?</code> 會換成 <code>params[:orders]</code>，第二個則會換成 SQL 裡的 <code>false</code> （根據不同的 adapter 而異）。</p><p>這麼寫</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 Client.where("orders_count = ?", params[:orders])
 
 </pre>
 </div>
-<p>比下面這種寫法好多了</p>
-<div class="code_container">
+<p>比下面這種寫法好多了</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 Client.where("orders_count = #{params[:orders]}")
 
 </pre>
 </div>
-<p>因為前者比較安全。直接將變數插入條件字串裡，不論變數是什麼，都會直接存到資料庫裡。這表示從惡意使用者傳來的變數，會直接存到資料庫。這麼做是把資料庫放在風險裡不管啊！一旦有人知道，可以隨意將任何字串插入資料庫裡，就可以做任何想做的事。<strong>絕對不要直接將變數插入條件字串裡。</strong></p>
-<div class="info"><p>關於更多 SQL injection 的資料，請參考 <a href="edgeguides.rubyonrails.org/security.html#sql-injection">Ruby on Rails 安全指南</a>。</p></div>
-<h5 id="佔位符">2.2.1 佔位符</h5>
-<p>替換除了可以使用 <code>?</code> 之外，用符號也可以。以 Hash 的鍵值對方式，傳入陣列條件：</p>
-<div class="code_container">
+<p>因為前者比較安全。直接將變數插入條件字串裡，不論變數是什麼，都會直接存到資料庫裡。這表示從惡意使用者傳來的變數，會直接存到資料庫。這麼做是把資料庫放在風險裡不管啊！一旦有人知道，可以隨意將任何字串插入資料庫裡，就可以做任何想做的事。<strong>絕對不要直接將變數插入條件字串裡。</strong></p><div class="info"><p>關於更多 SQL injection 的資料，請參考 <a href="edgeguides.rubyonrails.org/security.html#sql-injection">Ruby on Rails 安全指南</a>。</p></div><h5 id="佔位符">2.2.1 佔位符</h5><p>替換除了可以使用 <code>?</code> 之外，用符號也可以。以 Hash 的鍵值對方式，傳入陣列條件：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 Client.where("created_at &gt;= :start_date AND created_at &lt;= :end_date", {start_date: params[:start_date], end_date: params[:end_date]})
 
 </pre>
 </div>
-<p>若條件中有許多參數，這種寫法不僅提高了可讀性，傳遞起來也更方便。</p>
-<h4 id="hash">2.3 Hash</h4>
-<p>Active Record 同時允許你傳入 Hash 形式的條件，以提高條件式的可讀性。使用 Hash 條件時，鍵是要查詢的欄位、值為期望值。</p>
-<div class="note"><p>只有 Equality、Range、subset 可用這種形式來寫條件。</p></div>
-<h5 id="equality">2.3.1 Equality</h5>
-<div class="code_container">
+<p>若條件中有許多參數，這種寫法不僅提高了可讀性，傳遞起來也更方便。</p><h4 id="hash">2.3 Hash</h4><p>Active Record 同時允許你傳入 Hash 形式的條件，以提高條件式的可讀性。使用 Hash 條件時，鍵是要查詢的欄位、值為期望值。</p><div class="note"><p>只有 Equality、Range、subset 可用這種形式來寫條件。</p></div><h5 id="equality">2.3.1 Equality</h5><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 Client.where(locked: true)
 
 </pre>
 </div>
-<p>欄位名稱也可以是字串：</p>
-<div class="code_container">
+<p>欄位名稱也可以是字串：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 Client.where('locked' =&gt; true)
 
 </pre>
 </div>
-<p><code>belongs_to</code> 關係裡，關聯名稱也可以用來做查詢，<code>polymorphic</code> 關係也可以。</p>
-<div class="code_container">
+<p><code>belongs_to</code> 關係裡，關聯名稱也可以用來做查詢，<code>polymorphic</code> 關係也可以。</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 Address.where(client: client)
 Address.joins(:clients).where(clients: {address: address})
 
 </pre>
 </div>
-<p>Note: 條件的值不能用符號。比如這樣是不允許的 <code>Client.where(status: :active)</code>。</p>
-<h5 id="range">2.3.2 Range</h5>
-<div class="code_container">
+<p>Note: 條件的值不能用符號。比如這樣是不允許的 <code>Client.where(status: :active)</code>。</p><h5 id="range">2.3.2 Range</h5><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 Client.where(created_at: (Time.now.midnight - 1.day)..Time.now.midnight)
 
 </pre>
 </div>
-<p>會使用 SQL 的 <code>BETWEEN</code> 找出所有在昨天建立的客戶。</p>
-<div class="code_container">
+<p>會使用 SQL 的 <code>BETWEEN</code> 找出所有在昨天建立的客戶。</p><div class="code_container">
 <pre class="brush: sql; gutter: false; toolbar: false">
 SELECT * FROM clients WHERE (clients.created_at BETWEEN '2008-12-21 00:00:00' AND '2008-12-22 00:00:00')
 
 </pre>
 </div>
-<p>這種寫法展示了如何簡化<a href="#">陣列條件</a>。</p>
-<h5 id="subset">2.3.3 Subset</h5>
-<p>如果要使用 SQL 的 <code>IN</code> 來查詢，可以在條件 Hash 裡傳入陣列：</p>
-<div class="code_container">
+<p>這種寫法展示了如何簡化<a href="#">陣列條件</a>。</p><h5 id="subset">2.3.3 Subset</h5><p>如果要使用 SQL 的 <code>IN</code> 來查詢，可以在條件 Hash 裡傳入陣列：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 Client.where(orders_count: [1,3,5])
 
 </pre>
 </div>
-<p>上例會產生像是如下的 SQL：</p>
-<div class="code_container">
+<p>上例會產生像是如下的 SQL：</p><div class="code_container">
 <pre class="brush: sql; gutter: false; toolbar: false">
 SELECT * FROM clients WHERE (clients.orders_count IN (1,3,5))
 
 </pre>
 </div>
-<h4 id="not">2.4 NOT</h4>
-<p>SQL 的 <code>NOT</code> 可以使用 <code>where.not</code>。</p>
-<div class="code_container">
+<h4 id="not">2.4 NOT</h4><p>SQL 的 <code>NOT</code> 可以使用 <code>where.not</code>。</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
-Post.where.not(author: author)
+Article.where.not(author: author)
 
 </pre>
 </div>
-<p>換句話說，先不傳參數呼叫 <code>where</code>，再使用 <code>not</code> 傳入 <code>where</code> 條件。</p>
-<h3 id="排序">3 排序</h3>
-<p>要按照特定順序來取出記錄，可以使用 <code>order</code> 方法。</p>
-<p>比如有一組記錄，想要按照 <code>created_at</code> 升序排列：</p>
-<div class="code_container">
+<p>換句話說，先不傳參數呼叫 <code>where</code>，再使用 <code>not</code> 傳入 <code>where</code> 條件。</p><h3 id="排序">3 排序</h3><p>要按照特定順序來取出記錄，可以使用 <code>order</code> 方法。</p><p>比如有一組記錄，想要按照 <code>created_at</code> 升序排列：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 Client.order(:created_at)
 # OR
@@ -805,8 +683,7 @@ Client.order("created_at")
 
 </pre>
 </div>
-<p>升序 <code>ASC</code>；降序 <code>DESC</code>：</p>
-<div class="code_container">
+<p>升序 <code>ASC</code>；降序 <code>DESC</code>：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 Client.order(created_at: :desc)
 # OR
@@ -818,8 +695,7 @@ Client.order("created_at ASC")
 
 </pre>
 </div>
-<p>排序多個欄位：</p>
-<div class="code_container">
+<p>排序多個欄位：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 Client.order(orders_count: :asc, created_at: :desc)
 # OR
@@ -831,55 +707,44 @@ Client.order("orders_count ASC", "created_at DESC")
 
 </pre>
 </div>
-<p>如果想在不同的語境裡連鎖使用 <code>order</code>，SQL 的 ORDER BY 順序與呼叫順序相同：</p>
-<div class="code_container">
+<p>如果想在不同的語境裡連鎖使用 <code>order</code>，SQL 的 ORDER BY 順序與呼叫順序相同：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 Client.order("orders_count ASC").order("created_at DESC")
 # SELECT * FROM clients ORDER BY orders_count ASC, created_at DESC
 
 </pre>
 </div>
-<h3 id="選出特定欄位">4 選出特定欄位</h3>
-<p><code>Model.find</code> 預設會使用 <code>select *</code> 取出所有的欄位。</p>
-<p>只要取某些欄位的話，可以透過 <code>select</code> 方法來宣告。</p>
-<p>比如，只要 <code>viewable_by</code> 與 <code>locked</code> 欄位：</p>
-<div class="code_container">
+<h3 id="選出特定欄位">4 選出特定欄位</h3><p><code>Model.find</code> 預設會使用 <code>select *</code> 取出所有的欄位。</p><p>只要取某些欄位的話，可以透過 <code>select</code> 方法來宣告。</p><p>比如，只要 <code>viewable_by</code> 與 <code>locked</code> 欄位：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 Client.select("viewable_by, locked")
 
 </pre>
 </div>
-<p>會產生出像是下面的 SQL 語句：</p>
-<div class="code_container">
+<p>會產生出像是下面的 SQL 語句：</p><div class="code_container">
 <pre class="brush: sql; gutter: false; toolbar: false">
 SELECT viewable_by, locked FROM clients
 
 </pre>
 </div>
-<p>要小心使用 <code>select</code>。因為實體化出來的物件僅有所選欄位。如果試圖存取不存在的欄位，會得到 <code>ActiveModel::MissingAttributeError</code> 異常：</p>
-<div class="code_container">
+<p>要小心使用 <code>select</code>。因為實體化出來的物件僅有所選欄位。如果試圖存取不存在的欄位，會得到 <code>ActiveModel::MissingAttributeError</code> 異常：</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 ActiveModel::MissingAttributeError: missing attribute: &lt;attribute&gt;
 
 </pre>
 </div>
-<p>上面的 <code>&lt;attribute&gt;</code> 會是試圖存取的欄位。<code>id</code> 方法不會拋出 <code>ActiveModel::MissingAttributeError</code>，所以在關聯裡使用要格外注意，因為關聯要有 <code>id</code> 才能正常工作。</p>
-<p>如果想找出特定欄位所有不同的數值，使用 <code>distinct</code>：</p>
-<div class="code_container">
+<p>上面的 <code>&lt;attribute&gt;</code> 會是試圖存取的欄位。<code>id</code> 方法不會拋出 <code>ActiveModel::MissingAttributeError</code>，所以在關聯裡使用要格外注意，因為關聯要有 <code>id</code> 才能正常工作。</p><p>如果想找出特定欄位所有不同的數值，使用 <code>distinct</code>：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 Client.select(:name).distinct
 
 </pre>
 </div>
-<p>會產生如下 SQL：</p>
-<div class="code_container">
+<p>會產生如下 SQL：</p><div class="code_container">
 <pre class="brush: sql; gutter: false; toolbar: false">
 SELECT DISTINCT name FROM clients
 
 </pre>
 </div>
-<p>也可以之後移掉唯一性的限制：</p>
-<div class="code_container">
+<p>也可以之後移掉唯一性的限制：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 query = Client.select(:name).distinct
 # =&gt; Returns unique names
@@ -889,47 +754,37 @@ query.distinct(false)
 
 </pre>
 </div>
-<h3 id="limit-與-offset">5 Limit 與 Offset</h3>
-<p>要在 <code>Model.find</code> 裡使用 SQL 的 <code>LIMIT</code>，可以對 Active Record Relation 使用 <code>limit</code> 與 <code>offset</code> 方法 可以指定從第幾個記錄開始查詢。比如：</p>
-<div class="code_container">
+<h3 id="limit-與-offset">5 Limit 與 Offset</h3><p>要在 <code>Model.find</code> 裡使用 SQL 的 <code>LIMIT</code>，可以對 Active Record Relation 使用 <code>limit</code> 與 <code>offset</code> 方法 可以指定從第幾個記錄開始查詢。比如：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 Client.limit(5)
 
 </pre>
 </div>
-<p>最多會回傳 5 位客戶。因為沒指定 <code>offset</code>，會回傳資料比如的前 5 筆。產生的 SQL 會像是：</p>
-<div class="code_container">
+<p>最多會回傳 5 位客戶。因為沒指定 <code>offset</code>，會回傳資料比如的前 5 筆。產生的 SQL 會像是：</p><div class="code_container">
 <pre class="brush: sql; gutter: false; toolbar: false">
 SELECT * FROM clients LIMIT 5
 
 </pre>
 </div>
-<p>上例加上 <code>offset</code>：</p>
-<div class="code_container">
+<p>上例加上 <code>offset</code>：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 Client.limit(5).offset(30)
 
 </pre>
 </div>
-<p>會從資料庫裡的第 31 筆開始，最多回傳 5 位客戶的紀錄，產生的 SQL 像是：</p>
-<div class="code_container">
+<p>會從資料庫裡的第 31 筆開始，最多回傳 5 位客戶的紀錄，產生的 SQL 像是：</p><div class="code_container">
 <pre class="brush: sql; gutter: false; toolbar: false">
 SELECT * FROM clients LIMIT 5 OFFSET 30
 
 </pre>
 </div>
-<h3 id="group">6 Group</h3>
-<p>要在 <code>Model.find</code> 裡使用 SQL 的 <code>LIMIT</code>，可以對 Active Record Relation 使用 <code>group</code> 方法。</p>
-<p>比如想找出某日的訂單：</p>
-<div class="code_container">
+<h3 id="group">6 Group</h3><p>要在 <code>Model.find</code> 裡使用 SQL 的 <code>LIMIT</code>，可以對 Active Record Relation 使用 <code>group</code> 方法。</p><p>比如想找出某日的訂單：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 Order.select("date(created_at) as ordered_date, sum(price) as total_price").group("date(created_at)")
 
 </pre>
 </div>
-<p>會依照存在資料庫裡的順序，按日期回傳單筆訂單物件。</p>
-<p>產生的 SQL 會像是：</p>
-<div class="code_container">
+<p>會依照存在資料庫裡的順序，按日期回傳單筆訂單物件。</p><p>產生的 SQL 會像是：</p><div class="code_container">
 <pre class="brush: sql; gutter: false; toolbar: false">
 SELECT date(created_at) as ordered_date, sum(price) as total_price
 FROM orders
@@ -937,18 +792,14 @@ GROUP BY date(created_at)
 
 </pre>
 </div>
-<h3 id="having">7 Having</h3>
-<p>在 SQL 裡，可以使用 <code>HAVING</code> 子句來對 <code>GROUP BY</code> 欄位下條件。<code>Model.find</code> 加入 <code>:having</code> 選項。</p>
-<p>比如：</p>
-<div class="code_container">
+<h3 id="having">7 Having</h3><p>在 SQL 裡，可以使用 <code>HAVING</code> 子句來對 <code>GROUP BY</code> 欄位下條件。<code>Model.find</code> 加入 <code>:having</code> 選項。</p><p>比如：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 Order.select("date(created_at) as ordered_date, sum(price) as total_price").
   group("date(created_at)").having("sum(price) &gt; ?", 100)
 
 </pre>
 </div>
-<p>產生的 SQL 會像是：</p>
-<div class="code_container">
+<p>產生的 SQL 會像是：</p><div class="code_container">
 <pre class="brush: sql; gutter: false; toolbar: false">
 SELECT date(created_at) as ordered_date, sum(price) as total_price
 FROM orders
@@ -957,163 +808,127 @@ HAVING sum(price) &gt; 100
 
 </pre>
 </div>
-<p>這會回傳每天總價大於 <code>100</code> 的訂單。</p>
-<h3 id="覆蓋條件">8 覆蓋條件</h3>
-<h4 id="except">8.1 <code>except</code>
-</h4>
-<p>用 <code>except</code> 來去掉特定條件，如：</p>
-<div class="code_container">
+<p>這會回傳每天總價大於 <code>100</code> 的訂單。</p><h3 id="覆蓋條件">8 覆蓋條件</h3><h4 id="unscope">8.1 <code>unscope</code>
+</h4><p>可以使用 <code>unscope</code> 來指定要移除的特定條件，譬如：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
-Post.where('id &gt; 10').limit(20).order('id asc').except(:order)
+Article.where('id &gt; 10').limit(20).order('id asc').except(:order)
 
 </pre>
 </div>
-<p>執行的 SQL 語句：</p>
-<div class="code_container">
+<p>執行的 SQL 可能是：</p><div class="code_container">
 <pre class="brush: sql; gutter: false; toolbar: false">
-SELECT * FROM posts WHERE id &gt; 10 LIMIT 20
+SELECT * FROM articles WHERE id &gt; 10 LIMIT 20
 
-# Original query without `except`
-SELECT * FROM posts WHERE id &gt; 10 ORDER BY id asc LIMIT 20
-
+# Original query without `unscope`
+SELECT * FROM articles WHERE id &gt; 10 ORDER BY id asc LIMIT 20
 
 </pre>
 </div>
-<h4 id="unscope">8.2 <code>unscope</code>
-</h4>
-<p><code>except</code> 在 Relation 合併時無效，比如：</p>
-<div class="code_container">
+<p>也可以 <code>unscope</code> 特定的 <code>where</code> 子句，譬如：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
-Post.comments.except(:order)
+Article.where(id: 10, trashed: false).unscope(where: :id)
+# SELECT "articles".* FROM "articles" WHERE trashed = 0
 
 </pre>
 </div>
-<p>如果 <code>.order(...)</code> 從預設 scope 而來，則不會消去。為了要移掉所有 <code>.order(...)</code>，使用 <code>unscope</code>：</p>
-<div class="code_container">
+<p>使用了 <code>unscope</code> 的 Relation 會影響與其合併的 Relation：</p><div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+Article.order('id asc').merge(Article.unscope(:order))
+# SELECT "articles".* FROM "articles"
+
+</pre>
+</div>
+<h4 id="only">8.2 <code>only</code>
+</h4><p><code>only</code> 可以留下特定條件，比如：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
-Post.order('id DESC').limit(20).unscope(:order) = Post.limit(20)
-Post.order('id DESC').limit(20).unscope(:order, :limit) = Post.all
+Article.where('id &gt; 10').limit(20).order('id desc').only(:order, :where)
 
 </pre>
 </div>
-<p><code>unscope</code> 特定的 <code>where</code> 子句也可以：</p>
-<div class="code_container">
-<pre class="brush: ruby; gutter: false; toolbar: false">
-Post.where(id: 10).limit(1).unscope({ where: :id }, :limit).order('id DESC') = Post.order('id DESC')
-
-</pre>
-</div>
-<h4 id="only">8.3 <code>only</code>
-</h4>
-<p><code>only</code> 可以留下特定條件，比如：</p>
-<div class="code_container">
-<pre class="brush: ruby; gutter: false; toolbar: false">
-Post.where('id &gt; 10').limit(20).order('id desc').only(:order, :where)
-
-</pre>
-</div>
-<p>執行的 SQL 語句：</p>
-<div class="code_container">
+<p>執行的 SQL 語句：</p><div class="code_container">
 <pre class="brush: sql; gutter: false; toolbar: false">
-SELECT * FROM posts WHERE id &gt; 10 ORDER BY id DESC
+SELECT * FROM articles WHERE id &gt; 10 ORDER BY id DESC
 
 # Original query without `only`
-SELECT "posts".* FROM "posts" WHERE (id &gt; 10) ORDER BY id desc LIMIT 20
-
+SELECT "articles".* FROM "articles" WHERE (id &gt; 10) ORDER BY id desc LIMIT 20
 
 </pre>
 </div>
-<h4 id="reorder">8.4 <code>reorder</code>
-</h4>
-<p><code>reorder</code> 可以覆蓋掉預設 scope 的 <code>order</code> 條件：</p>
-<div class="code_container">
+<h4 id="reorder">8.3 <code>reorder</code>
+</h4><p><code>reorder</code> 可以覆蓋掉預設 scope 的 <code>order</code> 條件：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
-class Post &lt; ActiveRecord::Base
+class Article &lt; ActiveRecord::Base
   ..
   ..
   has_many :comments, -&gt; { order('posted_at DESC') }
 end
 
-Post.find(10).comments.reorder('name')
+Article.find(10).comments.reorder('name')
 
 </pre>
 </div>
-<p>執行的 SQL 語句：</p>
-<div class="code_container">
+<p>執行的 SQL 語句：</p><div class="code_container">
 <pre class="brush: sql; gutter: false; toolbar: false">
-SELECT * FROM posts WHERE id = 10 ORDER BY name
+SELECT * FROM comments WHERE id = 10 ORDER BY name
 
 </pre>
 </div>
-<p>原本會執行的 SQL 語句（沒用 <code>reorder</code>）：</p>
-<div class="code_container">
+<p>原本會執行的 SQL 語句（沒用 <code>reorder</code>）：</p><div class="code_container">
 <pre class="brush: sql; gutter: false; toolbar: false">
-SELECT * FROM posts WHERE id = 10 ORDER BY posted_at DESC
+SELECT * FROM comments WHERE id = 10 ORDER BY posted_at DESC
 
 </pre>
 </div>
-<h4 id="reverse_order">8.5 <code>reverse_order</code>
-</h4>
-<p><code>reverse_order</code> 方法反轉 <code>order</code> 條件。</p>
-<div class="code_container">
+<h4 id="reverse_order">8.4 <code>reverse_order</code>
+</h4><p><code>reverse_order</code> 方法反轉 <code>order</code> 條件。</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 Client.where("orders_count &gt; 10").order(:name).reverse_order
 
 </pre>
 </div>
-<p>執行的 SQL 語句（<code>ASC</code> 反轉為 <code>DESC</code>）：</p>
-<div class="code_container">
+<p>執行的 SQL 語句（<code>ASC</code> 反轉為 <code>DESC</code>）：</p><div class="code_container">
 <pre class="brush: sql; gutter: false; toolbar: false">
 SELECT * FROM clients WHERE orders_count &gt; 10 ORDER BY name DESC
 
 </pre>
 </div>
-<p>如果查詢裡沒有 <code>order</code> 條件，預設 <code>reverse_order</code> 會對主鍵做反轉。</p>
-<div class="code_container">
+<p>如果查詢裡沒有 <code>order</code> 條件，預設 <code>reverse_order</code> 會對主鍵做反轉。</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 Client.where("orders_count &gt; 10").reverse_order
 
 </pre>
 </div>
-<p>執行的 SQL 語句：</p>
-<div class="code_container">
+<p>執行的 SQL 語句：</p><div class="code_container">
 <pre class="brush: sql; gutter: false; toolbar: false">
 SELECT * FROM clients WHERE orders_count &gt; 10 ORDER BY clients.id DESC
 
 </pre>
 </div>
-<p><code>reverse_order</code> <strong>不接受參數</strong>。</p>
-<h3 id="空-relation">9 空 Relation</h3>
-<p><code>none</code> 方法回傳一個不包含任何記錄、可連鎖使用的 Relation。<code>none</code> 回傳的 Relation 上做查詢，仍會回傳空的 Relation。應用場景是回傳的 Relation 可能沒有記錄，但需要可以連鎖使用。</p>
-<div class="code_container">
+<p><code>reverse_order</code> <strong>不接受參數</strong>。</p><h3 id="空-relation">9 空 Relation</h3><p><code>none</code> 方法回傳一個不包含任何記錄、可連鎖使用的 Relation。<code>none</code> 回傳的 Relation 上做查詢，仍會回傳空的 Relation。應用場景是回傳的 Relation 可能沒有記錄，但需要可以連鎖使用。</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
-Post.none # returns an empty Relation and fires no queries.
+Article.none # returns an empty Relation and fires no queries.
 
 </pre>
 </div>
-<p>回傳空的 Relation，不會對資料庫下查詢。</p>
-<div class="code_container">
+<p>回傳空的 Relation，不會對資料庫下查詢。</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
-# The visible_posts method below is expected to return a Relation.
-@posts = current_user.visible_posts.where(name: params[:name])
+# The visible_articles method below is expected to return a Relation.
+@articles = current_user.visible_articles.where(name: params[:name])
 
-def visible_posts
+def visible_articles
   case role
   when 'Country Manager'
-    Post.where(country: country)
+    Article.where(country: country)
   when 'Reviewer'
-    Post.published
+    Article.published
   when 'Bad User'
-    Post.none # =&gt; returning [] or nil breaks the caller code in this case
+    Article.none # =&gt; returning [] or nil breaks the caller code in this case
   end
 end
 
 </pre>
 </div>
-<p>上例 <code>visible_posts</code> 可能沒有可見的 <code>posts</code>，但之後還有 <code>where</code> 子句，此時沒有 <code>posts</code> 的情況可以使用 <code>Post.none</code>。</p>
-<h3 id="唯讀物件">10 唯讀物件</h3>
-<p>Active Record 提供 <code>readonly</code> 方法，用來禁止修改回傳的物件。試圖要修改 <code>readonly</code> 物件徒勞無功，並會拋出 <code>ActiveRecord::ReadOnlyRecord</code> 異常。</p>
-<div class="code_container">
+<p>上例 <code>visible_articles</code> 可能沒有可見的 <code>articles</code>，但之後還有 <code>where</code> 子句，此時沒有 <code>articles</code> 的情況可以使用 <code>Article.none</code>。</p><h3 id="唯讀物件">10 唯讀物件</h3><p>Active Record 提供 <code>readonly</code> 方法，用來禁止修改回傳的物件。試圖要修改 <code>readonly</code> 物件徒勞無功，並會拋出 <code>ActiveRecord::ReadOnlyRecord</code> 異常。</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 client = Client.readonly.first
 client.visits += 1
@@ -1121,19 +936,12 @@ client.save
 
 </pre>
 </div>
-<p><code>client</code> 明確設定為唯讀物件，上面的程式碼在執行到 <code>client.save</code> 時會拋出 <code>ActiveRecord::ReadOnlyRecord</code> 異常，因為 <code>visits</code> 的數值改變了。</p>
-<h3 id="更新時鎖定記錄">11 更新時鎖定記錄</h3>
-<p>鎖定可以避免更新可能發生的 race condition，確保更新是原子性的操作。</p>
-<p>Active Record 提供兩種鎖定機制：</p>
+<p><code>client</code> 明確設定為唯讀物件，上面的程式碼在執行到 <code>client.save</code> 時會拋出 <code>ActiveRecord::ReadOnlyRecord</code> 異常，因為 <code>visits</code> 的數值改變了。</p><h3 id="更新時鎖定記錄">11 更新時鎖定記錄</h3><p>鎖定可以避免更新可能發生的 race condition，確保更新是原子性的操作。</p><p>Active Record 提供兩種鎖定機制：</p>
 <ul>
 <li>樂觀鎖定（Optimistic Locking）</li>
 <li>悲觀鎖定（Pessimistic Locking）</li>
 </ul>
-<h4 id="樂觀鎖定">11.1 樂觀鎖定</h4>
-<p>樂觀鎖定允許多個使用者編輯相同的紀錄，並假設資料衝突發生衝突的可能性最小。透過檢查該記錄從資料庫取出後，是否有另個進程修改此記錄。如果有其他進程同時修改記錄時，會拋出 <code>ActiveRecord::StaleObjectError</code> 異常。</p>
-<p><strong>樂觀鎖定欄位</strong></p>
-<p>要使用樂觀鎖定，資料表需要加一個叫做 <code>lock_version</code> 的整數欄位。記錄更新時，Active Record 會遞增 <code>lock_version</code>。如果正在更新的記錄的 <code>lock_version</code> 比資料庫裡的 <code>lock_version</code> 值小時，會拋出 <code>ActiveRecord::StaleObjectError</code>，比如：</p>
-<div class="code_container">
+<h4 id="樂觀鎖定">11.1 樂觀鎖定</h4><p>樂觀鎖定允許多個使用者編輯相同的紀錄，並假設資料衝突發生衝突的可能性最小。透過檢查該記錄從資料庫取出後，是否有另個進程修改此記錄。如果有其他進程同時修改記錄時，會拋出 <code>ActiveRecord::StaleObjectError</code> 異常。</p><p><strong>樂觀鎖定欄位</strong></p><p>要使用樂觀鎖定，資料表需要加一個叫做 <code>lock_version</code> 的整數欄位。記錄更新時，Active Record 會遞增 <code>lock_version</code>。如果正在更新的記錄的 <code>lock_version</code> 比資料庫裡的 <code>lock_version</code> 值小時，會拋出 <code>ActiveRecord::StaleObjectError</code>，比如：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 c1 = Client.find(1)
 c2 = Client.find(1)
@@ -1146,10 +954,7 @@ c2.save # Raises an ActiveRecord::StaleObjectError
 
 </pre>
 </div>
-<p>拋出異常後您要負責處理，將異常救回來。看是要回滾、合併或是根據商業邏輯來處理衝突。</p>
-<p>這個行為可以透過設定 <code>ActiveRecord::Base.lock_optimistically = false</code> 來關掉。</p>
-<p><code>lock_version</code> 欄位名可以透過 <code>ActiveRecord::Base</code> 提供的類別屬性 <code>locking_column</code> 來覆蓋：</p>
-<div class="code_container">
+<p>拋出異常後您要負責處理，將異常救回來。看是要回滾、合併或是根據商業邏輯來處理衝突。</p><p>這個行為可以透過設定 <code>ActiveRecord::Base.lock_optimistically = false</code> 來關掉。</p><p><code>lock_version</code> 欄位名可以透過 <code>ActiveRecord::Base</code> 提供的類別屬性 <code>locking_column</code> 來覆蓋：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Client &lt; ActiveRecord::Base
   self.locking_column = :lock_client_column
@@ -1157,10 +962,7 @@ end
 
 </pre>
 </div>
-<h4 id="悲觀鎖定">11.2 悲觀鎖定</h4>
-<p>悲觀鎖定使用資料庫提供的鎖定機制。在建立 Relation 時，使用 <code>lock</code> 可以對選擇的列獲得一個互斥鎖。通常使用 <code>lock</code> 的 Relation 會包在 transaction 裡，避免死鎖的情況發生。</p>
-<p>比如：</p>
-<div class="code_container">
+<h4 id="悲觀鎖定">11.2 悲觀鎖定</h4><p>悲觀鎖定使用資料庫提供的鎖定機制。在建立 Relation 時，使用 <code>lock</code> 可以對選擇的列獲得一個互斥鎖。通常使用 <code>lock</code> 的 Relation 會包在 transaction 裡，避免死鎖的情況發生。</p><p>比如：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 Item.transaction do
   i = Item.lock.first
@@ -1170,8 +972,7 @@ end
 
 </pre>
 </div>
-<p>上面的程式碼在 MySQL 會產生如下 SQL：</p>
-<div class="code_container">
+<p>上面的程式碼在 MySQL 會產生如下 SQL：</p><div class="code_container">
 <pre class="brush: sql; gutter: false; toolbar: false">
 SQL (0.2ms)   BEGIN
 Item Load (0.3ms)   SELECT * FROM `items` LIMIT 1 FOR UPDATE
@@ -1180,8 +981,7 @@ SQL (0.8ms)   COMMIT
 
 </pre>
 </div>
-<p><code>lock</code> 方法可以傳純 SQL，來使用不同種類的鎖。比如 MySQL 有 <code>LOCK IN SHARE MODE</code>，鎖定記錄同時允許查詢讀取。直接傳入 <code>lock</code> 即可使用：</p>
-<div class="code_container">
+<p><code>lock</code> 方法可以傳純 SQL，來使用不同種類的鎖。比如 MySQL 有 <code>LOCK IN SHARE MODE</code>，鎖定記錄同時允許查詢讀取。直接傳入 <code>lock</code> 即可使用：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 Item.transaction do
   i = Item.lock("LOCK IN SHARE MODE").find(1)
@@ -1190,8 +990,7 @@ end
 
 </pre>
 </div>
-<p>如果已經有 Model 的實體，使用以下寫法，可以將操作包在 transaction 裡，並同時獲得鎖：</p>
-<div class="code_container">
+<p>如果已經有 Model 的實體，使用以下寫法，可以將操作包在 transaction 裡，並同時獲得鎖：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 item = Item.first
 item.with_lock do
@@ -1202,41 +1001,32 @@ end
 
 </pre>
 </div>
-<h3 id="連接資料表">12 連接資料表</h3>
-<p>Active Record 提供一個 Finder 方法，<code>joins</code>。用來對 SQL 指定 <code>JOIN</code> 子句。<code>joins</code> 有多種使用方式。</p>
-<h4 id="使用字串形式的-sql-片段">12.1 使用字串形式的 SQL 片段</h4>
-<p>在 <code>joins</code> 裡寫純 SQL 來指定 <code>JOIN</code>：</p>
-<div class="code_container">
+<h3 id="連接資料表">12 連接資料表</h3><p>Active Record 提供一個 Finder 方法，<code>joins</code>。用來對 SQL 指定 <code>JOIN</code> 子句。<code>joins</code> 有多種使用方式。</p><h4 id="使用字串形式的-sql-片段">12.1 使用字串形式的 SQL 片段</h4><p>在 <code>joins</code> 裡寫純 SQL 來指定 <code>JOIN</code>：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 Client.joins('LEFT OUTER JOIN addresses ON addresses.client_id = clients.id')
 
 </pre>
 </div>
-<p>會產生下面的 SQL：</p>
-<div class="code_container">
+<p>會產生下面的 SQL：</p><div class="code_container">
 <pre class="brush: sql; gutter: false; toolbar: false">
 SELECT clients.* FROM clients LEFT OUTER JOIN addresses ON addresses.client_id = clients.id
 
 </pre>
 </div>
-<h4 id="使用關聯名稱的陣列或-hash-形式">12.2 使用關聯名稱的陣列或 Hash 形式</h4>
-<div class="warning"><p>此法僅對 <code>INNER JOIN</code> 有效。</p></div>
-<p>Active Record 允許在使用 <code>joins</code> 方法時，使用關聯名稱來指定 <code>JOIN</code> 子句。</p>
-<p>舉個例子，以下有 <code>Category</code>、<code>Post</code>、<code>Comment</code>、<code>Guest</code> 以及 <code>Tag</code> Models：</p>
-<div class="code_container">
+<h4 id="使用關聯名稱的陣列或-hash-形式">12.2 使用關聯名稱的陣列或 Hash 形式</h4><div class="warning"><p>此法僅對 <code>INNER JOIN</code> 有效。</p></div><p>Active Record 允許在使用 <code>joins</code> 方法時，使用關聯名稱來指定 <code>JOIN</code> 子句。</p><p>舉個例子，以下有 <code>Category</code>、<code>Article</code>、<code>Comment</code>、<code>Guest</code> 以及 <code>Tag</code> Models：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Category &lt; ActiveRecord::Base
-  has_many :posts
+  has_many :articles
 end
 
-class Post &lt; ActiveRecord::Base
+class Article &lt; ActiveRecord::Base
   belongs_to :category
   has_many :comments
   has_many :tags
 end
 
 class Comment &lt; ActiveRecord::Base
-  belongs_to :post
+  belongs_to :article
   has_one :guest
 end
 
@@ -1245,103 +1035,83 @@ class Guest &lt; ActiveRecord::Base
 end
 
 class Tag &lt; ActiveRecord::Base
-  belongs_to :post
+  belongs_to :article
 end
 
 </pre>
 </div>
-<p>接下來，以下的方法都會使用 <code>INNER JOIN</code> 來產生出連接查詢（join queries）：</p>
-<h5 id="連接單個關聯">12.2.1 連接單個關聯</h5>
-<div class="code_container">
+<p>接下來，以下的方法都會使用 <code>INNER JOIN</code> 來產生出連接查詢（join queries）：</p><h5 id="連接單個關聯">12.2.1 連接單個關聯</h5><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
-Category.joins(:posts)
+Category.joins(:articles)
 
 </pre>
 </div>
-<p>會產生：</p>
-<div class="code_container">
+<p>會產生：</p><div class="code_container">
 <pre class="brush: sql; gutter: false; toolbar: false">
 SELECT categories.* FROM categories
-  INNER JOIN posts ON posts.category_id = categories.id
+  INNER JOIN articles ON articles.category_id = categories.id
 
 </pre>
 </div>
-<p>用白話解釋是：“依文章分類來回傳分類物件”。注意到如果有 <code>post</code> 是相同類別，會看到重複的分類物件。若要去掉重複結果，可以使用 <code>Category.joins(:posts).uniq</code>。</p>
-<h5 id="連接多個關聯">12.2.2 連接多個關聯</h5>
-<div class="code_container">
+<p>用白話解釋是：“依文章分類來回傳分類物件”。注意到如果有 <code>article</code> 是相同類別，會看到重複的分類物件。若要去掉重複結果，可以使用 <code>Category.joins(:articles).uniq</code>。</p><h5 id="連接多個關聯">12.2.2 連接多個關聯</h5><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
-Post.joins(:category, :comments)
+Article.joins(:category, :comments)
 
 </pre>
 </div>
-<p>會產生：</p>
-<div class="code_container">
+<p>會產生：</p><div class="code_container">
 <pre class="brush: sql; gutter: false; toolbar: false">
-SELECT posts.* FROM posts
-  INNER JOIN categories ON posts.category_id = categories.id
-  INNER JOIN comments ON comments.post_id = posts.id
+SELECT articles.* FROM articles
+  INNER JOIN categories ON articles.category_id = categories.id
+  INNER JOIN comments ON comments.article_id = articles.id
 
 </pre>
 </div>
-<p>用白話解釋是：“依分類來回傳文章物件，且文章至少有一則評論”。有多則評論的文章將會出現很多次。</p>
-<h5 id="連接一層嵌套關聯">12.2.3 連接一層嵌套關聯</h5>
-<div class="code_container">
+<p>用白話解釋是：“依分類來回傳文章物件，且文章至少有一則評論”。有多則評論的文章將會出現很多次。</p><h5 id="連接一層嵌套關聯">12.2.3 連接一層嵌套關聯</h5><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
-Post.joins(comments: :guest)
+Article.joins(comments: :guest)
 
 </pre>
 </div>
-<p>會產生：</p>
-<div class="code_container">
+<p>會產生：</p><div class="code_container">
 <pre class="brush: sql; gutter: false; toolbar: false">
-SELECT posts.* FROM posts
-  INNER JOIN comments ON comments.post_id = posts.id
+SELECT articles.* FROM articles
+  INNER JOIN comments ON comments.article_id = articles.id
   INNER JOIN guests ON guests.comment_id = comments.id
 
 </pre>
 </div>
-<p>用白話解釋是：“回傳所有有訪客評論的文章”。</p>
-<h5 id="連接多層嵌套關聯">12.2.4 連接多層嵌套關聯</h5>
-<div class="code_container">
+<p>用白話解釋是：“回傳所有有訪客評論的文章”。</p><h5 id="連接多層嵌套關聯">12.2.4 連接多層嵌套關聯</h5><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
-Category.joins(posts: [{comments: :guest}, :tags])
+Category.joins(articles: [{comments: :guest}, :tags])
 
 </pre>
 </div>
-<p>會產生：</p>
-<div class="code_container">
+<p>會產生：</p><div class="code_container">
 <pre class="brush: sql; gutter: false; toolbar: false">
 SELECT categories.* FROM categories
-  INNER JOIN posts ON posts.category_id = categories.id
-  INNER JOIN comments ON comments.post_id = posts.id
+  INNER JOIN articles ON articles.category_id = categories.id
+  INNER JOIN comments ON comments.article_id = articles.id
   INNER JOIN guests ON guests.comment_id = comments.id
-  INNER JOIN tags ON tags.post_id = posts.id
+  INNER JOIN tags ON tags.article_id = articles.id
 
 </pre>
 </div>
-<h4 id="對連接的資料表指定條件">12.3 對連接的資料表指定條件</h4>
-<p>可以對連接的資料表使用一般的<a href="#">陣列</a>與<a href="#">字串</a>條件。[Hash]條件則是有提供特殊的語法來下條件：</p>
-<div class="code_container">
+<h4 id="對連接的資料表指定條件">12.3 對連接的資料表指定條件</h4><p>可以對連接的資料表使用一般的<a href="#">陣列</a>與<a href="#">字串</a>條件。[Hash]條件則是有提供特殊的語法來下條件：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 time_range = (Time.now.midnight - 1.day)..Time.now.midnight
 Client.joins(:orders).where('orders.created_at' =&gt; time_range)
 
 </pre>
 </div>
-<p>另一種更簡潔的寫法是使用嵌套 Hash：</p>
-<div class="code_container">
+<p>另一種更簡潔的寫法是使用嵌套 Hash：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 time_range = (Time.now.midnight - 1.day)..Time.now.midnight
 Client.joins(:orders).where(orders: {created_at: time_range})
 
 </pre>
 </div>
-<p>會用 <code>BETWEEN</code> 找到所有昨天下訂單的客戶。</p>
-<h3 id="eager-loading-關聯">13 Eager Loading 關聯</h3>
-<p>Eager loading 是載入由 <code>Model.find</code> 回傳的物件關聯記錄的機制，將查詢數降到最低。</p>
-<p><strong>N + 1 查詢問題</strong></p>
-<p>考慮以下程式碼。找出 10 位客戶，印出他們的郵遞區號：</p>
-<div class="code_container">
+<p>會用 <code>BETWEEN</code> 找到所有昨天下訂單的客戶。</p><h3 id="eager-loading-關聯">13 Eager Loading 關聯</h3><p>Eager loading 是載入由 <code>Model.find</code> 回傳的物件關聯記錄的機制，將查詢數降到最低。</p><p><strong>N + 1 查詢問題</strong></p><p>考慮以下程式碼。找出 10 位客戶，印出他們的郵遞區號：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 clients = Client.limit(10)
 
@@ -1351,11 +1121,7 @@ end
 
 </pre>
 </div>
-<p>程式碼一眼看起來沒什麼問題。但問題是，總共執行了幾次查詢？上例程式碼總共會執行 <strong>11</strong> 次查詢，1 次用來取得 10 位客戶、10 次用來取得客戶地址的郵遞區號。</p>
-<p><strong>N + 1 查詢的解法</strong></p>
-<p>Active Record 透過使用 <code>Model.find</code> 搭配 <code>includes</code> 方法，可預先指定所有會載入的關聯。有了 <code>includes</code>，Active Record 確保所有指定的關聯，加載的查詢減到最少。</p>
-<p>用 Eager Loading 重寫上例：</p>
-<div class="code_container">
+<p>程式碼一眼看起來沒什麼問題。但問題是，總共執行了幾次查詢？上例程式碼總共會執行 <strong>11</strong> 次查詢，1 次用來取得 10 位客戶、10 次用來取得客戶地址的郵遞區號。</p><p><strong>N + 1 查詢的解法</strong></p><p>Active Record 透過使用 <code>Model.find</code> 搭配 <code>includes</code> 方法，可預先指定所有會載入的關聯。有了 <code>includes</code>，Active Record 確保所有指定的關聯，加載的查詢減到最少。</p><p>用 Eager Loading 重寫上例：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 clients = Client.includes(:address).limit(10)
 
@@ -1365,8 +1131,7 @@ end
 
 </pre>
 </div>
-<p>上面的程式碼只會執行 <strong>2</strong> 次查詢。</p>
-<div class="code_container">
+<p>上面的程式碼只會執行 <strong>2</strong> 次查詢。</p><div class="code_container">
 <pre class="brush: sql; gutter: false; toolbar: false">
 SELECT * FROM clients LIMIT 10
 SELECT addresses.* FROM addresses
@@ -1374,57 +1139,41 @@ SELECT addresses.* FROM addresses
 
 </pre>
 </div>
-<h4 id="eager-loading-多個關聯">13.1 Eager Loading 多個關聯</h4>
-<p>使用 <code>Model.find</code> 與 <code>includes</code> 方法，Active Record 可以 Eager Load 任意數量的關聯。關聯可以以陣列、Hash 或是嵌套 Hash（內有陣列、Hash）形式指定。</p>
-<h5 id="陣列有多個關聯">13.1.1 陣列有多個關聯</h5>
-<div class="code_container">
+<h4 id="eager-loading-多個關聯">13.1 Eager Loading 多個關聯</h4><p>使用 <code>Model.find</code> 與 <code>includes</code> 方法，Active Record 可以 Eager Load 任意數量的關聯。關聯可以以陣列、Hash 或是嵌套 Hash（內有陣列、Hash）形式指定。</p><h5 id="陣列有多個關聯">13.1.1 陣列有多個關聯</h5><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
-Post.includes(:category, :comments)
+Article.includes(:category, :comments)
 
 </pre>
 </div>
-<p>會加載所有文章，以及每篇文章的類別與評論。</p>
-<h5 id="嵌套關聯-hash">13.1.2 嵌套關聯 Hash</h5>
-<div class="code_container">
+<p>會加載所有文章，以及每篇文章的類別與評論。</p><h5 id="嵌套關聯-hash">13.1.2 嵌套關聯 Hash</h5><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
-Category.includes(posts: [{comments: :guest}, :tags]).find(1)
+Category.includes(articles: [{ comments: :guest }, :tags]).find(1)
 
 </pre>
 </div>
-<p>會找到 <code>category</code> <code>id</code> 為 1 的類別，並加載與類別相關聯的文章。以及文章的標籤與評論跟評論的 <code>guest</code> 關聯。</p>
-<h4 id="對-eager-loaded-關聯下條件">13.2 對 Eager Loaded 關聯下條件</h4>
-<p>雖然 Active Record 允許您像 <code>joins</code> 那樣對 eager loaded 關聯下條件，但推薦的做法是使用<a href="#">連接資料表</a>。</p>
-<p>但若非要這麼做，可以像平常那樣使用 <code>where</code>：</p>
-<div class="code_container">
+<p>會找到 <code>category</code> <code>id</code> 為 1 的類別，並加載與類別相關聯的文章。以及文章的標籤與評論跟評論的 <code>guest</code> 關聯。</p><h4 id="對-eager-loaded-關聯下條件">13.2 對 Eager Loaded 關聯下條件</h4><p>雖然 Active Record 允許您像 <code>joins</code> 那樣對 eager loaded 關聯下條件，但推薦的做法是使用<a href="#">連接資料表</a>。</p><p>但若非要這麼做，可以像平常那樣使用 <code>where</code>：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
-Post.includes(:comments).where("comments.visible" =&gt; true)
+Article.includes(:comments).where("comments.visible" =&gt; true)
 
 </pre>
 </div>
-<p>產生的查詢語句會有 <code>LEFT OUTER JOIN</code>，而 <code>joins</code> 產生的是 <code>INNER JOIN</code>。</p>
-<div class="code_container">
+<p>產生的查詢語句會有 <code>LEFT OUTER JOIN</code>，而 <code>joins</code> 產生的是 <code>INNER JOIN</code>。</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
-SELECT "posts"."id" AS t0_r0, ... "comments"."updated_at" AS t1_r5 FROM "posts" LEFT OUTER JOIN "comments" ON "comments"."post_id" = "posts"."id" WHERE (comments.visible = 1)
+SELECT "articles"."id" AS t0_r0, ... "comments"."updated_at" AS t1_r5 FROM "articles" LEFT OUTER JOIN "comments" ON "comments"."article_id" = "articles"."id" WHERE (comments.visible = 1)
 
 </pre>
 </div>
-<p>如果沒有下 <code>where</code> 條件，則會像平常那樣產生兩條查詢。</p>
-<p>上例若文章都沒有評論，仍會載入所有文章。然而使用 <code>joins</code> （<code>INNER JOIN</code>）<strong>必須</strong>要滿足連接條件，不然不會回傳任何記錄。</p>
-<h3 id="作用域">14 作用域</h3>
-<p>作用域（Scopes）允許將常用查詢定義成關聯物件或 Model 的方法。作用域可以使用前面介紹過的 <code>where</code>、<code>joins</code>、<code>includes</code> 等方法。所有作用域方法會回傳一個 <code>ActiveRecord::Relation</code> 物件，允許之後的方法（像是作用域）來繼續呼叫。</p>
-<p>要定義一個簡單的作用域，在類別裡使用 <code>scope</code> 方法，傳入呼叫此作用域時想執行的查詢即可：</p>
-<div class="code_container">
+<p>如果沒有下 <code>where</code> 條件，則會像平常那樣產生兩條查詢。</p><p>上例若文章都沒有評論，仍會載入所有文章。然而使用 <code>joins</code> （<code>INNER JOIN</code>）<strong>必須</strong>要滿足連接條件，不然不會回傳任何記錄。</p><h3 id="作用域">14 作用域</h3><p>作用域（Scopes）允許將常用查詢定義成關聯物件或 Model 的方法。作用域可以使用前面介紹過的 <code>where</code>、<code>joins</code>、<code>includes</code> 等方法。所有作用域方法會回傳一個 <code>ActiveRecord::Relation</code> 物件，允許之後的方法（像是作用域）來繼續呼叫。</p><p>要定義一個簡單的作用域，在類別裡使用 <code>scope</code> 方法，傳入呼叫此作用域時想執行的查詢即可：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
-class Post &lt; ActiveRecord::Base
+class Article &lt; ActiveRecord::Base
   scope :published, -&gt; { where(published: true) }
 end
 
 </pre>
 </div>
-<p>這與定義一個類別方法完全相同，用那個完全是個人喜好：</p>
-<div class="code_container">
+<p>這與定義一個類別方法完全相同，用那個完全是個人喜好：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
-class Post &lt; ActiveRecord::Base
+class Article &lt; ActiveRecord::Base
   def self.published
     where(published: true)
   end
@@ -1432,52 +1181,45 @@ end
 
 </pre>
 </div>
-<p>作用域可以與其它作用域連鎖使用：</p>
-<div class="code_container">
+<p>作用域可以與其它作用域連鎖使用：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
-class Post &lt; ActiveRecord::Base
+class Article &lt; ActiveRecord::Base
   scope :published,               -&gt; { where(published: true) }
   scope :published_and_commented, -&gt; { published.where("comments_count &gt; 0") }
 end
 
 </pre>
 </div>
-<p>要呼叫 <code>published</code> 作用域，可以在類上呼叫：</p>
-<div class="code_container">
+<p>要呼叫 <code>published</code> 作用域，可以在類上呼叫：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
-Post.published # =&gt; [published posts]
+Article.published # =&gt; [published articles]
 
 </pre>
 </div>
-<p>或是對由 <code>Post</code> 物件組成的關聯使用：</p>
-<div class="code_container">
+<p>或是對由 <code>Article</code> 物件組成的關聯使用：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 category = Category.first
-category.posts.published # =&gt; [published posts belonging to this category]
+category.articles.published # =&gt; [published articles belonging to this category]
 
 </pre>
 </div>
-<h4 id="傳入參數">14.1 傳入參數</h4>
-<p>作用域可接受參數：</p>
-<div class="code_container">
+<h4 id="傳入參數">14.1 傳入參數</h4><p>作用域可接受參數：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
-class Post &lt; ActiveRecord::Base
+class Article &lt; ActiveRecord::Base
   scope :created_before, -&gt;(time) { where("created_at &lt; ?", time) }
 end
 
 </pre>
 </div>
-<p>像呼叫類別方法那般使用作用域</p>
-<div class="code_container">
+<p>像呼叫類別方法那般使用作用域</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
-Post.created_before(Time.zone.now)
+Article.created_before(Time.zone.now)
 
 </pre>
 </div>
-<p>這只是重複類別方法可提供的功能。</p>
-<div class="code_container">
+<p>這只是重複類別方法可提供的功能。</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
-class Post &lt; ActiveRecord::Base
+class Article &lt; ActiveRecord::Base
   def self.created_before(time)
     where("created_at &lt; ?", time)
   end
@@ -1485,16 +1227,13 @@ end
 
 </pre>
 </div>
-<p>作用域需要接受參數偏好使用類別方法。接受參數的類別方法仍可在關聯物件上使用：</p>
-<div class="code_container">
+<p>作用域需要接受參數偏好使用類別方法。接受參數的類別方法仍可在關聯物件上使用：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
-category.posts.created_before(time)
+category.articles.created_before(time)
 
 </pre>
 </div>
-<h4 id="合併作用域">14.2 合併作用域</h4>
-<p>和 <code>where</code> 條件類似，作用域使用 SQL 的 <code>AND</code> 來合併。</p>
-<div class="code_container">
+<h4 id="合併作用域">14.2 合併作用域</h4><p>和 <code>where</code> 條件類似，作用域使用 SQL 的 <code>AND</code> 來合併。</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class User &lt; ActiveRecord::Base
   scope :active, -&gt; { where state: 'active' }
@@ -1506,24 +1245,21 @@ User.active.inactive
 
 </pre>
 </div>
-<p><code>scope</code> 作用域與 <code>where</code> 條件可以混用，最終的 SQL 會用 <code>AND</code> 把所有條件連結起來。</p>
-<div class="code_container">
+<p><code>scope</code> 作用域與 <code>where</code> 條件可以混用，最終的 SQL 會用 <code>AND</code> 把所有條件連結起來。</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 User.active.where(state: 'finished')
 # =&gt; SELECT "users".* FROM "users" WHERE "users"."state" = 'active' AND "users"."state" = 'finished'
 
 </pre>
 </div>
-<p>如果想讓最後一個 <code>where</code> 條件覆蓋先前的，可以使用 <code>Relation#merge</code>。</p>
-<div class="code_container">
+<p>如果想讓最後一個 <code>where</code> 條件覆蓋先前的，可以使用 <code>Relation#merge</code>。</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 User.active.merge(User.inactive)
 # =&gt; SELECT "users".* FROM "users" WHERE "users"."state" = 'inactive'
 
 </pre>
 </div>
-<p>一個重要的提醒是 <code>default_scope</code> 會被 <code>scope</code> 作用域與 <code>where</code> 條件覆蓋掉。</p>
-<div class="code_container">
+<p>一個重要的提醒是 <code>default_scope</code> 會被 <code>scope</code> 作用域與 <code>where</code> 條件覆蓋掉。</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class User &lt; ActiveRecord::Base
   default_scope { where state: 'pending' }
@@ -1542,10 +1278,7 @@ User.where(state: 'inactive')
 
 </pre>
 </div>
-<p>如上所見，<code>default_scope</code> 被 <code>scope</code> 與 <code>where</code> 覆蓋掉了。</p>
-<h4 id="使用預設作用域">14.3 使用預設作用域</h4>
-<p>若想要所有的查詢皆使用某個預設的作用域，可以使用 <code>default_scope</code>。</p>
-<div class="code_container">
+<p>如上所見，<code>default_scope</code> 被 <code>scope</code> 與 <code>where</code> 覆蓋掉了。</p><h4 id="使用預設作用域">14.3 使用預設作用域</h4><p>若想要所有的查詢皆使用某個預設的作用域，可以使用 <code>default_scope</code>。</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Client &lt; ActiveRecord::Base
   default_scope { where("removed_at IS NULL") }
@@ -1553,15 +1286,13 @@ end
 
 </pre>
 </div>
-<p>當這個 Model 執行查詢時，執行的 SQL 會像是：</p>
-<div class="code_container">
+<p>當這個 Model 執行查詢時，執行的 SQL 會像是：</p><div class="code_container">
 <pre class="brush: sql; gutter: false; toolbar: false">
 SELECT * FROM clients WHERE removed_at IS NULL
 
 </pre>
 </div>
-<p>如果預設作用域需要做更複雜的事，可以用類別方法來取代：</p>
-<div class="code_container">
+<p>如果預設作用域需要做更複雜的事，可以用類別方法來取代：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Client &lt; ActiveRecord::Base
   def self.default_scope
@@ -1571,17 +1302,13 @@ end
 
 </pre>
 </div>
-<h4 id="移除所有作用域">14.4 移除所有作用域</h4>
-<p>如果想移除作用域，可以使用 <code>unscoped</code> 方法。這在特定查詢不需要使用 <code>default_scope</code> 時特別有用。</p>
-<div class="code_container">
+<h4 id="移除所有作用域">14.4 移除所有作用域</h4><p>如果想移除作用域，可以使用 <code>unscoped</code> 方法。這在特定查詢不需要使用 <code>default_scope</code> 時特別有用。</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 Client.unscoped.load
 
 </pre>
 </div>
-<p><code>unscoped</code> 會移除所有的作用域，回到原本正常的資料表查詢。</p>
-<p>注意把 <code>unscoped</code> 與 <code>scope</code> 連起來用是無效的。這種情況下推薦使用 <code>unscoped</code> 的區塊形式：</p>
-<div class="code_container">
+<p><code>unscoped</code> 會移除所有的作用域，回到原本正常的資料表查詢。</p><p>注意把 <code>unscoped</code> 與 <code>scope</code> 連起來用是無效的。這種情況下推薦使用 <code>unscoped</code> 的區塊形式：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 Client.unscoped {
   Client.created_before(Time.zone.now)
@@ -1589,26 +1316,15 @@ Client.unscoped {
 
 </pre>
 </div>
-<h3 id="動態查詢方法">15 動態查詢方法</h3>
-<div class="note"><p>Rails 4.0 已棄用動態查詢方法，並在 4.1 移除這些方法。最佳實踐是使用 Active Record 的 scope 來取代。可以在 <a href="https://github.com/rails/activerecord-deprecated_finders%E3%80%82">activerecord-deprecated_finders</a> Gem 找到這些棄用的方法。</p></div>
-<p>每個資料表裡定義的欄位（又稱屬性），Active Record 都提供一個 Finder 方法。假設 <code>Client</code> Model 有 <code>first_name</code>，則 Active Record 便會有 <code>find_by_first_name</code> 方法可用。若 <code>Client</code> Model 有 <code>locked</code>，則 Active Record 便會有 <code>find_by_locked</code> 方法可用。</p>
-<p>在動態查詢方法名稱最後加上驚嘆號（<code>!</code>），可以獲得對應的 BANG 版本，即未找到符合的記錄時，會拋出 <code>ActiveRecord::RecordNotFound</code> 異常，像是 <code>Client.find_by_name!("Ryan")</code>。</p>
-<p>如果同時想找多個欄位，可以在方法名中間使用 <code>and</code> 連起來，比如：<code>Client.find_by_first_name_and_locked("Ryan", true)</code>。</p>
-<h3 id="尋找或新建物件">16 尋找或新建物件</h3>
-<p>在找不到記錄情況，新建一個物件是很常見的需求。可以透過 <code>find_or_create_by</code>、<code>find_or_create_by!</code> 來實作。</p>
-<h4 id="find_or_create_by">16.1 <code>find_or_create_by</code>
-</h4>
-<p><code>find_or_create_by</code> 方法檢查指定屬性的記錄是否存在。不存在便呼叫 <code>create</code>，看個例子。</p>
-<p>假設想找到名稱是 <code>'Andy'</code> 的客戶，沒找到便新建。可以這麼做：</p>
-<div class="code_container">
+<h3 id="動態查詢方法">15 動態查詢方法</h3><div class="note"><p>Rails 4.0 已棄用動態查詢方法，並在 4.1 移除這些方法。最佳實踐是使用 Active Record 的 scope 來取代。可以在 <a href="https://github.com/rails/activerecord-deprecated_finders%E3%80%82">activerecord-deprecated_finders</a> Gem 找到這些棄用的方法。</p></div><p>每個資料表裡定義的欄位（又稱屬性），Active Record 都提供一個 Finder 方法。假設 <code>Client</code> Model 有 <code>first_name</code>，則 Active Record 便會有 <code>find_by_first_name</code> 方法可用。若 <code>Client</code> Model 有 <code>locked</code>，則 Active Record 便會有 <code>find_by_locked</code> 方法可用。</p><p>在動態查詢方法名稱最後加上驚嘆號（<code>!</code>），可以獲得對應的 BANG 版本，即未找到符合的記錄時，會拋出 <code>ActiveRecord::RecordNotFound</code> 異常，像是 <code>Client.find_by_name!("Ryan")</code>。</p><p>如果同時想找多個欄位，可以在方法名中間使用 <code>and</code> 連起來，比如：<code>Client.find_by_first_name_and_locked("Ryan", true)</code>。</p><h3 id="尋找或新建物件">16 尋找或新建物件</h3><p>在找不到記錄情況，新建一個物件是很常見的需求。可以透過 <code>find_or_create_by</code>、<code>find_or_create_by!</code> 來實作。</p><h4 id="find_or_create_by">16.1 <code>find_or_create_by</code>
+</h4><p><code>find_or_create_by</code> 方法檢查指定屬性的記錄是否存在。不存在便呼叫 <code>create</code>，看個例子。</p><p>假設想找到名稱是 <code>'Andy'</code> 的客戶，沒找到便新建。可以這麼做：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 Client.find_or_create_by(first_name: 'Andy')
 # =&gt; #&lt;Client id: 1, first_name: "Andy", orders_count: 0, locked: true, created_at: "2011-08-30 06:09:27", updated_at: "2011-08-30 06:09:27"&gt;
 
 </pre>
 </div>
-<p>這個方法產生的 SQL 看起來像是：</p>
-<div class="code_container">
+<p>這個方法產生的 SQL 看起來像是：</p><div class="code_container">
 <pre class="brush: sql; gutter: false; toolbar: false">
 SELECT * FROM clients WHERE (clients.first_name = 'Andy') LIMIT 1
 BEGIN
@@ -1617,17 +1333,13 @@ COMMIT
 
 </pre>
 </div>
-<p><code>find_or_create_by</code> 會回傳已存在的紀錄，或是新建一筆記錄。在上面的例子裡，沒有找到 Andy 這個客戶，便新建一筆再回傳。</p>
-<p>新記錄可能沒有存至資料庫；這取決於驗證是否通過（就像 <code>create</code> 一樣）。</p>
-<p>假設我們想新建客戶時把 <code>locked</code> 屬性設為 <code>false</code>，但不想要包含在查詢裡。也就是沒找到叫 Andy 的客戶時，新建一位未鎖定的 Andy 客戶。有兩種方法可以做到，第一種是使用 <code>create_with</code>：</p>
-<div class="code_container">
+<p><code>find_or_create_by</code> 會回傳已存在的紀錄，或是新建一筆記錄。在上面的例子裡，沒有找到 Andy 這個客戶，便新建一筆再回傳。</p><p>新記錄可能沒有存至資料庫；這取決於驗證是否通過（就像 <code>create</code> 一樣）。</p><p>假設我們想新建客戶時把 <code>locked</code> 屬性設為 <code>false</code>，但不想要包含在查詢裡。也就是沒找到叫 Andy 的客戶時，新建一位未鎖定的 Andy 客戶。有兩種方法可以做到，第一種是使用 <code>create_with</code>：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 Client.create_with(locked: false).find_or_create_by(first_name: 'Andy')
 
 </pre>
 </div>
-<p>第二種是使用區塊：</p>
-<div class="code_container">
+<p>第二種是使用區塊：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 Client.find_or_create_by(first_name: 'Andy') do |c|
   c.locked = false
@@ -1635,18 +1347,14 @@ end
 
 </pre>
 </div>
-<p>區塊只在新建客戶時執行，已有客戶便會忽略掉區塊。</p>
-<h4 id="find_or_create_by!">16.2 <code>find_or_create_by!</code>
-</h4>
-<p>也可以使用 <code>find_or_create_by!</code> 在建立的新紀錄為無效記錄時拋出異常。本文未涵蓋有關驗證的內容，但假設你不小心把這行加到了 <code>Client</code> Model：</p>
-<div class="code_container">
+<p>區塊只在新建客戶時執行，已有客戶便會忽略掉區塊。</p><h4 id="find_or_create_by-bang">16.2 <code>find_or_create_by!</code>
+</h4><p>也可以使用 <code>find_or_create_by!</code> 在建立的新紀錄為無效記錄時拋出異常。本文未涵蓋有關驗證的內容，但假設你不小心把這行加到了 <code>Client</code> Model：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 validates :orders_count, presence: true
 
 </pre>
 </div>
-<p>若沒有傳入 <code>orders_count</code> 而要建立新客戶時，則會拋出 <code>ActiveRecord::RecordInvalid</code> 異常：</p>
-<div class="code_container">
+<p>若沒有傳入 <code>orders_count</code> 而要建立新客戶時，則會拋出 <code>ActiveRecord::RecordInvalid</code> 異常：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 Client.find_or_create_by!(first_name: 'Andy')
 # =&gt; ActiveRecord::RecordInvalid: Validation failed: Orders count can't be blank
@@ -1654,9 +1362,7 @@ Client.find_or_create_by!(first_name: 'Andy')
 </pre>
 </div>
 <h4 id="find_or_initialize_by">16.3 <code>find_or_initialize_by</code>
-</h4>
-<p><code>find_or_initialize_by</code> 方法的工作原理與 <code>find_or_create_by</code> 相同，但沒找到時會用 <code>new</code> 而不是 <code>create</code>。這表示新紀錄會放在記憶體，不會存到資料庫。沿用 <code>find_or_create_by</code> 例子 ，假設我們現在想找叫做 Nick 的客戶：</p>
-<div class="code_container">
+</h4><p><code>find_or_initialize_by</code> 方法的工作原理與 <code>find_or_create_by</code> 相同，但沒找到時會用 <code>new</code> 而不是 <code>create</code>。這表示新紀錄會放在記憶體，不會存到資料庫。沿用 <code>find_or_create_by</code> 例子 ，假設我們現在想找叫做 Nick 的客戶：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 nick = Client.find_or_initialize_by(first_name: 'Nick')
 # =&gt; &lt;Client id: nil, first_name: "Nick", orders_count: 0, locked: true, created_at: "2011-08-30 06:09:27", updated_at: "2011-08-30 06:09:27"&gt;
@@ -1669,24 +1375,20 @@ nick.new_record?
 
 </pre>
 </div>
-<p>由於這個物件還沒存到資料庫，產生出來的 SQL 像是：</p>
-<div class="code_container">
+<p>由於這個物件還沒存到資料庫，產生出來的 SQL 像是：</p><div class="code_container">
 <pre class="brush: sql; gutter: false; toolbar: false">
 SELECT * FROM clients WHERE (clients.first_name = 'Nick') LIMIT 1
 
 </pre>
 </div>
-<p>當想存到資料庫時，呼叫 <code>save</code> 即可：</p>
-<div class="code_container">
+<p>當想存到資料庫時，呼叫 <code>save</code> 即可：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 nick.save
 # =&gt; true
 
 </pre>
 </div>
-<h3 id="用-sql-查詢">17 用 SQL 查詢</h3>
-<p>如果想用 SQL 在資料表裡找記錄可以使用：<code>find_by_sql</code>。<code>find_by_sql</code> 方法會將查詢到的物件放在陣列裡回傳，即便只有一條記錄符合。比如可以執行以下查詢：</p>
-<div class="code_container">
+<h3 id="用-sql-查詢">17 用 SQL 查詢</h3><p>如果想用 SQL 在資料表裡找記錄可以使用：<code>find_by_sql</code>。<code>find_by_sql</code> 方法會將查詢到的物件放在陣列裡回傳，即便只有一條記錄符合。比如可以執行以下查詢：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 Client.find_by_sql("SELECT * FROM clients
   INNER JOIN orders ON clients.id = orders.client_id
@@ -1694,20 +1396,15 @@ Client.find_by_sql("SELECT * FROM clients
 
 </pre>
 </div>
-<p><code>find_by_sql</code> 提供自定查詢的簡單方式，並會將取出的物件實體化。</p>
-<h4 id="select_all">17.1 <code>select_all</code>
-</h4>
-<p><code>find_by_sql</code> 有個類似的方法：<code>connection#select_all</code>。 <code>select_all</code> 會使用自定的 SQL 語句從資料庫取出物件，但不會實體化物件。會回傳一個 <code>ActiveRecord::Result</code> 物件，可以使用 <code>to_ary</code> 或 <code>to_hash</code> 將 <code>ActiveRecord::Result</code> 轉成陣列，每筆記錄皆是陣列裡的一個 Hash。</p>
-<div class="code_container">
+<p><code>find_by_sql</code> 提供自定查詢的簡單方式，並會將取出的物件實體化。</p><h4 id="select_all">17.1 <code>select_all</code>
+</h4><p><code>find_by_sql</code> 有個類似的方法：<code>connection#select_all</code>。 <code>select_all</code> 會使用自定的 SQL 語句從資料庫取出物件，但不會實體化物件。會回傳一個 <code>ActiveRecord::Result</code> 物件，可以使用 <code>to_ary</code> 或 <code>to_hash</code> 將 <code>ActiveRecord::Result</code> 轉成陣列，每筆記錄皆是陣列裡的一個 Hash。</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 Client.connection.select_all("SELECT * FROM clients WHERE id = '1'")
 
 </pre>
 </div>
 <h4 id="pluck">17.2 <code>pluck</code>
-</h4>
-<p><code>pluck</code> 可以用來查詢資料表的一個或多個欄位。接受欄位名稱作為參數，並回傳由指定欄位值所組成的陣列。</p>
-<div class="code_container">
+</h4><p><code>pluck</code> 可以用來查詢資料表的一個或多個欄位。接受欄位名稱作為參數，並回傳由指定欄位值所組成的陣列。</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 Client.where(active: true).pluck(:id)
 # SELECT id FROM clients WHERE active = 1
@@ -1723,8 +1420,7 @@ Client.pluck(:id, :name)
 
 </pre>
 </div>
-<p>以下程式碼：</p>
-<div class="code_container">
+<p>以下程式碼：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 Client.select(:id).map { |c| c.id }
 # or
@@ -1734,8 +1430,7 @@ Client.select(:id, :name).map { |c| [c.id, c.name] }
 
 </pre>
 </div>
-<p>可以用 <code>pluck</code> 取代：</p>
-<div class="code_container">
+<p>可以用 <code>pluck</code> 取代：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 Client.pluck(:id)
 # or
@@ -1743,8 +1438,7 @@ Client.pluck(:id, :name)
 
 </pre>
 </div>
-<p>與 <code>select</code> 不同，<code>pluck</code> 直接將從資料庫查詢的結果，轉成 Ruby 的 <code>Array</code>，而沒有建出 <code>ActiveRecord</code> 物件。可大幅提昇常用、大量查詢的執行效能。但任何 Model 可用的方法便無法使用了，如：</p>
-<div class="code_container">
+<p>與 <code>select</code> 不同，<code>pluck</code> 直接將從資料庫查詢的結果，轉成 Ruby 的 <code>Array</code>，而沒有建出 <code>ActiveRecord</code> 物件。可大幅提昇常用、大量查詢的執行效能。但任何 Model 可用的方法便無法使用了，如：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Client &lt; ActiveRecord::Base
   def name
@@ -1760,8 +1454,7 @@ Client.pluck(:name)
 
 </pre>
 </div>
-<p>此外，<code>pluck</code> 不像 <code>select</code> 與其他 <code>Relation</code> 作用域，<code>pluck</code> 會直接觸發查詢，無法供之後的作用域連鎖使用，但可以與已經建立的作用域連鎖使用：</p>
-<div class="code_container">
+<p>此外，<code>pluck</code> 不像 <code>select</code> 與其他 <code>Relation</code> 作用域，<code>pluck</code> 會直接觸發查詢，無法供之後的作用域連鎖使用，但可以與已經建立的作用域連鎖使用：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 Client.pluck(:name).limit(1)
 # =&gt; NoMethodError: undefined method `limit' for #&lt;Array:0x007ff34d3ad6d8&gt;
@@ -1772,9 +1465,7 @@ Client.limit(1).pluck(:name)
 </pre>
 </div>
 <h4 id="ids">17.3 <code>ids</code>
-</h4>
-<p><code>ids</code> 可以用來 <code>pluck</code> 所有 ID（取得資料表所有的主鍵）：</p>
-<div class="code_container">
+</h4><p><code>ids</code> 可以用來 <code>pluck</code> 所有 ID（取得資料表所有的主鍵）：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 Person.ids
 # SELECT id FROM people
@@ -1792,16 +1483,13 @@ Person.ids
 
 </pre>
 </div>
-<h3 id="物件存在性">18 物件存在性</h3>
-<p>想檢查物件是否存在，可以使用 <code>exists?</code>。<code>exists</code> 會使用與 <code>find</code> 相同的 SQL 語句查詢資料庫，但不會回傳物件集合，而是回傳 <code>true</code> 或 <code>false</code>。</p>
-<div class="code_container">
+<h3 id="物件存在性">18 物件存在性</h3><p>想檢查物件是否存在，可以使用 <code>exists?</code>。<code>exists</code> 會使用與 <code>find</code> 相同的 SQL 語句查詢資料庫，但不會回傳物件集合，而是回傳 <code>true</code> 或 <code>false</code>。</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 Client.exists?(1)
 
 </pre>
 </div>
-<p><code>exists</code> 方法可接受多個數值，但只要有一個記錄存在，便會回傳 <code>true</code>。</p>
-<div class="code_container">
+<p><code>exists</code> 方法可接受多個數值，但只要有一個記錄存在，便會回傳 <code>true</code>。</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 Client.exists?(id: [1,2,3])
 # or
@@ -1809,69 +1497,59 @@ Client.exists?(name: ['John', 'Sergei'])
 
 </pre>
 </div>
-<p><code>exists?</code> 不傳任何參數也可以。</p>
-<div class="code_container">
+<p><code>exists?</code> 不傳任何參數也可以。</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 Client.where(first_name: 'Ryan').exists?
 
 </pre>
 </div>
-<p>如果至少有一位客戶名稱是 <code>'Ryan'</code> 則回傳 <code>true</code>，否則回傳 <code>false</code>。</p>
-<div class="code_container">
+<p>如果至少有一位客戶名稱是 <code>'Ryan'</code> 則回傳 <code>true</code>，否則回傳 <code>false</code>。</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 Client.exists?
 
 </pre>
 </div>
-<p><code>clients</code> 資料表為空時回傳 <code>false</code>，反之 <code>true</code>。</p>
-<p><code>any?</code> 與 <code>many?</code> 也可以用來檢查 Model 或 Relation 的存在性。</p>
-<div class="code_container">
+<p><code>clients</code> 資料表為空時回傳 <code>false</code>，反之 <code>true</code>。</p><p><code>any?</code> 與 <code>many?</code> 也可以用來檢查 Model 或 Relation 的存在性。</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 # via a model
-Post.any?
-Post.many?
+Article.any?
+Article.many?
 
 # via a named scope
-Post.recent.any?
-Post.recent.many?
+Article.recent.any?
+Article.recent.many?
 
 # via a relation
-Post.where(published: true).any?
-Post.where(published: true).many?
+Article.where(published: true).any?
+Article.where(published: true).many?
 
 # via an association
-Post.first.categories.any?
-Post.first.categories.many?
+Article.first.categories.any?
+Article.first.categories.many?
 
 </pre>
 </div>
-<h3 id="計算">19 計算</h3>
-<p>本節以 <code>count</code> 為例，<code>count</code> 適用的選項所有子章節亦適用。</p>
-<p>所有計算方法都可直接在 Model 上呼叫：</p>
-<div class="code_container">
+<h3 id="計算">19 計算</h3><p>本節以 <code>count</code> 為例，<code>count</code> 適用的選項所有子章節亦適用。</p><p>所有計算方法都可直接在 Model 上呼叫：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 Client.count
 # SELECT count(*) AS count_all FROM clients
 
 </pre>
 </div>
-<p>或在 Active Record Relation 呼叫：</p>
-<div class="code_container">
+<p>或在 Active Record Relation 呼叫：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 Client.where(first_name: 'Ryan').count
 # SELECT count(*) AS count_all FROM clients WHERE (first_name = 'Ryan')
 
 </pre>
 </div>
-<p>也可以對 Active Record Relation 使用不同的查詢方法，來做複雜的計算：</p>
-<div class="code_container">
+<p>也可以對 Active Record Relation 使用不同的查詢方法，來做複雜的計算：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 Client.includes("orders").where(first_name: 'Ryan', orders: {status: 'received'}).count
 
 </pre>
 </div>
-<p>會執行下面的 SQL：</p>
-<div class="code_container">
+<p>會執行下面的 SQL：</p><div class="code_container">
 <pre class="brush: sql; gutter: false; toolbar: false">
 SELECT count(DISTINCT clients.id) AS count_all FROM clients
   LEFT OUTER JOIN orders ON orders.client_id = client.id WHERE
@@ -1879,97 +1557,75 @@ SELECT count(DISTINCT clients.id) AS count_all FROM clients
 
 </pre>
 </div>
-<h4 id="計數">19.1 計數</h4>
-<p>想知道 Model 資料表裡有多少筆記錄，呼叫 <code>Client.count</code> 即可。也可以查詢特定欄位有幾筆記錄：<code>Client.count(:age)</code>。</p>
-<p>可用選項請參考<a href="#%E8%A8%88%E7%AE%97">計算</a>一節。</p>
-<h4 id="平均">19.2 平均</h4>
-<p>如果想找出資料表特定欄位的平均值，使用 <code>average</code> 方法：</p>
-<div class="code_container">
+<h4 id="計數">19.1 計數</h4><p>想知道 Model 資料表裡有多少筆記錄，呼叫 <code>Client.count</code> 即可。也可以查詢特定欄位有幾筆記錄：<code>Client.count(:age)</code>。</p><p>可用選項請參考<a href="#%E8%A8%88%E7%AE%97">計算</a>一節。</p><h4 id="平均">19.2 平均</h4><p>如果想找出資料表特定欄位的平均值，使用 <code>average</code> 方法：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 Client.average("orders_count")
 Client.average(:orders_count)
 
 </pre>
 </div>
-<p>會回傳指定欄位的平均值，可能是浮點數（比如 3.14159265）。</p>
-<p>可用選項請參考<a href="#%E8%A8%88%E7%AE%97">計算</a>一節。</p>
-<h4 id="最小值">19.3 最小值</h4>
-<p>如果想找出資料表特定欄位的最小值，使用 <code>min</code> 方法：</p>
-<div class="code_container">
+<p>會回傳指定欄位的平均值，可能是浮點數（比如 3.14159265）。</p><p>可用選項請參考<a href="#%E8%A8%88%E7%AE%97">計算</a>一節。</p><h4 id="最小值">19.3 最小值</h4><p>如果想找出資料表特定欄位的最小值，使用 <code>min</code> 方法：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 Client.minimum("age")
 Client.minimum(:age)
 
 </pre>
 </div>
-<p>可用選項請參考<a href="#%E8%A8%88%E7%AE%97">計算</a>一節。</p>
-<h4 id="最大值">19.4 最大值</h4>
-<p>如果想找出資料表特定欄位的最大值，使用 <code>max</code> 方法：</p>
-<div class="code_container">
+<p>可用選項請參考<a href="#%E8%A8%88%E7%AE%97">計算</a>一節。</p><h4 id="最大值">19.4 最大值</h4><p>如果想找出資料表特定欄位的最大值，使用 <code>max</code> 方法：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 Client.maximum("age")
 Client.maximum(:age)
 
 </pre>
 </div>
-<p>可用選項請參考<a href="#%E8%A8%88%E7%AE%97">計算</a>一節。</p>
-<h4 id="和">19.5 和</h4>
-<p>如果想找出資料表裡某欄位所有記錄的和，使用 <code>sum</code> 方法：</p>
-<div class="code_container">
+<p>可用選項請參考<a href="#%E8%A8%88%E7%AE%97">計算</a>一節。</p><h4 id="和">19.5 和</h4><p>如果想找出資料表裡某欄位所有記錄的和，使用 <code>sum</code> 方法：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 Client.sum("orders_count")
 Client.sum(:orders_count)
 
 </pre>
 </div>
-<p>可用選項請參考<a href="#%E8%A8%88%E7%AE%97">計算</a>一節。</p>
-<h3 id="執行-explain">20 執行 EXPLAIN</h3>
-<p>可以對 Active Record Relation 使用 <code>explain</code>，比如：</p>
-<div class="code_container">
+<p>可用選項請參考<a href="#%E8%A8%88%E7%AE%97">計算</a>一節。</p><h3 id="執行-explain">20 執行 EXPLAIN</h3><p>可以對 Active Record Relation 使用 <code>explain</code>，比如：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
-User.where(id: 1).joins(:posts).explain
+User.where(id: 1).joins(:articles).explain
 
 </pre>
 </div>
-<p>可能輸出如下（MySQL）：</p>
-<div class="code_container">
+<p>可能輸出如下（MySQL）：</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
-EXPLAIN for: SELECT `users`.* FROM `users` INNER JOIN `posts` ON `posts`.`user_id` = `users`.`id` WHERE `users`.`id` = 1
+EXPLAIN for: SELECT `users`.* FROM `users` INNER JOIN `articles` ON `articles`.`user_id` = `users`.`id` WHERE `users`.`id` = 1
 +----+-------------+-------+-------+---------------+---------+---------+-------+------+-------------+
 | id | select_type | table | type  | possible_keys | key     | key_len | ref   | rows | Extra       |
 +----+-------------+-------+-------+---------------+---------+---------+-------+------+-------------+
 |  1 | SIMPLE      | users | const | PRIMARY       | PRIMARY | 4       | const |    1 |             |
-|  1 | SIMPLE      | posts | ALL   | NULL          | NULL    | NULL    | NULL  |    1 | Using where |
+|  1 | SIMPLE      | articles | ALL   | NULL          | NULL    | NULL    | NULL  |    1 | Using where |
 +----+-------------+-------+-------+---------------+---------+---------+-------+------+-------------+
 2 rows in set (0.00 sec)
 
 </pre>
 </div>
-<p>Active Record 會根據使用的資料庫不同，按照資料庫 Shell 的方式印出。在 PostgreSQL 可能會輸出：</p>
-<div class="code_container">
+<p>Active Record 會根據使用的資料庫不同，按照資料庫 Shell 的方式印出。在 PostgreSQL 可能會輸出：</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
-EXPLAIN for: SELECT "users".* FROM "users" INNER JOIN "posts" ON "posts"."user_id" = "users"."id" WHERE "users"."id" = 1
+EXPLAIN for: SELECT "users".* FROM "users" INNER JOIN "articles" ON "articles"."user_id" = "users"."id" WHERE "users"."id" = 1
                                   QUERY PLAN
 ------------------------------------------------------------------------------
  Nested Loop Left Join  (cost=0.00..37.24 rows=8 width=0)
-   Join Filter: (posts.user_id = users.id)
+   Join Filter: (articles.user_id = users.id)
    -&gt;  Index Scan using users_pkey on users  (cost=0.00..8.27 rows=1 width=4)
          Index Cond: (id = 1)
-   -&gt;  Seq Scan on posts  (cost=0.00..28.88 rows=8 width=4)
-         Filter: (posts.user_id = 1)
+   -&gt;  Seq Scan on articles  (cost=0.00..28.88 rows=8 width=4)
+         Filter: (articles.user_id = 1)
 (6 rows)
 
 </pre>
 </div>
-<p>Eager loading 可能會觸發多條查詢，某些查詢依賴先前查詢的結果。由於這個原因，<code>explain</code> 會實際執行該查詢，並詢問要查詢那一個，比如：</p>
-<div class="code_container">
+<p>Eager loading 可能會觸發多條查詢，某些查詢依賴先前查詢的結果。由於這個原因，<code>explain</code> 會實際執行該查詢，並詢問要查詢那一個，比如：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
-User.where(id: 1).includes(:posts).explain
+User.where(id: 1).includes(:articles).explain
 
 </pre>
 </div>
-<p>會輸出（MySQL）：</p>
-<div class="code_container">
+<p>會輸出（MySQL）：</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 EXPLAIN for: SELECT `users`.* FROM `users`  WHERE `users`.`id` = 1
 +----+-------------+-------+-------+---------------+---------+---------+-------+------+-------+
@@ -1979,24 +1635,22 @@ EXPLAIN for: SELECT `users`.* FROM `users`  WHERE `users`.`id` = 1
 +----+-------------+-------+-------+---------------+---------+---------+-------+------+-------+
 1 row in set (0.00 sec)
 
-EXPLAIN for: SELECT `posts`.* FROM `posts`  WHERE `posts`.`user_id` IN (1)
+EXPLAIN for: SELECT `articles`.* FROM `articles`  WHERE `articles`.`user_id` IN (1)
 +----+-------------+-------+------+---------------+------+---------+------+------+-------------+
 | id | select_type | table | type | possible_keys | key  | key_len | ref  | rows | Extra       |
 +----+-------------+-------+------+---------------+------+---------+------+------+-------------+
-|  1 | SIMPLE      | posts | ALL  | NULL          | NULL | NULL    | NULL |    1 | Using where |
+|  1 | SIMPLE      | articles | ALL  | NULL          | NULL | NULL    | NULL |    1 | Using where |
 +----+-------------+-------+------+---------------+------+---------+------+------+-------------+
 1 row in set (0.00 sec)
 
 </pre>
 </div>
-<h4 id="解讀-explain">20.1 解讀 EXPLAIN</h4>
-<p>解讀 EXPLAIN 的輸出超出本指南的範疇。下面列出幾篇可能有用的文章：</p>
+<h4 id="解讀-explain">20.1 解讀 EXPLAIN</h4><p>解讀 EXPLAIN 的輸出超出本指南的範疇。下面列出幾篇可能有用的文章：</p>
 <ul>
 <li><p>SQLite3: <a href="http://www.sqlite.org/eqp.html">EXPLAIN QUERY PLAN</a></p></li>
 <li><p>MySQL: <a href="http://dev.mysql.com/doc/refman/5.6/en/explain-output.html">EXPLAIN Output Format</a></p></li>
 <li><p>PostgreSQL: <a href="http://www.postgresql.org/docs/current/static/using-explain.html">Using EXPLAIN</a></p></li>
 </ul>
-</body></html>
 
 
         <h3>反饋</h3>

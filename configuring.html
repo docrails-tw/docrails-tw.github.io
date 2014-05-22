@@ -160,7 +160,7 @@
 
   <div id="feature">
     <div class="wrapper">
-      <h2 id="configuring-rails-applications">Configuring Rails Applications</h2><p>This guide covers the configuration and initialization features available to Rails applications.</p><p>After reading this guide, you will know:</p>
+      <h2>Configuring Rails Applications</h2><p>This guide covers the configuration and initialization features available to Rails applications.</p><p>After reading this guide, you will know:</p>
 <ul>
 <li>How to adjust the behavior of your Rails applications.</li>
 <li>How to add additional code to be run at application start time.</li>
@@ -169,8 +169,7 @@
 
                 <div id="subCol">
             <h3 class="chapter"><img src="images/chapters_icon.gif" alt="" />Chapters</h3>
-            <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
-<html><body><ol class="chapters">
+            <ol class="chapters">
 <li><a href="#locations-for-initialization-code">Locations for Initialization Code</a></li>
 <li><a href="#running-code-before-rails">Running Code Before Rails</a></li>
 <li>
@@ -205,7 +204,7 @@
 </ul>
 </li>
 <li><a href="#database-pooling">Database pooling</a></li>
-</ol></body></html>
+</ol>
 
           </div>
 
@@ -215,37 +214,26 @@
   <div id="container">
     <div class="wrapper">
       <div id="mainCol">
-        <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
-<html><body>
-<h3 id="locations-for-initialization-code">1 Locations for Initialization Code</h3>
-<p>Rails offers four standard spots to place initialization code:</p>
+        <h3 id="locations-for-initialization-code">1 Locations for Initialization Code</h3><p>Rails offers four standard spots to place initialization code:</p>
 <ul>
 <li><code>config/application.rb</code></li>
 <li>Environment-specific configuration files</li>
 <li>Initializers</li>
 <li>After-initializers</li>
 </ul>
-<h3 id="running-code-before-rails">2 Running Code Before Rails</h3>
-<p>In the rare event that your application needs to run some code before Rails itself is loaded, put it above the call to <code>require 'rails/all'</code> in <code>config/application.rb</code>.</p>
-<h3 id="configuring-rails-components">3 Configuring Rails Components</h3>
-<p>In general, the work of configuring Rails means configuring the components of Rails, as well as configuring Rails itself. The configuration file <code>config/application.rb</code> and environment-specific configuration files (such as <code>config/environments/production.rb</code>) allow you to specify the various settings that you want to pass down to all of the components.</p>
-<p>For example, the <code>config/application.rb</code> file includes this setting:</p>
-<div class="code_container">
+<h3 id="running-code-before-rails">2 Running Code Before Rails</h3><p>In the rare event that your application needs to run some code before Rails itself is loaded, put it above the call to <code>require 'rails/all'</code> in <code>config/application.rb</code>.</p><h3 id="configuring-rails-components">3 Configuring Rails Components</h3><p>In general, the work of configuring Rails means configuring the components of Rails, as well as configuring Rails itself. The configuration file <code>config/application.rb</code> and environment-specific configuration files (such as <code>config/environments/production.rb</code>) allow you to specify the various settings that you want to pass down to all of the components.</p><p>For example, the <code>config/application.rb</code> file includes this setting:</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 config.autoload_paths += %W(#{config.root}/extras)
 
 </pre>
 </div>
-<p>This is a setting for Rails itself. If you want to pass settings to individual Rails components, you can do so via the same <code>config</code> object in <code>config/application.rb</code>:</p>
-<div class="code_container">
+<p>This is a setting for Rails itself. If you want to pass settings to individual Rails components, you can do so via the same <code>config</code> object in <code>config/application.rb</code>:</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 config.active_record.schema_format = :ruby
 
 </pre>
 </div>
-<p>Rails will use that particular setting to configure Active Record.</p>
-<h4 id="rails-general-configuration">3.1 Rails General Configuration</h4>
-<p>These configuration methods are to be called on a <code>Rails::Railtie</code> object, such as a subclass of <code>Rails::Engine</code> or <code>Rails::Application</code>.</p>
+<p>Rails will use that particular setting to configure Active Record.</p><h4 id="rails-general-configuration">3.1 Rails General Configuration</h4><p>These configuration methods are to be called on a <code>Rails::Railtie</code> object, such as a subclass of <code>Rails::Engine</code> or <code>Rails::Application</code>.</p>
 <ul>
 <li>
 <p><code>config.after_initialize</code> takes a block which will be run <em>after</em> Rails has finished initializing the application. That includes the initialization of the framework itself, engines, and all the application's initializers in <code>config/initializers</code>. Note that this block <em>will</em> be run for rake tasks. Useful for configuring values set up by other initializers:</p>
@@ -258,7 +246,7 @@ end
 </pre>
 </div>
 </li>
-<li><p><code>config.asset_host</code> sets the host for the assets. Useful when CDNs are used for hosting assets, or when you want to work around the concurrency constraints builtin in browsers using different domain aliases. Shorter version of <code>config.action_controller.asset_host</code>.</p></li>
+<li><p><code>config.asset_host</code> sets the host for the assets. Useful when CDNs are used for hosting assets, or when you want to work around the concurrency constraints built-in in browsers using different domain aliases. Shorter version of <code>config.action_controller.asset_host</code>.</p></li>
 <li><p><code>config.autoload_once_paths</code> accepts an array of paths from which Rails will autoload constants that won't be wiped per request. Relevant if <code>config.cache_classes</code> is false, which is the case in development mode by default. Otherwise, all autoloading happens only once. All elements of this array must also be in <code>autoload_paths</code>. Default is an empty array.</p></li>
 <li><p><code>config.autoload_paths</code> accepts an array of paths from which Rails will autoload constants. Default is all directories under <code>app</code>.</p></li>
 <li><p><code>config.cache_classes</code> controls whether or not application classes and modules should be reloaded on each request. Defaults to false in development mode, and true in test and production modes. Can also be enabled with <code>threadsafe!</code>.</p></li>
@@ -334,9 +322,7 @@ pipeline is enabled. It is set to true by default.</li>
 <li><p><code>config.assets.compile</code> is a boolean that can be used to turn on live Sprockets compilation in production.</p></li>
 <li><p><code>config.assets.logger</code> accepts a logger conforming to the interface of Log4r or the default Ruby <code>Logger</code> class. Defaults to the same configured at <code>config.logger</code>. Setting <code>config.assets.logger</code> to false will turn off served assets logging.</p></li>
 </ul>
-<h4 id="configuring-generators">3.3 Configuring Generators</h4>
-<p>Rails allows you to alter what generators are used with the <code>config.generators</code> method. This method takes a block:</p>
-<div class="code_container">
+<h4 id="configuring-generators">3.3 Configuring Generators</h4><p>Rails allows you to alter what generators are used with the <code>config.generators</code> method. This method takes a block:</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 config.generators do |g|
   g.orm :active_record
@@ -374,8 +360,7 @@ end
 <li>
 <code>template_engine</code> defines which template engine to use, such as ERB or Haml. Defaults to <code>:erb</code>.</li>
 </ul>
-<h4 id="configuring-middleware">3.4 Configuring Middleware</h4>
-<p>Every Rails application comes with a standard set of middleware which it uses in this order in the development environment:</p>
+<h4 id="configuring-middleware">3.4 Configuring Middleware</h4><p>Every Rails application comes with a standard set of middleware which it uses in this order in the development environment:</p>
 <ul>
 <li>
 <code>ActionDispatch::SSL</code> forces every request to be under HTTPS protocol. Will be available if <code>config.force_ssl</code> is set to <code>true</code>. Options passed to this can be configured by using <code>config.ssl_options</code>.</li>
@@ -416,51 +401,44 @@ end
 <li>
 <code>ActionDispatch::Head</code> converts HEAD requests to GET requests and serves them as so.</li>
 </ul>
-<p>Besides these usual middleware, you can add your own by using the <code>config.middleware.use</code> method:</p>
-<div class="code_container">
+<p>Besides these usual middleware, you can add your own by using the <code>config.middleware.use</code> method:</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 config.middleware.use Magical::Unicorns
 
 </pre>
 </div>
-<p>This will put the <code>Magical::Unicorns</code> middleware on the end of the stack. You can use <code>insert_before</code> if you wish to add a middleware before another.</p>
-<div class="code_container">
+<p>This will put the <code>Magical::Unicorns</code> middleware on the end of the stack. You can use <code>insert_before</code> if you wish to add a middleware before another.</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 config.middleware.insert_before ActionDispatch::Head, Magical::Unicorns
 
 </pre>
 </div>
-<p>There's also <code>insert_after</code> which will insert a middleware after another:</p>
-<div class="code_container">
+<p>There's also <code>insert_after</code> which will insert a middleware after another:</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 config.middleware.insert_after ActionDispatch::Head, Magical::Unicorns
 
 </pre>
 </div>
-<p>Middlewares can also be completely swapped out and replaced with others:</p>
-<div class="code_container">
+<p>Middlewares can also be completely swapped out and replaced with others:</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 config.middleware.swap ActionController::Failsafe, Lifo::Failsafe
 
 </pre>
 </div>
-<p>They can also be removed from the stack completely:</p>
-<div class="code_container">
+<p>They can also be removed from the stack completely:</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 config.middleware.delete "Rack::MethodOverride"
 
 </pre>
 </div>
-<h4 id="configuring-i18n">3.5 Configuring i18n</h4>
-<p>All these configuration options are delegated to the <code>I18n</code> library.</p>
+<h4 id="configuring-i18n">3.5 Configuring i18n</h4><p>All these configuration options are delegated to the <code>I18n</code> library.</p>
 <ul>
 <li><p><code>config.i18n.available_locales</code> whitelists the available locales for the app. Defaults to all locale keys found in locale files, usually only <code>:en</code> on a new application.</p></li>
 <li><p><code>config.i18n.default_locale</code> sets the default locale of an application used for i18n. Defaults to <code>:en</code>.</p></li>
 <li><p><code>config.i18n.enforce_available_locales</code> ensures that all locales passed through i18n must be declared in the <code>available_locales</code> list, raising an <code>I18n::InvalidLocale</code> exception when setting an unavailable locale. Defaults to <code>true</code>. It is recommended not to disable this option unless strongly required, since this works as a security measure against setting any invalid locale from user input.</p></li>
 <li><p><code>config.i18n.load_path</code> sets the path Rails uses to look for locale files. Defaults to <code>config/locales/*.{yml,rb}</code>.</p></li>
 </ul>
-<h4 id="configuring-active-record">3.6 Configuring Active Record</h4>
-<p><code>config.active_record</code> includes a variety of configuration options:</p>
+<h4 id="configuring-active-record">3.6 Configuring Active Record</h4><p><code>config.active_record</code> includes a variety of configuration options:</p>
 <ul>
 <li><p><code>config.active_record.logger</code> accepts a logger conforming to the interface of Log4r or the default Ruby Logger class, which is then passed on to any new database connections made. You can retrieve this logger by calling <code>logger</code> on either an Active Record model class or an Active Record model instance. Set to <code>nil</code> to disable logging.</p></li>
 <li><p><code>config.active_record.primary_key_prefix_type</code> lets you adjust the naming for primary key columns. By default, Rails assumes that primary key columns are named <code>id</code> (and this configuration option doesn't need to be set.) There are two other choices:
@@ -495,8 +473,7 @@ default value is true if this configuration is not set.</p></li>
 <li>
 <code>ActiveRecord::SchemaDumper.ignore_tables</code> accepts an array of tables that should <em>not</em> be included in any generated schema file. This setting is ignored unless <code>config.active_record.schema_format == :ruby</code>.</li>
 </ul>
-<h4 id="configuring-action-controller">3.7 Configuring Action Controller</h4>
-<p><code>config.action_controller</code> includes a number of configuration settings:</p>
+<h4 id="configuring-action-controller">3.7 Configuring Action Controller</h4><p><code>config.action_controller</code> includes a number of configuration settings:</p>
 <ul>
 <li><p><code>config.action_controller.asset_host</code> sets the host for the assets. Useful when CDNs are used for hosting assets rather than the application server itself.</p></li>
 <li><p><code>config.action_controller.perform_caching</code> configures whether the application should perform caching or not. Set to false in development mode, true in production.</p></li>
@@ -541,8 +518,7 @@ for more information. It defaults to true.</p></li>
 <li><p><code>ActionDispatch::Callbacks.to_prepare</code> takes a block to run after <code>ActionDispatch::Callbacks.before</code>, but before the request. Runs for every request in <code>development</code> mode, but only once for <code>production</code> or environments with <code>cache_classes</code> set to <code>true</code>.</p></li>
 <li><p><code>ActionDispatch::Callbacks.after</code> takes a block of code to run after the request.</p></li>
 </ul>
-<h4 id="configuring-action-view">3.9 Configuring Action View</h4>
-<p><code>config.action_view</code> includes a small number of configuration settings:</p>
+<h4 id="configuring-action-view">3.9 Configuring Action View</h4><p><code>config.action_view</code> includes a small number of configuration settings:</p>
 <ul>
 <li>
 <p><code>config.action_view.field_error_proc</code> provides an HTML generator for displaying errors that come from Active Record. The default is</p>
@@ -560,19 +536,18 @@ end
 <li><p><code>config.action_view.erb_trim_mode</code> gives the trim mode to be used by ERB. It defaults to <code>'-'</code>, which turns on trimming of tail spaces and newline when using <code>&lt;%= -%&gt;</code> or <code>&lt;%= =%&gt;</code>. See the <a href="http://www.kuwata-lab.com/erubis/users-guide.06.html#topics-trimspaces">Erubis documentation</a> for more information.</p></li>
 <li><p><code>config.action_view.embed_authenticity_token_in_remote_forms</code> allows you to set the default behavior for <code>authenticity_token</code> in forms with <code>:remote =&gt; true</code>. By default it's set to false, which means that remote forms will not include <code>authenticity_token</code>, which is helpful when you're fragment-caching the form. Remote forms get the authenticity from the <code>meta</code> tag, so embedding is unnecessary unless you support browsers without JavaScript. In such case you can either pass <code>:authenticity_token =&gt; true</code> as a form option or set this config setting to <code>true</code></p></li>
 <li>
-<p><code>config.action_view.prefix_partial_path_with_controller_namespace</code> determines whether or not partials are looked up from a subdirectory in templates rendered from namespaced controllers. For example, consider a controller named <code>Admin::PostsController</code> which renders this template:</p>
+<p><code>config.action_view.prefix_partial_path_with_controller_namespace</code> determines whether or not partials are looked up from a subdirectory in templates rendered from namespaced controllers. For example, consider a controller named <code>Admin::ArticlesController</code> which renders this template:</p>
 <div class="code_container">
 <pre class="brush: ruby; html-script: true; gutter: false; toolbar: false">
-&lt;%= render @post %&gt;
+&lt;%= render @article %&gt;
 
 </pre>
 </div>
-<p>The default setting is <code>true</code>, which uses the partial at <code>/admin/posts/_post.erb</code>. Setting the value to <code>false</code> would render <code>/posts/_post.erb</code>, which is the same behavior as rendering from a non-namespaced controller such as <code>PostsController</code>.</p>
+<p>The default setting is <code>true</code>, which uses the partial at <code>/admin/articles/_article.erb</code>. Setting the value to <code>false</code> would render <code>/articles/_article.erb</code>, which is the same behavior as rendering from a non-namespaced controller such as <code>ArticlesController</code>.</p>
 </li>
 <li><p><code>config.action_view.raise_on_missing_translations</code> determines whether an error should be raised for missing translations</p></li>
 </ul>
-<h4 id="configuring-action-mailer">3.10 Configuring Action Mailer</h4>
-<p>There are a number of settings available on <code>config.action_mailer</code>:</p>
+<h4 id="configuring-action-mailer">3.10 Configuring Action Mailer</h4><p>There are a number of settings available on <code>config.action_mailer</code>:</p>
 <ul>
 <li><p><code>config.action_mailer.logger</code> accepts a logger conforming to the interface of Log4r or the default Ruby Logger class, which is then used to log information from Action Mailer. Set to <code>nil</code> to disable logging.</p></li>
 <li>
@@ -644,8 +619,7 @@ config.action_mailer.interceptors = ["MailInterceptor"]
 </div>
 </li>
 </ul>
-<h4 id="configuring-active-support">3.11 Configuring Active Support</h4>
-<p>There are a few configuration options available in Active Support:</p>
+<h4 id="configuring-active-support">3.11 Configuring Active Support</h4><p>There are a few configuration options available in Active Support:</p>
 <ul>
 <li><p><code>config.active_support.bare</code> enables or disables the loading of <code>active_support/all</code> when booting Rails. Defaults to <code>nil</code>, which means <code>active_support/all</code> is loaded.</p></li>
 <li><p><code>config.active_support.escape_html_entities_in_json</code> enables or disables the escaping of HTML entities in JSON serialization. Defaults to <code>false</code>.</p></li>
@@ -657,10 +631,7 @@ config.action_mailer.interceptors = ["MailInterceptor"]
 <li><p><code>ActiveSupport::Deprecation.silence</code> takes a block in which all deprecation warnings are silenced.</p></li>
 <li><p><code>ActiveSupport::Deprecation.silenced</code> sets whether or not to display deprecation warnings.</p></li>
 </ul>
-<h4 id="configuring-a-database">3.12 Configuring a Database</h4>
-<p>Just about every Rails application will interact with a database. You can connect to the database by setting an environment variable <code>ENV['DATABASE_URL']</code> or by using a configuration file called <code>config/database.yml</code>.</p>
-<p>Using the <code>config/database.yml</code> file you can specify all the information needed to access your database:</p>
-<div class="code_container">
+<h4 id="configuring-a-database">3.12 Configuring a Database</h4><p>Just about every Rails application will interact with a database. You can connect to the database by setting an environment variable <code>ENV['DATABASE_URL']</code> or by using a configuration file called <code>config/database.yml</code>.</p><p>Using the <code>config/database.yml</code> file you can specify all the information needed to access your database:</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 development:
   adapter: postgresql
@@ -669,8 +640,7 @@ development:
 
 </pre>
 </div>
-<p>This will connect to the database named <code>blog_development</code> using the <code>postgresql</code> adapter. This same information can be stored in a URL and provided via an environment variable like this:</p>
-<div class="code_container">
+<p>This will connect to the database named <code>blog_development</code> using the <code>postgresql</code> adapter. This same information can be stored in a URL and provided via an environment variable like this:</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 &gt; puts ENV['DATABASE_URL']
 postgresql://localhost/blog_development?pool=5
@@ -683,20 +653,14 @@ postgresql://localhost/blog_development?pool=5
 <li>The <code>test</code> environment is used when running automated tests.</li>
 <li>The <code>production</code> environment is used when you deploy your application for the world to use.</li>
 </ul>
-<p>If you wish, you can manually specify a URL inside of your <code>config/database.yml</code></p>
-<div class="code_container">
+<p>If you wish, you can manually specify a URL inside of your <code>config/database.yml</code></p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 development:
   url: postgresql://localhost/blog_development?pool=5
 
 </pre>
 </div>
-<p>The <code>config/database.yml</code> file can contain ERB tags <code>&lt;%= %&gt;</code>. Anything in the tags will be evaluated as Ruby code. You can use this to pull out data from an environment variable or to perform calculations to generate the needed connection information.</p>
-<div class="info"><p>You don't have to update the database configurations manually. If you look at the options of the application generator, you will see that one of the options is named <code>--database</code>. This option allows you to choose an adapter from a list of the most used relational databases. You can even run the generator repeatedly: <code>cd .. &amp;&amp; rails new blog --database=mysql</code>. When you confirm the overwriting of the <code>config/database.yml</code> file, your application will be configured for MySQL instead of SQLite. Detailed examples of the common database connections are below.</p></div>
-<h4 id="connection-preference">3.13 Connection Preference</h4>
-<p>Since there are two ways to set your connection, via environment variable it is important to understand how the two can interact.</p>
-<p>If you have an empty <code>config/database.yml</code> file but your <code>ENV['DATABASE_URL']</code> is present, then Rails will connect to the database via your environment variable:</p>
-<div class="code_container">
+<p>The <code>config/database.yml</code> file can contain ERB tags <code>&lt;%= %&gt;</code>. Anything in the tags will be evaluated as Ruby code. You can use this to pull out data from an environment variable or to perform calculations to generate the needed connection information.</p><div class="info"><p>You don't have to update the database configurations manually. If you look at the options of the application generator, you will see that one of the options is named <code>--database</code>. This option allows you to choose an adapter from a list of the most used relational databases. You can even run the generator repeatedly: <code>cd .. &amp;&amp; rails new blog --database=mysql</code>. When you confirm the overwriting of the <code>config/database.yml</code> file, your application will be configured for MySQL instead of SQLite. Detailed examples of the common database connections are below.</p></div><h4 id="connection-preference">3.13 Connection Preference</h4><p>Since there are two ways to set your connection, via environment variable it is important to understand how the two can interact.</p><p>If you have an empty <code>config/database.yml</code> file but your <code>ENV['DATABASE_URL']</code> is present, then Rails will connect to the database via your environment variable:</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 $ cat config/database.yml
 
@@ -705,8 +669,7 @@ postgresql://localhost/my_database
 
 </pre>
 </div>
-<p>If you have a <code>config/database.yml</code> but no <code>ENV['DATABASE_URL']</code> then this file will be used to connect to your database:</p>
-<div class="code_container">
+<p>If you have a <code>config/database.yml</code> but no <code>ENV['DATABASE_URL']</code> then this file will be used to connect to your database:</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 $ cat config/database.yml
 development:
@@ -718,9 +681,7 @@ $ echo $DATABASE_URL
 
 </pre>
 </div>
-<p>If you have both <code>config/database.yml</code> and <code>ENV['DATABASE_URL']</code> set then Rails will merge the configuration together. To better understand this we must see some examples.</p>
-<p>When duplicate connection information is provided the environment variable will take precedence:</p>
-<div class="code_container">
+<p>If you have both <code>config/database.yml</code> and <code>ENV['DATABASE_URL']</code> set then Rails will merge the configuration together. To better understand this we must see some examples.</p><p>When duplicate connection information is provided the environment variable will take precedence:</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 $ cat config/database.yml
 development:
@@ -731,14 +692,12 @@ development:
 $ echo $DATABASE_URL
 postgresql://localhost/my_database
 
-$ rails runner 'puts ActiveRecord::Base.connections'
+$ bin/rails runner 'puts ActiveRecord::Base.connections'
 {"development"=&gt;{"adapter"=&gt;"postgresql", "host"=&gt;"localhost", "database"=&gt;"my_database"}}
 
 </pre>
 </div>
-<p>Here the adapter, host, and database match the information in <code>ENV['DATABASE_URL']</code>.</p>
-<p>If non-duplicate information is provided you will get all unique values, environment variable still takes precedence in cases of any conflicts.</p>
-<div class="code_container">
+<p>Here the adapter, host, and database match the information in <code>ENV['DATABASE_URL']</code>.</p><p>If non-duplicate information is provided you will get all unique values, environment variable still takes precedence in cases of any conflicts.</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 $ cat config/database.yml
 development:
@@ -748,30 +707,26 @@ development:
 $ echo $DATABASE_URL
 postgresql://localhost/my_database
 
-$ rails runner 'puts ActiveRecord::Base.connections'
+$ bin/rails runner 'puts ActiveRecord::Base.connections'
 {"development"=&gt;{"adapter"=&gt;"postgresql", "host"=&gt;"localhost", "database"=&gt;"my_database", "pool"=&gt;5}}
 
 </pre>
 </div>
-<p>Since pool is not in the <code>ENV['DATABASE_URL']</code> provided connection information its information is merged in. Since <code>adapter</code> is duplicate, the <code>ENV['DATABASE_URL']</code> connection information wins.</p>
-<p>The only way to explicitly not use the connection information in <code>ENV['DATABASE_URL']</code> is to specify an explicit URL connection using the <code>"url"</code> sub key:</p>
-<div class="code_container">
+<p>Since pool is not in the <code>ENV['DATABASE_URL']</code> provided connection information its information is merged in. Since <code>adapter</code> is duplicate, the <code>ENV['DATABASE_URL']</code> connection information wins.</p><p>The only way to explicitly not use the connection information in <code>ENV['DATABASE_URL']</code> is to specify an explicit URL connection using the <code>"url"</code> sub key:</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 $ cat config/database.yml
 development:
-  url: sqlite3://localhost/NOT_my_database
+  url: sqlite3:NOT_my_database
 
 $ echo $DATABASE_URL
 postgresql://localhost/my_database
 
-$ rails runner 'puts ActiveRecord::Base.connections'
-{"development"=&gt;{"adapter"=&gt;"sqlite3", "host"=&gt;"localhost", "database"=&gt;"NOT_my_database"}}
+$ bin/rails runner 'puts ActiveRecord::Base.connections'
+{"development"=&gt;{"adapter"=&gt;"sqlite3", "database"=&gt;"NOT_my_database"}}
 
 </pre>
 </div>
-<p>Here the connection information in <code>ENV['DATABASE_URL']</code> is ignored, note the different adapter and database name.</p>
-<p>Since it is possible to embed ERB in your <code>config/database.yml</code> it is best practice to explicitly show you are using the <code>ENV['DATABASE_URL']</code> to connect to your database. This is especially useful in production since you should not commit secrets like your database password into your source control (such as Git).</p>
-<div class="code_container">
+<p>Here the connection information in <code>ENV['DATABASE_URL']</code> is ignored, note the different adapter and database name.</p><p>Since it is possible to embed ERB in your <code>config/database.yml</code> it is best practice to explicitly show you are using the <code>ENV['DATABASE_URL']</code> to connect to your database. This is especially useful in production since you should not commit secrets like your database password into your source control (such as Git).</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 $ cat config/database.yml
 production:
@@ -779,11 +734,7 @@ production:
 
 </pre>
 </div>
-<p>Now the behavior is clear, that we are only using the connection information in <code>ENV['DATABASE_URL']</code>.</p>
-<h5 id="configuring-an-sqlite3-database">3.13.1 Configuring an SQLite3 Database</h5>
-<p>Rails comes with built-in support for <a href="http://www.sqlite.org">SQLite3</a>, which is a lightweight serverless database application. While a busy production environment may overload SQLite, it works well for development and testing. Rails defaults to using an SQLite database when creating a new project, but you can always change it later.</p>
-<p>Here's the section of the default configuration file (<code>config/database.yml</code>) with connection information for the development environment:</p>
-<div class="code_container">
+<p>Now the behavior is clear, that we are only using the connection information in <code>ENV['DATABASE_URL']</code>.</p><h5 id="configuring-an-sqlite3-database">3.13.1 Configuring an SQLite3 Database</h5><p>Rails comes with built-in support for <a href="http://www.sqlite.org">SQLite3</a>, which is a lightweight serverless database application. While a busy production environment may overload SQLite, it works well for development and testing. Rails defaults to using an SQLite database when creating a new project, but you can always change it later.</p><p>Here's the section of the default configuration file (<code>config/database.yml</code>) with connection information for the development environment:</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 development:
   adapter: sqlite3
@@ -793,10 +744,7 @@ development:
 
 </pre>
 </div>
-<div class="note"><p>Rails uses an SQLite3 database for data storage by default because it is a zero configuration database that just works. Rails also supports MySQL and PostgreSQL "out of the box", and has plugins for many database systems. If you are using a database in a production environment Rails most likely has an adapter for it.</p></div>
-<h5 id="configuring-a-mysql-database">3.13.2 Configuring a MySQL Database</h5>
-<p>If you choose to use MySQL instead of the shipped SQLite3 database, your <code>config/database.yml</code> will look a little different. Here's the development section:</p>
-<div class="code_container">
+<div class="note"><p>Rails uses an SQLite3 database for data storage by default because it is a zero configuration database that just works. Rails also supports MySQL and PostgreSQL "out of the box", and has plugins for many database systems. If you are using a database in a production environment Rails most likely has an adapter for it.</p></div><h5 id="configuring-a-mysql-database">3.13.2 Configuring a MySQL Database</h5><p>If you choose to use MySQL instead of the shipped SQLite3 database, your <code>config/database.yml</code> will look a little different. Here's the development section:</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 development:
   adapter: mysql2
@@ -809,23 +757,17 @@ development:
 
 </pre>
 </div>
-<p>If your development computer's MySQL installation includes a root user with an empty password, this configuration should work for you. Otherwise, change the username and password in the <code>development</code> section as appropriate.</p>
-<h5 id="configuring-a-postgresql-database">3.13.3 Configuring a PostgreSQL Database</h5>
-<p>If you choose to use PostgreSQL, your <code>config/database.yml</code> will be customized to use PostgreSQL databases:</p>
-<div class="code_container">
+<p>If your development computer's MySQL installation includes a root user with an empty password, this configuration should work for you. Otherwise, change the username and password in the <code>development</code> section as appropriate.</p><h5 id="configuring-a-postgresql-database">3.13.3 Configuring a PostgreSQL Database</h5><p>If you choose to use PostgreSQL, your <code>config/database.yml</code> will be customized to use PostgreSQL databases:</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 development:
   adapter: postgresql
   encoding: unicode
   database: blog_development
   pool: 5
-  username: blog
-  password:
 
 </pre>
 </div>
-<p>Prepared Statements can be disabled thus:</p>
-<div class="code_container">
+<p>Prepared Statements are enabled by default on PostgreSQL. You can be disable prepared statements by setting <code>prepared_statements</code> to <code>false</code>:</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 production:
   adapter: postgresql
@@ -833,9 +775,15 @@ production:
 
 </pre>
 </div>
-<h5 id="configuring-an-sqlite3-database-for-jruby-platform">3.13.4 Configuring an SQLite3 Database for JRuby Platform</h5>
-<p>If you choose to use SQLite3 and are using JRuby, your <code>config/database.yml</code> will look a little different. Here's the development section:</p>
-<div class="code_container">
+<p>If enabled, Active Record will create up to <code>1000</code> prepared statements per database connection by default. To modify this behavior you can set <code>statement_limit</code> to a different value:</p><div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+production:
+  adapter: postgresql
+  statement_limit: 200
+
+</pre>
+</div>
+<p>The more prepared statements in use: the more memory your database will require. If your PostgreSQL database is hitting memory limits, try lowering <code>statement_limit</code> or disabling prepared statements.</p><h5 id="configuring-an-sqlite3-database-for-jruby-platform">3.13.4 Configuring an SQLite3 Database for JRuby Platform</h5><p>If you choose to use SQLite3 and are using JRuby, your <code>config/database.yml</code> will look a little different. Here's the development section:</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 development:
   adapter: jdbcsqlite3
@@ -843,9 +791,7 @@ development:
 
 </pre>
 </div>
-<h5 id="configuring-a-mysql-database-for-jruby-platform">3.13.5 Configuring a MySQL Database for JRuby Platform</h5>
-<p>If you choose to use MySQL and are using JRuby, your <code>config/database.yml</code> will look a little different. Here's the development section:</p>
-<div class="code_container">
+<h5 id="configuring-a-mysql-database-for-jruby-platform">3.13.5 Configuring a MySQL Database for JRuby Platform</h5><p>If you choose to use MySQL and are using JRuby, your <code>config/database.yml</code> will look a little different. Here's the development section:</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 development:
   adapter: jdbcmysql
@@ -855,9 +801,7 @@ development:
 
 </pre>
 </div>
-<h5 id="configuring-a-postgresql-database-for-jruby-platform">3.13.6 Configuring a PostgreSQL Database for JRuby Platform</h5>
-<p>If you choose to use PostgreSQL and are using JRuby, your <code>config/database.yml</code> will look a little different. Here's the development section:</p>
-<div class="code_container">
+<h5 id="configuring-a-postgresql-database-for-jruby-platform">3.13.6 Configuring a PostgreSQL Database for JRuby Platform</h5><p>If you choose to use PostgreSQL and are using JRuby, your <code>config/database.yml</code> will look a little different. Here's the development section:</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 development:
   adapter: jdbcpostgresql
@@ -868,33 +812,18 @@ development:
 
 </pre>
 </div>
-<p>Change the username and password in the <code>development</code> section as appropriate.</p>
-<h4 id="creating-rails-environments">3.14 Creating Rails Environments</h4>
-<p>By default Rails ships with three environments: "development", "test", and "production". While these are sufficient for most use cases, there are circumstances when you want more environments.</p>
-<p>Imagine you have a server which mirrors the production environment but is only used for testing. Such a server is commonly called a "staging server". To define an environment called "staging" for this server, just create a file called <code>config/environments/staging.rb</code>. Please use the contents of any existing file in <code>config/environments</code> as a starting point and make the necessary changes from there.</p>
-<p>That environment is no different than the default ones, start a server with <code>rails server -e staging</code>, a console with <code>rails console staging</code>, <code>Rails.env.staging?</code> works, etc.</p>
-<h4 id="deploy-to-a-subdirectory-(relative-url-root)">3.15 Deploy to a subdirectory (relative url root)</h4>
-<p>By default Rails expects that your application is running at the root
-(eg. <code>/</code>). This section explains how to run your application inside a directory.</p>
-<p>Let's assume we want to deploy our application to "/app1". Rails needs to know
-this directory to generate the appropriate routes:</p>
-<div class="code_container">
+<p>Change the username and password in the <code>development</code> section as appropriate.</p><h4 id="creating-rails-environments">3.14 Creating Rails Environments</h4><p>By default Rails ships with three environments: "development", "test", and "production". While these are sufficient for most use cases, there are circumstances when you want more environments.</p><p>Imagine you have a server which mirrors the production environment but is only used for testing. Such a server is commonly called a "staging server". To define an environment called "staging" for this server, just create a file called <code>config/environments/staging.rb</code>. Please use the contents of any existing file in <code>config/environments</code> as a starting point and make the necessary changes from there.</p><p>That environment is no different than the default ones, start a server with <code>rails server -e staging</code>, a console with <code>rails console staging</code>, <code>Rails.env.staging?</code> works, etc.</p><h4 id="deploy-to-a-subdirectory-(relative-url-root)">3.15 Deploy to a subdirectory (relative url root)</h4><p>By default Rails expects that your application is running at the root
+(eg. <code>/</code>). This section explains how to run your application inside a directory.</p><p>Let's assume we want to deploy our application to "/app1". Rails needs to know
+this directory to generate the appropriate routes:</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 config.relative_url_root = "/app1"
 
 </pre>
 </div>
 <p>alternatively you can set the <code>RAILS_RELATIVE_URL_ROOT</code> environment
-variable.</p>
-<p>Rails will now prepend "/app1" when generating links.</p>
-<h5 id="using-passenger">3.15.1 Using Passenger</h5>
-<p>Passenger makes it easy to run your application in a subdirectory. You can find
+variable.</p><p>Rails will now prepend "/app1" when generating links.</p><h5 id="using-passenger">3.15.1 Using Passenger</h5><p>Passenger makes it easy to run your application in a subdirectory. You can find
 the relevant configuration in the
-<a href="http://www.modrails.com/documentation/Users%20guide%20Apache.html#deploying_rails_to_sub_uri">passenger manual</a>.</p>
-<h5 id="using-a-reverse-proxy">3.15.2 Using a Reverse Proxy</h5>
-<p>TODO</p>
-<h5 id="considerations-when-deploying-to-a-subdirectory">3.15.3 Considerations when deploying to a subdirectory</h5>
-<p>Deploying to a subdirectory in production has implications on various parts of
+<a href="http://www.modrails.com/documentation/Users%20guide%20Apache.html#deploying_rails_to_sub_uri">passenger manual</a>.</p><h5 id="using-a-reverse-proxy">3.15.2 Using a Reverse Proxy</h5><p>TODO</p><h5 id="considerations-when-deploying-to-a-subdirectory">3.15.3 Considerations when deploying to a subdirectory</h5><p>Deploying to a subdirectory in production has implications on various parts of
 Rails.</p>
 <ul>
 <li>development environment:</li>
@@ -902,19 +831,13 @@ Rails.</p>
 <li>serving static assets:</li>
 <li>asset pipeline:</li>
 </ul>
-<h3 id="rails-environment-settings">4 Rails Environment Settings</h3>
-<p>Some parts of Rails can also be configured externally by supplying environment variables. The following environment variables are recognized by various parts of Rails:</p>
+<h3 id="rails-environment-settings">4 Rails Environment Settings</h3><p>Some parts of Rails can also be configured externally by supplying environment variables. The following environment variables are recognized by various parts of Rails:</p>
 <ul>
 <li><p><code>ENV["RAILS_ENV"]</code> defines the Rails environment (production, development, test, and so on) that Rails will run under.</p></li>
 <li><p><code>ENV["RAILS_RELATIVE_URL_ROOT"]</code> is used by the routing code to recognize URLs when you <a href="configuring.html#deploy-to-a-subdirectory-relative-url-root">deploy your application to a subdirectory</a>.</p></li>
 <li><p><code>ENV["RAILS_CACHE_ID"]</code> and <code>ENV["RAILS_APP_VERSION"]</code> are used to generate expanded cache keys in Rails' caching code. This allows you to have multiple separate caches from the same application.</p></li>
 </ul>
-<h3 id="using-initializer-files">5 Using Initializer Files</h3>
-<p>After loading the framework and any gems in your application, Rails turns to loading initializers. An initializer is any Ruby file stored under <code>config/initializers</code> in your application. You can use initializers to hold configuration settings that should be made after all of the frameworks and gems are loaded, such as options to configure settings for these parts.</p>
-<div class="note"><p>You can use subfolders to organize your initializers if you like, because Rails will look into the whole file hierarchy from the initializers folder on down.</p></div>
-<div class="info"><p>If you have any ordering dependency in your initializers, you can control the load order through naming. Initializer files are loaded in alphabetical order by their path. For example, <code>01_critical.rb</code> will be loaded before <code>02_normal.rb</code>.</p></div>
-<h3 id="initialization-events">6 Initialization events</h3>
-<p>Rails has 5 initialization events which can be hooked into (listed in the order that they are run):</p>
+<h3 id="using-initializer-files">5 Using Initializer Files</h3><p>After loading the framework and any gems in your application, Rails turns to loading initializers. An initializer is any Ruby file stored under <code>config/initializers</code> in your application. You can use initializers to hold configuration settings that should be made after all of the frameworks and gems are loaded, such as options to configure settings for these parts.</p><div class="note"><p>You can use subfolders to organize your initializers if you like, because Rails will look into the whole file hierarchy from the initializers folder on down.</p></div><div class="info"><p>If you have any ordering dependency in your initializers, you can control the load order through naming. Initializer files are loaded in alphabetical order by their path. For example, <code>01_critical.rb</code> will be loaded before <code>02_normal.rb</code>.</p></div><h3 id="initialization-events">6 Initialization events</h3><p>Rails has 5 initialization events which can be hooked into (listed in the order that they are run):</p>
 <ul>
 <li><p><code>before_configuration</code>: This is run as soon as the application constant inherits from <code>Rails::Application</code>. The <code>config</code> calls are evaluated before this happens.</p></li>
 <li><p><code>before_initialize</code>: This is run directly before the initialization process of the application occurs with the <code>:bootstrap_hook</code> initializer near the beginning of the Rails initialization process.</p></li>
@@ -922,8 +845,7 @@ Rails.</p>
 <li><p><code>before_eager_load</code>: This is run directly before eager loading occurs, which is the default behavior for the <code>production</code> environment and not for the <code>development</code> environment.</p></li>
 <li><p><code>after_initialize</code>: Run directly after the initialization of the application, after the application initializers in <code>config/initializers</code> are run.</p></li>
 </ul>
-<p>To define an event for these hooks, use the block syntax within a <code>Rails::Application</code>, <code>Rails::Railtie</code> or <code>Rails::Engine</code> subclass:</p>
-<div class="code_container">
+<p>To define an event for these hooks, use the block syntax within a <code>Rails::Application</code>, <code>Rails::Railtie</code> or <code>Rails::Engine</code> subclass:</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 module YourApp
   class Application &lt; Rails::Application
@@ -935,8 +857,7 @@ end
 
 </pre>
 </div>
-<p>Alternatively, you can also do it through the <code>config</code> method on the <code>Rails.application</code> object:</p>
-<div class="code_container">
+<p>Alternatively, you can also do it through the <code>config</code> method on the <code>Rails.application</code> object:</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 Rails.application.config.before_initialize do
   # initialization code goes here
@@ -944,11 +865,8 @@ end
 
 </pre>
 </div>
-<div class="warning"><p>Some parts of your application, notably routing, are not yet set up at the point where the <code>after_initialize</code> block is called.</p></div>
-<h4 id="rails::railtie#initializer">6.1 <code>Rails::Railtie#initializer</code>
-</h4>
-<p>Rails has several initializers that run on startup that are all defined by using the <code>initializer</code> method from <code>Rails::Railtie</code>. Here's an example of the <code>set_helpers_path</code> initializer from Action Controller:</p>
-<div class="code_container">
+<div class="warning"><p>Some parts of your application, notably routing, are not yet set up at the point where the <code>after_initialize</code> block is called.</p></div><h4 id="rails::railtie#initializer">6.1 <code>Rails::Railtie#initializer</code>
+</h4><p>Rails has several initializers that run on startup that are all defined by using the <code>initializer</code> method from <code>Rails::Railtie</code>. Here's an example of the <code>set_helpers_path</code> initializer from Action Controller:</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 initializer "action_controller.set_helpers_path" do |app|
   ActionController::Helpers.helpers_path = app.helpers_paths
@@ -956,13 +874,7 @@ end
 
 </pre>
 </div>
-<p>The <code>initializer</code> method takes three arguments with the first being the name for the initializer and the second being an options hash (not shown here) and the third being a block. The <code>:before</code> key in the options hash can be specified to specify which initializer this new initializer must run before, and the <code>:after</code> key will specify which initializer to run this initializer <em>after</em>.</p>
-<p>Initializers defined using the <code>initializer</code> method will be run in the order they are defined in, with the exception of ones that use the <code>:before</code> or <code>:after</code> methods.</p>
-<div class="warning"><p>You may put your initializer before or after any other initializer in the chain, as long as it is logical. Say you have 4 initializers called "one" through "four" (defined in that order) and you define "four" to go <em>before</em> "four" but <em>after</em> "three", that just isn't logical and Rails will not be able to determine your initializer order.</p></div>
-<p>The block argument of the <code>initializer</code> method is the instance of the application itself, and so we can access the configuration on it by using the <code>config</code> method as done in the example.</p>
-<p>Because <code>Rails::Application</code> inherits from <code>Rails::Railtie</code> (indirectly), you can use the <code>initializer</code> method in <code>config/application.rb</code> to define initializers for the application.</p>
-<h4 id="initializers">6.2 Initializers</h4>
-<p>Below is a comprehensive list of all the initializers found in Rails in the order that they are defined (and therefore run in, unless otherwise stated).</p>
+<p>The <code>initializer</code> method takes three arguments with the first being the name for the initializer and the second being an options hash (not shown here) and the third being a block. The <code>:before</code> key in the options hash can be specified to specify which initializer this new initializer must run before, and the <code>:after</code> key will specify which initializer to run this initializer <em>after</em>.</p><p>Initializers defined using the <code>initializer</code> method will be run in the order they are defined in, with the exception of ones that use the <code>:before</code> or <code>:after</code> methods.</p><div class="warning"><p>You may put your initializer before or after any other initializer in the chain, as long as it is logical. Say you have 4 initializers called "one" through "four" (defined in that order) and you define "four" to go <em>before</em> "four" but <em>after</em> "three", that just isn't logical and Rails will not be able to determine your initializer order.</p></div><p>The block argument of the <code>initializer</code> method is the instance of the application itself, and so we can access the configuration on it by using the <code>config</code> method as done in the example.</p><p>Because <code>Rails::Application</code> inherits from <code>Rails::Railtie</code> (indirectly), you can use the <code>initializer</code> method in <code>config/application.rb</code> to define initializers for the application.</p><h4 id="initializers">6.2 Initializers</h4><p>Below is a comprehensive list of all the initializers found in Rails in the order that they are defined (and therefore run in, unless otherwise stated).</p>
 <ul>
 <li><p><code>load_environment_hook</code> Serves as a placeholder so that <code>:load_environment_config</code> can be defined to run before it.</p></li>
 <li><p><code>load_active_support</code> Requires <code>active_support/dependencies</code> which sets up the basis for Active Support. Optionally requires <code>active_support/all</code> if <code>config.active_support.bare</code> is un-truthful, which is the default.</p></li>
@@ -1010,9 +922,7 @@ end
 <li><p><code>set_routes_reloader</code> Configures Action Dispatch to reload the routes file using <code>ActionDispatch::Callbacks.to_prepare</code>.</p></li>
 <li><p><code>disable_dependency_loading</code> Disables the automatic dependency loading if the <code>config.eager_load</code> is set to true.</p></li>
 </ul>
-<h3 id="database-pooling">7 Database pooling</h3>
-<p>Active Record database connections are managed by <code>ActiveRecord::ConnectionAdapters::ConnectionPool</code> which ensures that a connection pool synchronizes the amount of thread access to a limited number of database connections. This limit defaults to 5 and can be configured in <code>database.yml</code>.</p>
-<div class="code_container">
+<h3 id="database-pooling">7 Database pooling</h3><p>Active Record database connections are managed by <code>ActiveRecord::ConnectionAdapters::ConnectionPool</code> which ensures that a connection pool synchronizes the amount of thread access to a limited number of database connections. This limit defaults to 5 and can be configured in <code>database.yml</code>.</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 development:
   adapter: sqlite3
@@ -1022,22 +932,16 @@ development:
 
 </pre>
 </div>
-<p>Since the connection pooling is handled inside of Active Record by default, all application servers (Thin, mongrel, Unicorn etc.) should behave the same. Initially, the database connection pool is empty and it will create additional connections as the demand for them increases, until it reaches the connection pool limit.</p>
-<p>Any one request will check out a connection the first time it requires access to the database, after which it will check the connection back in, at the end of the request, meaning that the additional connection slot will be available again for the next request in the queue.</p>
-<p>If you try to use more connections than are available, Active Record will block
+<p>Since the connection pooling is handled inside of Active Record by default, all application servers (Thin, mongrel, Unicorn etc.) should behave the same. Initially, the database connection pool is empty and it will create additional connections as the demand for them increases, until it reaches the connection pool limit.</p><p>Any one request will check out a connection the first time it requires access to the database, after which it will check the connection back in, at the end of the request, meaning that the additional connection slot will be available again for the next request in the queue.</p><p>If you try to use more connections than are available, Active Record will block
 and wait for a connection from the pool. When it cannot get connection, a timeout
-error similar to given below will be thrown.</p>
-<div class="code_container">
+error similar to given below will be thrown.</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 ActiveRecord::ConnectionTimeoutError - could not obtain a database connection within 5 seconds. The max pool size is currently 5; consider increasing it:
 
 </pre>
 </div>
 <p>If you get the above error, you might want to increase the size of connection
-pool by incrementing the <code>pool</code> option in <code>database.yml</code></p>
-<div class="note"><p>If you are running in a multi-threaded environment, there could be a chance that several threads may be accessing multiple connections simultaneously. So depending on your current request load, you could very well have multiple threads contending for a limited amount of connections.</p></div>
-</body></html>
-
+pool by incrementing the <code>pool</code> option in <code>database.yml</code></p><div class="note"><p>If you are running in a multi-threaded environment, there could be a chance that several threads may be accessing multiple connections simultaneously. So depending on your current request load, you could very well have multiple threads contending for a limited amount of connections.</p></div>
 
         <h3>反饋</h3>
         <p>

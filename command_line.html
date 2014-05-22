@@ -160,7 +160,7 @@
 
   <div id="feature">
     <div class="wrapper">
-      <h2 id="the-rails-command-line">The Rails Command Line</h2><p>After reading this guide, you will know:</p>
+      <h2>The Rails Command Line</h2><p>After reading this guide, you will know:</p>
 <ul>
 <li>How to create a Rails application.</li>
 <li>How to generate models, controllers, database migrations, and unit tests.</li>
@@ -172,8 +172,7 @@
 
                 <div id="subCol">
             <h3 class="chapter"><img src="images/chapters_icon.gif" alt="" />Chapters</h3>
-            <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
-<html><body><ol class="chapters">
+            <ol class="chapters">
 <li>
 <a href="#command-line-basics">Command Line Basics</a>
 
@@ -210,7 +209,7 @@
 <li><a href="#rails-with-databases-and-scm">Rails with Databases and SCM</a></li>
 </ul>
 </li>
-</ol></body></html>
+</ol>
 
           </div>
 
@@ -220,11 +219,7 @@
   <div id="container">
     <div class="wrapper">
       <div id="mainCol">
-        <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
-<html><body>
-<div class="note"><p>This tutorial assumes you have basic Rails knowledge from reading the <a href="getting_started.html">Getting Started with Rails Guide</a>.</p></div>
-<h3 id="command-line-basics">1 Command Line Basics</h3>
-<p>There are a few commands that are absolutely critical to your everyday usage of Rails. In the order of how much you'll probably use them are:</p>
+        <div class="note"><p>This tutorial assumes you have basic Rails knowledge from reading the <a href="getting_started.html">Getting Started with Rails Guide</a>.</p></div><h3 id="command-line-basics">1 Command Line Basics</h3><p>There are a few commands that are absolutely critical to your everyday usage of Rails. In the order of how much you'll probably use them are:</p>
 <ul>
 <li><code>rails console</code></li>
 <li><code>rails server</code></li>
@@ -233,13 +228,8 @@
 <li><code>rails dbconsole</code></li>
 <li><code>rails new app_name</code></li>
 </ul>
-<p>All commands can run with <code>-h or --help</code> to list more information.</p>
-<p>Let's create a simple Rails application to step through each of these commands in context.</p>
-<h4 id="rails-new">1.1 <code>rails new</code>
-</h4>
-<p>The first thing we'll want to do is create a new Rails application by running the <code>rails new</code> command after installing Rails.</p>
-<div class="info"><p>You can install the rails gem by typing <code>gem install rails</code>, if you don't have it already.</p></div>
-<div class="code_container">
+<p>All commands can run with <code>-h or --help</code> to list more information.</p><p>Let's create a simple Rails application to step through each of these commands in context.</p><h4 id="rails-new">1.1 <code>rails new</code>
+</h4><p>The first thing we'll want to do is create a new Rails application by running the <code>rails new</code> command after installing Rails.</p><div class="info"><p>You can install the rails gem by typing <code>gem install rails</code>, if you don't have it already.</p></div><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 $ rails new commandsapp
      create
@@ -256,15 +246,11 @@ $ rails new commandsapp
 
 </pre>
 </div>
-<p>Rails will set you up with what seems like a huge amount of stuff for such a tiny command! You've got the entire Rails directory structure now with all the code you need to run our simple application right out of the box.</p>
-<h4 id="rails-server">1.2 <code>rails server</code>
-</h4>
-<p>The <code>rails server</code> command launches a small web server named WEBrick which comes bundled with Ruby. You'll use this any time you want to access your application through a web browser.</p>
-<p>With no further work, <code>rails server</code> will run our new shiny Rails app:</p>
-<div class="code_container">
+<p>Rails will set you up with what seems like a huge amount of stuff for such a tiny command! You've got the entire Rails directory structure now with all the code you need to run our simple application right out of the box.</p><h4 id="rails-server">1.2 <code>rails server</code>
+</h4><p>The <code>rails server</code> command launches a small web server named WEBrick which comes bundled with Ruby. You'll use this any time you want to access your application through a web browser.</p><p>With no further work, <code>rails server</code> will run our new shiny Rails app:</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 $ cd commandsapp
-$ rails server
+$ bin/rails server
 =&gt; Booting WEBrick
 =&gt; Rails 4.0.0 application starting in development on http://0.0.0.0:3000
 =&gt; Call with -d to detach
@@ -275,23 +261,16 @@ $ rails server
 
 </pre>
 </div>
-<p>With just three commands we whipped up a Rails server listening on port 3000. Go to your browser and open <a href="http://localhost:3000">http://localhost:3000</a>, you will see a basic Rails app running.</p>
-<div class="info"><p>You can also use the alias "s" to start the server: <code>rails s</code>.</p></div>
-<p>The server can be run on a different port using the <code>-p</code> option. The default development environment can be changed using <code>-e</code>.</p>
-<div class="code_container">
+<p>With just three commands we whipped up a Rails server listening on port 3000. Go to your browser and open <a href="http://localhost:3000">http://localhost:3000</a>, you will see a basic Rails app running.</p><div class="info"><p>You can also use the alias "s" to start the server: <code>rails s</code>.</p></div><p>The server can be run on a different port using the <code>-p</code> option. The default development environment can be changed using <code>-e</code>.</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
-$ rails server -e production -p 4000
+$ bin/rails server -e production -p 4000
 
 </pre>
 </div>
-<p>The <code>-b</code> option binds Rails to the specified IP, by default it is 0.0.0.0. You can run a server as a daemon by passing a <code>-d</code> option.</p>
-<h4 id="rails-generate">1.3 <code>rails generate</code>
-</h4>
-<p>The <code>rails generate</code> command uses templates to create a whole lot of things. Running <code>rails generate</code> by itself gives a list of available generators:</p>
-<div class="info"><p>You can also use the alias "g" to invoke the generator command: <code>rails g</code>.</p></div>
-<div class="code_container">
+<p>The <code>-b</code> option binds Rails to the specified IP, by default it is 0.0.0.0. You can run a server as a daemon by passing a <code>-d</code> option.</p><h4 id="rails-generate">1.3 <code>rails generate</code>
+</h4><p>The <code>rails generate</code> command uses templates to create a whole lot of things. Running <code>rails generate</code> by itself gives a list of available generators:</p><div class="info"><p>You can also use the alias "g" to invoke the generator command: <code>rails g</code>.</p></div><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
-$ rails generate
+$ bin/rails generate
 Usage: rails generate GENERATOR [args] [options]
 
 ...
@@ -308,13 +287,9 @@ Rails:
 
 </pre>
 </div>
-<div class="note"><p>You can install more generators through generator gems, portions of plugins you'll undoubtedly install, and you can even create your own!</p></div>
-<p>Using generators will save you a large amount of time by writing <strong>boilerplate code</strong>, code that is necessary for the app to work.</p>
-<p>Let's make our own controller with the controller generator. But what command should we use? Let's ask the generator:</p>
-<div class="info"><p>All Rails console utilities have help text. As with most *nix utilities, you can try adding <code>--help</code> or <code>-h</code> to the end, for example <code>rails server --help</code>.</p></div>
-<div class="code_container">
+<div class="note"><p>You can install more generators through generator gems, portions of plugins you'll undoubtedly install, and you can even create your own!</p></div><p>Using generators will save you a large amount of time by writing <strong>boilerplate code</strong>, code that is necessary for the app to work.</p><p>Let's make our own controller with the controller generator. But what command should we use? Let's ask the generator:</p><div class="info"><p>All Rails console utilities have help text. As with most *nix utilities, you can try adding <code>--help</code> or <code>-h</code> to the end, for example <code>rails server --help</code>.</p></div><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
-$ rails generate controller
+$ bin/rails generate controller
 Usage: rails generate controller NAME [action action] [options]
 
 ...
@@ -339,10 +314,9 @@ Example:
 
 </pre>
 </div>
-<p>The controller generator is expecting parameters in the form of <code>generate controller ControllerName action1 action2</code>. Let's make a <code>Greetings</code> controller with an action of <strong>hello</strong>, which will say something nice to us.</p>
-<div class="code_container">
+<p>The controller generator is expecting parameters in the form of <code>generate controller ControllerName action1 action2</code>. Let's make a <code>Greetings</code> controller with an action of <strong>hello</strong>, which will say something nice to us.</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
-$ rails generate controller Greetings hello
+$ bin/rails generate controller Greetings hello
      create  app/controllers/greetings_controller.rb
       route  get "greetings/hello"
      invoke  erb
@@ -362,9 +336,7 @@ $ rails generate controller Greetings hello
 
 </pre>
 </div>
-<p>What all did this generate? It made sure a bunch of directories were in our application, and created a controller file, a view file, a functional test file, a helper for the view, a JavaScript file and a stylesheet file.</p>
-<p>Check out the controller and modify it a little (in <code>app/controllers/greetings_controller.rb</code>):</p>
-<div class="code_container">
+<p>What all did this generate? It made sure a bunch of directories were in our application, and created a controller file, a view file, a functional test file, a helper for the view, a JavaScript file and a stylesheet file.</p><p>Check out the controller and modify it a little (in <code>app/controllers/greetings_controller.rb</code>):</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class GreetingsController &lt; ApplicationController
   def hello
@@ -374,28 +346,23 @@ end
 
 </pre>
 </div>
-<p>Then the view, to display our message (in <code>app/views/greetings/hello.html.erb</code>):</p>
-<div class="code_container">
+<p>Then the view, to display our message (in <code>app/views/greetings/hello.html.erb</code>):</p><div class="code_container">
 <pre class="brush: ruby; html-script: true; gutter: false; toolbar: false">
 &lt;h1&gt;A Greeting for You!&lt;/h1&gt;
 &lt;p&gt;&lt;%= @message %&gt;&lt;/p&gt;
 
 </pre>
 </div>
-<p>Fire up your server using <code>rails server</code>.</p>
-<div class="code_container">
+<p>Fire up your server using <code>rails server</code>.</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
-$ rails server
+$ bin/rails server
 =&gt; Booting WEBrick...
 
 </pre>
 </div>
-<p>The URL will be <a href="http://localhost:3000/greetings/hello">http://localhost:3000/greetings/hello</a>.</p>
-<div class="info"><p>With a normal, plain-old Rails application, your URLs will generally follow the pattern of http://(host)/(controller)/(action), and a URL like http://(host)/(controller) will hit the <strong>index</strong> action of that controller.</p></div>
-<p>Rails comes with a generator for data models too.</p>
-<div class="code_container">
+<p>The URL will be <a href="http://localhost:3000/greetings/hello">http://localhost:3000/greetings/hello</a>.</p><div class="info"><p>With a normal, plain-old Rails application, your URLs will generally follow the pattern of http://(host)/(controller)/(action), and a URL like http://(host)/(controller) will hit the <strong>index</strong> action of that controller.</p></div><p>Rails comes with a generator for data models too.</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
-$ rails generate model
+$ bin/rails generate model
 Usage:
   rails generate model NAME [field[:type][:index] field[:type][:index]] [options]
 
@@ -412,12 +379,9 @@ Description:
 
 </pre>
 </div>
-<div class="note"><p>For a list of available field types, refer to the <a href="http://api.rubyonrails.org/classes/ActiveRecord/ConnectionAdapters/TableDefinition.html#method-i-column">API documentation</a> for the column method for the <code>TableDefinition</code> class.</p></div>
-<p>But instead of generating a model directly (which we'll be doing later), let's set up a scaffold. A <strong>scaffold</strong> in Rails is a full set of model, database migration for that model, controller to manipulate it, views to view and manipulate the data, and a test suite for each of the above.</p>
-<p>We will set up a simple resource called "HighScore" that will keep track of our highest score on video games we play.</p>
-<div class="code_container">
+<div class="note"><p>For a list of available field types, refer to the <a href="http://api.rubyonrails.org/classes/ActiveRecord/ConnectionAdapters/TableDefinition.html#method-i-column">API documentation</a> for the column method for the <code>TableDefinition</code> class.</p></div><p>But instead of generating a model directly (which we'll be doing later), let's set up a scaffold. A <strong>scaffold</strong> in Rails is a full set of model, database migration for that model, controller to manipulate it, views to view and manipulate the data, and a test suite for each of the above.</p><p>We will set up a simple resource called "HighScore" that will keep track of our highest score on video games we play.</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
-$ rails generate scaffold HighScore game:string score:integer
+$ bin/rails generate scaffold HighScore game:string score:integer
     invoke  active_record
     create    db/migrate/20130717151933_create_high_scores.rb
     create    app/models/high_score.rb
@@ -454,11 +418,9 @@ $ rails generate scaffold HighScore game:string score:integer
 
 </pre>
 </div>
-<p>The generator checks that there exist the directories for models, controllers, helpers, layouts, functional and unit tests, stylesheets, creates the views, controller, model and database migration for HighScore (creating the <code>high_scores</code> table and fields), takes care of the route for the <strong>resource</strong>, and new tests for everything.</p>
-<p>The migration requires that we <strong>migrate</strong>, that is, run some Ruby code (living in that <code>20130717151933_create_high_scores.rb</code>) to modify the schema of our database. Which database? The sqlite3 database that Rails will create for you when we run the <code>rake db:migrate</code> command. We'll talk more about Rake in-depth in a little while.</p>
-<div class="code_container">
+<p>The generator checks that there exist the directories for models, controllers, helpers, layouts, functional and unit tests, stylesheets, creates the views, controller, model and database migration for HighScore (creating the <code>high_scores</code> table and fields), takes care of the route for the <strong>resource</strong>, and new tests for everything.</p><p>The migration requires that we <strong>migrate</strong>, that is, run some Ruby code (living in that <code>20130717151933_create_high_scores.rb</code>) to modify the schema of our database. Which database? The SQLite3 database that Rails will create for you when we run the <code>rake db:migrate</code> command. We'll talk more about Rake in-depth in a little while.</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
-$ rake db:migrate
+$ bin/rake db:migrate
 ==  CreateHighScores: migrating ===============================================
 -- create_table(:high_scores)
    -&gt; 0.0017s
@@ -466,30 +428,22 @@ $ rake db:migrate
 
 </pre>
 </div>
-<div class="info"><p>Let's talk about unit tests. Unit tests are code that tests and makes assertions about code. In unit testing, we take a little part of code, say a method of a model, and test its inputs and outputs. Unit tests are your friend. The sooner you make peace with the fact that your quality of life will drastically increase when you unit test your code, the better. Seriously. We'll make one in a moment.</p></div>
-<p>Let's see the interface Rails created for us.</p>
-<div class="code_container">
+<div class="info"><p>Let's talk about unit tests. Unit tests are code that tests and makes assertions about code. In unit testing, we take a little part of code, say a method of a model, and test its inputs and outputs. Unit tests are your friend. The sooner you make peace with the fact that your quality of life will drastically increase when you unit test your code, the better. Seriously. We'll make one in a moment.</p></div><p>Let's see the interface Rails created for us.</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
-$ rails server
+$ bin/rails server
 
 </pre>
 </div>
-<p>Go to your browser and open <a href="http://localhost:3000/high_scores">http://localhost:3000/high_scores</a>, now we can create new high scores (55,160 on Space Invaders!)</p>
-<h4 id="rails-console">1.4 <code>rails console</code>
-</h4>
-<p>The <code>console</code> command lets you interact with your Rails application from the command line. On the underside, <code>rails console</code> uses IRB, so if you've ever used it, you'll be right at home. This is useful for testing out quick ideas with code and changing data server-side without touching the website.</p>
-<div class="info"><p>You can also use the alias "c" to invoke the console: <code>rails c</code>.</p></div>
-<p>You can specify the environment in which the <code>console</code> command should operate.</p>
-<div class="code_container">
+<p>Go to your browser and open <a href="http://localhost:3000/high_scores">http://localhost:3000/high_scores</a>, now we can create new high scores (55,160 on Space Invaders!)</p><h4 id="rails-console">1.4 <code>rails console</code>
+</h4><p>The <code>console</code> command lets you interact with your Rails application from the command line. On the underside, <code>rails console</code> uses IRB, so if you've ever used it, you'll be right at home. This is useful for testing out quick ideas with code and changing data server-side without touching the website.</p><div class="info"><p>You can also use the alias "c" to invoke the console: <code>rails c</code>.</p></div><p>You can specify the environment in which the <code>console</code> command should operate.</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
-$ rails console staging
+$ bin/rails console staging
 
 </pre>
 </div>
-<p>If you wish to test out some code without changing any data, you can do that by invoking <code>rails console --sandbox</code>.</p>
-<div class="code_container">
+<p>If you wish to test out some code without changing any data, you can do that by invoking <code>rails console --sandbox</code>.</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
-$ rails console --sandbox
+$ bin/rails console --sandbox
 Loading development environment in sandbox (Rails 4.0.0)
 Any modifications you make will be rolled back on exit
 irb(main):001:0&gt;
@@ -497,33 +451,23 @@ irb(main):001:0&gt;
 </pre>
 </div>
 <h4 id="rails-dbconsole">1.5 <code>rails dbconsole</code>
-</h4>
-<p><code>rails dbconsole</code> figures out which database you're using and drops you into whichever command line interface you would use with it (and figures out the command line parameters to give to it, too!). It supports MySQL, PostgreSQL, SQLite and SQLite3.</p>
-<div class="info"><p>You can also use the alias "db" to invoke the dbconsole: <code>rails db</code>.</p></div>
-<h4 id="rails-runner">1.6 <code>rails runner</code>
-</h4>
-<p><code>runner</code> runs Ruby code in the context of Rails non-interactively. For instance:</p>
-<div class="code_container">
+</h4><p><code>rails dbconsole</code> figures out which database you're using and drops you into whichever command line interface you would use with it (and figures out the command line parameters to give to it, too!). It supports MySQL, PostgreSQL, SQLite and SQLite3.</p><div class="info"><p>You can also use the alias "db" to invoke the dbconsole: <code>rails db</code>.</p></div><h4 id="rails-runner">1.6 <code>rails runner</code>
+</h4><p><code>runner</code> runs Ruby code in the context of Rails non-interactively. For instance:</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
-$ rails runner "Model.long_running_method"
+$ bin/rails runner "Model.long_running_method"
 
 </pre>
 </div>
-<div class="info"><p>You can also use the alias "r" to invoke the runner: <code>rails r</code>.</p></div>
-<p>You can specify the environment in which the <code>runner</code> command should operate using the <code>-e</code> switch.</p>
-<div class="code_container">
+<div class="info"><p>You can also use the alias "r" to invoke the runner: <code>rails r</code>.</p></div><p>You can specify the environment in which the <code>runner</code> command should operate using the <code>-e</code> switch.</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
-$ rails runner -e staging "Model.long_running_method"
+$ bin/rails runner -e staging "Model.long_running_method"
 
 </pre>
 </div>
 <h4 id="rails-destroy">1.7 <code>rails destroy</code>
-</h4>
-<p>Think of <code>destroy</code> as the opposite of <code>generate</code>. It'll figure out what generate did, and undo it.</p>
-<div class="info"><p>You can also use the alias "d" to invoke the destroy command: <code>rails d</code>.</p></div>
-<div class="code_container">
+</h4><p>Think of <code>destroy</code> as the opposite of <code>generate</code>. It'll figure out what generate did, and undo it.</p><div class="info"><p>You can also use the alias "d" to invoke the destroy command: <code>rails d</code>.</p></div><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
-$ rails generate model Oops
+$ bin/rails generate model Oops
       invoke  active_record
       create    db/migrate/20120528062523_create_oops.rb
       create    app/models/oops.rb
@@ -535,7 +479,7 @@ $ rails generate model Oops
 </div>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
-$ rails destroy model Oops
+$ bin/rails destroy model Oops
       invoke  active_record
       remove    db/migrate/20120528062523_create_oops.rb
       remove    app/models/oops.rb
@@ -545,16 +489,13 @@ $ rails destroy model Oops
 
 </pre>
 </div>
-<h3 id="rake">2 Rake</h3>
-<p>Rake is Ruby Make, a standalone Ruby utility that replaces the Unix utility 'make', and uses a 'Rakefile' and <code>.rake</code> files to build up a list of tasks. In Rails, Rake is used for common administration tasks, especially sophisticated ones that build off of each other.</p>
-<p>You can get a list of Rake tasks available to you, which will often depend on your current directory, by typing <code>rake --tasks</code>. Each task has a description, and should help you find the thing you need.</p>
-<p>To get the full backtrace for running rake task you can pass the option
-<code>--trace</code> to command line, for example <code>rake db:create --trace</code>.</p>
-<div class="code_container">
+<h3 id="rake">2 Rake</h3><p>Rake is Ruby Make, a standalone Ruby utility that replaces the Unix utility 'make', and uses a 'Rakefile' and <code>.rake</code> files to build up a list of tasks. In Rails, Rake is used for common administration tasks, especially sophisticated ones that build off of each other.</p><p>You can get a list of Rake tasks available to you, which will often depend on your current directory, by typing <code>rake --tasks</code>. Each task has a description, and should help you find the thing you need.</p><p>To get the full backtrace for running rake task you can pass the option
+<code>--trace</code> to command line, for example <code>rake db:create --trace</code>.</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
-$ rake --tasks
+$ bin/rake --tasks
 rake about              # List versions of all Rails frameworks and the environment
-rake assets:clean       # Remove compiled assets
+rake assets:clean       # Remove old compiled assets
+rake assets:clobber     # Remove compiled assets
 rake assets:precompile  # Compile all the assets named in config.assets.precompile
 rake db:create          # Create the database from config/database.yml for the current Rails.env
 ...
@@ -566,13 +507,10 @@ rake tmp:create         # Creates tmp directories for sessions, cache, sockets, 
 
 </pre>
 </div>
-<div class="info"><p>You can also use <code>rake -T</code>  to get the list of tasks.</p></div>
-<h4 id="about">2.1 <code>about</code>
-</h4>
-<p><code>rake about</code> gives information about version numbers for Ruby, RubyGems, Rails, the Rails subcomponents, your application's folder, the current Rails environment name, your app's database adapter, and schema version. It is useful when you need to ask for help, check if a security patch might affect you, or when you need some stats for an existing Rails installation.</p>
-<div class="code_container">
+<div class="info"><p>You can also use <code>rake -T</code>  to get the list of tasks.</p></div><h4 id="about">2.1 <code>about</code>
+</h4><p><code>rake about</code> gives information about version numbers for Ruby, RubyGems, Rails, the Rails subcomponents, your application's folder, the current Rails environment name, your app's database adapter, and schema version. It is useful when you need to ask for help, check if a security patch might affect you, or when you need some stats for an existing Rails installation.</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
-$ rake about
+$ bin/rake about
 About your application's environment
 Ruby version              1.9.3 (x86_64-linux)
 RubyGems version          1.3.6
@@ -593,15 +531,12 @@ Database schema version   20110805173523
 </pre>
 </div>
 <h4 id="assets">2.2 <code>assets</code>
-</h4>
-<p>You can precompile the assets in <code>app/assets</code> using <code>rake assets:precompile</code> and remove those compiled assets using <code>rake assets:clean</code>.</p>
-<h4 id="db">2.3 <code>db</code>
-</h4>
-<p>The most common tasks of the <code>db:</code> Rake namespace are <code>migrate</code> and <code>create</code>, and it will pay off to try out all of the migration rake tasks (<code>up</code>, <code>down</code>, <code>redo</code>, <code>reset</code>). <code>rake db:version</code> is useful when troubleshooting, telling you the current version of the database.</p>
-<p>More information about migrations can be found in the <a href="migrations.html">Migrations</a> guide.</p>
-<h4 id="doc">2.4 <code>doc</code>
-</h4>
-<p>The <code>doc:</code> namespace has the tools to generate documentation for your app, API documentation, guides. Documentation can also be stripped which is mainly useful for slimming your codebase, like if you're writing a Rails application for an embedded platform.</p>
+</h4><p>You can precompile the assets in <code>app/assets</code> using <code>rake assets:precompile</code>,
+and remove older compiled assets using <code>rake assets:clean</code>. The <code>assets:clean</code>
+task allows for rolling deploys that may still be linking to an old asset while
+the new assets are being built.</p><p>If you want to clear <code>public/assets</code> completely, you can use <code>rake assets:clobber</code>.</p><h4 id="db">2.3 <code>db</code>
+</h4><p>The most common tasks of the <code>db:</code> Rake namespace are <code>migrate</code> and <code>create</code>, and it will pay off to try out all of the migration rake tasks (<code>up</code>, <code>down</code>, <code>redo</code>, <code>reset</code>). <code>rake db:version</code> is useful when troubleshooting, telling you the current version of the database.</p><p>More information about migrations can be found in the <a href="migrations.html">Migrations</a> guide.</p><h4 id="doc">2.4 <code>doc</code>
+</h4><p>The <code>doc:</code> namespace has the tools to generate documentation for your app, API documentation, guides. Documentation can also be stripped which is mainly useful for slimming your codebase, like if you're writing a Rails application for an embedded platform.</p>
 <ul>
 <li>
 <code>rake doc:app</code> generates documentation for your application in <code>doc/app</code>.</li>
@@ -611,11 +546,9 @@ Database schema version   20110805173523
 <code>rake doc:rails</code> generates API documentation for Rails in <code>doc/api</code>.</li>
 </ul>
 <h4 id="notes">2.5 <code>notes</code>
-</h4>
-<p><code>rake notes</code> will search through your code for comments beginning with FIXME, OPTIMIZE or TODO. The search is done in files with extension <code>.builder</code>, <code>.rb</code>, <code>.rake</code>, <code>.yml</code>, <code>.yaml</code>, <code>.ruby</code>, <code>.css</code>, <code>.js</code> and <code>.erb</code> for both default and custom annotations.</p>
-<div class="code_container">
+</h4><p><code>rake notes</code> will search through your code for comments beginning with FIXME, OPTIMIZE or TODO. The search is done in files with extension <code>.builder</code>, <code>.rb</code>, <code>.rake</code>, <code>.yml</code>, <code>.yaml</code>, <code>.ruby</code>, <code>.css</code>, <code>.js</code> and <code>.erb</code> for both default and custom annotations.</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
-$ rake notes
+$ bin/rake notes
 (in /home/foobar/commandsapp)
 app/controllers/admin/users_controller.rb:
   * [ 20] [TODO] any other way to do this?
@@ -627,17 +560,15 @@ app/models/school.rb:
 
 </pre>
 </div>
-<p>You can add support for new file extensions using <code>config.annotations.register_extensions</code> option, which receives a list of the extensions with its corresponding regex to match it up.</p>
-<div class="code_container">
+<p>You can add support for new file extensions using <code>config.annotations.register_extensions</code> option, which receives a list of the extensions with its corresponding regex to match it up.</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 config.annotations.register_extensions("scss", "sass", "less") { |annotation| /\/\/\s*(#{annotation}):?\s*(.*)$/ }
 
 </pre>
 </div>
-<p>If you are looking for a specific annotation, say FIXME, you can use <code>rake notes:fixme</code>. Note that you have to lower case the annotation's name.</p>
-<div class="code_container">
+<p>If you are looking for a specific annotation, say FIXME, you can use <code>rake notes:fixme</code>. Note that you have to lower case the annotation's name.</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
-$ rake notes:fixme
+$ bin/rake notes:fixme
 (in /home/foobar/commandsapp)
 app/controllers/admin/users_controller.rb:
   * [132] high priority for next deploy
@@ -647,22 +578,19 @@ app/models/school.rb:
 
 </pre>
 </div>
-<p>You can also use custom annotations in your code and list them using <code>rake notes:custom</code> by specifying the annotation using an environment variable <code>ANNOTATION</code>.</p>
-<div class="code_container">
+<p>You can also use custom annotations in your code and list them using <code>rake notes:custom</code> by specifying the annotation using an environment variable <code>ANNOTATION</code>.</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
-$ rake notes:custom ANNOTATION=BUG
+$ bin/rake notes:custom ANNOTATION=BUG
 (in /home/foobar/commandsapp)
-app/models/post.rb:
+app/models/article.rb:
   * [ 23] Have to fix this one before pushing!
 
 </pre>
 </div>
-<div class="note"><p>When using specific annotations and custom annotations, the annotation name (FIXME, BUG etc) is not displayed in the output lines.</p></div>
-<p>By default, <code>rake notes</code> will look in the <code>app</code>, <code>config</code>, <code>lib</code>, <code>bin</code> and <code>test</code> directories. If you would like to search other directories, you can provide them as a comma separated list in an environment variable <code>SOURCE_ANNOTATION_DIRECTORIES</code>.</p>
-<div class="code_container">
+<div class="note"><p>When using specific annotations and custom annotations, the annotation name (FIXME, BUG etc) is not displayed in the output lines.</p></div><p>By default, <code>rake notes</code> will look in the <code>app</code>, <code>config</code>, <code>lib</code>, <code>bin</code> and <code>test</code> directories. If you would like to search other directories, you can provide them as a comma separated list in an environment variable <code>SOURCE_ANNOTATION_DIRECTORIES</code>.</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 $ export SOURCE_ANNOTATION_DIRECTORIES='spec,vendor'
-$ rake notes
+$ bin/rake notes
 (in /home/foobar/commandsapp)
 app/models/user.rb:
   * [ 35] [FIXME] User should have a subscription at this point
@@ -672,16 +600,9 @@ spec/models/user_spec.rb:
 </pre>
 </div>
 <h4 id="routes">2.6 <code>routes</code>
-</h4>
-<p><code>rake routes</code> will list all of your defined routes, which is useful for tracking down routing problems in your app, or giving you a good overview of the URLs in an app you're trying to get familiar with.</p>
-<h4 id="test">2.7 <code>test</code>
-</h4>
-<div class="info"><p>A good description of unit testing in Rails is given in <a href="testing.html">A Guide to Testing Rails Applications</a></p></div>
-<p>Rails comes with a test suite called Minitest. Rails owes its stability to the use of tests. The tasks available in the <code>test:</code> namespace helps in running the different tests you will hopefully write.</p>
-<h4 id="tmp">2.8 <code>tmp</code>
-</h4>
-<p>The <code>Rails.root/tmp</code> directory is, like the *nix /tmp directory, the holding place for temporary files like sessions (if you're using a file store for files), process id files, and cached actions.</p>
-<p>The <code>tmp:</code> namespaced tasks will help you clear and create the <code>Rails.root/tmp</code> directory:</p>
+</h4><p><code>rake routes</code> will list all of your defined routes, which is useful for tracking down routing problems in your app, or giving you a good overview of the URLs in an app you're trying to get familiar with.</p><h4 id="test">2.7 <code>test</code>
+</h4><div class="info"><p>A good description of unit testing in Rails is given in <a href="testing.html">A Guide to Testing Rails Applications</a></p></div><p>Rails comes with a test suite called Minitest. Rails owes its stability to the use of tests. The tasks available in the <code>test:</code> namespace helps in running the different tests you will hopefully write.</p><h4 id="tmp">2.8 <code>tmp</code>
+</h4><p>The <code>Rails.root/tmp</code> directory is, like the *nix /tmp directory, the holding place for temporary files like sessions (if you're using a file store for files), process id files, and cached actions.</p><p>The <code>tmp:</code> namespaced tasks will help you clear and create the <code>Rails.root/tmp</code> directory:</p>
 <ul>
 <li>
 <code>rake tmp:cache:clear</code> clears <code>tmp/cache</code>.</li>
@@ -703,11 +624,9 @@ spec/models/user_spec.rb:
 <li>
 <code>rake time:zones:all</code> lists all the timezones Rails knows about.</li>
 </ul>
-<h4 id="custom-rake-tasks">2.10 Custom Rake Tasks</h4>
-<p>Custom rake tasks have a <code>.rake</code> extension and are placed in
+<h4 id="custom-rake-tasks">2.10 Custom Rake Tasks</h4><p>Custom rake tasks have a <code>.rake</code> extension and are placed in
 <code>Rails.root/lib/tasks</code>. You can create these custom rake tasks with the
-<code>bin/rails generate task</code> command.</p>
-<div class="code_container">
+<code>bin/rails generate task</code> command.</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 desc "I am short, but comprehensive description for my cool task"
 task task_name: [:prerequisite_task, :another_task_we_depend_on] do
@@ -717,8 +636,7 @@ end
 
 </pre>
 </div>
-<p>To pass arguments to your custom rake task:</p>
-<div class="code_container">
+<p>To pass arguments to your custom rake task:</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 task :task_name, [:arg_1] =&gt; [:pre_1, :pre_2] do |t, args|
   # You can use args from here
@@ -726,8 +644,7 @@ end
 
 </pre>
 </div>
-<p>You can group tasks by placing them in namespaces:</p>
-<div class="code_container">
+<p>You can group tasks by placing them in namespaces:</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 namespace :db do
   desc "This task does nothing"
@@ -738,22 +655,15 @@ end
 
 </pre>
 </div>
-<p>Invocation of the tasks will look like:</p>
-<div class="code_container">
+<p>Invocation of the tasks will look like:</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
-rake task_name
-rake "task_name[value 1]" # entire argument string should be quoted
-rake db:nothing
+$ bin/rake task_name
+$ bin/rake "task_name[value 1]" # entire argument string should be quoted
+$ bin/rake db:nothing
 
 </pre>
 </div>
-<div class="note"><p>If your need to interact with your application models, perform database queries and so on, your task should depend on the <code>environment</code> task, which will load your application code.</p></div>
-<h3 id="the-rails-advanced-command-line">3 The Rails Advanced Command Line</h3>
-<p>More advanced use of the command line is focused around finding useful (even surprising at times) options in the utilities, and fitting those to your needs and specific work flow. Listed here are some tricks up Rails' sleeve.</p>
-<h4 id="rails-with-databases-and-scm">3.1 Rails with Databases and SCM</h4>
-<p>When creating a new Rails application, you have the option to specify what kind of database and what kind of source code management system your application is going to use. This will save you a few minutes, and certainly many keystrokes.</p>
-<p>Let's see what a <code>--git</code> option and a <code>--database=postgresql</code> option will do for us:</p>
-<div class="code_container">
+<div class="note"><p>If your need to interact with your application models, perform database queries and so on, your task should depend on the <code>environment</code> task, which will load your application code.</p></div><h3 id="the-rails-advanced-command-line">3 The Rails Advanced Command Line</h3><p>More advanced use of the command line is focused around finding useful (even surprising at times) options in the utilities, and fitting those to your needs and specific work flow. Listed here are some tricks up Rails' sleeve.</p><h4 id="rails-with-databases-and-scm">3.1 Rails with Databases and SCM</h4><p>When creating a new Rails application, you have the option to specify what kind of database and what kind of source code management system your application is going to use. This will save you a few minutes, and certainly many keystrokes.</p><p>Let's see what a <code>--git</code> option and a <code>--database=postgresql</code> option will do for us:</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 $ mkdir gitapp
 $ cd gitapp
@@ -780,8 +690,7 @@ add 'log/test.log'
 
 </pre>
 </div>
-<p>We had to create the <strong>gitapp</strong> directory and initialize an empty git repository before Rails would add files it created to our repository. Let's see what it put in our database configuration:</p>
-<div class="code_container">
+<p>We had to create the <strong>gitapp</strong> directory and initialize an empty git repository before Rails would add files it created to our repository. Let's see what it put in our database configuration:</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 $ cat config/database.yml
 # PostgreSQL. Versions 8.2 and up are supported.
@@ -812,10 +721,7 @@ development:
 
 </pre>
 </div>
-<p>It also generated some lines in our database.yml configuration corresponding to our choice of PostgreSQL for database.</p>
-<div class="note"><p>The only catch with using the SCM options is that you have to make your application's directory first, then initialize your SCM, then you can run the <code>rails new</code> command to generate the basis of your app.</p></div>
-</body></html>
-
+<p>It also generated some lines in our database.yml configuration corresponding to our choice of PostgreSQL for database.</p><div class="note"><p>The only catch with using the SCM options is that you have to make your application's directory first, then initialize your SCM, then you can run the <code>rails new</code> command to generate the basis of your app.</p></div>
 
         <h3>反饋</h3>
         <p>

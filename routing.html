@@ -160,7 +160,7 @@
 
   <div id="feature">
     <div class="wrapper">
-      <h2 id="rails-路由：深入淺出">Rails 路由：深入淺出</h2><p>本篇介紹與使用者息息相關的路由功能。</p><p>讀完本篇，您將了解：</p>
+      <h2>Rails 路由：深入淺出</h2><p>本篇介紹與使用者息息相關的路由功能。</p><p>讀完本篇，您將了解：</p>
 <ul>
 <li>如何解讀 <code>routes.rb</code> 裡的程式碼。</li>
 <li>如何使用推薦的資源式寫法或使用 <code>match</code> 方法來撰寫路由。</li>
@@ -172,8 +172,7 @@
 
                 <div id="subCol">
             <h3 class="chapter"><img src="images/chapters_icon.gif" alt="" />Chapters</h3>
-            <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
-<html><body><ol class="chapters">
+            <ol class="chapters">
 <li>
 <a href="#rails-%E8%B7%AF%E7%94%B1%E5%99%A8%E7%9A%84%E7%9B%AE%E7%9A%84">Rails 路由器的目的</a>
 
@@ -242,7 +241,7 @@
 <li><a href="#%E6%B8%AC%E8%A9%A6%E8%B7%AF%E7%94%B1">測試路由</a></li>
 </ul>
 </li>
-</ol></body></html>
+</ol>
 
           </div>
 
@@ -252,71 +251,49 @@
   <div id="container">
     <div class="wrapper">
       <div id="mainCol">
-        <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
-<html><body>
-<h3 id="rails-路由器的目的">1 Rails 路由器的目的</h3>
-<p>Rails 路由器（router）識別 URL，分配給對應的 Controller 動作處理。Rails 路由器同時也可用來產生路徑與 URL，避免在 View 裡面把路徑寫死。</p>
-<h4 id="url-工作分派">1.1 URL 工作分派</h4>
-<p>當 Rails 收到如下請求時：</p>
-<div class="code_container">
+        <h3 id="rails-路由器的目的">1 Rails 路由器的目的</h3><p>Rails 路由器（router）識別 URL，分配給對應的 Controller 動作處理。Rails 路由器同時也可用來產生路徑與 URL，避免在 View 裡面把路徑寫死。</p><h4 id="url-工作分派">1.1 URL 工作分派</h4><p>當 Rails 收到如下請求時：</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 GET /patients/17
 
 </pre>
 </div>
-<p>會詢問路由器，匹配的 Controller 動作是那個。若第一個匹配的路由為：</p>
-<div class="code_container">
+<p>會詢問路由器，匹配的 Controller 動作是那個。若第一個匹配的路由為：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 get '/patients/:id', to: 'patients#show'
 
 </pre>
 </div>
-<p>則請求會分派給 <code>PatientsController</code> 的 <code>show</code> 動作處理，且 <code>params</code> 裡有 <code>{ id: '17' }</code> 參數。</p>
-<h4 id="產生路徑與-url">1.2 產生路徑與 URL</h4>
-<p>Rails 路由器也可以產生路徑與 URL。若上例的路由改寫為：</p>
-<div class="code_container">
+<p>則請求會分派給 <code>PatientsController</code> 的 <code>show</code> 動作處理，且 <code>params</code> 裡有 <code>{ id: '17' }</code> 參數。</p><h4 id="產生路徑與-url">1.2 產生路徑與 URL</h4><p>Rails 路由器也可以產生路徑與 URL。若上例的路由改寫為：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 get '/patients/:id', to: 'patients#show', as: 'patient'
 
 </pre>
 </div>
-<p>且應用程式 Controller 裡有以下程式碼：</p>
-<div class="code_container">
+<p>且應用程式 Controller 裡有以下程式碼：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 @patient = Patient.find(17)
 
 </pre>
 </div>
-<p>並有對應的 View：</p>
-<div class="code_container">
+<p>並有對應的 View：</p><div class="code_container">
 <pre class="brush: ruby; html-script: true; gutter: false; toolbar: false">
 &lt;%= link_to 'Patient Record', patient_path(@patient) %&gt;
 
 </pre>
 </div>
-<p>則路由器便會給 <code>patient_path(@patient)</code> 產生路徑 <code>/patients/17</code>。這使得程式碼更容易了解。注意，使用路由輔助方法（<code>patient_path</code>）時，無需指定 ID。</p>
-<h3 id="資源式路由：rails-的預設路由">2 資源式路由：Rails 的預設路由</h3>
-<p>資源式路由允許替給定的資源式 Controller，快速宣告出所有常見的路由。與其替每個動作（ <code>index</code>、<code>show</code>、<code>new</code>、<code>edit</code>、<code>create</code>、<code>update</code> 以及 <code>destroy</code>）個別宣告路由，資源式路由宣告只需要一行即可。</p>
-<h4 id="web-世界裡的資源">2.1 Web 世界裡的資源</h4>
-<p>瀏覽器向 Rails 請求頁面時，透過使用具體的 HTTP 動詞，如 <code>GET</code>、<code>POST</code>、<code>PATCH</code>、<code>PUT</code> 以及 <code>DELETE</code>，往 URL 發出請求。每個動詞都是對資源的一種操作。資源式路由將相關的請求，對應到 Controller 的不同動作。</p>
-<p>當 Rails 應用程式收到下面這個請求時：</p>
-<div class="code_container">
+<p>則路由器便會給 <code>patient_path(@patient)</code> 產生路徑 <code>/patients/17</code>。這使得程式碼更容易了解。注意，使用路由輔助方法（<code>patient_path</code>）時，無需指定 ID。</p><h3 id="資源式路由：rails-的預設路由">2 資源式路由：Rails 的預設路由</h3><p>資源式路由允許替給定的資源式 Controller，快速宣告出所有常見的路由。與其替每個動作（ <code>index</code>、<code>show</code>、<code>new</code>、<code>edit</code>、<code>create</code>、<code>update</code> 以及 <code>destroy</code>）個別宣告路由，資源式路由宣告只需要一行即可。</p><h4 id="web-世界裡的資源">2.1 Web 世界裡的資源</h4><p>瀏覽器向 Rails 請求頁面時，透過使用具體的 HTTP 動詞，如 <code>GET</code>、<code>POST</code>、<code>PATCH</code>、<code>PUT</code> 以及 <code>DELETE</code>，往 URL 發出請求。每個動詞都是對資源的一種操作。資源式路由將相關的請求，對應到 Controller 的不同動作。</p><p>當 Rails 應用程式收到下面這個請求時：</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 DELETE /photos/17
 
 </pre>
 </div>
-<p>會詢問路由器，該交給那個 Controller 的那個動作處理。若第一個匹配的路由為：</p>
-<div class="code_container">
+<p>會詢問路由器，該交給那個 Controller 的那個動作處理。若第一個匹配的路由為：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 resources :photos
 
 </pre>
 </div>
-<p>Rails 會將請求分派給 <code>PhotosController</code> 的 <code>destroy</code> 方法，且 <code>params</code> 裡有 <code>{ id: '17' }</code> 參數。</p>
-<h4 id="crud、http-動詞以及動作">2.2 CRUD、HTTP 動詞以及動作</h4>
-<p>在 Rails 裡，資源式路由提供 HTTP 動詞、URL、Controller 動作，這三者的對應關係。按照慣例，每個動作會對應到資料庫特定的 CRUD 操作。假設路由檔案裡有一條路由宣告為：</p>
-<div class="code_container">
+<p>Rails 會將請求分派給 <code>PhotosController</code> 的 <code>destroy</code> 方法，且 <code>params</code> 裡有 <code>{ id: '17' }</code> 參數。</p><h4 id="crud、http-動詞以及動作">2.2 CRUD、HTTP 動詞以及動作</h4><p>在 Rails 裡，資源式路由提供 HTTP 動詞、URL、Controller 動作，這三者的對應關係。按照慣例，每個動作會對應到資料庫特定的 CRUD 操作。假設路由檔案裡有一條路由宣告為：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 resources :photos
 
@@ -324,12 +301,14 @@ resources :photos
 </div>
 <p>會在應用程式建立出七筆不同的路由，皆對應到 <code>PhotosController</code>：</p>
 <table>
-<thead><tr>
+<thead>
+<tr>
 <th>HTTP 動詞</th>
 <th>路徑</th>
 <th>Controller#動作</th>
 <th>用途</th>
-</tr></thead>
+</tr>
+</thead>
 <tbody>
 <tr>
 <td>GET</td>
@@ -375,15 +354,14 @@ resources :photos
 </tr>
 </tbody>
 </table>
-<div class="note"><p>因為路由器使用 HTTP 動詞與 URL ，來匹配進來的請求，所以可以將四個 URL 對應到七種不同的動作。</p></div>
-<div class="note"><p>Rails 路由依據宣告的順序來匹配。若在 <code>get 'photos/poll'</code> 之前宣告了 <code>resources :photos</code>，則 <code>show</code> 動作會先匹配到 <code>resources :photos</code>。若想將 <code>get 'photos/poll'</code> 的匹配順序提前，提到 <code>resources :photos</code> 之前即可。</p></div>
-<h4 id="路徑與-url-的輔助方法">2.3 路徑與 URL 的輔助方法</h4>
-<p>新建一筆資源式的路由，同時會給 Controller 加入一些輔助方法。以 <code>resources :photos</code> 為例，可用的輔助方法有：</p>
+<div class="note"><p>因為路由器使用 HTTP 動詞與 URL ，來匹配進來的請求，所以可以將四個 URL 對應到七種不同的動作。</p></div><div class="note"><p>Rails 路由依據宣告的順序來匹配。若在 <code>get 'photos/poll'</code> 之前宣告了 <code>resources :photos</code>，則 <code>show</code> 動作會先匹配到 <code>resources :photos</code>。若想將 <code>get 'photos/poll'</code> 的匹配順序提前，提到 <code>resources :photos</code> 之前即可。</p></div><h4 id="路徑與-url-的輔助方法">2.3 路徑與 URL 的輔助方法</h4><p>新建一筆資源式的路由，同時會給 Controller 加入一些輔助方法。以 <code>resources :photos</code> 為例，可用的輔助方法有：</p>
 <table>
-<thead><tr>
+<thead>
+<tr>
 <th>輔助方法</th>
 <th>用途</th>
-</tr></thead>
+</tr>
+</thead>
 <tbody>
 <tr>
 <td><code>photos_path</code></td>
@@ -405,17 +383,13 @@ resources :photos
 </tr>
 </tbody>
 </table>
-<p>這些輔助方法有對應的 <code>*_url</code> 形式（像是 <code>photos_url</code>），<code>*_url</code> 會回傳完整的路徑，包含了主機、埠口以及路徑。</p>
-<h4 id="同時定義多筆資源">2.4 同時定義多筆資源</h4>
-<p>如需要給多個資源建立路由時，可以用一行 <code>resources</code> 宣告完成，節省一些打字的時間：</p>
-<div class="code_container">
+<p>這些輔助方法有對應的 <code>*_url</code> 形式（像是 <code>photos_url</code>），<code>*_url</code> 會回傳完整的路徑，包含了主機、埠口以及路徑。</p><h4 id="同時定義多筆資源">2.4 同時定義多筆資源</h4><p>如需要給多個資源建立路由時，可以用一行 <code>resources</code> 宣告完成，節省一些打字的時間：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 resources :photos, :books, :videos
 
 </pre>
 </div>
-<p>等同於：</p>
-<div class="code_container">
+<p>等同於：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 resources :photos
 resources :books
@@ -423,23 +397,19 @@ resources :videos
 
 </pre>
 </div>
-<h4 id="單數資源">2.5 單數資源</h4>
-<p>有些資源不需要 ID 便能查詢。舉個例子，希望 <code>/profile</code> 顯示目前登入使用者的個人檔案。這個情況下可以使用單數資源（Singular resource），把 <code>/profile</code>（而不是 <code>/profile/:id</code>）對應到 <code>show</code> 動作：</p>
-<div class="code_container">
+<h4 id="單數資源">2.5 單數資源</h4><p>有些資源不需要 ID 便能查詢。舉個例子，希望 <code>/profile</code> 顯示目前登入使用者的個人檔案。這個情況下可以使用單數資源（Singular resource），把 <code>/profile</code>（而不是 <code>/profile/:id</code>）對應到 <code>show</code> 動作：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 get 'profile', to: 'users#show'
 
 </pre>
 </div>
-<p><code>:to</code> 選項傳入字串要使用 <code>controller#action</code> 的形式，傳入符號會直接對應到動作名稱。</p>
-<div class="code_container">
+<p><code>:to</code> 選項傳入字串要使用 <code>controller#action</code> 的形式，傳入符號會直接對應到動作名稱。</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 get 'profile', to: :show
 
 </pre>
 </div>
-<p>以下這筆單數資源式路由：</p>
-<div class="code_container">
+<p>以下這筆單數資源式路由：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 resource :geocoder
 
@@ -447,12 +417,14 @@ resource :geocoder
 </div>
 <p>會建立出六筆不同的路由，皆對應到 <code>GeocodersController</code>：</p>
 <table>
-<thead><tr>
+<thead>
+<tr>
 <th>HTTP 動詞</th>
 <th>路徑</th>
 <th>Controller#動作</th>
 <th>用途</th>
-</tr></thead>
+</tr>
+</thead>
 <tbody>
 <tr>
 <td>GET</td>
@@ -493,13 +465,14 @@ resource :geocoder
 </tr>
 </tbody>
 </table>
-<div class="note"><p>有時單數（<code>/account</code>）與複數路由（<code>/accounts/45</code>）想交給同樣的 Controller 處理，或是把單數資源對應到複數 Controller 上。舉個例子，<code>resource :photo</code> 與 <code>resources :photos</code> 同時建立出單數與複數的路由，皆對應到 <code>PhotosController</code>。</p></div>
-<p>單數的資源式路由會產生以下輔助方法：</p>
+<div class="note"><p>有時單數（<code>/account</code>）與複數路由（<code>/accounts/45</code>）想交給同樣的 Controller 處理，或是把單數資源對應到複數 Controller 上。舉個例子，<code>resource :photo</code> 與 <code>resources :photos</code> 同時建立出單數與複數的路由，皆對應到 <code>PhotosController</code>。</p></div><p>單數的資源式路由會產生以下輔助方法：</p>
 <table>
-<thead><tr>
+<thead>
+<tr>
 <th>輔助方法</th>
 <th>用途</th>
-</tr></thead>
+</tr>
+</thead>
 <tbody>
 <tr>
 <td><code>new_geocoder_path</code></td>
@@ -518,166 +491,159 @@ resource :geocoder
 </tr>
 </tbody>
 </table>
-<p>和複數資源的路由相同，皆有對應的 <code>*_url</code> 形式，會回傳完整的路徑，包含了主機、埠口以及路徑。</p>
-<div class="warning"><p>有一個<a href="https://github.com/rails/rails/issues/1769">存在已久的 Bug</a> 導致 <code>form_for</code> 無法自動處理好單數資源。解決辦法是給表單明確指定 URL：</p></div>
-<div class="code_container">
+<p>和複數資源的路由相同，皆有對應的 <code>*_url</code> 形式，會回傳完整的路徑，包含了主機、埠口以及路徑。</p><div class="warning"><p>有一個<a href="https://github.com/rails/rails/issues/1769">存在已久的 Bug</a> 導致 <code>form_for</code> 無法自動處理好單數資源。解決辦法是給表單明確指定 URL：</p></div><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 form_for @geocoder, url: geocoder_path do |f|
 
 </pre>
 </div>
-<h4 id="controller-命名空間與路由">2.6 Controller 命名空間與路由</h4>
-<p>有時可能想把一堆 Controllers 放在同個命名空間下管理。最常見的場景是需要把管理用的 Controller 放在 <code>Admin::</code> 命名空間下。首先將這些 Controllers 搬到 <code>app/controllers/admin</code> 資料夾底下，接著在路由裡宣告：</p>
-<div class="code_container">
+<h4 id="controller-命名空間與路由">2.6 Controller 命名空間與路由</h4><p>有時可能想把一堆 Controllers 放在同個命名空間下管理。最常見的場景是需要把管理用的 Controller 放在 <code>Admin::</code> 命名空間下。首先將這些 Controllers 搬到 <code>app/controllers/admin</code> 資料夾底下，接著在路由裡宣告：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 namespace :admin do
-  resources :posts, :comments
+  resources :articles, :comments
 end
 
 </pre>
 </div>
-<p>會給 <code>Posts</code> 與 <code>Comments</code> Controllers 在 <code>Admin::</code> 命名空間下建出路由。比如 <code>Admin::PostsController</code>，Rails 會產生以下路由：</p>
+<p>會給 <code>Articles</code> 與 <code>Comments</code> Controllers 在 <code>Admin::</code> 命名空間下建出路由。比如 <code>Admin::ArticlesController</code>，Rails 會產生以下路由：</p>
 <table>
-<thead><tr>
+<thead>
+<tr>
 <th>HTTP 動詞</th>
 <th>路徑</th>
 <th>Controller#動作</th>
 <th>輔助方法</th>
-</tr></thead>
+</tr>
+</thead>
 <tbody>
 <tr>
 <td>GET</td>
-<td>/admin/posts</td>
-<td>admin/posts#index</td>
-<td>admin_posts_path</td>
+<td>/admin/articles</td>
+<td>admin/articles#index</td>
+<td>admin_articles_path</td>
 </tr>
 <tr>
 <td>GET</td>
-<td>/admin/posts/new</td>
-<td>admin/posts#new</td>
-<td>new_admin_post_path</td>
+<td>/admin/articles/new</td>
+<td>admin/articles#new</td>
+<td>new_admin_article_path</td>
 </tr>
 <tr>
 <td>POST</td>
-<td>/admin/posts</td>
-<td>admin/posts#create</td>
-<td>admin_posts_path</td>
+<td>/admin/articles</td>
+<td>admin/articles#create</td>
+<td>admin_articles_path</td>
 </tr>
 <tr>
 <td>GET</td>
-<td>/admin/posts/:id</td>
-<td>admin/posts#show</td>
-<td>admin_post_path(:id)</td>
+<td>/admin/articles/:id</td>
+<td>admin/articles#show</td>
+<td>admin_article_path(:id)</td>
 </tr>
 <tr>
 <td>GET</td>
-<td>/admin/posts/:id/edit</td>
-<td>admin/posts#edit</td>
-<td>edit_admin_post_path(:id)</td>
+<td>/admin/articles/:id/edit</td>
+<td>admin/articles#edit</td>
+<td>edit_admin_article_path(:id)</td>
 </tr>
 <tr>
 <td>PATCH/PUT</td>
-<td>/admin/posts/:id</td>
-<td>admin/posts#update</td>
-<td>admin_post_path(:id)</td>
+<td>/admin/articles/:id</td>
+<td>admin/articles#update</td>
+<td>admin_article_path(:id)</td>
 </tr>
 <tr>
 <td>DELETE</td>
-<td>/admin/posts/:id</td>
-<td>admin/posts#destroy</td>
-<td>admin_post_path(:id)</td>
+<td>/admin/articles/:id</td>
+<td>admin/articles#destroy</td>
+<td>admin_article_path(:id)</td>
 </tr>
 </tbody>
 </table>
-<p>若想把路徑拿掉 <code>/admin</code> 前綴，則可以這麼宣告：</p>
-<div class="code_container">
+<p>若想把路徑拿掉 <code>/admin</code> 前綴，則可以這麼宣告：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 scope module: 'admin' do
-  resources :posts, :comments
+  resources :articles, :comments
 end
 
 </pre>
 </div>
-<p>如只有一筆資源，則可簡寫為：</p>
-<div class="code_container">
+<p>如只有一筆資源，則可簡寫為：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
-resources :posts, module: 'admin'
+resources :articles, module: 'admin'
 
 </pre>
 </div>
-<p>若路由希望是 <code>/admin/posts</code>，但想拿掉 <code>Admin::</code> 的前綴，可以這麼宣告：</p>
-<div class="code_container">
+<p>若路由希望是 <code>/admin/articles</code>，但想拿掉 <code>Admin::</code> 的前綴，可以這麼宣告：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 scope '/admin' do
-  resources :posts, :comments
+  resources :articles, :comments
 end
 
 </pre>
 </div>
-<p>如只有一筆資源，則可簡寫為：</p>
-<div class="code_container">
+<p>如只有一筆資源，則可簡寫為：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
-resources :posts, path: '/admin/posts'
+resources :articles, path: '/admin/articles'
 
 </pre>
 </div>
 <p>以上這些例子，若沒有使用 <code>scope</code>，則輔助方法保持不變。看看上面最後一個使用 <code>scope</code> 的例子（與前個表格對比看看那裡不一樣），Rails 會產生以下路由：</p>
 <table>
-<thead><tr>
+<thead>
+<tr>
 <th>HTTP 動詞</th>
 <th>路徑</th>
 <th>Controller#動作</th>
 <th>輔助方法</th>
-</tr></thead>
+</tr>
+</thead>
 <tbody>
 <tr>
 <td>GET</td>
-<td>/admin/posts</td>
-<td>posts#index</td>
-<td>posts_path</td>
+<td>/admin/articles</td>
+<td>articles#index</td>
+<td>articles_path</td>
 </tr>
 <tr>
 <td>GET</td>
-<td>/admin/posts/new</td>
-<td>posts#new</td>
-<td>new_post_path</td>
+<td>/admin/articles/new</td>
+<td>articles#new</td>
+<td>new_article_path</td>
 </tr>
 <tr>
 <td>POST</td>
-<td>/admin/posts</td>
-<td>posts#create</td>
-<td>posts_path</td>
+<td>/admin/articles</td>
+<td>articles#create</td>
+<td>articles_path</td>
 </tr>
 <tr>
 <td>GET</td>
-<td>/admin/posts/:id</td>
-<td>posts#show</td>
-<td>post_path(:id)</td>
+<td>/admin/articles/:id</td>
+<td>articles#show</td>
+<td>article_path(:id)</td>
 </tr>
 <tr>
 <td>GET</td>
-<td>/admin/posts/:id/edit</td>
-<td>posts#edit</td>
-<td>edit_post_path(:id)</td>
+<td>/admin/articles/:id/edit</td>
+<td>articles#edit</td>
+<td>edit_article_path(:id)</td>
 </tr>
 <tr>
 <td>PATCH/PUT</td>
-<td>/admin/posts/:id</td>
-<td>posts#update</td>
-<td>post_path(:id)</td>
+<td>/admin/articles/:id</td>
+<td>articles#update</td>
+<td>article_path(:id)</td>
 </tr>
 <tr>
 <td>DELETE</td>
-<td>/admin/posts/:id</td>
-<td>posts#destroy</td>
-<td>post_path(:id)</td>
+<td>/admin/articles/:id</td>
+<td>articles#destroy</td>
+<td>article_path(:id)</td>
 </tr>
 </tbody>
 </table>
-<div class="info"><p>若需要在 <code>namespace</code> 區塊裡，使用不同的命名空間。可以指定 Controller 的絕對路徑：<code>get '/foo' =&gt; '/foo#index'</code>。</p></div>
-<h4 id="嵌套資源">2.7 嵌套資源</h4>
-<p>資源是其它資源的子資源是很常見的情況。舉例來說，假設應用程式有雜誌與廣告兩個 Model：</p>
-<div class="code_container">
+<div class="info"><p>若需要在 <code>namespace</code> 區塊裡，使用不同的命名空間。可以指定 Controller 的絕對路徑：<code>get '/foo' =&gt; '/foo#index'</code>。</p></div><h4 id="嵌套資源">2.7 嵌套資源</h4><p>資源是其它資源的子資源是很常見的情況。舉例來說，假設應用程式有雜誌與廣告兩個 Model：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Magazine &lt; ActiveRecord::Base
   has_many :ads
@@ -689,8 +655,7 @@ end
 
 </pre>
 </div>
-<p>這種關係可以用嵌套路由來描述。在這個情況裡，可以這麼宣告路由：</p>
-<div class="code_container">
+<p>這種關係可以用嵌套路由來描述。在這個情況裡，可以這麼宣告路由：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 resources :magazines do
   resources :ads
@@ -700,12 +665,14 @@ end
 </div>
 <p>上面會建立 <code>MagazinesController</code> 的路由，也會給 <code>AdsController</code> 建立路由。<code>Ad</code> 的路徑裡會需要引用 <code>Magazine</code> 資源：</p>
 <table>
-<thead><tr>
+<thead>
+<tr>
 <th>HTTP 動詞</th>
 <th>路徑</th>
 <th>Controller#動作</th>
 <th>用途</th>
-</tr></thead>
+</tr>
+</thead>
 <tbody>
 <tr>
 <td>GET</td>
@@ -751,10 +718,7 @@ end
 </tr>
 </tbody>
 </table>
-<p>同時這也會建立像是 <code>magazine_ads_url</code> 以及 <code>edit_magazine_ad_path</code> 的路由輔助方法。這些方法可接受 <code>Magazine</code> 的實體作為第一個參數：<code>magazine_ads_url(@magazine)</code>。</p>
-<h5 id="嵌套的限制">2.7.1 嵌套的限制</h5>
-<p>嵌套資源也可以放在其它的嵌套資源裡，譬如：</p>
-<div class="code_container">
+<p>同時這也會建立像是 <code>magazine_ads_url</code> 以及 <code>edit_magazine_ad_path</code> 的路由輔助方法。這些方法可接受 <code>Magazine</code> 的實體作為第一個參數：<code>magazine_ads_url(@magazine)</code>。</p><h5 id="嵌套的限制">2.7.1 嵌套的限制</h5><p>嵌套資源也可以放在其它的嵌套資源裡，譬如：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 resources :publishers do
   resources :magazines do
@@ -764,39 +728,32 @@ end
 
 </pre>
 </div>
-<p>多層嵌套很快的變得很難處理。在這個情況裡，應用程式需要識別像是下面的路由：</p>
-<div class="code_container">
+<p>多層嵌套很快的變得很難處理。在這個情況裡，應用程式需要識別像是下面的路由：</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 /publishers/1/magazines/2/photos/3
 
 </pre>
 </div>
-<p>對應的路由輔助方法則變成： <code>publisher_magazine_photo_url</code>，需要指定三層的物件。這個情況已經足夠令人困惑，使得 Jamis Buck 寫出一篇流行的<a href="http://weblog.jamisbuck.org/2007/2/5/nesting-resources">文章</a>，文章總結了好的 Rails 的設計經驗準則：</p>
-<div class="info"><p>嵌套資源永遠不要超過 1 層。</p></div>
-<h5 id="淺層嵌套">2.7.2 淺層嵌套</h5>
-<p>避免多層嵌套的方法之一，是將 Controller 的集合動作放在父資源的作用域底下，這樣可以有階層的概念，但不需要嵌套的成員動作。也就是說，只用最少的資源資訊來表示路由，像是：</p>
-<div class="code_container">
+<p>對應的路由輔助方法則變成： <code>publisher_magazine_photo_url</code>，需要指定三層的物件。這個情況已經足夠令人困惑，使得 Jamis Buck 寫出一篇流行的<a href="http://weblog.jamisbuck.org/2007/2/5/nesting-resources">文章</a>，文章總結了好的 Rails 的設計經驗準則：</p><div class="info"><p>嵌套資源永遠不要超過 1 層。</p></div><h5 id="淺層嵌套">2.7.2 淺層嵌套</h5><p>避免多層嵌套的方法之一，是將 Controller 的集合動作放在父資源的作用域底下，這樣可以有階層的概念，但不需要嵌套的成員動作。也就是說，只用最少的資源資訊來表示路由，像是：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
-resources :posts do
+resources :articles do
   resources :comments, only: [:index, :new, :create]
 end
 resources :comments, only: [:show, :edit, :update, :destroy]
 
 </pre>
 </div>
-<p>這種做法在有意義的描述路由與深層嵌套之間取得平衡。上例還可以使用 <code>:shallow</code> 選項來簡寫：</p>
-<div class="code_container">
+<p>這種做法在有意義的描述路由與深層嵌套之間取得平衡。上例還可以使用 <code>:shallow</code> 選項來簡寫：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
-resources :posts do
+resources :articles do
   resources :comments, shallow: true
 end
 
 </pre>
 </div>
-<p>這種寫法產生的路由與上例相同。也可以對父資源指定 <code>:shallow</code> 選項，則父資源底下的資源都會是淺層嵌套：</p>
-<div class="code_container">
+<p>這種寫法產生的路由與上例相同。也可以對父資源指定 <code>:shallow</code> 選項，則父資源底下的資源都會是淺層嵌套：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
-resources :posts, shallow: true do
+resources :articles, shallow: true do
   resources :comments
   resources :quotes
   resources :drafts
@@ -804,11 +761,10 @@ end
 
 </pre>
 </div>
-<p>另有一個 <code>shallow</code> 方法，建立一個作用域區塊，其中的路由皆是淺層嵌套。以下範例會產生與前例相同的路由：</p>
-<div class="code_container">
+<p>另有一個 <code>shallow</code> 方法，建立一個作用域區塊，其中的路由皆是淺層嵌套。以下範例會產生與前例相同的路由：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 shallow do
-  resources :posts do
+  resources :articles do
     resources :comments
     resources :quotes
     resources :drafts
@@ -817,11 +773,10 @@ end
 
 </pre>
 </div>
-<p><code>scope</code> 方法有兩個選項，可以用來客製化淺層路由。<code>:shallow_path</code> 可以在 member path 前加上指定的前綴：</p>
-<div class="code_container">
+<p><code>scope</code> 方法有兩個選項，可以用來客製化淺層路由。<code>:shallow_path</code> 可以在 member path 前加上指定的前綴：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 scope shallow_path: "sekret" do
-  resources :posts do
+  resources :articles do
     resources :comments, shallow: true
   end
 end
@@ -830,30 +785,32 @@ end
 </div>
 <p>comments 資源會有下列路由：</p>
 <table>
-<thead><tr>
+<thead>
+<tr>
 <th>HTTP Verb</th>
 <th>Path</th>
 <th>Controller#Action</th>
 <th>Named Helper</th>
-</tr></thead>
+</tr>
+</thead>
 <tbody>
 <tr>
 <td>GET</td>
-<td>/posts/:post_id/comments(.:format)</td>
+<td>/articles/:article_id/comments(.:format)</td>
 <td>comments#index</td>
-<td>post_comments_path</td>
+<td>article_comments_path</td>
 </tr>
 <tr>
 <td>POST</td>
-<td>/posts/:post_id/comments(.:format)</td>
+<td>/articles/:article_id/comments(.:format)</td>
 <td>comments#create</td>
-<td>post_comments_path</td>
+<td>article_comments_path</td>
 </tr>
 <tr>
 <td>GET</td>
-<td>/posts/:post_id/comments/new(.:format)</td>
+<td>/articles/:article_id/comments/new(.:format)</td>
 <td>comments#new</td>
-<td>new_post_comment_path</td>
+<td>new_article_comment_path</td>
 </tr>
 <tr>
 <td>GET</td>
@@ -881,11 +838,10 @@ end
 </tr>
 </tbody>
 </table>
-<p><code>:shallow_prefix</code> 選項則是給 named helpers 加上前綴:</p>
-<div class="code_container">
+<p><code>:shallow_prefix</code> 選項則是給 named helpers 加上前綴:</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 scope shallow_prefix: "sekret" do
-  resources :posts do
+  resources :articles do
     resources :comments, shallow: true
   end
 end
@@ -894,30 +850,32 @@ end
 </div>
 <p>comments 資源會有下列路由：</p>
 <table>
-<thead><tr>
+<thead>
+<tr>
 <th>HTTP Verb</th>
 <th>Path</th>
 <th>Controller#Action</th>
 <th>Named Helper</th>
-</tr></thead>
+</tr>
+</thead>
 <tbody>
 <tr>
 <td>GET</td>
-<td>/posts/:post_id/comments(.:format)</td>
+<td>/articles/:article_id/comments(.:format)</td>
 <td>comments#index</td>
-<td>post_comments_path</td>
+<td>article_comments_path</td>
 </tr>
 <tr>
 <td>POST</td>
-<td>/posts/:post_id/comments(.:format)</td>
+<td>/articles/:article_id/comments(.:format)</td>
 <td>comments#create</td>
-<td>post_comments_path</td>
+<td>article_comments_path</td>
 </tr>
 <tr>
 <td>GET</td>
-<td>/posts/:post_id/comments/new(.:format)</td>
+<td>/articles/:article_id/comments/new(.:format)</td>
 <td>comments#new</td>
-<td>new_post_comment_path</td>
+<td>new_article_comment_path</td>
 </tr>
 <tr>
 <td>GET</td>
@@ -945,9 +903,7 @@ end
 </tr>
 </tbody>
 </table>
-<h4 id="routing-concerns">2.8 Routing Concerns</h4>
-<p>Routing Concerns 允許將常見的路由宣告為可重用的，可在其他資源與路由裡使用。定義一個 Routing Concerns：</p>
-<div class="code_container">
+<h4 id="routing-concerns">2.8 Routing Concerns</h4><p>Routing Concerns 允許將常見的路由宣告為可重用的，可在其他資源與路由裡使用。定義一個 Routing Concerns：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 concern :commentable do
   resources :comments
@@ -959,41 +915,36 @@ end
 
 </pre>
 </div>
-<p>這些 Concerns 可以在資源裡使用，來避免寫重複的程式碼，以及讓路由之間可以共享行為：</p>
-<div class="code_container">
+<p>這些 Concerns 可以在資源裡使用，來避免寫重複的程式碼，以及讓路由之間可以共享行為：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 resources :messages, concerns: :commentable
 
-resources :posts, concerns: [:commentable, :image_attachable]
+resources :articles, concerns: [:commentable, :image_attachable]
 
 </pre>
 </div>
-<p>上例等價於：</p>
-<div class="code_container">
+<p>上例等價於：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 resources :messages do
   resources :comments
 end
 
-resources :posts do
+resources :articles do
   resources :comments
   resources :images, only: :index
 end
 
 </pre>
 </div>
-<p>Concerns 可以在任何地方使用，譬如在作用域，或是命名空間呼叫裡使用：</p>
-<div class="code_container">
+<p>Concerns 可以在任何地方使用，譬如在作用域，或是命名空間呼叫裡使用：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
-namespace :posts do
+namespace :articles do
   concerns :commentable
 end
 
 </pre>
 </div>
-<h4 id="從物件建立路徑與-url">2.9 從物件建立路徑與 URL</h4>
-<p>除了使用路由輔助方法之外，Rails 也可以從一組參數，建出路徑與 URL。舉例來說，假設有以下路由：</p>
-<div class="code_container">
+<h4 id="從物件建立路徑與-url">2.9 從物件建立路徑與 URL</h4><p>除了使用路由輔助方法之外，Rails 也可以從一組參數，建出路徑與 URL。舉例來說，假設有以下路由：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 resources :magazines do
   resources :ads
@@ -1001,29 +952,25 @@ end
 
 </pre>
 </div>
-<p>在使用 <code>magazine_ad_path</code> 時，可以傳入 <code>Magazine</code> 與 <code>Ad</code> 的實體，而不需要傳入 ID：</p>
-<div class="code_container">
+<p>在使用 <code>magazine_ad_path</code> 時，可以傳入 <code>Magazine</code> 與 <code>Ad</code> 的實體，而不需要傳入 ID：</p><div class="code_container">
 <pre class="brush: ruby; html-script: true; gutter: false; toolbar: false">
 &lt;%= link_to 'Ad details', magazine_ad_path(@magazine, @ad) %&gt;
 
 </pre>
 </div>
-<p>也可以使用 <code>url_for</code>，搭配一組物件，則 Rails 會自動決定要用那個路由：</p>
-<div class="code_container">
+<p>也可以使用 <code>url_for</code>，搭配一組物件，則 Rails 會自動決定要用那個路由：</p><div class="code_container">
 <pre class="brush: ruby; html-script: true; gutter: false; toolbar: false">
 &lt;%= link_to 'Ad details', url_for([@magazine, @ad]) %&gt;
 
 </pre>
 </div>
-<p>這個情況裡，Rails 看到 <code>@magazine</code> 與 <code>@ad</code>，會使用 <code>magazine_ad_path</code> 輔助方法。在像是 <code>link_to</code> 的輔助方法，可以直接指定物件，省略 <code>url_for</code>：</p>
-<div class="code_container">
+<p>這個情況裡，Rails 看到 <code>@magazine</code> 與 <code>@ad</code>，會使用 <code>magazine_ad_path</code> 輔助方法。在像是 <code>link_to</code> 的輔助方法，可以直接指定物件，省略 <code>url_for</code>：</p><div class="code_container">
 <pre class="brush: ruby; html-script: true; gutter: false; toolbar: false">
 &lt;%= link_to 'Ad details', [@magazine, @ad] %&gt;
 
 </pre>
 </div>
-<p>若想要只連到雜誌：</p>
-<div class="code_container">
+<p>若想要只連到雜誌：</p><div class="code_container">
 <pre class="brush: ruby; html-script: true; gutter: false; toolbar: false">
 &lt;%= link_to 'Magazine details', @magazine %&gt;
 
@@ -1032,13 +979,7 @@ end
 <p>要連到不同的動作，在參數陣列的第一個元素，指定動作名稱即可：
 <code>erb
 &lt;%= link_to 'Edit Ad', [:edit, @magazine, @ad] %&gt;
-</code></p>
-<p>這種用法可以將 Model 的實體當做 URL 看待，是使用資源式路由的主要優勢之一。</p>
-<h4 id="新增更多資源式路由">2.10 新增更多資源式路由</h4>
-<p>不受限於七個預設產生的資源式路由。還可以新增更多集合路由、成員路由。</p>
-<h5 id="新增成員路由">2.10.1 新增成員路由</h5>
-<p>要新增成員路由，只需要在 <code>resources</code> 區塊裡加入 <code>member</code> 區塊：</p>
-<div class="code_container">
+</code></p><p>這種用法可以將 Model 的實體當做 URL 看待，是使用資源式路由的主要優勢之一。</p><h4 id="新增更多資源式路由">2.10 新增更多資源式路由</h4><p>不受限於七個預設產生的資源式路由。還可以新增更多集合路由、成員路由。</p><h5 id="新增成員路由">2.10.1 新增成員路由</h5><p>要新增成員路由，只需要在 <code>resources</code> 區塊裡加入 <code>member</code> 區塊：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 resources :photos do
   member do
@@ -1048,9 +989,7 @@ end
 
 </pre>
 </div>
-<p>這會識別出 <code>/photos/1/preview</code> 的 GET 請求，交給 <code>PhotosController</code> 的 <code>preview</code> 動作處理，相片的 ID 會存在 <code>params[:id]</code>。也會新增 <code>preview_photo_path</code> 與 <code>preview_photo_url</code> 輔助方法。</p>
-<p>在成員路由的區塊裡，可以指定使用特定的 HTTP 動詞。可用的有：<code>get</code>、<code>patch</code>、<code>put</code>、<code>post</code> 或 <code>delete</code>。若成員路由只有一筆，可以使用 <code>:on</code>，便不需要以區塊形式宣告：</p>
-<div class="code_container">
+<p>這會識別出 <code>/photos/1/preview</code> 的 GET 請求，交給 <code>PhotosController</code> 的 <code>preview</code> 動作處理，相片的 ID 會存在 <code>params[:id]</code>。也會新增 <code>preview_photo_path</code> 與 <code>preview_photo_url</code> 輔助方法。</p><p>在成員路由的區塊裡，可以指定使用特定的 HTTP 動詞。可用的有：<code>get</code>、<code>patch</code>、<code>put</code>、<code>post</code> 或 <code>delete</code>。若成員路由只有一筆，可以使用 <code>:on</code>，便不需要以區塊形式宣告：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 resources :photos do
   get 'preview', on: :member
@@ -1058,10 +997,7 @@ end
 
 </pre>
 </div>
-<p>也可以不使用 <code>:on</code> 選項，會得到相同的成員路由，只是 ID 會存在 <code>params[:photo_id]</code>，而不是 <code>params[:id]</code>。</p>
-<h5 id="新增集合路由">2.10.2 新增集合路由</h5>
-<p>新增一筆集合路由：</p>
-<div class="code_container">
+<p>也可以不使用 <code>:on</code> 選項，會得到相同的成員路由，只是 ID 會存在 <code>params[:photo_id]</code>，而不是 <code>params[:id]</code>。</p><h5 id="新增集合路由">2.10.2 新增集合路由</h5><p>新增一筆集合路由：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 resources :photos do
   collection do
@@ -1071,9 +1007,7 @@ end
 
 </pre>
 </div>
-<p>這會使 Rails 識別出發送到 <code>/photos/search</code> 的 GET 請求，交給 <code>PhotosController</code> 的 <code>search</code> 動作處理。也會新增 <code>search_photos_path</code> 與 <code>search_photos_url</code> 輔助方法。</p>
-<p>和成員路由相同，可以傳入 <code>:on</code> 選項：</p>
-<div class="code_container">
+<p>這會使 Rails 識別出發送到 <code>/photos/search</code> 的 GET 請求，交給 <code>PhotosController</code> 的 <code>search</code> 動作處理。也會新增 <code>search_photos_path</code> 與 <code>search_photos_url</code> 輔助方法。</p><p>和成員路由相同，可以傳入 <code>:on</code> 選項：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 resources :photos do
   get 'search', on: :collection
@@ -1081,9 +1015,7 @@ end
 
 </pre>
 </div>
-<h5 id="給額外的新動作新增路由">2.10.3 給額外的新動作新增路由</h5>
-<p>要新增額外的 <code>new</code> 動作，可以使用 <code>:on</code> 選項：</p>
-<div class="code_container">
+<h5 id="給額外的新動作新增路由">2.10.3 給額外的新動作新增路由</h5><p>要新增額外的 <code>new</code> 動作，可以使用 <code>:on</code> 選項：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 resources :comments do
   get 'preview', on: :new
@@ -1091,148 +1023,104 @@ end
 
 </pre>
 </div>
-<p>這會使 Rails 識別出發送到 <code>/comments/new/preview</code> 的 GET 請求，交給 <code>CommentsController</code> 的 <code>preview</code> 動作處理。也會新增 <code>preview_new_comment_path</code> 與 <code>preview_new_comment_url</code> 輔助方法。</p>
-<div class="info"><p>若發現給資源新增了許多額外的動作，停下來想想是不是要拆成另一個資源。</p></div>
-<h3 id="非資源式路由">3 非資源式路由</h3>
-<p>除了資源式路由之外，將隨意的 URL 對應到動作，Rails 提供了強大的支持。這一節不像資源式路由，會獲得一組自動產生的路由。反而是自己在應用程式裡設定每一條路由。</p>
-<p>雖然通常應該要使用資源式路由，但仍有許多簡單的路由更合適的場景。也不用整個應用程式都得用資源式風格的路由才行，選擇最合適的解決方案。</p>
-<p>簡單的路由使得把傳統的 URL 對應到 Rails 動作變得特別簡單。</p>
-<h4 id="綁定參數">3.1 綁定參數</h4>
-<p>設定一般的路由時，提供一系列的符號給 Rails，Rails 會根據這些符號來對進來的 HTTP 請求做匹配。有兩個特殊符號：<code>:controller</code> 會對應到應用程式裡的 Controller 名稱，而 <code>:action</code> 則是對應到該 Controller 的動作。舉例來說，看下面這條路由：</p>
-<div class="code_container">
+<p>這會使 Rails 識別出發送到 <code>/comments/new/preview</code> 的 GET 請求，交給 <code>CommentsController</code> 的 <code>preview</code> 動作處理。也會新增 <code>preview_new_comment_path</code> 與 <code>preview_new_comment_url</code> 輔助方法。</p><div class="info"><p>若發現給資源新增了許多額外的動作，停下來想想是不是要拆成另一個資源。</p></div><h3 id="非資源式路由">3 非資源式路由</h3><p>除了資源式路由之外，將隨意的 URL 對應到動作，Rails 提供了強大的支持。這一節不像資源式路由，會獲得一組自動產生的路由。反而是自己在應用程式裡設定每一條路由。</p><p>雖然通常應該要使用資源式路由，但仍有許多簡單的路由更合適的場景。也不用整個應用程式都得用資源式風格的路由才行，選擇最合適的解決方案。</p><p>簡單的路由使得把傳統的 URL 對應到 Rails 動作變得特別簡單。</p><h4 id="綁定參數">3.1 綁定參數</h4><p>設定一般的路由時，提供一系列的符號給 Rails，Rails 會根據這些符號來對進來的 HTTP 請求做匹配。有兩個特殊符號：<code>:controller</code> 會對應到應用程式裡的 Controller 名稱，而 <code>:action</code> 則是對應到該 Controller 的動作。舉例來說，看下面這條路由：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 get ':controller(/:action(/:id))'
 
 </pre>
 </div>
-<p>若發送到 <code>/photos/show/1</code> 的請求由這條路由處理（路由檔案裡沒有其它匹配的路由），則會呼叫 <code>PhotosController</code> 的 <code>show</code> 動作，並將 <code>params{:id]</code> 設為 <code>"1"</code>。這條路由也會處理發送到 <code>/photos</code> 的請求，將請求交給 <code>PhotosController#index</code> 處理。因為 <code>:action</code>、<code>:id</code> 放在括號裡代表是可選參數。</p>
-<h4 id="動態片段">3.2 動態片段</h4>
-<p>一般的路由裡可以設定多個動態片段。路由裡任何不是 <code>:controller</code>、<code>:action</code> 的選項，都會變成 <code>params</code> 的一部分。若有以下路由：</p>
-<div class="code_container">
+<p>若發送到 <code>/photos/show/1</code> 的請求由這條路由處理（路由檔案裡沒有其它匹配的路由），則會呼叫 <code>PhotosController</code> 的 <code>show</code> 動作，並將 <code>params{:id]</code> 設為 <code>"1"</code>。這條路由也會處理發送到 <code>/photos</code> 的請求，將請求交給 <code>PhotosController#index</code> 處理。因為 <code>:action</code>、<code>:id</code> 放在括號裡代表是可選參數。</p><h4 id="動態片段">3.2 動態片段</h4><p>一般的路由裡可以設定多個動態片段。路由裡任何不是 <code>:controller</code>、<code>:action</code> 的選項，都會變成 <code>params</code> 的一部分。若有以下路由：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 get ':controller/:action/:id/:user_id'
 
 </pre>
 </div>
-<p>任何至 <code>/photos/show/1/2</code> 的請求會被分配給 <code>PhotosController</code> 的 <code>show</code> 動作處理，<code>params[:id]</code> 則會設為 <code>"1"</code>，而 <code>params[:user_id]</code> 則是 <code>"2"</code>。</p>
-<div class="note"><p>路徑片段有 <code>:controller</code> 時，無法與 <code>:namespace</code>、<code>:module</code> 一起使用。若需要這麼做的話，對 <code>:controller</code> 使用約束條件，明確指定要匹配的命名空間，譬如：</p></div>
-<div class="code_container">
+<p>任何至 <code>/photos/show/1/2</code> 的請求會被分配給 <code>PhotosController</code> 的 <code>show</code> 動作處理，<code>params[:id]</code> 則會設為 <code>"1"</code>，而 <code>params[:user_id]</code> 則是 <code>"2"</code>。</p><div class="note"><p>路徑片段有 <code>:controller</code> 時，無法與 <code>:namespace</code>、<code>:module</code> 一起使用。若需要這麼做的話，對 <code>:controller</code> 使用約束條件，明確指定要匹配的命名空間，譬如：</p></div><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 get ':controller(/:action(/:id))', controller: /admin\/[^\/]+/
 
 </pre>
 </div>
-<div class="info"><p>動態片段預設不接受 <code>.</code> ── 這是因為 <code>.</code> 是格式化路由的分隔符。如需要在動態片段裡使用 <code>.</code>，用約束條件來處理 ── 例如，<code>id: /[^\/]+/</code> 允許斜線以外的所有字元。</p></div>
-<h4 id="靜態片段">3.3 靜態片段</h4>
-<p>建立路由時，可以指定靜態片段，片段前不加冒號即可：</p>
-<div class="code_container">
+<div class="info"><p>動態片段預設不接受 <code>.</code> ── 這是因為 <code>.</code> 是格式化路由的分隔符。如需要在動態片段裡使用 <code>.</code>，用約束條件來處理 ── 例如，<code>id: /[^\/]+/</code> 允許斜線以外的所有字元。</p></div><h4 id="靜態片段">3.3 靜態片段</h4><p>建立路由時，可以指定靜態片段，片段前不加冒號即可：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 get ':controller/:action/:id/with_user/:user_id'
 
 </pre>
 </div>
-<p>這條路由會回應發送到 <code>/photos/show/1/with_user/2</code> 的請求，<code>params</code> 的內容則為 <code>{ controller: 'photos', action: 'show', id: '1', user_id: '2' }</code>。</p>
-<h4 id="查詢字串">3.4 查詢字串</h4>
-<p><code>params</code> 也會存放查詢字串的參數。舉個例子，看看以下這條路由：</p>
-<div class="code_container">
+<p>這條路由會回應發送到 <code>/photos/show/1/with_user/2</code> 的請求，<code>params</code> 的內容則為 <code>{ controller: 'photos', action: 'show', id: '1', user_id: '2' }</code>。</p><h4 id="查詢字串">3.4 查詢字串</h4><p><code>params</code> 也會存放查詢字串的參數。舉個例子，看看以下這條路由：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 get ':controller/:action/:id'
 
 </pre>
 </div>
-<p>從 <code>/photos/show/1?user_id=2</code> 進來的請求會分配給 <code>PhotosController</code> 的 <code>show</code> 動作處理，<code>params</code> 的內容為 <code>{ controller: 'photos', action: 'show', id: '1', user_id: '2' }</code>。</p>
-<h4 id="定義預設值">3.5 定義預設值</h4>
-<p>路由裡不需要明確使用 <code>:controller</code> 與 <code>:action</code>。可以指定預設值：</p>
-<div class="code_container">
+<p>從 <code>/photos/show/1?user_id=2</code> 進來的請求會分配給 <code>PhotosController</code> 的 <code>show</code> 動作處理，<code>params</code> 的內容為 <code>{ controller: 'photos', action: 'show', id: '1', user_id: '2' }</code>。</p><h4 id="定義預設值">3.5 定義預設值</h4><p>路由裡不需要明確使用 <code>:controller</code> 與 <code>:action</code>。可以指定預設值：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 get 'photos/:id', to: 'photos#show'
 
 </pre>
 </div>
-<p>有了這條路由之後，Rails 會分配 <code>/photos/12</code> 給 <code>PhotosController</code> 的 <code>show</code> 動作。</p>
-<p>也可以傳 Hash 給 <code>:defaults</code> 選項，來給路由新增預設值。這對於沒有寫動態片段的路由也適用。舉例來說：</p>
-<div class="code_container">
+<p>有了這條路由之後，Rails 會分配 <code>/photos/12</code> 給 <code>PhotosController</code> 的 <code>show</code> 動作。</p><p>也可以傳 Hash 給 <code>:defaults</code> 選項，來給路由新增預設值。這對於沒有寫動態片段的路由也適用。舉例來說：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 get 'photos/:id', to: 'photos#show', defaults: { format: 'jpg' }
 
 </pre>
 </div>
-<p>Rails 會匹配 <code>photos/12</code> to the <code>show</code> action of <code>PhotosController</code>, and set <code>params[:format]</code> to <code>"jpg"</code>.</p>
-<h4 id="命名路由">3.6 命名路由</h4>
-<p>可以使用 <code>:as</code> 選項給任何路由取名字：</p>
-<div class="code_container">
+<p>Rails 會匹配 <code>photos/12</code> to the <code>show</code> action of <code>PhotosController</code>, and set <code>params[:format]</code> to <code>"jpg"</code>.</p><h4 id="命名路由">3.6 命名路由</h4><p>可以使用 <code>:as</code> 選項給任何路由取名字：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 get 'exit', to: 'sessions#destroy', as: :logout
 
 </pre>
 </div>
-<p>會建立出 <code>logout_path</code> 與 <code>logout_url</code> 這兩個具名輔助方法。呼叫 <code>logout_path</code> 會回傳 <code>/exit</code>。</p>
-<p>也可以使用 <code>:as</code> 來覆寫 <code>resources</code> 預設定義的方法：</p>
-<div class="code_container">
+<p>會建立出 <code>logout_path</code> 與 <code>logout_url</code> 這兩個具名輔助方法。呼叫 <code>logout_path</code> 會回傳 <code>/exit</code>。</p><p>也可以使用 <code>:as</code> 來覆寫 <code>resources</code> 預設定義的方法：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 get ':username', to: 'users#show', as: :user
 
 </pre>
 </div>
-<p>會定義 <code>user_path</code> 方法，在 Controller、輔助方法、以及 View 裡都可用，會回傳像是 <code>/bob</code> 的路徑。在 <code>UsersController</code> 的 <code>show</code> 動作裡，<code>params[:username]</code> 會有使用者的 <code>username</code>，如不喜歡參數名稱取名為 <code>:username</code> 可以修改這個值。</p>
-<h4 id="http-動詞約束條件">3.7 HTTP 動詞約束條件</h4>
-<p>通常應該使用 <code>get</code>、<code>post</code>、<code>put</code>、<code>patch</code> 以及 <code>delete</code> 方法來限制路由只處理特定的動詞。<code>match</code> 方法與 <code>:via</code> 選項可以一直匹配多個動詞：</p>
-<div class="code_container">
+<p>會定義 <code>user_path</code> 方法，在 Controller、輔助方法、以及 View 裡都可用，會回傳像是 <code>/bob</code> 的路徑。在 <code>UsersController</code> 的 <code>show</code> 動作裡，<code>params[:username]</code> 會有使用者的 <code>username</code>，如不喜歡參數名稱取名為 <code>:username</code> 可以修改這個值。</p><h4 id="http-動詞約束條件">3.7 HTTP 動詞約束條件</h4><p>通常應該使用 <code>get</code>、<code>post</code>、<code>put</code>、<code>patch</code> 以及 <code>delete</code> 方法來限制路由只處理特定的動詞。<code>match</code> 方法與 <code>:via</code> 選項可以一直匹配多個動詞：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 match 'photos', to: 'photos#show', via: [:get, :post]
 
 </pre>
 </div>
-<p>路由要匹配所有的動詞也可以，<code>via: :all</code>：</p>
-<div class="code_container">
+<p>路由要匹配所有的動詞也可以，<code>via: :all</code>：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 match 'photos', to: 'photos#show', via: :all
 
 </pre>
 </div>
-<div class="note"><p>將 <code>GET</code> 與 <code>POST</code> 請求路由到單一的動作有安全隱憂。除非有很好的理由，通常應該要避免將所有 HTTP 動詞對應到一個動作上。</p></div>
-<h4 id="片段約束">3.8 片段約束</h4>
-<p>使用 <code>:constraints</code> 選項限制動態片段的格式：</p>
-<div class="code_container">
+<div class="note"><p>將 <code>GET</code> 與 <code>POST</code> 請求路由到單一的動作有安全隱憂。除非有很好的理由，通常應該要避免將所有 HTTP 動詞對應到一個動作上。</p></div><h4 id="片段約束">3.8 片段約束</h4><p>使用 <code>:constraints</code> 選項限制動態片段的格式：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 get 'photos/:id', to: 'photos#show', constraints: { id: /[A-Z]\d{5}/ }
 
 </pre>
 </div>
-<p>這條路由會匹配像是 <code>/photos/A12345</code>，但不會匹配 <code>/photos/893</code>。可以進一步簡化為：</p>
-<div class="code_container">
+<p>這條路由會匹配像是 <code>/photos/A12345</code>，但不會匹配 <code>/photos/893</code>。可以進一步簡化為：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 get 'photos/:id', to: 'photos#show', id: /[A-Z]\d{5}/
 
 </pre>
 </div>
-<p><code>:constraints</code> 雖然接受正規表示法，但不能使用錨點（anchors）。比如以下路由不會正常工作：</p>
-<div class="code_container">
+<p><code>:constraints</code> 雖然接受正規表示法，但不能使用錨點（anchors）。比如以下路由不會正常工作：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
-get '/:id', to: 'posts#show', constraints: {id: /^\d/}
+get '/:id', to: 'articles#show', constraints: {id: /^\d/}
 
 </pre>
 </div>
-<p>但其實不需要使用錨點，因為所有的路由皆從頭開始匹配。</p>
-<p>舉個例子，下面的路由，若 <code>posts</code> 呼叫 <code>to_param</code> 的值像是 <code>1-hello-world</code>，以數字開頭，就會把請求交給 <code>PostsController</code> 的 <code>show</code> 動作處理；而 <code>to_param</code> 的值不以數字開頭，像是 <code>david</code>，則會交給 <code>UsersController</code> 的 <code>show</code> 動作處理。</p>
-<div class="code_container">
+<p>但其實不需要使用錨點，因為所有的路由皆從頭開始匹配。</p><p>舉個例子，下面的路由，若 <code>articles</code> 呼叫 <code>to_param</code> 的值像是 <code>1-hello-world</code>，以數字開頭，就會把請求交給 <code>ArticlesController</code> 的 <code>show</code> 動作處理；而 <code>to_param</code> 的值不以數字開頭，像是 <code>david</code>，則會交給 <code>UsersController</code> 的 <code>show</code> 動作處理。</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
-get '/:id', to: 'posts#show', constraints: { id: /\d.+/ }
+get '/:id', to: 'articles#show', constraints: { id: /\d.+/ }
 get '/:username', to: 'users#show'
 
 </pre>
 </div>
-<h4 id="基於請求的約束條件">3.9 基於請求的約束條件</h4>
-<p>也可以使用 <a href="action_controller_overview.html#request-%E7%89%A9%E4%BB%B6"><code>request</code> 物件</a>裡，任何會回傳字串的方法，來宣告路由的約束條件。</p>
-<p>基於 <code>request</code> 物件的約束條件的宣告方式與片段約束條件相同：</p>
-<div class="code_container">
+<h4 id="基於請求的約束條件">3.9 基於請求的約束條件</h4><p>也可以使用 <a href="action_controller_overview.html#request-%E7%89%A9%E4%BB%B6"><code>request</code> 物件</a>裡，任何會回傳字串的方法，來宣告路由的約束條件。</p><p>基於 <code>request</code> 物件的約束條件的宣告方式與片段約束條件相同：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 get 'photos', constraints: {subdomain: 'admin'}
 
 </pre>
 </div>
-<p>約束條件也可以使用區塊形式：</p>
-<div class="code_container">
+<p>約束條件也可以使用區塊形式：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 namespace :admin do
   constraints subdomain: 'admin' do
@@ -1242,9 +1130,7 @@ end
 
 </pre>
 </div>
-<h4 id="進階約束條件">3.10 進階約束條件</h4>
-<p>如有更進階的約束條件，可以傳入一個回應 <code>matches?</code> 的物件。假設需要將所有黑名單的使用者交給 <code>BlackListController</code> 處理，可以這麼做：</p>
-<div class="code_container">
+<h4 id="進階約束條件">3.10 進階約束條件</h4><p>如有更進階的約束條件，可以傳入一個回應 <code>matches?</code> 的物件。假設需要將所有黑名單的使用者交給 <code>BlackListController</code> 處理，可以這麼做：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class BlacklistConstraint
   def initialize
@@ -1263,8 +1149,7 @@ end
 
 </pre>
 </div>
-<p>約束條件也可用 lambda 宣告：</p>
-<div class="code_container">
+<p>約束條件也可用 lambda 宣告：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 TwitterClone::Application.routes.draw do
   get '*path', to: 'blacklist#index',
@@ -1273,95 +1158,70 @@ end
 
 </pre>
 </div>
-<p><code>matches?</code> 方法與 lambda 都接受 <code>request</code> 物件作為參數。</p>
-<h4 id="路由通配片段">3.11 路由通配片段</h4>
-<p>路由通配是指定匹配參數的方法，比如：</p>
-<div class="code_container">
+<p><code>matches?</code> 方法與 lambda 都接受 <code>request</code> 物件作為參數。</p><h4 id="路由通配片段">3.11 路由通配片段</h4><p>路由通配是指定匹配參數的方法，比如：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 get 'photos/*other', to: 'photos#unknown'
 
 </pre>
 </div>
-<p>這筆路由會匹配 <code>photos/12</code> 或 <code>/photos/long/path/to/12</code>，並將 <code>params[:other]</code> 設為 <code>"12"</code> 或 <code>"long/path/to/12"</code>。有星號前綴的片段稱之為“通配片段”。</p>
-<p>通配片段可在路由的任何位置出現，譬如：</p>
-<div class="code_container">
+<p>這筆路由會匹配 <code>photos/12</code> 或 <code>/photos/long/path/to/12</code>，並將 <code>params[:other]</code> 設為 <code>"12"</code> 或 <code>"long/path/to/12"</code>。有星號前綴的片段稱之為“通配片段”。</p><p>通配片段可在路由的任何位置出現，譬如：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 get 'books/*section/:title', to: 'books#show'
 
 </pre>
 </div>
-<p>會匹配 <code>books/some/section/last-words-a-memoir</code>，<code>params[:section]</code> 會設為 <code>"some/section"</code>，而 <code>params[:title]</code> 則是 <code>"last-words-a-memoir"</code>。</p>
-<p>技術上來說，路由可有多個通配片段。匹配器會以直觀的方式來將參數賦值給片段，比如：</p>
-<div class="code_container">
+<p>會匹配 <code>books/some/section/last-words-a-memoir</code>，<code>params[:section]</code> 會設為 <code>"some/section"</code>，而 <code>params[:title]</code> 則是 <code>"last-words-a-memoir"</code>。</p><p>技術上來說，路由可有多個通配片段。匹配器會以直觀的方式來將參數賦值給片段，比如：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 get '*a/foo/*b', to: 'test#index'
 
 </pre>
 </div>
-<p>會匹配 <code>zoo/woo/foo/bar/baz</code>，<code>params[:a]</code> 會設為 <code>'zoo/woo'</code>，而 <code>params[:b]</code> 則是 <code>'bar/baz'</code>。</p>
-<div class="note"><p>若想請求 <code>"/foo/bar.json"</code>，<code>params[:pages]</code> 會設為 <code>"foo/bar"</code>，請求格式為 JSON。若想使用 3.0.x 的行為，可以傳一個 <code>format: false</code>：</p></div>
-<div class="code_container">
+<p>會匹配 <code>zoo/woo/foo/bar/baz</code>，<code>params[:a]</code> 會設為 <code>'zoo/woo'</code>，而 <code>params[:b]</code> 則是 <code>'bar/baz'</code>。</p><div class="note"><p>若想請求 <code>"/foo/bar.json"</code>，<code>params[:pages]</code> 會設為 <code>"foo/bar"</code>，請求格式為 JSON。若想使用 3.0.x 的行為，可以傳一個 <code>format: false</code>：</p></div><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 get '*pages', to: 'pages#show', format: false
 
 </pre>
 </div>
-<div class="note"><p>若想要設定格式為必要參數，則可以傳 <code>format: true</code>：</p></div>
-<div class="code_container">
+<div class="note"><p>若想要設定格式為必要參數，則可以傳 <code>format: true</code>：</p></div><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 get '*pages', to: 'pages#show', format: true
 
 </pre>
 </div>
-<h4 id="轉址">3.12 轉址</h4>
-<p>可以使用 <code>redirect</code> 輔助方法將甲路徑轉到乙路徑：</p>
-<div class="code_container">
+<h4 id="轉址">3.12 轉址</h4><p>可以使用 <code>redirect</code> 輔助方法將甲路徑轉到乙路徑：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
-get '/stories', to: redirect('/posts')
+get '/stories', to: redirect('/articles')
 
 </pre>
 </div>
-<p>轉址也可以重複使用匹配路由的動態片段：</p>
-<div class="code_container">
+<p>轉址也可以重複使用匹配路由的動態片段：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
-get '/stories/:name', to: redirect('/posts/%{name}')
+get '/stories/:name', to: redirect('/articles/%{name}')
 
 </pre>
 </div>
-<p><code>redirect</code> 也可以以區塊形式定義，接受 <code>path</code> 參數與 <code>request</code> 物件：</p>
-<div class="code_container">
+<p><code>redirect</code> 也可以以區塊形式定義，接受 <code>path</code> 參數與 <code>request</code> 物件：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
-get '/stories/:name', to: redirect { |path_params, req| "/posts/#{path_params[:name].pluralize}" }
-get '/stories', to: redirect { |path_params, req| "/posts/#{req.subdomain}" }
+get '/stories/:name', to: redirect { |path_params, req| "/articles/#{path_params[:name].pluralize}" }
+get '/stories', to: redirect { |path_params, req| "/articles/#{req.subdomain}" }
 
 </pre>
 </div>
-<p>Note: 轉址是 301 "Moved Permanently" 轉址。某些瀏覽器或代理伺服器會快取 301 轉址，導致舊的頁面無法存取。</p>
-<p>以上所有的情況裡，若沒有提供主機（<code>http://www.example.com</code>），Rails 會從當下的請求裡取得。</p>
-<h4 id="路由到-rack-應用程式">3.13 路由到 Rack 應用程式</h4>
-<p>除了使用像是 <code>"posts#index"</code> 的字串（會交給 <code>PostsController</code> 的 <code>index</code> 動作處理），還可以指定任何 <a href="/rails_on_rack.html">Rack 應用程式</a> 作為 Endpoint：</p>
-<div class="code_container">
+<p>Note: 轉址是 301 "Moved Permanently" 轉址。某些瀏覽器或代理伺服器會快取 301 轉址，導致舊的頁面無法存取。</p><p>以上所有的情況裡，若沒有提供主機（<code>http://www.example.com</code>），Rails 會從當下的請求裡取得。</p><h4 id="路由到-rack-應用程式">3.13 路由到 Rack 應用程式</h4><p>除了使用像是 <code>"articles#index"</code> 的字串（會交給 <code>ArticlesController</code> 的 <code>index</code> 動作處理），還可以指定任何 <a href="/rails_on_rack.html">Rack 應用程式</a> 作為 Endpoint：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 match '/application.js', to: Sprockets, via: :all
 
 </pre>
 </div>
-<p>只要 <code>Sprockets</code> 有回應 <code>call</code>，並回傳 <code>[status, headers, body]</code>，則路由器便不管這是一個 Rack 應用程式，還是單純一個動作。這是個應用 <code>via: :all</code> 的適當場景，因為希望 Rack 應用程式自己處理所有的 HTTP 動詞。</p>
-<div class="note"><p>針對比較好奇的朋友，<code>"posts#index</code> 其實會展開成 <code>PostsController.action(:index)</code>，會回傳一個合法的 Rack 應用程式。</p></div>
-<h4 id="使用-root">3.14 使用 <code>root</code>
-</h4>
-<p>可以用 <code>root</code> 指定 Rails 要把 <code>"/"</code> 路由到那裡：</p>
-<div class="code_container">
+<p>只要 <code>Sprockets</code> 有回應 <code>call</code>，並回傳 <code>[status, headers, body]</code>，則路由器便不管這是一個 Rack 應用程式，還是單純一個動作。這是個應用 <code>via: :all</code> 的適當場景，因為希望 Rack 應用程式自己處理所有的 HTTP 動詞。</p><div class="note"><p>針對比較好奇的朋友，<code>"articles#index</code> 其實會展開成 <code>ArticlesController.action(:index)</code>，會回傳一個合法的 Rack 應用程式。</p></div><h4 id="使用-root">3.14 使用 <code>root</code>
+</h4><p>可以用 <code>root</code> 指定 Rails 要把 <code>"/"</code> 路由到那裡：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 root to: 'pages#main'
 root 'pages#main' # 上例的縮寫
 
 </pre>
 </div>
-<p><code>root</code> 路由應放在 <code>config/routes.rb</code> 的最上方，因為這是最重要的路由，應該第一個匹配。</p>
-<div class="note"><p><code>root</code> 路由只處理對應動作的 <code>GET</code> 請求。</p></div>
-<p><code>root</code> 也可以在命名空間或是作用域裡使用：</p>
-<div class="code_container">
+<p><code>root</code> 路由應放在 <code>config/routes.rb</code> 的最上方，因為這是最重要的路由，應該第一個匹配。</p><div class="note"><p><code>root</code> 路由只處理對應動作的 <code>GET</code> 請求。</p></div><p><code>root</code> 也可以在命名空間或是作用域裡使用：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 namespace :admin do
   root to: "admin#index"
@@ -1371,19 +1231,13 @@ root to: "home#index"
 
 </pre>
 </div>
-<h4 id="unicode-字元的路由">3.15 Unicode 字元的路由</h4>
-<p>路由中可以直接指定 Unicode 字元：</p>
-<div class="code_container">
+<h4 id="unicode-字元的路由">3.15 Unicode 字元的路由</h4><p>路由中可以直接指定 Unicode 字元：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 get 'こんにちは', to: 'welcome#index'
 
 </pre>
 </div>
-<h3 id="客製化資源式路由">4 客製化資源式路由</h3>
-<p><code>resources :posts</code> 產生的預設路由與輔助方法通常可以滿足多數需求，但有時可能想在某種程度上進行客製化。Rails 允許資源式輔助方法的通用部分做客製化。</p>
-<h4 id="指定使用的-controller">4.1 指定使用的 Controller</h4>
-<p><code>:controller</code> 選項可明確指定資源要使用的 Controller：</p>
-<div class="code_container">
+<h3 id="客製化資源式路由">4 客製化資源式路由</h3><p><code>resources :articles</code> 產生的預設路由與輔助方法通常可以滿足多數需求，但有時可能想在某種程度上進行客製化。Rails 允許資源式輔助方法的通用部分做客製化。</p><h4 id="指定使用的-controller">4.1 指定使用的 Controller</h4><p><code>:controller</code> 選項可明確指定資源要使用的 Controller：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 resources :photos, controller: 'images'
 
@@ -1391,12 +1245,14 @@ resources :photos, controller: 'images'
 </div>
 <p>會識別出以 <code>/photos</code> 開頭的請求，交給 <code>Images</code> Controller 處理：</p>
 <table>
-<thead><tr>
+<thead>
+<tr>
 <th>HTTP Verb</th>
 <th>Path</th>
 <th>Controller#Action</th>
 <th>Named Helper</th>
-</tr></thead>
+</tr>
+</thead>
 <tbody>
 <tr>
 <td>GET</td>
@@ -1442,27 +1298,19 @@ resources :photos, controller: 'images'
 </tr>
 </tbody>
 </table>
-<div class="note"><p>產生路徑的輔助方法保持不變 <code>photos_path</code>、<code>new_photo_path</code>。</p></div>
-<p>具有命名空間的 Controller，指定時使用和目錄一樣的表示法即可：</p>
-<div class="code_container">
+<div class="note"><p>產生路徑的輔助方法保持不變 <code>photos_path</code>、<code>new_photo_path</code>。</p></div><p>具有命名空間的 Controller，指定時使用和目錄一樣的表示法即可：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 resources :user_permissions, controller: 'admin/user_permissions'
 
 </pre>
 </div>
-<p>會把路由交給 <code>Admin::UserPermissions</code> 處理。</p>
-<div class="note"><p>只支援目錄表示法。使用 Ruby 的常數表示法（如：<code>controller: "Admin::UserPermissions"</code>）會導致路由問題，並觸發警告。</p></div>
-<h4 id="指定約束條件">4.2 指定約束條件</h4>
-<p>可用 <code>:constraints</code> 選項來對 <code>id</code> 指定格式，譬如：</p>
-<div class="code_container">
+<p>會把路由交給 <code>Admin::UserPermissions</code> 處理。</p><div class="note"><p>只支援目錄表示法。使用 Ruby 的常數表示法（如：<code>controller: "Admin::UserPermissions"</code>）會導致路由問題，並觸發警告。</p></div><h4 id="指定約束條件">4.2 指定約束條件</h4><p>可用 <code>:constraints</code> 選項來對 <code>id</code> 指定格式，譬如：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 resources :photos, constraints: { id: /[A-Z][A-Z][0-9]+/ }
 
 </pre>
 </div>
-<p>這條宣告限制 <code>:id</code> 參數需符合指定的正規表示法。故這個情況裡，路由器不會匹配 <code>/photos/1</code>，而是會匹配 <code>/photos/RR27</code>。</p>
-<p>可以將約束條件應用至多條路由，使用以下的區塊形式：</p>
-<div class="code_container">
+<p>這條宣告限制 <code>:id</code> 參數需符合指定的正規表示法。故這個情況裡，路由器不會匹配 <code>/photos/1</code>，而是會匹配 <code>/photos/RR27</code>。</p><p>可以將約束條件應用至多條路由，使用以下的區塊形式：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 constraints(id: /[A-Z][A-Z][0-9]+/) do
   resources :photos
@@ -1471,11 +1319,7 @@ end
 
 </pre>
 </div>
-<div class="note"><p>當然這裡也可以使用非資源式路由的進階約束條件。</p></div>
-<div class="info"><p><code>:id</code> 預設不接受 <code>.</code> ── 這是因為 <code>.</code> 是格式化路由的分隔符。如需要在 <code>:id</code> 裡使用 <code>.</code>，用約束條件來處理 ── 例如，<code>id: /[^\/]+/</code> 允許斜線以外的所有字元。</p></div>
-<h4 id="覆寫具名輔助方法">4.3 覆寫具名輔助方法</h4>
-<p><code>:as</code> 選項可以覆寫具名輔助方法的名稱。比如：</p>
-<div class="code_container">
+<div class="note"><p>當然這裡也可以使用非資源式路由的進階約束條件。</p></div><div class="info"><p><code>:id</code> 預設不接受 <code>.</code> ── 這是因為 <code>.</code> 是格式化路由的分隔符。如需要在 <code>:id</code> 裡使用 <code>.</code>，用約束條件來處理 ── 例如，<code>id: /[^\/]+/</code> 允許斜線以外的所有字元。</p></div><h4 id="覆寫具名輔助方法">4.3 覆寫具名輔助方法</h4><p><code>:as</code> 選項可以覆寫具名輔助方法的名稱。比如：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 resources :photos, as: 'images'
 
@@ -1483,12 +1327,14 @@ resources :photos, as: 'images'
 </div>
 <p>will recognize incoming paths beginning with <code>/photos</code> and route the requests to <code>PhotosController</code>, but use the value of the :as option to name the helpers.</p>
 <table>
-<thead><tr>
+<thead>
+<tr>
 <th>HTTP Verb</th>
 <th>Path</th>
 <th>Controller#Action</th>
 <th>Named Helper</th>
-</tr></thead>
+</tr>
+</thead>
 <tbody>
 <tr>
 <td>GET</td>
@@ -1534,25 +1380,20 @@ resources :photos, as: 'images'
 </tr>
 </tbody>
 </table>
-<h4 id="覆寫-new-與-edit-片段">4.4 覆寫 <code>new</code> 與 <code>edit</code> 片段</h4>
-<p><code>:path_names</code> 選項可以覆寫自動在路徑裡產生的 <code>new</code> 與 <code>edit</code> 片段：</p>
-<div class="code_container">
+<h4 id="覆寫-new-與-edit-片段">4.4 覆寫 <code>new</code> 與 <code>edit</code> 片段</h4><p><code>:path_names</code> 選項可以覆寫自動在路徑裡產生的 <code>new</code> 與 <code>edit</code> 片段：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 resources :photos, path_names: { new: 'make', edit: 'change' }
 
 </pre>
 </div>
-<p>路由路徑變更為：</p>
-<div class="code_container">
+<p>路由路徑變更為：</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 /photos/make
 /photos/1/change
 
 </pre>
 </div>
-<div class="note"><p>實際的動作名稱並沒有改變。這兩個路徑仍路由到 <code>new</code> and <code>edit</code> 動作。</p></div>
-<div class="info"><p>若發現一直使用 <code>:path_names</code> 的話，考慮使用 <code>scope</code>。</p></div>
-<div class="code_container">
+<div class="note"><p>實際的動作名稱並沒有改變。這兩個路徑仍路由到 <code>new</code> and <code>edit</code> 動作。</p></div><div class="info"><p>若發現一直使用 <code>:path_names</code> 的話，考慮使用 <code>scope</code>。</p></div><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 scope path_names: { new: 'make' } do
   # rest of your routes
@@ -1560,9 +1401,7 @@ end
 
 </pre>
 </div>
-<h4 id="給具名輔助方法加前綴">4.5 給具名輔助方法加前綴</h4>
-<p><code>:as</code> 選項可以給具名輔助方法加上前綴。使用此選項用來避免路由之間的命名衝突，例如：</p>
-<div class="code_container">
+<h4 id="給具名輔助方法加前綴">4.5 給具名輔助方法加前綴</h4><p><code>:as</code> 選項可以給具名輔助方法加上前綴。使用此選項用來避免路由之間的命名衝突，例如：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 scope 'admin' do
   resources :photos, as: 'admin_photos'
@@ -1572,9 +1411,7 @@ resources :photos
 
 </pre>
 </div>
-<p>會產生像是 <code>admin_photos_path</code>、<code>new_admin_photo_path</code> 等路由輔助方法。</p>
-<p>要前綴一組路由輔助方法，使用 <code>scope</code> 與 <code>:as</code> 選項：</p>
-<div class="code_container">
+<p>會產生像是 <code>admin_photos_path</code>、<code>new_admin_photo_path</code> 等路由輔助方法。</p><p>要前綴一組路由輔助方法，使用 <code>scope</code> 與 <code>:as</code> 選項：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 scope 'admin', as: 'admin' do
   resources :photos, :accounts
@@ -1584,39 +1421,27 @@ resources :photos, :accounts
 
 </pre>
 </div>
-<p>這會產生像是 <code>admin_photos_path</code> 以及 <code>admin_accounts_path</code> 輔助方法，分別對應到 <code>/admin/photos</code> 以及 <code>/admin/accounts</code>。</p>
-<div class="note"><p><code>namespace</code> 作用域會自動新增 <code>:as</code>、<code>:module</code> 以及 <code>:path</code> 前綴。</p></div>
-<p>也可以使用具名參數給路由加上前綴：</p>
-<div class="code_container">
+<p>這會產生像是 <code>admin_photos_path</code> 以及 <code>admin_accounts_path</code> 輔助方法，分別對應到 <code>/admin/photos</code> 以及 <code>/admin/accounts</code>。</p><div class="note"><p><code>namespace</code> 作用域會自動新增 <code>:as</code>、<code>:module</code> 以及 <code>:path</code> 前綴。</p></div><p>也可以使用具名參數給路由加上前綴：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 scope ':username' do
-  resources :posts
+  resources :articles
 end
 
 </pre>
 </div>
-<p>這會產生像是 <code>/bob/posts/1</code> 的路由，並允許在 Controller、View 以及輔助方法使用 <code>params[:username]</code> 來存取路徑傳入的 <code>username</code>。</p>
-<h4 id="限制建立出來的路由">4.6 限制建立出來的路由</h4>
-<p>Rails 預設會為以資源式風格宣告的路由的七個動作（index、show、new、create、edit、update 以及 destroy）建立路由。可用 <code>:only</code> 以及 <code>:except</code> 選項來調整這個行為。<code>:only</code> 選項告訴 Rails 只需要產生那些路由就好：</p>
-<div class="code_container">
+<p>這會產生像是 <code>/bob/articles/1</code> 的路由，並允許在 Controller、View 以及輔助方法使用 <code>params[:username]</code> 來存取路徑傳入的 <code>username</code>。</p><h4 id="限制建立出來的路由">4.6 限制建立出來的路由</h4><p>Rails 預設會為以資源式風格宣告的路由的七個動作（index、show、new、create、edit、update 以及 destroy）建立路由。可用 <code>:only</code> 以及 <code>:except</code> 選項來調整這個行為。<code>:only</code> 選項告訴 Rails 只需要產生那些路由就好：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 resources :photos, only: [:index, :show]
 
 </pre>
 </div>
-<p><code>/photos</code> 收到 GET 請求會正常工作，但 POST 請求（通常會路由到 <code>:create</code> 動作）則會失敗。</p>
-<p>The <code>:except</code> 選項指定不要建立的路由：</p>
-<div class="code_container">
+<p><code>/photos</code> 收到 GET 請求會正常工作，但 POST 請求（通常會路由到 <code>:create</code> 動作）則會失敗。</p><p>The <code>:except</code> 選項指定不要建立的路由：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 resources :photos, except: :destroy
 
 </pre>
 </div>
-<p>這個情況 Rails 會建立出除了 <code>:destory</code> （發送 <code>DELETE</code> 請求到 <code>/photos/:id</code>）之外所有的路由。</p>
-<div class="info"><p>如應用程式有許多 RESTful 風格的路由，使用 <code>:only</code> 與 <code>:except</code> 選項來產生需要的路由。這樣可以減少記憶體的使用量，並加速路由過程。</p></div>
-<h4 id="翻譯路徑">4.7 翻譯路徑</h4>
-<p>使用 <code>scope</code>，可以修改由 <code>resources</code> 產生的路徑名稱：</p>
-<div class="code_container">
+<p>這個情況 Rails 會建立出除了 <code>:destory</code> （發送 <code>DELETE</code> 請求到 <code>/photos/:id</code>）之外所有的路由。</p><div class="info"><p>如應用程式有許多 RESTful 風格的路由，使用 <code>:only</code> 與 <code>:except</code> 選項來產生需要的路由。這樣可以減少記憶體的使用量，並加速路由過程。</p></div><h4 id="翻譯路徑">4.7 翻譯路徑</h4><p>使用 <code>scope</code>，可以修改由 <code>resources</code> 產生的路徑名稱：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 scope(path_names: { new: 'neu', edit: 'bearbeiten' }) do
   resources :categories, path: 'kategorien'
@@ -1626,12 +1451,14 @@ end
 </div>
 <p>產生的路由：</p>
 <table>
-<thead><tr>
+<thead>
+<tr>
 <th>HTTP Verb</th>
 <th>Path</th>
 <th>Controller#Action</th>
 <th>Named Helper</th>
-</tr></thead>
+</tr>
+</thead>
 <tbody>
 <tr>
 <td>GET</td>
@@ -1677,9 +1504,7 @@ end
 </tr>
 </tbody>
 </table>
-<h4 id="覆寫單數形式">4.8 覆寫單數形式</h4>
-<p>若想定義某個資源的單數形式，給 <code>Inflector</code> 新增額外的規則：</p>
-<div class="code_container">
+<h4 id="覆寫單數形式">4.8 覆寫單數形式</h4><p>若想定義某個資源的單數形式，給 <code>Inflector</code> 新增額外的規則：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 ActiveSupport::Inflector.inflections do |inflect|
   inflect.irregular 'tooth', 'teeth'
@@ -1687,9 +1512,7 @@ end
 
 </pre>
 </div>
-<h4 id="在嵌套資源中使用-:as-選項">4.9 在嵌套資源中使用 <code>:as</code> 選項</h4>
-<p><code>:as</code> 選項覆寫在嵌套資源裡，自動產生的路由輔助方法，例如：</p>
-<div class="code_container">
+<h4 id="在嵌套資源中使用-:as-選項">4.9 在嵌套資源中使用 <code>:as</code> 選項</h4><p><code>:as</code> 選項覆寫在嵌套資源裡，自動產生的路由輔助方法，例如：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 resources :magazines do
   resources :ads, as: 'periodical_ads'
@@ -1697,20 +1520,14 @@ end
 
 </pre>
 </div>
-<p>這會產生出像是：<code>edit_magazine_periodical_ad_path</code> 與 <code>magazine_periodical_ads_url</code> 等輔助方法。</p>
-<h3 id="檢查與測試路由">5 檢查與測試路由</h3>
-<p>Rails 有提供用來檢查與測試路由的工具。</p>
-<h4 id="列出現有的路由">5.1 列出現有的路由</h4>
-<p>要獲得應用程式完整可用的路由列表，在開發環境下啟動伺服器，瀏覽 <code>http://localhost:3000/rails/info/routes</code>。也可以在終端機裡執行 <code>rake routes</code> 命令。</p>
-<p>以上兩種方法都會列出所有的路由，順序與 <code>config/routes.rb</code> 裡定義的一樣，每條路由的內容會有：</p>
+<p>這會產生出像是：<code>edit_magazine_periodical_ad_path</code> 與 <code>magazine_periodical_ads_url</code> 等輔助方法。</p><h3 id="檢查與測試路由">5 檢查與測試路由</h3><p>Rails 有提供用來檢查與測試路由的工具。</p><h4 id="列出現有的路由">5.1 列出現有的路由</h4><p>要獲得應用程式完整可用的路由列表，在開發環境下啟動伺服器，瀏覽 <code>http://localhost:3000/rails/info/routes</code>。也可以在終端機裡執行 <code>rake routes</code> 命令。</p><p>以上兩種方法都會列出所有的路由，順序與 <code>config/routes.rb</code> 裡定義的一樣，每條路由的內容會有：</p>
 <ul>
 <li>路由名稱（有的話）</li>
 <li>使用的 HTTP 動詞（若不是回應所有動詞的路由）</li>
 <li>匹配的 URL 模式。</li>
 <li>路由的參數。</li>
 </ul>
-<p>舉個例子，以下是某個 RESTful 路由的 <code>rake routes</code> 輸出的一小部分：</p>
-<div class="code_container">
+<p>舉個例子，以下是某個 RESTful 路由的 <code>rake routes</code> 輸出的一小部分：</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
     users GET    /users(.:format)          users#index
           POST   /users(.:format)          users#create
@@ -1719,54 +1536,43 @@ edit_user GET    /users/:id/edit(.:format) users#edit
 
 </pre>
 </div>
-<p>可以使用環境變數 <code>CONTROLLER</code>，來限制僅列出特定 Controller 的路由：</p>
-<div class="code_container">
+<p>可以使用環境變數 <code>CONTROLLER</code>，來限制僅列出特定 Controller 的路由：</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 $ CONTROLLER=users rake routes
 
 </pre>
 </div>
-<div class="info"><p>若將終端機視窗拉寬到無斷行，會發現 <code>rake routes</code> 輸出的可讀性更高。</p></div>
-<h4 id="測試路由">5.2 測試路由</h4>
-<p>路由和其它部分的程式一樣，也需要測試。Rails 提供三個<a href="http://api.rubyonrails.org/classes/ActionDispatch/Assertions/RoutingAssertions.html">內建的斷言方法</a>，專門為簡化路由測試而設計：</p>
+<div class="info"><p>若將終端機視窗拉寬到無斷行，會發現 <code>rake routes</code> 輸出的可讀性更高。</p></div><h4 id="測試路由">5.2 測試路由</h4><p>路由和其它部分的程式一樣，也需要測試。Rails 提供三個<a href="http://api.rubyonrails.org/classes/ActionDispatch/Assertions/RoutingAssertions.html">內建的斷言方法</a>，專門為簡化路由測試而設計：</p>
 <ul>
 <li><code>assert_generates</code></li>
 <li><code>assert_recognizes</code></li>
 <li><code>assert_routing</code></li>
 </ul>
-<h5 id="assert_generates-斷言">5.2.1 <code>assert_generates</code> 斷言</h5>
-<p><code>assert_generates</code> 檢測給定選項產生出來的預設路由或自訂路由是否正確：</p>
-<div class="code_container">
+<h5 id="assert_generates-斷言">5.2.1 <code>assert_generates</code> 斷言</h5><p><code>assert_generates</code> 檢測給定選項產生出來的預設路由或自訂路由是否正確：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 assert_generates '/photos/1', { controller: 'photos', action: 'show', id: '1' }
 assert_generates '/about', controller: 'pages', action: 'about'
 
 </pre>
 </div>
-<h5 id="assert_recognizes-斷言">5.2.2 <code>assert_recognizes</code> 斷言</h5>
-<p><code>assert_recognizes</code> 與 <code>assert_generates</code> 相反。檢測給定的路徑是否能識別出來，並路由到正確的位置。比如：</p>
-<div class="code_container">
+<h5 id="assert_recognizes-斷言">5.2.2 <code>assert_recognizes</code> 斷言</h5><p><code>assert_recognizes</code> 與 <code>assert_generates</code> 相反。檢測給定的路徑是否能識別出來，並路由到正確的位置。比如：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 assert_recognizes({ controller: 'photos', action: 'show', id: '1' }, '/photos/1')
 
 </pre>
 </div>
-<p>可用 <code>:method</code> 參數來指定 HTTP 動詞：</p>
-<div class="code_container">
+<p>可用 <code>:method</code> 參數來指定 HTTP 動詞：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 assert_recognizes({ controller: 'photos', action: 'create' }, { path: 'photos', method: :post })
 
 </pre>
 </div>
-<h5 id="assert_routing-斷言">5.2.3 <code>assert_routing</code> 斷言</h5>
-<p><code>assert_routing</code> 斷言雙向檢查路由：測試路徑產生的選項對不對，以及選項產生出來的路徑是否正確。因此，結合了 <code>assert_generates</code> 與 <code>assert_recognizes</code> 的功能：</p>
-<div class="code_container">
+<h5 id="assert_routing-斷言">5.2.3 <code>assert_routing</code> 斷言</h5><p><code>assert_routing</code> 斷言雙向檢查路由：測試路徑產生的選項對不對，以及選項產生出來的路徑是否正確。因此，結合了 <code>assert_generates</code> 與 <code>assert_recognizes</code> 的功能：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 assert_routing({ path: 'photos', method: :post }, { controller: 'photos', action: 'create' })
 
 </pre>
 </div>
-</body></html>
 
 
         <h3>反饋</h3>

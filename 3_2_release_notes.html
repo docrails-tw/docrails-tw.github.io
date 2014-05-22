@@ -160,7 +160,7 @@
 
   <div id="feature">
     <div class="wrapper">
-      <h2 id="ruby-on-rails-3.2-release-notes">Ruby on Rails 3.2 Release Notes</h2><p>Highlights in Rails 3.2:</p>
+      <h2>Ruby on Rails 3.2 Release Notes</h2><p>Highlights in Rails 3.2:</p>
 <ul>
 <li>Faster Development Mode</li>
 <li>New Routing Engine</li>
@@ -171,8 +171,7 @@
 
                 <div id="subCol">
             <h3 class="chapter"><img src="images/chapters_icon.gif" alt="" />Chapters</h3>
-            <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
-<html><body><ol class="chapters">
+            <ol class="chapters">
 <li>
 <a href="#upgrading-to-rails-3.2">Upgrading to Rails 3.2</a>
 
@@ -216,14 +215,14 @@
 <a href="#active-record">Active Record</a>
 
 <ul>
-<li><a href="#deprecations">Deprecations</a></li>
+<li><a href="#active-record-deprecations">Deprecations</a></li>
 </ul>
 </li>
 <li>
 <a href="#active-model">Active Model</a>
 
 <ul>
-<li><a href="#deprecations">Deprecations</a></li>
+<li><a href="#active-model-deprecations">Deprecations</a></li>
 </ul>
 </li>
 <li><a href="#active-resource">Active Resource</a></li>
@@ -235,7 +234,7 @@
 </ul>
 </li>
 <li><a href="#credits">Credits</a></li>
-</ol></body></html>
+</ol>
 
           </div>
 
@@ -245,14 +244,7 @@
   <div id="container">
     <div class="wrapper">
       <div id="mainCol">
-        <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
-<html><body>
-<h3 id="upgrading-to-rails-3.2">1 Upgrading to Rails 3.2</h3>
-<p>If you're upgrading an existing application, it's a great idea to have good test coverage before going in. You should also first upgrade to Rails 3.1 in case you haven't and make sure your application still runs as expected before attempting an update to Rails 3.2. Then take heed of the following changes:</p>
-<h4 id="rails-3.2-requires-at-least-ruby-1.8.7">1.1 Rails 3.2 requires at least Ruby 1.8.7</h4>
-<p>Rails 3.2 requires Ruby 1.8.7 or higher. Support for all of the previous Ruby versions has been dropped officially and you should upgrade as early as possible. Rails 3.2 is also compatible with Ruby 1.9.2.</p>
-<div class="info"><p>Note that Ruby 1.8.7 p248 and p249 have marshalling bugs that crash Rails. Ruby Enterprise Edition has these fixed since the release of 1.8.7-2010.02. On the 1.9 front, Ruby 1.9.1 is not usable because it outright segfaults, so if you want to use 1.9.x, jump on to 1.9.2 or 1.9.3 for smooth sailing.</p></div>
-<h4 id="what-to-update-in-your-apps">1.2 What to update in your apps</h4>
+        <h3 id="upgrading-to-rails-3.2">1 Upgrading to Rails 3.2</h3><p>If you're upgrading an existing application, it's a great idea to have good test coverage before going in. You should also first upgrade to Rails 3.1 in case you haven't and make sure your application still runs as expected before attempting an update to Rails 3.2. Then take heed of the following changes:</p><h4 id="rails-3.2-requires-at-least-ruby-1.8.7">1.1 Rails 3.2 requires at least Ruby 1.8.7</h4><p>Rails 3.2 requires Ruby 1.8.7 or higher. Support for all of the previous Ruby versions has been dropped officially and you should upgrade as early as possible. Rails 3.2 is also compatible with Ruby 1.9.2.</p><div class="info"><p>Note that Ruby 1.8.7 p248 and p249 have marshalling bugs that crash Rails. Ruby Enterprise Edition has these fixed since the release of 1.8.7-2010.02. On the 1.9 front, Ruby 1.9.1 is not usable because it outright segfaults, so if you want to use 1.9.x, jump on to 1.9.2 or 1.9.3 for smooth sailing.</p></div><h4 id="what-to-update-in-your-apps">1.2 What to update in your apps</h4>
 <ul>
 <li>
 <p>Update your Gemfile to depend on</p>
@@ -287,9 +279,7 @@ config.active_record.mass_assignment_sanitizer = :strict
 </div>
 </li>
 </ul>
-<h4 id="what-to-update-in-your-engines">1.3 What to update in your engines</h4>
-<p>Replace the code beneath the comment in <code>script/rails</code> with the following content:</p>
-<div class="code_container">
+<h4 id="what-to-update-in-your-engines">1.3 What to update in your engines</h4><p>Replace the code beneath the comment in <code>script/rails</code> with the following content:</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 ENGINE_ROOT = File.expand_path('../..', __FILE__)
 ENGINE_PATH = File.expand_path('../../lib/your_engine_name/engine', __FILE__)
@@ -299,8 +289,7 @@ require 'rails/engine/commands'
 
 </pre>
 </div>
-<h3 id="creating-a-rails-3.2-application">2 Creating a Rails 3.2 application</h3>
-<div class="code_container">
+<h3 id="creating-a-rails-3.2-application">2 Creating a Rails 3.2 application</h3><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 # You should have the 'rails' RubyGem installed
 $ rails new myapp
@@ -308,35 +297,19 @@ $ cd myapp
 
 </pre>
 </div>
-<h4 id="vendoring-gems">2.1 Vendoring Gems</h4>
-<p>Rails now uses a <code>Gemfile</code> in the application root to determine the gems you require for your application to start. This <code>Gemfile</code> is processed by the <a href="https://github.com/carlhuda/bundler">Bundler</a> gem, which then installs all your dependencies. It can even install all the dependencies locally to your application so that it doesn't depend on the system gems.</p>
-<p>More information: <a href="http://gembundler.com">Bundler homepage</a></p>
-<h4 id="living-on-the-edge">2.2 Living on the Edge</h4>
-<p><code>Bundler</code> and <code>Gemfile</code> makes freezing your Rails application easy as pie with the new dedicated <code>bundle</code> command. If you want to bundle straight from the Git repository, you can pass the <code>--edge</code> flag:</p>
-<div class="code_container">
+<h4 id="vendoring-gems">2.1 Vendoring Gems</h4><p>Rails now uses a <code>Gemfile</code> in the application root to determine the gems you require for your application to start. This <code>Gemfile</code> is processed by the <a href="https://github.com/carlhuda/bundler">Bundler</a> gem, which then installs all your dependencies. It can even install all the dependencies locally to your application so that it doesn't depend on the system gems.</p><p>More information: <a href="http://gembundler.com">Bundler homepage</a></p><h4 id="living-on-the-edge">2.2 Living on the Edge</h4><p><code>Bundler</code> and <code>Gemfile</code> makes freezing your Rails application easy as pie with the new dedicated <code>bundle</code> command. If you want to bundle straight from the Git repository, you can pass the <code>--edge</code> flag:</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 $ rails new myapp --edge
 
 </pre>
 </div>
-<p>If you have a local checkout of the Rails repository and want to generate an application using that, you can pass the <code>--dev</code> flag:</p>
-<div class="code_container">
+<p>If you have a local checkout of the Rails repository and want to generate an application using that, you can pass the <code>--dev</code> flag:</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 $ ruby /path/to/rails/railties/bin/rails new myapp --dev
 
 </pre>
 </div>
-<h3 id="major-features">3 Major Features</h3>
-<h4 id="faster-development-mode-&amp;-routing">3.1 Faster Development Mode &amp; Routing</h4>
-<p>Rails 3.2 comes with a development mode that's noticeably faster. Inspired by <a href="https://github.com/paneq/active_reload">Active Reload</a>, Rails reloads classes only when files actually change. The performance gains are dramatic on a larger application. Route recognition also got a bunch faster thanks to the new <a href="https://github.com/rails/journey">Journey</a> engine.</p>
-<h4 id="automatic-query-explains">3.2 Automatic Query Explains</h4>
-<p>Rails 3.2 comes with a nice feature that explains queries generated by Arel by defining an <code>explain</code> method in <code>ActiveRecord::Relation</code>. For example, you can run something like <code>puts Person.active.limit(5).explain</code> and the query Arel produces is explained. This allows to check for the proper indexes and further optimizations.</p>
-<p>Queries that take more than half a second to run are <em>automatically</em> explained in the development mode. This threshold, of course, can be changed.</p>
-<h4 id="tagged-logging">3.3 Tagged Logging</h4>
-<p>When running a multi-user, multi-account application, it's a great help to be able to filter the log by who did what. TaggedLogging in Active Support helps in doing exactly that by stamping log lines with subdomains, request ids, and anything else to aid debugging such applications.</p>
-<h3 id="documentation">4 Documentation</h3>
-<p>From Rails 3.2, the Rails guides are available for the Kindle and free Kindle Reading Apps for the iPad, iPhone, Mac, Android, etc.</p>
-<h3 id="railties">5 Railties</h3>
+<h3 id="major-features">3 Major Features</h3><h4 id="faster-development-mode-&amp;-routing">3.1 Faster Development Mode &amp; Routing</h4><p>Rails 3.2 comes with a development mode that's noticeably faster. Inspired by <a href="https://github.com/paneq/active_reload">Active Reload</a>, Rails reloads classes only when files actually change. The performance gains are dramatic on a larger application. Route recognition also got a bunch faster thanks to the new <a href="https://github.com/rails/journey">Journey</a> engine.</p><h4 id="automatic-query-explains">3.2 Automatic Query Explains</h4><p>Rails 3.2 comes with a nice feature that explains queries generated by Arel by defining an <code>explain</code> method in <code>ActiveRecord::Relation</code>. For example, you can run something like <code>puts Person.active.limit(5).explain</code> and the query Arel produces is explained. This allows to check for the proper indexes and further optimizations.</p><p>Queries that take more than half a second to run are <em>automatically</em> explained in the development mode. This threshold, of course, can be changed.</p><h4 id="tagged-logging">3.3 Tagged Logging</h4><p>When running a multi-user, multi-account application, it's a great help to be able to filter the log by who did what. TaggedLogging in Active Support helps in doing exactly that by stamping log lines with subdomains, request ids, and anything else to aid debugging such applications.</p><h3 id="documentation">4 Documentation</h3><p>From Rails 3.2, the Rails guides are available for the Kindle and free Kindle Reading Apps for the iPad, iPhone, Mac, Android, etc.</p><h3 id="railties">5 Railties</h3>
 <ul>
 <li><p>Speed up development by only reloading classes if dependencies files changed. This can be turned off by setting <code>config.reload_classes_only_on_change</code> to false.</p></li>
 <li><p>New applications get a flag <code>config.active_record.auto_explain_threshold_in_seconds</code> in the environments configuration files. With a value of <code>0.5</code> in <code>development.rb</code> and commented out in <code>production.rb</code>. No mention in <code>test.rb</code>.</p></li>
@@ -371,7 +344,7 @@ rails g scaffold Post title:string:index author:uniq price:decimal{7,2}
 <li><p>Remove old plugin generator <code>rails generate plugin</code> in favor of <code>rails plugin new</code> command.</p></li>
 <li><p>Remove old <code>config.paths.app.controller</code> API in favor of <code>config.paths["app/controller"]</code>.</p></li>
 </ul>
-<h5 id="deprecations">5.1 Deprecations</h5>
+<h5 id="railties-deprecations">5.1 Deprecations</h5>
 <ul>
 <li>
 <code>Rails::Plugin</code> is deprecated and will be removed in Rails 4.0. Instead of adding plugins to <code>vendor/plugins</code> use gems or bundler with path or git dependencies.</li>
@@ -381,8 +354,7 @@ rails g scaffold Post title:string:index author:uniq price:decimal{7,2}
 <li><p>Upgraded <code>mail</code> version to 2.4.0.</p></li>
 <li><p>Removed the old Action Mailer API which was deprecated since Rails 3.0.</p></li>
 </ul>
-<h3 id="action-pack">7 Action Pack</h3>
-<h4 id="action-controller">7.1 Action Controller</h4>
+<h3 id="action-pack">7 Action Pack</h3><h4 id="action-controller">7.1 Action Controller</h4>
 <ul>
 <li><p>Make <code>ActiveSupport::Benchmarkable</code> a default module for <code>ActionController::Base,</code> so the <code>#benchmark</code> method is once again available in the controller context like it used to be.</p></li>
 <li><p>Added <code>:gzip</code> option to <code>caches_page</code>. The default option can be configured globally using <code>page_cache_compression</code>.</p></li>
@@ -430,7 +402,7 @@ assert_nil cookies[:email]
 <li><p>Changed log level of warning for missing CSRF token from <code>:debug</code> to <code>:warn</code>.</p></li>
 <li><p>Assets should use the request protocol by default or default to relative if no request is available.</p></li>
 </ul>
-<h5 id="deprecations">7.1.1 Deprecations</h5>
+<h5 id="action-controller-deprecations">7.1.1 Deprecations</h5>
 <ul>
 <li>
 <p>Deprecated implied layout lookup in controllers whose parent had an explicit layout set:</p>
@@ -459,7 +431,7 @@ end
 <li><p>The <code>ShowExceptions</code> middleware now accepts an exceptions application that is responsible to render an exception when the application fails. The application is invoked with a copy of the exception in <code>env["action_dispatch.exception"]</code> and with the <code>PATH_INFO</code> rewritten to the status code.</p></li>
 <li><p>Allow rescue responses to be configured through a railtie as in <code>config.action_dispatch.rescue_responses</code>.</p></li>
 </ul>
-<h5 id="deprecations">7.2.1 Deprecations</h5>
+<h5 id="action-dispatch-deprecations">7.2.1 Deprecations</h5>
 <ul>
 <li>Deprecated the ability to set a default charset at the controller level, use the new <code>config.action_dispatch.default_charset</code> instead.</li>
 </ul>
@@ -514,7 +486,7 @@ end
 </li>
 <li><p>Added <code>font_path</code> helper method that computes the path to a font asset in <code>public/fonts</code>.</p></li>
 </ul>
-<h5 id="deprecations">7.3.1 Deprecations</h5>
+<h5 id="action-view-deprecations">7.3.1 Deprecations</h5>
 <ul>
 <li>Passing formats or handlers to render :template and friends like <code>render :template =&gt; "foo.html.erb"</code> is deprecated. Instead, you can provide :handlers and :formats directly as options: <code>render :template =&gt; "foo", :formats =&gt; [:html, :js], :handlers =&gt; :erb</code>.</li>
 </ul>
@@ -641,7 +613,7 @@ end
 </div>
 </li>
 </ul>
-<h4 id="deprecations">8.1 Deprecations</h4>
+<h4 id="active-record-deprecations">8.1 Deprecations</h4>
 <ul>
 <li>
 <p>Automatic closure of connections in threads is deprecated. For example the following code is deprecated:</p>
@@ -695,7 +667,7 @@ Post.table_name # =&gt; "special_posts"
 <li><p>Add ability to define strict validations with <code>strict =&gt; true</code> that always raises exception when fails.</p></li>
 <li><p>Provide mass_assignment_sanitizer as an easy API to replace the sanitizer behavior. Also support both :logger (default) and :strict sanitizer behavior.</p></li>
 </ul>
-<h4 id="deprecations">9.1 Deprecations</h4>
+<h4 id="active-model-deprecations">9.1 Deprecations</h4>
 <ul>
 <li><p>Deprecated <code>define_attr_method</code> in <code>ActiveModel::AttributeMethods</code> because this only existed to support methods like <code>set_table_name</code> in Active Record, which are themselves being deprecated.</p></li>
 <li><p>Deprecated <code>Model.model_name.partial_path</code> in favor of <code>model.to_partial_path</code>.</p></li>
@@ -770,11 +742,7 @@ ActiveSupport::BufferedLogger.new f
 </li>
 <li><p><code>ActiveSupport::BufferedLogger#flush</code> is deprecated. Set sync on your filehandle, or tune your filesystem.</p></li>
 </ul>
-<h3 id="credits">12 Credits</h3>
-<p>See the <a href="http://contributors.rubyonrails.org/">full list of contributors to Rails</a> for the many people who spent many hours making Rails, the stable and robust framework it is. Kudos to all of them.</p>
-<p>Rails 3.2 Release Notes were compiled by <a href="https://github.com/vijaydev.">Vijay Dev</a></p>
-</body></html>
-
+<h3 id="credits">12 Credits</h3><p>See the <a href="http://contributors.rubyonrails.org/">full list of contributors to Rails</a> for the many people who spent many hours making Rails, the stable and robust framework it is. Kudos to all of them.</p><p>Rails 3.2 Release Notes were compiled by <a href="https://github.com/vijaydev.">Vijay Dev</a></p>
 
         <h3>反饋</h3>
         <p>
