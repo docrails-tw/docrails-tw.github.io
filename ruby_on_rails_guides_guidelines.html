@@ -6,7 +6,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-<title>Ruby on Rails Guides Guidelines — Ruby on Rails 指南</title>
+<title>Ruby on Rails 指南準則 — Ruby on Rails 指南</title>
 <link rel="stylesheet" type="text/css" href="stylesheets/style.css" />
 <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
 
@@ -160,10 +160,10 @@
 
   <div id="feature">
     <div class="wrapper">
-      <h2>Ruby on Rails Guides Guidelines</h2><p>This guide documents guidelines for writing Ruby on Rails Guides. This guide follows itself in a graceful loop, serving itself as an example.</p><p>After reading this guide, you will know:</p>
+      <h2>Ruby on Rails 指南準則</h2><p>本文記錄了撰寫 Ruby on Rails 指南的準則。本文是撰寫指南的範例，遵循本文自身的內容。</p><p>讀完本篇，您將了解：</p>
 <ul>
-<li>About the conventions to be used in Rails documentation.</li>
-<li>How to generate guides locally.</li>
+<li>Rails 文件採用的慣例。</li>
+<li>如何在本機產生指南。</li>
 </ul>
 
 
@@ -171,22 +171,22 @@
             <h3 class="chapter"><img src="images/chapters_icon.gif" alt="" />Chapters</h3>
             <ol class="chapters">
 <li><a href="#markdown">Markdown</a></li>
-<li><a href="#prologue">Prologue</a></li>
-<li><a href="#titles">Titles</a></li>
-<li><a href="#api-documentation-guidelines">API Documentation Guidelines</a></li>
+<li><a href="#%E5%BA%8F%E5%B9%95">序幕</a></li>
+<li><a href="#%E6%A8%99%E9%A1%8C">標題</a></li>
+<li><a href="#api-%E6%96%87%E4%BB%B6%E6%BA%96%E5%89%87">API 文件準則</a></li>
 <li>
-<a href="#html-guides">HTML Guides</a>
+<a href="#html-%E6%8C%87%E5%8D%97">HTML 指南</a>
 
 <ul>
-<li><a href="#html-guides-generation">Generation</a></li>
-<li><a href="#validation">Validation</a></li>
+<li><a href="#html-%E6%8C%87%E5%8D%97-%E7%94%A2%E7%94%9F">產生</a></li>
+<li><a href="#%E9%A9%97%E8%AD%89">驗證</a></li>
 </ul>
 </li>
 <li>
-<a href="#kindle-guides">Kindle Guides</a>
+<a href="#kindle-%E6%8C%87%E5%8D%97">Kindle 指南</a>
 
 <ul>
-<li><a href="#kindle-guides-generation">Generation</a></li>
+<li><a href="#kindle-%E6%8C%87%E5%8D%97-%E7%94%A2%E7%94%9F">產生</a></li>
 </ul>
 </li>
 </ol>
@@ -199,76 +199,76 @@
   <div id="container">
     <div class="wrapper">
       <div id="mainCol">
-        <h3 id="markdown">1 Markdown</h3><p>Guides are written in <a href="http://github.github.com/github-flavored-markdown/">GitHub Flavored Markdown</a>. There is comprehensive <a href="http://daringfireball.net/projects/markdown/syntax">documentation for Markdown</a>, a <a href="http://daringfireball.net/projects/markdown/basics">cheatsheet</a>, and <a href="http://github.github.com/github-flavored-markdown/">additional documentation</a> on the differences from traditional Markdown.</p><h3 id="prologue">2 Prologue</h3><p>Each guide should start with motivational text at the top (that's the little introduction in the blue area). The prologue should tell the reader what the guide is about, and what they will learn. See for example the <a href="routing.html">Routing Guide</a>.</p><h3 id="titles">3 Titles</h3><p>The title of every guide uses <code>h1</code>; guide sections use <code>h2</code>; subsections <code>h3</code>; etc. However, the generated HTML output will have the heading tag starting from <code>&lt;h2&gt;</code>.</p><div class="code_container">
+        <h3 id="markdown">1 Markdown</h3><p>指南以 <a href="https://help.github.com/articles/github-flavored-markdown">GitHub 風格的 Markdown</a>. 寫成。這裡是<a href="http://daringfireball.net/projects/markdown/syntax">淺顯易懂的 Markdown 文件</a>，一份<a href="http://daringfireball.net/projects/markdown/basics">速查表</a>。</p><h3 id="序幕">2 序幕</h3><p>每篇指南應由說明動機的內容起頭（藍色區域裡的簡介）。序幕應告訴讀者，這篇指南在講什麼，他們能學到什麼。範例請見 <a href="routing.html">Rails 路由：深入淺出</a>。</p><h3 id="標題">3 標題</h3><p>每篇指南的標題使用 <code>h1</code>，指南小節用 <code>h2</code>，子節用 <code>h3</code> 等。但產生出的 HTML 會從 <code>h2</code> 開始。</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
-Guide Title
+指南標題
 ===========
 
-Section
+節
 -------
 
-### Sub Section
+### 子節
 
 </pre>
 </div>
-<p>Capitalize all words except for internal articles, prepositions, conjunctions, and forms of the verb to be:</p><div class="code_container">
+<p>標題所有單字應採大寫，冠詞、介係詞、連接詞、動詞除外。</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 #### Middleware Stack is an Array
 #### When are Objects Saved?
 
 </pre>
 </div>
-<p>Use the same typography as in regular text:</p><div class="code_container">
+<p>標題使用與內文相同的排版：</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 ##### The `:content_type` Option
 
 </pre>
 </div>
-<h3 id="api-documentation-guidelines">4 API Documentation Guidelines</h3><p>The guides and the API should be coherent and consistent where appropriate. Please have a look at these particular sections of the <a href="api_documentation_guidelines.html">API Documentation Guidelines</a>:</p>
+<h3 id="api-文件準則">4 API 文件準則</h3><p>指南與 API 應保持一致。請閱讀 <a href="api_documentation_guidelines.html">API 文件準則</a> 了解更多。</p>
 <ul>
-<li><a href="api_documentation_guidelines.html#wording">Wording</a></li>
-<li><a href="api_documentation_guidelines.html#example-code">Example Code</a></li>
-<li><a href="api_documentation_guidelines.html#filenames">Filenames</a></li>
-<li><a href="api_documentation_guidelines.html#fonts">Fonts</a></li>
+<li><a href="api_documentation_guidelines.html#wording">用語</a></li>
+<li><a href="api_documentation_guidelines.html#example-code">範例程式</a></li>
+<li><a href="api_documentation_guidelines.html#filenames">檔案名稱</a></li>
+<li><a href="api_documentation_guidelines.html#fonts">字體</a></li>
 </ul>
-<p>Those guidelines apply also to guides.</p><h3 id="html-guides">5 HTML Guides</h3><p>Before generating the guides, make sure that you have the latest version of Bundler installed on your system. As of this writing, you must install Bundler 1.3.5 on your device.</p><p>To install the latest version of Bundler, simply run the <code>gem install bundler</code> command</p><h4 id="html-guides-generation">5.1 Generation</h4><p>To generate all the guides, just <code>cd</code> into the <code>guides</code> directory, run <code>bundle install</code> and execute:</p><div class="code_container">
+<p>這些準則同樣適用指南。</p><h3 id="html-指南">5 HTML 指南</h3><p>產生指南之前，先檢查是否安裝了最新版的 Bundler。本文撰寫時，Bundler 的最新版是 1.6.2。</p><p>安裝最新版的 Bundler，請執行：<code>gem install bundler</code>。</p><h4 id="html-指南-產生">5.1 產生</h4><p>要產生所有的指南，<code>cd</code> 到 <code>guides</code> 目錄，執行 <code>bundle install</code>，接著執行：</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 bundle exec rake guides:generate
 
 </pre>
 </div>
-<p>or</p><div class="code_container">
+<p>或是</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 bundle exec rake guides:generate:html
 
 </pre>
 </div>
-<p>To process <code>my_guide.md</code> and nothing else use the <code>ONLY</code> environment variable:</p><div class="code_container">
+<p>只產生 <code>my_guide.md</code>，請用 <code>ONLY</code> 環境變數來指定：</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 touch my_guide.md
 bundle exec rake guides:generate ONLY=my_guide
 
 </pre>
 </div>
-<p>By default, guides that have not been modified are not processed, so <code>ONLY</code> is rarely needed in practice.</p><p>To force processing all the guides, pass <code>ALL=1</code>.</p><p>It is also recommended that you work with <code>WARNINGS=1</code>. This detects duplicate IDs and warns about broken internal links.</p><p>If you want to generate guides in a language other than English, you can keep them in a separate directory under <code>source</code> (eg. <code>source/es</code>) and use the <code>GUIDES_LANGUAGE</code> environment variable:</p><div class="code_container">
+<p>預設只會產生有修改過的指南，很少需要用 <code>ONLY</code>。</p><p>要對所有的指南做處理，請傳 <code>ALL=1</code>。</p><p>推薦使用 <code>WARNINGS=1</code>。這會找出內標裡是否有重複的 ID。</p><p>要產生英文之外的指南，可將內容放在 <code>source</code> 下的資料夾，譬如 <code>source/es</code>，再使用 <code>GUIDES_LANGUAGE</code> 環境變數來指定語言：</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 bundle exec rake guides:generate GUIDES_LANGUAGE=es
 
 </pre>
 </div>
-<p>If you want to see all the environment variables you can use to configure the generation script just run:</p><div class="code_container">
+<p>若想知道所有可用的環境變數，執行：</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
-rake
+bundle exec rake guides:help
 
 </pre>
 </div>
-<h4 id="validation">5.2 Validation</h4><p>Please validate the generated HTML with:</p><div class="code_container">
+<h4 id="驗證">5.2 驗證</h4><p>請驗證產生出的 HTML：</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 bundle exec rake guides:validate
 
 </pre>
 </div>
-<p>Particularly, titles get an ID generated from their content and this often leads to duplicates. Please set <code>WARNINGS=1</code> when generating guides to detect them. The warning messages suggest a solution.</p><h3 id="kindle-guides">6 Kindle Guides</h3><h4 id="kindle-guides-generation">6.1 Generation</h4><p>To generate guides for the Kindle, use the following rake task:</p><div class="code_container">
+<p>特別要提的是，標題會自動由內容產生出 ID，ID 通常會有重複的情況。在產生的時候，加上 <code>WARNINGS=1</code> 來找出這個問題。警告內容裡有建議的解決方案。</p><h3 id="kindle-指南">6 Kindle 指南</h3><h4 id="kindle-指南-產生">6.1 產生</h4><p>要產生 Kindle 版的指南，使用這個 Rake 任務：</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 bundle exec rake guides:generate:kindle
 
