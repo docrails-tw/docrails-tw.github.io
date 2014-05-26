@@ -233,7 +233,7 @@
 <li><a href="#using-form-helpers">Using Form Helpers</a></li>
 </ul>
 </li>
-<li><a href="#forms-to-external-resources">Forms to external resources</a></li>
+<li><a href="#forms-to-external-resources">Forms to External Resources</a></li>
 <li>
 <a href="#building-complex-forms">Building Complex Forms</a>
 
@@ -396,19 +396,19 @@ form_tag({ controller: "people", action: "search" }, method: "get", class: "nift
 
 </pre>
 </div>
-<p>隱藏的 <code>input</code> 不會顯示給使用者，但和其它文字輸入一樣可以存放資料。隱藏的 <code>input</code> 的值可以使用 JavaScript 來修改。</p><div class="warning"><p>search、telephone、date、time、color、datetime、datetime-local、month、week、URL、email、number 以及 range inputs 是 HTML5 控件。若需要應用程式在舊版的瀏覽器也有一致的瀏覽體驗，需要使用 HTML5 polyfill（由 CSS 或 JavaScript 提供）。<a href="https://github.com/Modernizr/Modernizr/wiki/HTML5-Cross-Browser-Polyfills">雖然 polyfill 很好</a>，但目前主流工具是 <a href="http://www.modernizr.com/">Modernizr</a> 以及 <a href="http://yepnopejs.com/">yepnope</a>，這兩個工具提供一種簡單的方式，用來新增 HTML5 的新功能。</p></div><div class="info"><p>若使用了 password input fields（不論用途），輸入的值可能不要記錄在 Log。詳細做法請參考安全指南：<a href="security.html#logging">logging 一節</a>。</p></div><h3 id="處理-model-物件">2 處理 Model 物件</h3><h4 id="model-物件輔助方法">2.1 Model 物件輔助方法</h4><p>A particularly common task for a form is editing or creating a model object. While the <code>*_tag</code> helpers can certainly be used for this task they are somewhat verbose as for each tag you would have to ensure the correct parameter name is used and set the default value of the input appropriately. Rails provides helpers tailored to this task. These helpers lack the <em>tag suffix, for example `text</em>field<code>,</code>text_area`.</p><p>For these helpers the first argument is the name of an instance variable and the second is the name of a method (usually an attribute) to call on that object. Rails will set the value of the input control to the return value of that method for the object and set an appropriate input name. If your controller has defined <code>@person</code> and that person's name is Henry then a form containing:</p><div class="code_container">
+<p>隱藏的 <code>input</code> 不會顯示給使用者，但和其它文字輸入一樣可以存放資料。隱藏的 <code>input</code> 的值可以使用 JavaScript 來修改。</p><div class="warning"><p>search、telephone、date、time、color、datetime、datetime-local、month、week、URL、email、number 以及 range inputs 是 HTML5 控件。若需要應用程式在舊版的瀏覽器也有一致的瀏覽體驗，需要使用 HTML5 polyfill（由 CSS 或 JavaScript 提供）。<a href="https://github.com/Modernizr/Modernizr/wiki/HTML5-Cross-Browser-Polyfills">雖然 polyfill 很好</a>，但目前主流工具是 <a href="http://www.modernizr.com/">Modernizr</a> 以及 <a href="http://yepnopejs.com/">yepnope</a>，這兩個工具提供一種簡單的方式，用來新增 HTML5 的新功能。</p></div><div class="info"><p>若使用了 password input fields（不論用途），輸入的值可能不要記錄在 Log。詳細做法請參考安全指南：<a href="security.html#logging">logging 一節</a>。</p></div><h3 id="處理-model-物件">2 處理 Model 物件</h3><h4 id="model-物件輔助方法">2.1 Model 物件輔助方法</h4><p>表單通常拿來新建或編輯 Model 物件。帶有 <code>_tag</code> 字尾的 Helpers 可以解決這件事，但太繁瑣了，參數名稱和預設值都得正確才行。Rails 提供更多方便的輔助方法（沒有 <code>_tag</code> 字尾），像是 <code>text_field</code>、<code>text_area</code> 等，用來處理 Model objects。</p><p>這些 Helpers 的第一個參數是實體變數的名字，第二個參數是要對實體變數呼叫的方法名稱（通常是屬性）。Rails 會將呼叫的結果存成 <code>input</code> 的 <code>value</code>，並幫你給 <code>input</code> 的 <code>name</code> 取個好名字。假設 Controller 已經定義了 <code>@person</code>，<code>@person.name</code> 是 <code>Henry</code>，則：</p><div class="code_container">
 <pre class="brush: ruby; html-script: true; gutter: false; toolbar: false">
 &lt;%= text_field(:person, :name) %&gt;
 
 </pre>
 </div>
-<p>will produce output similar to</p><div class="code_container">
+<p>會產生</p><div class="code_container">
 <pre class="brush: ruby; html-script: true; gutter: false; toolbar: false">
 &lt;input id="person_name" name="person[name]" type="text" value="Henry"/&gt;
 
 </pre>
 </div>
-<p>Upon form submission the value entered by the user will be stored in <code>params[:person][:name]</code>. The <code>params[:person]</code> hash is suitable for passing to <code>Person.new</code> or, if <code>@person</code> is an instance of Person, <code>@person.update</code>. While the name of an attribute is the most common second parameter to these helpers this is not compulsory. In the example above, as long as person objects have a <code>name</code> and a <code>name=</code> method Rails will be happy.</p><div class="warning"><p>You must pass the name of an instance variable, i.e. <code>:person</code> or <code>"person"</code>, not an actual instance of your model object.</p></div><p>Rails provides helpers for displaying the validation errors associated with a model object. These are covered in detail by the <a href="./active_record_validations.html#displaying-validation-errors-in-views">Active Record Validations</a> guide.</p><h4 id="將表單綁定到物件">2.2 將表單綁定到物件</h4><p>While this is an increase in comfort it is far from perfect. If Person has many attributes to edit then we would be repeating the name of the edited object many times. What we want to do is somehow bind a form to a model object, which is exactly what <code>form_for</code> does.</p><p>Assume we have a controller for dealing with articles <code>app/controllers/articles_controller.rb</code>:</p><div class="code_container">
+<p>送出表單時，使用者的輸入會存在 <code>params[:person][:name]</code>，<code>params[:person]</code> 可傳給 <code>Person.new</code>；若 <code>@person</code> 是 <code>Person</code> 的實體，則可傳給 <code>Person#update</code>。通常第二個參數是屬性名稱，實在是太常用了，通常可省略不寫，只要該物件有實作 <code>name</code> 與 <code>name=</code> 方法即可。</p><div class="warning"><p>第一個參數必須是實體變數的“名稱”，如：<code>:person</code> 或 <code>"person"</code>，而不是傳實際的實體物件進去。</p></div><p>Rails 還提供了用來顯示與 Model 物件驗證錯誤訊息的輔助方法。這些方法在 <a href="/active_record_validations.html#%E5%9C%A8-view-%E9%A1%AF%E7%A4%BA%E9%A9%97%E8%AD%89%E5%A4%B1%E6%95%97%E8%A8%8A%E6%81%AF">Active Record 驗證</a>一文裡詳細說明。</p><h4 id="將表單綁定到物件">2.2 將表單綁定到物件</h4><p>雖然這些去掉 <code>_tag</code> 的輔助方法很方便，但還不夠好。若 <code>Person</code> 有很多屬性時，得一直重複傳入要編輯的物件名稱，來生成對應的表單。Rails 提供了 <code>form_for</code>，用來將表單綁定至 Model 的物件。</p><p>假設有處理文章的 Controller <code>app/controllers/articles_controller.rb</code>：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 def new
   @article = Article.new
@@ -416,7 +416,7 @@ end
 
 </pre>
 </div>
-<p>The corresponding view <code>app/views/articles/new.html.erb</code> using <code>form_for</code> looks like this:</p><div class="code_container">
+<p>對應的 View <code>app/views/articles/new.html.erb</code>，使用了 <code>form_for</code> 看起來會像是這樣：</p><div class="code_container">
 <pre class="brush: ruby; html-script: true; gutter: false; toolbar: false">
 &lt;%= form_for @article, url: {action: "create"}, html: {class: "nifty_form"} do |f| %&gt;
   &lt;%= f.text_field :title %&gt;
@@ -426,16 +426,14 @@ end
 
 </pre>
 </div>
-<p>There are a few things to note here:</p>
+<p>有幾件要說明的事情：</p>
 <ul>
-<li>
-<code>@article</code> is the actual object being edited.</li>
-<li>There is a single hash of options. Routing options are passed in the <code>:url</code> hash, HTML options are passed in the <code>:html</code> hash. Also you can provide a <code>:namespace</code> option for your form to ensure uniqueness of id attributes on form elements. The namespace attribute will be prefixed with underscore on the generated HTML id.</li>
-<li>The <code>form_for</code> method yields a <strong>form builder</strong> object (the <code>f</code> variable).</li>
-<li>Methods to create form controls are called <strong>on</strong> the form builder object <code>f</code>
-</li>
+<li><p><code>@article</code> 是實際被編輯的物件。
+&amp; <code>form_for</code> 接受一個 Hash 選項。路由相關選項放在 <code>:url</code> 傳入，HTML 相關選項放在 <code>html:</code> 選項傳入。還可以提供 <code>:namespace</code> 選項，用來確保 ID 的唯一性。<code>namespace</code> 的值會自動成為 HTML ID 的前綴。</p></li>
+<li><p><code>form_for</code> 方法會產生一個 <strong>表單構造器</strong> 物件（<code>f</code> 變數）。</p></li>
+<li><p>輔助方法皆在 <code>f</code>，表單構造器上呼叫。</p></li>
 </ul>
-<p>The resulting HTML is:</p><div class="code_container">
+<p>產生的 HTML 為：</p><div class="code_container">
 <pre class="brush: xml; gutter: false; toolbar: false">
 &lt;form accept-charset="UTF-8" action="/articles/create" method="post" class="nifty_form"&gt;
   &lt;input id="article_title" name="article[title]" type="text" /&gt;
@@ -445,7 +443,7 @@ end
 
 </pre>
 </div>
-<p>The name passed to <code>form_for</code> controls the key used in <code>params</code> to access the form's values. Here the name is <code>article</code> and so all the inputs have names of the form <code>article[attribute_name]</code>. Accordingly, in the <code>create</code> action <code>params[:article]</code> will be a hash with keys <code>:title</code> and <code>:body</code>. You can read more about the significance of input names in the parameter_names section.</p><p>The helper methods called on the form builder are identical to the model object helpers except that it is not necessary to specify which object is being edited since this is already managed by the form builder.</p><p>You can create a similar binding without actually creating <code>&lt;form&gt;</code> tags with the <code>fields_for</code> helper. This is useful for editing additional model objects with the same form. For example if you had a Person model with an associated ContactDetail model you could create a form for creating both like so:</p><div class="code_container">
+<p>傳給 <code>form_for</code> 的名稱會成為在 <code>params</code> 取用表單數值的鍵。上例名稱為 <code>article</code>，因此所有的 <code>name</code> 都是 <code>article[attribute_name]</code>。在 <code>create</code> 動作裡的 <code>params[:article]</code> 會是有著 <code>:title</code> 與 <code>:body</code> 鍵的 Hash。輸入名稱的重要性，可參閱<a href="#">參數名稱</a>一節。</p><p>對表單構造器呼叫輔助方法，和對 Model 物件上呼叫的效果相同。但不需要指定編輯的物件，因為編輯的物件即表單構造器。</p><p>使用 <code>fields_for</code> 輔助方法也可以達到上面的效果，但不會產生出 <code>&lt;form&gt;</code> 標籤。同個表單用來編輯多個 Model 物件時很有用。譬如 <code>Person</code> Model 有個關聯的 <code>ContactDetail</code> Model，下面的表單可以同時建立初兩個 Model 的物件：</p><div class="code_container">
 <pre class="brush: ruby; html-script: true; gutter: false; toolbar: false">
 &lt;%= form_for @person, url: {action: "create"} do |person_form| %&gt;
   &lt;%= person_form.text_field :name %&gt;
@@ -456,7 +454,7 @@ end
 
 </pre>
 </div>
-<p>which produces the following output:</p><div class="code_container">
+<p>會產生出以下輸出：</p><div class="code_container">
 <pre class="brush: xml; gutter: false; toolbar: false">
 &lt;form accept-charset="UTF-8" action="/people/create" class="new_person" id="new_person" method="post"&gt;
   &lt;input id="person_name" name="person[name]" type="text" /&gt;
@@ -465,7 +463,7 @@ end
 
 </pre>
 </div>
-<p>The object yielded by <code>fields_for</code> is a form builder like the one yielded by <code>form_for</code> (in fact <code>form_for</code> calls <code>fields_for</code> internally).</p><h4 id="relying-on-record-identification">2.3 Relying on Record Identification</h4><p>The Article model is directly available to users of the application, so - following the best practices for developing with Rails - you should declare it <strong>a resource</strong>:</p><div class="code_container">
+<p><code>fields_for</code> 給出的物件也是個表單構造器，和 <code>form_for</code> 一樣（實際上 <code>form_for</code> 內部呼叫的是 <code>fields_for</code>）。</p><h4 id="relying-on-record-identification">2.3 Relying on Record Identification</h4><p>如使用者可以直接操作 <code>Article</code> Model，則依據 Rails 開發的最佳實踐，應將 <code>Article</code> 視為<strong>一個資源</strong>。</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 resources :articles
 
@@ -566,7 +564,12 @@ output:
 </div>
 <p>Whenever Rails sees that the internal value of an option being generated matches this value, it will add the <code>selected</code> attribute to that option.</p><div class="info"><p>The second argument to <code>options_for_select</code> must be exactly equal to the desired internal value. In particular if the value is the integer 2 you cannot pass "2" to <code>options_for_select</code> - you must pass 2. Be aware of values extracted from the <code>params</code> hash as they are all strings.</p></div><div class="warning"><p>when <code>:include_blank</code> or <code>:prompt</code> are not present, <code>:include_blank</code> is forced true if the select attribute <code>required</code> is true, display <code>size</code> is one and <code>multiple</code> is not true.</p></div><p>You can add arbitrary attributes to the options using hashes:</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
-&lt;%= options_for_select([['Lisbon', 1, {'data-size' =&gt; '2.8 million'}], ['Madrid', 2, {'data-size' =&gt; '3.2 million'}]], 2) %&gt;
+&lt;%= options_for_select(
+  [
+    ['Lisbon', 1, { 'data-size' =&gt; '2.8 million' }],
+    ['Madrid', 2, { 'data-size' =&gt; '3.2 million' }]
+  ], 2
+) %&gt;
 
 output:
 
@@ -594,6 +597,16 @@ output:
 <pre class="brush: ruby; html-script: true; gutter: false; toolbar: false">
 # select on a form builder
 &lt;%= f.select(:city_id, ...) %&gt;
+
+</pre>
+</div>
+<p>You can also pass a block to <code>select</code> helper:</p><div class="code_container">
+<pre class="brush: ruby; html-script: true; gutter: false; toolbar: false">
+&lt;%= f.select(:city_id) do %&gt;
+  &lt;% [['Lisbon', 1], ['Madrid', 2]].each do |c| -%&gt;
+    &lt;%= content_tag(:option, c.first, value: c.last) %&gt;
+  &lt;% end %&gt;
+&lt;% end %&gt;
 
 </pre>
 </div>
@@ -836,17 +849,17 @@ name (<code>person[address]</code> in the previous example) explicitly:</p><div 
 
 </pre>
 </div>
-<p>produces exactly the same output as the previous example.</p><h3 id="forms-to-external-resources">8 Forms to external resources</h3><p>If you need to post some data to an external resource it is still great to build your form using rails form helpers. But sometimes you need to set an <code>authenticity_token</code> for this resource. You can do it by passing an <code>authenticity_token: 'your_external_token'</code> parameter to the <code>form_tag</code> options:</p><div class="code_container">
+<p>produces exactly the same output as the previous example.</p><h3 id="forms-to-external-resources">8 Forms to External Resources</h3><p>Rails' form helpers can also be used to build a form for posting data to an external resource. However, at times it can be necessary to set an <code>authenticity_token</code> for the resource; this can be done by passing an <code>authenticity_token: 'your_external_token'</code> parameter to the <code>form_tag</code> options:</p><div class="code_container">
 <pre class="brush: ruby; html-script: true; gutter: false; toolbar: false">
-&lt;%= form_tag 'http://farfar.away/form', authenticity_token: 'external_token') do %&gt;
+&lt;%= form_tag 'http://farfar.away/form', authenticity_token: 'external_token' do %&gt;
   Form contents
 &lt;% end %&gt;
 
 </pre>
 </div>
-<p>Sometimes when you submit data to an external resource, like payment gateway, fields you can use in your form are limited by an external API. So you may want not to generate an <code>authenticity_token</code> hidden field at all. For doing this just pass <code>false</code> to the <code>:authenticity_token</code> option:</p><div class="code_container">
+<p>Sometimes when submitting data to an external resource, like a payment gateway, the fields that can be used in the form are limited by an external API and it may be undesirable to generate an <code>authenticity_token</code>. To not send a token, simply pass <code>false</code> to the <code>:authenticity_token</code> option:</p><div class="code_container">
 <pre class="brush: ruby; html-script: true; gutter: false; toolbar: false">
-&lt;%= form_tag 'http://farfar.away/form', authenticity_token: false) do %&gt;
+&lt;%= form_tag 'http://farfar.away/form', authenticity_token: false do %&gt;
   Form contents
 &lt;% end %&gt;
 
@@ -996,7 +1009,7 @@ end
 
 </pre>
 </div>
-<p>As a convenience you can instead pass the symbol <code>:all_blank</code> which will create a proc that will reject records where all the attributes are blank excluding any value for <code>_destroy</code>.</p><h4 id="adding-fields-on-the-fly">9.6 Adding Fields on the Fly</h4><p>Rather than rendering multiple sets of fields ahead of time you may wish to add them only when a user clicks on an 'Add new address' button. Rails does not provide any builtin support for this. When generating new sets of fields you must ensure the key of the associated array is unique - the current JavaScript date (milliseconds after the epoch) is a common choice.</p>
+<p>As a convenience you can instead pass the symbol <code>:all_blank</code> which will create a proc that will reject records where all the attributes are blank excluding any value for <code>_destroy</code>.</p><h4 id="adding-fields-on-the-fly">9.6 Adding Fields on the Fly</h4><p>Rather than rendering multiple sets of fields ahead of time you may wish to add them only when a user clicks on an 'Add new address' button. Rails does not provide any built-in support for this. When generating new sets of fields you must ensure the key of the associated array is unique - the current JavaScript date (milliseconds after the epoch) is a common choice.</p>
 
         <h3>反饋</h3>
         <p>
