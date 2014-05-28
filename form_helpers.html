@@ -395,7 +395,7 @@ form_tag({ controller: "people", action: "search" }, method: "get", class: "nift
 
 </pre>
 </div>
-<p>隱藏的 <code>input</code> 不會顯示給使用者，但和其它文字輸入一樣可以存放資料。隱藏的 <code>input</code> 的值可以使用 JavaScript 來修改。</p><div class="warning"><p>search、telephone、date、time、color、datetime、datetime-local、month、week、URL、email、number 以及 range inputs 是 HTML5 控件。若需要應用程式在舊版的瀏覽器也有一致的瀏覽體驗，需要使用 HTML5 polyfill（由 CSS 或 JavaScript 提供）。<a href="https://github.com/Modernizr/Modernizr/wiki/HTML5-Cross-Browser-Polyfills">雖然 polyfill 很好</a>，但目前主流工具是 <a href="http://www.modernizr.com/">Modernizr</a> 以及 <a href="http://yepnopejs.com/">yepnope</a>，這兩個工具提供一種簡單的方式，用來新增 HTML5 的新功能。</p></div><div class="info"><p>若使用了 password input fields（不論用途），輸入的值可能不要記錄在 Log。詳細做法請參考安全指南：<a href="security.html#logging">logging 一節</a>。</p></div><h3 id="處理-model-物件">2 處理 Model 物件</h3><h4 id="model-物件輔助方法">2.1 Model 物件輔助方法</h4><p>表單通常拿來新建或編輯 Model 物件。帶有 <code>_tag</code> 字尾的 Helpers 可以解決這件事，但太繁瑣了，參數名稱和預設值都得正確才行。Rails 提供更多方便的輔助方法（沒有 <code>_tag</code> 字尾），像是 <code>text_field</code>、<code>text_area</code> 等，用來處理 Model objects。</p><p>這些 Helpers 的第一個參數是實體變數的名字，第二個參數是要對實體變數呼叫的方法名稱（通常是屬性）。Rails 會將呼叫的結果存成 <code>input</code> 的 <code>value</code>，並幫你給 <code>input</code> 的 <code>name</code> 取個好名字。假設 Controller 已經定義了 <code>@person</code>，<code>@person.name</code> 是 <code>Henry</code>，則：</p><div class="code_container">
+<p>隱藏的 <code>input</code> 不會顯示給使用者，但和其它文字輸入一樣可以存放資料。隱藏的 <code>input</code> 的值可以使用 JavaScript 來修改。</p><div class="warning"><p>search、telephone、date、time、color、datetime、datetime-local、month、week、URL、email、number 以及 range inputs 是 HTML5 控件。若需要應用程式在舊版的瀏覽器也有一致的瀏覽體驗，需要使用 HTML5 polyfill（由 CSS 或 JavaScript 提供）。<a href="https://github.com/Modernizr/Modernizr/wiki/HTML5-Cross-Browser-Polyfills">雖然 polyfill 很好</a>，但目前主流工具是 <a href="http://www.modernizr.com/">Modernizr</a> 以及 <a href="http://yepnopejs.com/">yepnope</a>，這兩個工具提供一種簡單的方式，用來新增 HTML5 的新功能。</p></div><div class="info"><p>若使用了 password input fields（不論用途），輸入的值可能不要記錄在 Log。詳細做法請參考安全指南：<a href="security.html#logging">logging 一節</a>。</p></div><h3 id="處理-model-物件">2 處理 Model 物件</h3><h4 id="model-物件輔助方法">2.1 Model 物件輔助方法</h4><p>表單通常拿來新建或編輯 Model 物件。可以使用 <code>*_tag</code> 這些輔助方法來處理，但太繁瑣了，參數名稱和預設值都得正確才行。Rails 提供更多方便的輔助方法（沒有 <code>_tag</code> 字尾），像是 <code>text_field</code>、<code>text_area</code> 等，專門用來處理 Model 物件。</p><p>這些輔助方法的第一個參數是實體變數的名字，第二個參數是要對實體變數呼叫的方法名稱（通常是屬性）。Rails 會將呼叫的結果存成 <code>input</code> 的 <code>value</code>，並幫你給 <code>input</code> 的 <code>name</code> 取個好名字。假設 Controller 已經定義了 <code>@person</code>，<code>@person.name</code> 是 <code>Henry</code>，則：</p><div class="code_container">
 <pre class="brush: ruby; html-script: true; gutter: false; toolbar: false">
 &lt;%= text_field(:person, :name) %&gt;
 
@@ -599,7 +599,7 @@ form_tag(search_path, method: "patch")
 
 </pre>
 </div>
-<p><code>select</code> 也接受區塊：</p><p>You can also pass a block to <code>select</code> helper:</p><div class="code_container">
+<p><code>select</code> 也接受區塊：</p><div class="code_container">
 <pre class="brush: ruby; html-script: true; gutter: false; toolbar: false">
 &lt;%= f.select(:city_id) do %&gt;
   &lt;% [['Lisbon', 1], ['Madrid', 2]].each do |c| -%&gt;
