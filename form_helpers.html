@@ -274,7 +274,7 @@
 
 </pre>
 </div>
-<p>注意到 HTML 裡有個額外的 <code>div</code> 元素，裡面有兩個隱藏的 <code>input</code>。這個 <code>div</code> 很重要，沒有這個 <code>div</code> 表單便無法順利送出。第一個 <code>name</code> 屬性為 <code>utf8</code> 的 <code>input</code>，強制瀏覽器正確採用表單指定的編碼，所有 HTTP 動詞為 GET 或 POST 表單，Rails 都會產生這個 input。第二個 <code>name</code> 屬性為 <code>authenticity_token</code> 的 <code>input</code>，是 Rails 內建用來防止 CSRF (cross-site request forgery protection) 攻擊的安全機制，任何非 GET 的表單，Rails 都會產生一個這樣的 <code>input</code>（安全機制有啟用的話）。詳情請閱讀<a href="security.html#cross-site-request-forgery-csrf">安全指南</a>。</p><div class="note"><p>為求行文簡潔，有隱藏輸入的 <code>div</code> 將省略不列在之後的範例裡。</p></div><h4 id="通用搜索表單">1.1 通用搜索表單</h4><p>Web 世界最基本的表單之一是「搜索表單」。通常由以下元素組成：</p>
+<p>注意到 HTML 裡有個隱藏的 <code>input</code>，這個隱藏的 <code>input</code> 很重要，沒有這個 <code>input</code> 表單便無法順利送出。第一個 <code>name</code> 屬性為 <code>utf8</code> 的 <code>input</code>，強制瀏覽器正確採用表單指定的編碼，所有 HTTP 動詞為 GET 或 POST 表單，Rails 都會產生這個 input。第二個 <code>name</code> 屬性為 <code>authenticity_token</code> 的 <code>input</code>，是 Rails 內建用來防止 CSRF (cross-site request forgery protection) 攻擊的安全機制，任何非 GET 的表單，Rails 都會產生一個這樣的 <code>input</code>（安全機制有啟用的話）。詳情請閱讀<a href="security.html#cross-site-request-forgery-csrf">安全指南</a>。</p><h4 id="通用搜索表單">1.1 通用搜索表單</h4><p>Web 世界最基本的表單之一是「搜索表單」。通常由以下元素組成：</p>
 <ul>
 <li>一個有 GET 動詞的表單</li>
 <li>供輸入的文字欄位</li>
@@ -504,12 +504,11 @@ form_tag(search_path, method: "patch")
 <p>輸出：</p><div class="code_container">
 <pre class="brush: xml; gutter: false; toolbar: false">
 &lt;form accept-charset="UTF-8" action="/search" method="post"&gt;
-  &lt;div style="margin:0;padding:0"&gt;
     &lt;input name="_method" type="hidden" value="patch" /&gt;
     &lt;input name="utf8" type="hidden" value="&amp;#x2713;" /&gt;
     &lt;input name="authenticity_token" type="hidden" value="f755bb0ed134b76c432144748a6d4b7a7ddf2b71" /&gt;
-  &lt;/div&gt;
   ...
+&lt;/form&gt;
 
 </pre>
 </div>
