@@ -266,11 +266,9 @@
 </div>
 <p>像這樣不傳參數呼叫時，會建立出 <code>&lt;form&gt;</code> 標籤。按下送出時，會對目前的頁面做 POST。舉例來說，假設目前的頁面是 <code>/home/index</code>，上例產生的 HTML 會像是（加了某些斷行提高可讀性）：</p><div class="code_container">
 <pre class="brush: xml; gutter: false; toolbar: false">
-&lt;form accept-charset="UTF-8" action="/home/index" method="post"&gt;
-  &lt;div style="display:none"&gt;
-    &lt;input name="utf8" type="hidden" value="&amp;#x2713;" /&gt;
-    &lt;input name="authenticity_token" type="hidden" value="f755bb0ed134b76c432144748a6d4b7a7ddf2b71" /&gt;
-  &lt;/div&gt;
+&lt;form accept-charset="UTF-8" action="/" method="post"&gt;
+  &lt;input name="utf8" type="hidden" value="&amp;#x2713;" /&gt;
+  &lt;input name="authenticity_token" type="hidden" value="J7CBxfHalt49OSHp27hblqK20c9PgwJ108nDHX/8Cts=" /&gt;
   Form contents
 &lt;/form&gt;
 
@@ -295,7 +293,8 @@
 </div>
 <p>會產生出如下 HTML：</p><div class="code_container">
 <pre class="brush: xml; gutter: false; toolbar: false">
-&lt;form accept-charset="UTF-8" action="/search" method="get"&gt;&lt;div style="display:none"&gt;&lt;input name="utf8" type="hidden" value="&amp;#x2713;" /&gt;&lt;/div&gt;
+&lt;form accept-charset="UTF-8" action="/search" method="get"&gt;
+  &lt;input name="utf8" type="hidden" value="&amp;#x2713;" /&gt;
   &lt;label for="q"&gt;Search for:&lt;/label&gt;
   &lt;input id="q" name="q" type="text" /&gt;
   &lt;input name="commit" type="submit" value="Search" /&gt;
