@@ -741,39 +741,38 @@ end
 
 </pre>
 </div>
-<p>若 <code>f</code> 是 <code>FormBuilder</code> 的實體，則會算繪（render）<code>form</code> 這個部分頁面（partial），並把傳入的 <code>f</code> 設定成表單構造器。若表單構造器是 <code>LabellingFormBuilder</code> 的實體，則會算繪 <code>labelling_form</code> 這個部分頁面。</p><h3 id="理解參數命名慣例">7 理解參數命名慣例</h3><p>As you've seen in the previous sections, values from forms can be at the top level of the <code>params</code> hash or nested in another hash. For example in a standard <code>create</code>
-action for a Person model, <code>params[:person]</code> would usually be a hash of all the attributes for the person to create. The <code>params</code> hash can also contain arrays, arrays of hashes and so on.</p><p>Fundamentally HTML forms don't know about any sort of structured data, all they generate is name-value pairs, where pairs are just plain strings. The arrays and hashes you see in your application are the result of some parameter naming conventions that Rails uses.</p><div class="info"><p>You may find you can try out examples in this section faster by using the console to directly invoke Racks' parameter parser. For example,</p></div><div class="code_container">
+<p>若 <code>f</code> 是 <code>FormBuilder</code> 的實體，則會算繪（render）<code>form</code> 這個部分頁面（partial），並把傳入的 <code>f</code> 設定成表單構造器。若表單構造器是 <code>LabellingFormBuilder</code> 的實體，則會算繪 <code>labelling_form</code> 這個部分頁面。</p><h3 id="理解參數命名慣例">7 理解參數命名慣例</h3><p>如前一節所見，表單的數值可以在 <code>params</code> 的第一層，或是嵌套在 Hash 裡。舉例來說，<code>Person</code> Model 對應的 Controller <code>create</code> 動作裡，<code>params[:person]</code> 這個 Hash，會存放建立 <code>person</code> 所需的屬性。<code>params</code> Hash 也可以包含陣列、陣列裡有 Hash 等都可以。</p><p>HTML 表單基本上不知道資料的結構，只是產生出純字串組成的 name-value 對。應用程式裡的陣列與 Hash，是透過 Rails 參數的命名慣例所產生。</p><div class="info"><p>可能會發現在 Console 裡試試這些例子，可以瞭解得比較快。直接像下例這樣呼叫 Rack 的參數即可：</p></div><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 Rack::Utils.parse_query "name=fred&amp;phone=0123456789"
 # =&gt; {"name"=&gt;"fred", "phone"=&gt;"0123456789"}
 
 </pre>
 </div>
-<h4 id="基本結構">7.1 基本結構</h4><p>The two basic structures are arrays and hashes. Hashes mirror the syntax used for accessing the value in <code>params</code>. For example if a form contains</p><div class="code_container">
+<h4 id="基本結構">7.1 基本結構</h4><p>兩個基本結構是陣列與 Hash。Hash 取值的方法和 <code>params</code> 相同。假設表單的內容為：</p><div class="code_container">
 <pre class="brush: xml; gutter: false; toolbar: false">
 &lt;input id="person_name" name="person[name]" type="text" value="Henry"/&gt;
 
 </pre>
 </div>
-<p>the <code>params</code> hash will contain</p><div class="code_container">
+<p>則 <code>params</code> 的內容為：</p><div class="code_container">
 <pre class="brush: ruby; html-script: true; gutter: false; toolbar: false">
 {'person' =&gt; {'name' =&gt; 'Henry'}}
 
 </pre>
 </div>
-<p>and <code>params[:person][:name]</code> will retrieve the submitted value in the controller.</p><p>Hashes can be nested as many levels as required, for example</p><div class="code_container">
+<p>在 Controller 可以用 <code>params[:person][:name]</code> 來取出表單送出的數值。</p><p>Hash 可以多層嵌套，如：</p><div class="code_container">
 <pre class="brush: xml; gutter: false; toolbar: false">
 &lt;input id="person_address_city" name="person[address][city]" type="text" value="New York"/&gt;
 
 </pre>
 </div>
-<p>will result in the <code>params</code> hash being</p><div class="code_container">
+<p>產生的 <code>params</code> Hash：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 {'person' =&gt; {'address' =&gt; {'city' =&gt; 'New York'}}}
 
 </pre>
 </div>
-<p>Normally Rails ignores duplicate parameter names. If the parameter name contains an empty set of square brackets [] then they will be accumulated in an array. If you wanted people to be able to input multiple phone numbers, you could place this in the form:</p><div class="code_container">
+<p>通常 Rails 會忽略重複的參數。若參數名稱有中括號，則會被放在陣列裡。若想使用者能夠輸入多組電話號碼，可以使用下面這個表單：</p><div class="code_container">
 <pre class="brush: xml; gutter: false; toolbar: false">
 &lt;input name="person[phone_number][]" type="text"/&gt;
 &lt;input name="person[phone_number][]" type="text"/&gt;
@@ -781,7 +780,7 @@ Rack::Utils.parse_query "name=fred&amp;phone=0123456789"
 
 </pre>
 </div>
-<p>This would result in <code>params[:person][:phone_number]</code> being an array.</p><h4 id="結合起來">7.2 結合起來</h4><p>We can mix and match these two concepts. For example, one element of a hash might be an array as in the previous example, or you can have an array of hashes. For example a form might let you create any number of addresses by repeating the following form fragment</p><div class="code_container">
+<p>則 <code>params[:person][:phone_number]</code> 會是個陣列。</p><h4 id="結合起來">7.2 結合起來</h4><p>We can mix and match these two concepts. For example, one element of a hash might be an array as in the previous example, or you can have an array of hashes. For example a form might let you create any number of addresses by repeating the following form fragment</p><div class="code_container">
 <pre class="brush: xml; gutter: false; toolbar: false">
 &lt;input name="addresses[][line1]" type="text"/&gt;
 &lt;input name="addresses[][line2]" type="text"/&gt;
