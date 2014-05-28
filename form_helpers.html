@@ -233,17 +233,17 @@
 <li><a href="#%E4%BD%BF%E7%94%A8%E8%A1%A8%E5%96%AE%E8%BC%94%E5%8A%A9%E6%96%B9%E6%B3%95">使用表單輔助方法</a></li>
 </ul>
 </li>
-<li><a href="#forms-to-external-resources">Forms to External Resources</a></li>
+<li><a href="#%E9%80%81%E5%87%BA%E8%87%B3%E5%A4%96%E9%83%A8%E8%B3%87%E6%BA%90%E7%9A%84%E8%A1%A8%E5%96%AE">送出至外部資源的表單</a></li>
 <li>
 <a href="#%E6%89%93%E9%80%A0%E8%A4%87%E9%9B%9C%E8%A1%A8%E5%96%AE">打造複雜表單</a>
 
 <ul>
-<li><a href="#configuring-the-model">Configuring the Model</a></li>
+<li><a href="#model-%E9%83%A8%E5%88%86">Model 部分</a></li>
 <li><a href="#%E5%B5%8C%E5%A5%97%E8%A1%A8%E5%96%AE">嵌套表單</a></li>
-<li><a href="#the-controller">The Controller</a></li>
-<li><a href="#removing-objects">Removing Objects</a></li>
-<li><a href="#preventing-empty-records">Preventing Empty Records</a></li>
-<li><a href="#adding-fields-on-the-fly">Adding Fields on the Fly</a></li>
+<li><a href="#controller-%E9%83%A8%E5%88%86">Controller 部分</a></li>
+<li><a href="#%E7%A7%BB%E9%99%A4%E7%89%A9%E4%BB%B6">移除物件</a></li>
+<li><a href="#%E9%81%BF%E5%85%8D%E7%A9%BA%E7%9A%84%E7%B4%80%E9%8C%84">避免空的紀錄</a></li>
+<li><a href="#%E5%8B%95%E6%85%8B%E6%B7%BB%E5%8A%A0%E6%AC%84%E4%BD%8D">動態添加欄位</a></li>
 </ul>
 </li>
 </ol>
@@ -429,7 +429,7 @@ end
 <ul>
 <li><p><code>@article</code> 是實際被編輯的物件。
 &amp; <code>form_for</code> 接受一個 Hash 選項。路由相關選項放在 <code>:url</code> 傳入，HTML 相關選項放在 <code>html:</code> 選項傳入。還可以提供 <code>:namespace</code> 選項，用來確保 ID 的唯一性。<code>namespace</code> 的值會自動成為 HTML ID 的前綴。</p></li>
-<li><p><code>form_for</code> 方法會產生一個 <strong>表單構造器</strong> 物件（<code>f</code> 變數）。</p></li>
+<li><p><code>form_for</code> 方法會產生一個 <strong>表單構造器（Form Builder）</strong> 物件（<code>f</code> 變數）。</p></li>
 <li><p>輔助方法皆在 <code>f</code>，表單構造器上呼叫。</p></li>
 </ul>
 <p>產生的 HTML 為：</p><div class="code_container">
@@ -442,7 +442,7 @@ end
 
 </pre>
 </div>
-<p>傳給 <code>form_for</code> 的名稱會成為在 <code>params</code> 取用表單數值的鍵。上例名稱為 <code>article</code>，因此所有的 <code>name</code> 都是 <code>article[attribute_name]</code>。在 <code>create</code> 動作裡的 <code>params[:article]</code> 會是有著 <code>:title</code> 與 <code>:body</code> 鍵的 Hash。輸入名稱的重要性，可參閱<a href="#">參數名稱</a>一節。</p><p>對表單構造器呼叫輔助方法，和對 Model 物件上呼叫的效果相同。但不需要指定編輯的物件，因為編輯的物件即表單構造器。</p><p>使用 <code>fields_for</code> 輔助方法也可以達到上面的效果，但不會產生出 <code>&lt;form&gt;</code> 標籤。同個表單用來編輯多個 Model 物件時很有用。譬如 <code>Person</code> Model 有個關聯的 <code>ContactDetail</code> Model，下面的表單可以同時建立初兩個 Model 的物件：</p><div class="code_container">
+<p>傳給 <code>form_for</code> 的名稱會成為在 <code>params</code> 取用表單數值的鍵。上例名稱為 <code>article</code>，因此所有的 <code>name</code> 都是 <code>article[attribute_name]</code>。在 <code>create</code> 動作裡的 <code>params[:article]</code> 會是有著 <code>:title</code> 與 <code>:body</code> 鍵的 Hash。輸入名稱的重要性，可參閱<a href="#%E7%90%86%E8%A7%A3%E5%8F%83%E6%95%B8%E5%91%BD%E5%90%8D%E6%85%A3%E4%BE%8B">理解參數命名慣例</a>一節。</p><p>對表單構造器呼叫輔助方法，和對 Model 物件上呼叫的效果相同。但不需要指定編輯的物件，因為編輯的物件即表單構造器。</p><p>使用 <code>fields_for</code> 輔助方法也可以達到上面的效果，但不會產生出 <code>&lt;form&gt;</code> 標籤。同個表單用來編輯多個 Model 物件時很有用。譬如 <code>Person</code> Model 有個關聯的 <code>ContactDetail</code> Model，下面的表單可以同時建立初兩個 Model 的物件：</p><div class="code_container">
 <pre class="brush: ruby; html-script: true; gutter: false; toolbar: false">
 &lt;%= form_for @person, url: {action: "create"} do |person_form| %&gt;
   &lt;%= person_form.text_field :name %&gt;
@@ -484,7 +484,7 @@ form_for(@article)
 
 </pre>
 </div>
-<p>無論記錄是否存在，使用簡短風格的 <code>form_for</code> 呼叫都長得一樣。記錄自動識別技術很聰明，會對紀錄呼叫 <code>record.new_record?</code> 來檢查是否是新紀錄。也能根據物件的類別，選出正確的送出路徑與名稱。</p><p>Rails 也會自動幫表單設定適當的 <code>class</code> 與 <code>id</code>。新增文章的表單 <code>id</code> 與 <code>class</code> 可能是 <code>new_article</code>。若編輯 ID 為 23 的文章，<code>class</code> 則會設為 <code>edit_article</code>、<code>id</code> 設為 <code>edit_article_23</code>。為求行文簡潔，這些屬性後文忽略不計。</p><div class="warning"><p>使用 STI（單表繼承）時，如父類宣告為資源，則子類便不能依賴 Record Identification 技術。必須要明確指定 Model 的名稱、<code>:url</code> 以及 <code>:method</code>。</p></div><h5 id="處理命名空間">2.3.1 處理命名空間</h5><p>若建立的路由有命名空間，<code>form_for</code> 也有對應的簡寫形式。假設應用程式有 <code>admin</code> 命名空間：</p><div class="code_container">
+<p>無論記錄是否存在，使用簡短風格的 <code>form_for</code> 呼叫都長得一樣。記錄自動識別技術很聰明，會對紀錄呼叫 <code>record.new_record?</code> 來檢查是否是新紀錄。也能根據物件的類別，選出正確的送出路徑與名稱。</p><p>Rails 也會自動幫表單設定適當的 <code>class</code> 與 <code>id</code>。新增文章的表單 <code>id</code> 與 <code>class</code> 可能是 <code>new_article</code>。若編輯 ID 為 23 的文章，<code>class</code> 則會設為 <code>edit_article</code>、<code>id</code> 設為 <code>edit_article_23</code>。為求行文簡潔，這些屬性後文忽略不計。</p><div class="warning"><p>使用 STI（單表繼承）時，如父類宣告為資源，則子類便不能依賴記錄自動識別技術。必須要明確指定 Model 的名稱、<code>:url</code> 以及 <code>:method</code>。</p></div><h5 id="處理命名空間">2.3.1 處理命名空間</h5><p>若建立的路由有命名空間，<code>form_for</code> 也有對應的簡寫形式。假設應用程式有 <code>admin</code> 命名空間：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 form_for [:admin, @article]
 
@@ -709,7 +709,7 @@ end
 
 </pre>
 </div>
-<p>一旦檔案上傳成功，有許多事情可以做。譬如把檔案存到別的地方（硬碟、Amazon S3 等）；或把檔案與 Model 關聯起來；縮放圖片檔案、產生縮圖等。這些事情超出了本文的範疇，但有許多專門設計的函式庫來協助完成這些任務。其中兩個不錯也比較多人知道的是 <a href="https://github.com/jnicklas/carrierwave">CarrierWave</a> 以及 <a href="http://www.thoughtbot.com/projects/paperclip">Paperclip</a>。</p><div class="note"><p>若使用者沒有選擇檔案，對應的參數會是空字串。</p></div><h4 id="處理-ajax">5.2 處理 Ajax</h4><p>Unlike other forms making an asynchronous file upload form is not as simple as providing <code>form_for</code> with <code>remote: true</code>. With an Ajax form the serialization is done by JavaScript running inside the browser and since JavaScript cannot read files from your hard drive the file cannot be uploaded. The most common workaround is to use an invisible iframe that serves as the target for the form submission.</p><p>要非同步的上傳檔案，不像其它的方法那麼簡單，像 <code>form_for</code> 只要加個 <code>remote: true</code> 即可。Ajax 表單的序列化由跑在瀏覽器的 JavaScript 處理，由於 JavaScript 無法從硬碟讀取檔案，檔案則無法上傳。最常見的解法是使用隱藏的 iframe，作為表單送出的目的地。</p><h3 id="客製化表單構造器">6 客製化表單構造器</h3><p>如前所述，由 <code>form_for</code> 與 <code>fields_for</code> 給出的物件，是 <code>FormBuilder</code> （或子類）的實體。表單構造器封裝了單一物件的顯示。當然可以如往常一樣使用輔助方法，也可以繼承 <code>FormBuilder</code>，再往裡面新增輔助方法。譬如：</p><div class="code_container">
+<p>一旦檔案上傳成功，有許多事情可以做。譬如把檔案存到別的地方（硬碟、Amazon S3 等）；或把檔案與 Model 關聯起來；縮放圖片檔案、產生縮圖等。這些事情超出了本文的範疇，但有許多專門設計的函式庫來協助完成這些任務。其中兩個不錯也比較多人知道的是 <a href="https://github.com/jnicklas/carrierwave">CarrierWave</a> 以及 <a href="https://github.com/thoughtbot/paperclip">Paperclip</a>。</p><div class="note"><p>若使用者沒有選擇檔案，對應的參數會是空字串。</p></div><h4 id="處理-ajax">5.2 處理 Ajax</h4><p>要非同步的上傳檔案，不像其它的方法那麼簡單，像 <code>form_for</code> 只要加個 <code>remote: true</code> 即可。Ajax 表單的序列化由跑在瀏覽器的 JavaScript 處理，由於 JavaScript 無法從硬碟讀取檔案，檔案則無法上傳。最常見的解法是使用隱藏的 iframe，作為表單送出的目的地。</p><h3 id="客製化表單構造器">6 客製化表單構造器</h3><p>如前所述，由 <code>form_for</code> 與 <code>fields_for</code> 給出的物件，是 <code>FormBuilder</code> （或子類）的實體。表單構造器封裝了單一物件的顯示。當然可以如往常一樣使用輔助方法，也可以繼承 <code>FormBuilder</code>，再往裡面新增輔助方法。譬如：</p><div class="code_container">
 <pre class="brush: ruby; html-script: true; gutter: false; toolbar: false">
 &lt;%= form_for @person do |f| %&gt;
   &lt;%= text_field_with_label f, :first_name %&gt;
@@ -788,7 +788,7 @@ Rack::Utils.parse_query "name=fred&amp;phone=0123456789"
 
 </pre>
 </div>
-<p>則 <code>params[:addresses]</code> 會是裡面有 Hash 的陣列，每個 Hash 的鍵有 <code>line1</code>, <code>line2</code> 以及 <code>city</code>。Rails 在目前的 Hash 發現有同樣的輸入時，會新建 Hash 來存放。</p><p>但有個限制，Hash 可以隨意嵌套，但陣列只能嵌套一次。陣列通常可以用 Hash 取代，譬如可以用 Hash 組成的 Model 物件來取代陣列組成的 Model 物件，Hash 的鍵是 <code>id</code>、陣列的索引、以及其它的參數。</p><div class="warning"><p>陣列參數與 <code>check_box</code> 輔助方法配合的不好。根據 HTML 規範，沒選中的多選方框不會送出值。但多選方框總是送出值會比較方便。<code>check_box</code> 透過建立一個同名的隱藏輸入來處理。若多選方框沒有被勾選，則只會送出隱藏輸入；若勾選了多選方框，則會將隱藏輸入與勾選的值一起送出，但勾選的值優先權比較高。處理陣列參數時，重複的送出會使 Rails 困惑，因為 Rails 見到重複的輸入，就會建立一個新的陣列。使用 <code>check_box_tag</code> 或用 Hash 取代陣列是推薦的做法。</p></div><h4 id="使用表單輔助方法">7.3 使用表單輔助方法</h4><p>The previous sections did not use the Rails form helpers at all. While you can craft the input names yourself and pass them directly to helpers such as <code>text_field_tag</code> Rails also provides higher level support. The two tools at your disposal here are the name parameter to <code>form_for</code> and <code>fields_for</code> and the <code>:index</code> option that helpers take.</p><p>You might want to render a form with a set of edit fields for each of a person's addresses. For example:</p><div class="code_container">
+<p>則 <code>params[:addresses]</code> 會是裡面有 Hash 的陣列，每個 Hash 的鍵有 <code>line1</code>, <code>line2</code> 以及 <code>city</code>。Rails 在目前的 Hash 發現有同樣的輸入時，會新建 Hash 來存放。</p><p>但有個限制，Hash 可以隨意嵌套，但陣列只能嵌套一次。陣列通常可以用 Hash 取代，譬如可以用 Hash 組成的 Model 物件來取代陣列組成的 Model 物件，Hash 的鍵是 <code>id</code>、陣列的索引、以及其它的參數。</p><div class="warning"><p>陣列參數與 <code>check_box</code> 輔助方法配合的不好。根據 HTML 規範，沒選中的多選方框不會送出值。但多選方框總是送出值會比較方便。<code>check_box</code> 透過建立一個同名的隱藏輸入來處理。若多選方框沒有被勾選，則只會送出隱藏輸入；若勾選了多選方框，則會將隱藏輸入與勾選的值一起送出，但勾選的值優先權比較高。處理陣列參數時，重複的送出會使 Rails 困惑，因為 Rails 見到重複的輸入，就會建立一個新的陣列。使用 <code>check_box_tag</code> 或用 Hash 取代陣列是推薦的做法。</p></div><h4 id="使用表單輔助方法">7.3 使用表單輔助方法</h4><p>前一節完全沒用到 Rails 的表單輔助方法。自己手寫 <code>input</code> 再直接傳給 <code>text_field_tag</code> 沒有問題。但 Rails 提供了更抽象的方法。這裡介紹 <code>form_for</code> 與 <code>fields_for</code>，以及 <code>:index</code> 選項。</p><p>可能會想要有地址表單，裡面有一組可編輯的欄位，分別編輯地址的各個部分。</p><div class="code_container">
 <pre class="brush: ruby; html-script: true; gutter: false; toolbar: false">
 &lt;%= form_for @person do |person_form| %&gt;
   &lt;%= person_form.text_field :name %&gt;
@@ -801,7 +801,7 @@ Rack::Utils.parse_query "name=fred&amp;phone=0123456789"
 
 </pre>
 </div>
-<p>Assuming the person had two addresses, with ids 23 and 45 this would create output similar to this:</p><div class="code_container">
+<p>假設 <code>person</code> 有兩個地址（<code>id</code> 分別是 23 與 <code>45</code>），輸出會像是：</p><div class="code_container">
 <pre class="brush: xml; gutter: false; toolbar: false">
 &lt;form accept-charset="UTF-8" action="/people/1" class="edit_person" id="edit_person_1" method="post"&gt;
   &lt;input id="person_name" name="person[name]" type="text" /&gt;
@@ -811,20 +811,13 @@ Rack::Utils.parse_query "name=fred&amp;phone=0123456789"
 
 </pre>
 </div>
-<p>This will result in a <code>params</code> hash that looks like</p><div class="code_container">
+<p>產生出的 <code>params</code>：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 {'person' =&gt; {'name' =&gt; 'Bob', 'address' =&gt; {'23' =&gt; {'city' =&gt; 'Paris'}, '45' =&gt; {'city' =&gt; 'London'}}}}
 
 </pre>
 </div>
-<p>Rails knows that all these inputs should be part of the person hash because you
-called <code>fields_for</code> on the first form builder. By specifying an <code>:index</code> option
-you're telling Rails that instead of naming the inputs <code>person[address][city]</code>
-it should insert that index surrounded by [] between the address and the city.
-This is often useful as it is then easy to locate which Address record
-should be modified. You can pass numbers with some other significance,
-strings or even <code>nil</code> (which will result in an array parameter being created).</p><p>To create more intricate nestings, you can specify the first part of the input
-name (<code>person[address]</code> in the previous example) explicitly:</p><div class="code_container">
+<p>Rails 知道所有的 <code>input</code> 皆屬於 <code>person</code> Hash，因為對 <code>person_form</code> 呼叫了 <code>fields_for</code>。透過指定 <code>:index</code> 選項 <code>index: address.id</code>，可以告訴 Rails，<code>input</code> 的 <code>name</code> 不要命名為 <code>person[address][city]</code>，而是在 <code>address</code> 與 <code>city</code> 之間插入索引值（放在中括號內）。通常這很有用，因為可以簡單的找出要修改的地址記錄是那個。<code>:index</code> 的值可以是其它有意義的屬性，字串，甚至是 <code>nil</code> 也可以（<code>nil</code> 會建立一個陣列參數出來）。</p><p>要產生更複雜的嵌套，可以明確指定 <code>input</code> <code>name</code> 的第一個部分（<code>person[address]</code>）：</p><div class="code_container">
 <pre class="brush: ruby; html-script: true; gutter: false; toolbar: false">
 &lt;%= fields_for 'person[address][primary]', address, index: address do |address_form| %&gt;
   &lt;%= address_form.text_field :city %&gt;
@@ -832,13 +825,13 @@ name (<code>person[address]</code> in the previous example) explicitly:</p><div 
 
 </pre>
 </div>
-<p>will create inputs like</p><div class="code_container">
+<p>建立出來的輸入：</p><div class="code_container">
 <pre class="brush: xml; gutter: false; toolbar: false">
 &lt;input id="person_address_primary_1_city" name="person[address][primary][1][city]" type="text" value="bologna" /&gt;
 
 </pre>
 </div>
-<p>As a general rule the final input name is the concatenation of the name given to <code>fields_for</code>/<code>form_for</code>, the index value and the name of the attribute. You can also pass an <code>:index</code> option directly to helpers such as <code>text_field</code>, but it is usually less repetitive to specify this at the form builder level rather than on individual input controls.</p><p>As a shortcut you can append [] to the name and omit the <code>:index</code> option. This is the same as specifying <code>index: address</code> so</p><div class="code_container">
+<p>一個通用的規則是，最後的 <code>input</code> <code>name</code> 是傳給 <code>fields_for</code> 或 <code>form_for</code> 的名字，加上索引值，再加上屬性名稱。也可以直接將 <code>:index</code> 選項傳給像是 <code>text_field</code> 的輔助方法，但這樣比較繁瑣，在表單構造器一起指定來減少重複。</p><p>忽略 <code>:index</code> 選項的簡寫是，在傳給 <code>form_for</code> 或 <code>fields_for</code> 的名稱後面加上一個中括號。這與指定 <code>index: address</code> 的效果相同：</p><div class="code_container">
 <pre class="brush: ruby; html-script: true; gutter: false; toolbar: false">
 &lt;%= fields_for 'person[address][primary][]', address do |address_form| %&gt;
   &lt;%= address_form.text_field :city %&gt;
@@ -846,7 +839,7 @@ name (<code>person[address]</code> in the previous example) explicitly:</p><div 
 
 </pre>
 </div>
-<p>produces exactly the same output as the previous example.</p><h3 id="forms-to-external-resources">8 Forms to External Resources</h3><p>Rails' form helpers can also be used to build a form for posting data to an external resource. However, at times it can be necessary to set an <code>authenticity_token</code> for the resource; this can be done by passing an <code>authenticity_token: 'your_external_token'</code> parameter to the <code>form_tag</code> options:</p><div class="code_container">
+<p>會產生與前例相同的輸出。</p><h3 id="送出至外部資源的表單">8 送出至外部資源的表單</h3><p>Rails 的表單輔助方法，也可以用來打造送出資料到外部資源的表單。但需要給資源指定一個 <code>authenticity_token</code>，可以使用 <code>:authenticity_token</code> 選項來指定：</p><div class="code_container">
 <pre class="brush: ruby; html-script: true; gutter: false; toolbar: false">
 &lt;%= form_tag 'http://farfar.away/form', authenticity_token: 'external_token' do %&gt;
   Form contents
@@ -854,7 +847,7 @@ name (<code>person[address]</code> in the previous example) explicitly:</p><div 
 
 </pre>
 </div>
-<p>Sometimes when submitting data to an external resource, like a payment gateway, the fields that can be used in the form are limited by an external API and it may be undesirable to generate an <code>authenticity_token</code>. To not send a token, simply pass <code>false</code> to the <code>:authenticity_token</code> option:</p><div class="code_container">
+<p>某些時候在送出資料到外部資源時，像是付款閘到。可以使用的欄位受外部 API 限制，還有可能不需要 <code>authenticity_token</code>，此時將 <code>:authenticity_token</code> 設為 <code>false</code> 即可：</p><div class="code_container">
 <pre class="brush: ruby; html-script: true; gutter: false; toolbar: false">
 &lt;%= form_tag 'http://farfar.away/form', authenticity_token: false do %&gt;
   Form contents
@@ -862,7 +855,7 @@ name (<code>person[address]</code> in the previous example) explicitly:</p><div 
 
 </pre>
 </div>
-<p>The same technique is also available for <code>form_for</code>:</p><div class="code_container">
+<p>同樣的技術 <code>form_for</code> 也適用：</p><div class="code_container">
 <pre class="brush: ruby; html-script: true; gutter: false; toolbar: false">
 &lt;%= form_for @invoice, url: external_url, authenticity_token: 'external_token' do |f| %&gt;
   Form contents
@@ -870,7 +863,7 @@ name (<code>person[address]</code> in the previous example) explicitly:</p><div 
 
 </pre>
 </div>
-<p>Or if you don't want to render an <code>authenticity_token</code> field:</p><div class="code_container">
+<p>不需要 <code>authenticity_token</code> 的情況：</p><div class="code_container">
 <pre class="brush: ruby; html-script: true; gutter: false; toolbar: false">
 &lt;%= form_for @invoice, url: external_url, authenticity_token: false do |f| %&gt;
   Form contents
@@ -878,7 +871,7 @@ name (<code>person[address]</code> in the previous example) explicitly:</p><div 
 
 </pre>
 </div>
-<h3 id="打造複雜表單">9 打造複雜表單</h3><p>Many apps grow beyond simple forms editing a single object. For example when creating a Person you might want to allow the user to (on the same form) create multiple address records (home, work, etc.). When later editing that person the user should be able to add, remove or amend addresses as necessary.</p><h4 id="configuring-the-model">9.1 Configuring the Model</h4><p>Active Record provides model level support via the <code>accepts_nested_attributes_for</code> method:</p><div class="code_container">
+<h3 id="打造複雜表單">9 打造複雜表單</h3><p>許多應用程式表單不僅是編輯單一物件這麼簡單。例如建立 <code>person</code> 時，可能想讓使用者（在同一個表單）建立出多筆地址記錄（住家地址、工作地址等）。之後在編輯 <code>person</code> 時，使用者應該要能夠新增、刪除或修改地址。</p><h4 id="model-部分">9.1 Model 部分</h4><p>Active Record 在 Model 層級提供這樣的支援，請用 <code>accepts_nested_attributes_for</code> 方法：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Person &lt; ActiveRecord::Base
   has_many :addresses
@@ -891,7 +884,7 @@ end
 
 </pre>
 </div>
-<p>This creates an <code>addresses_attributes=</code> method on <code>Person</code> that allows you to create, update and (optionally) destroy addresses.</p><h4 id="嵌套表單">9.2 嵌套表單</h4><p>The following form allows a user to create a <code>Person</code> and its associated addresses.</p><div class="code_container">
+<p>會建出一個 <code>Person#addresses_attributes=</code> 方法，用來新建、更新與刪除地址。</p><h4 id="嵌套表單">9.2 嵌套表單</h4><p>下面的表單允許使用者建立 <code>Person</code> 的實體，以及相關的地址。</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 &lt;%= form_for @person do |f| %&gt;
   Addresses:
@@ -911,7 +904,7 @@ end
 
 </pre>
 </div>
-<p>When an association accepts nested attributes <code>fields_for</code> renders its block once for every element of the association. In particular, if a person has no addresses it renders nothing. A common pattern is for the controller to build one or more empty children so that at least one set of fields is shown to the user. The example below would result in 2 sets of address fields being rendered on the new person form.</p><div class="code_container">
+<p>當關聯接受嵌套屬性時，<code>fields_for</code> 會對關聯的每個元素，執行 <code>fields_for</code> 的區塊。若 <code>person</code> 沒有地址，便不執行 <code>fields_for</code> 區塊。常見的做法是在 Controller 建一個或多個空的子元素，這樣只少有一組欄位會顯示給使用者。下例會在新建 <code>person</code> 的表單產生兩組地址欄位，</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 def new
   @person = Person.new
@@ -920,9 +913,7 @@ end
 
 </pre>
 </div>
-<p>The <code>fields_for</code> yields a form builder. The parameters' name will be what
-<code>accepts_nested_attributes_for</code> expects. For example when creating a user with
-2 addresses, the submitted parameters would look like:</p><div class="code_container">
+<p><code>fields_for</code> 給出一個表單構造器。參數的名稱要與 <code>accepts_nested_attributes_for</code> 指定的相同。舉個例子，建立有兩組地址的使用者，送出的參數看起來會像是：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 {
   'person' =&gt; {
@@ -942,9 +933,7 @@ end
 
 </pre>
 </div>
-<p>The keys of the <code>:addresses_attributes</code> hash are unimportant, they need merely be different for each address.</p><p>If the associated object is already saved, <code>fields_for</code> autogenerates a hidden input with the <code>id</code> of the saved record. You can disable this by passing <code>include_id: false</code> to <code>fields_for</code>. You may wish to do this if the autogenerated input is placed in a location where an input tag is not valid HTML or when using an ORM where children do not have an <code>id</code>.</p><h4 id="the-controller">9.3 The Controller</h4><p>As usual you need to
-<a href="action_controller_overview.html#strong-parameters">whitelist the parameters</a> in
-the controller before you pass them to the model:</p><div class="code_container">
+<p><code>:addresses_attributes</code> Hash 的鍵不重要，每個地址的鍵不要重複就好。</p><p>若關聯物件已經儲存了，<code>fields_for</code> 會自動產生一個隱藏輸入，<code>id</code> 是該記錄的 <code>id</code>。可以傳入 <code>include_id: false</code> 給 <code>fields_for</code> 來禁用這個行為。可能會想要禁止產生隱藏輸入，因為自動產生的輸入擺放的位置不對，導致 HTML 不合法；或者是使用的 ORM，子物件沒有 <code>id</code>。</p><h4 id="controller-部分">9.3 Controller 部分</h4><p>通常需要在傳給 Model 之前，先在 Controller <a href="action_controller_overview.html#strong-parameters">過濾參數</a>：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 def create
   @person = Person.new(person_params)
@@ -958,7 +947,7 @@ private
 
 </pre>
 </div>
-<h4 id="removing-objects">9.4 Removing Objects</h4><p>You can allow users to delete associated objects by passing <code>allow_destroy: true</code> to <code>accepts_nested_attributes_for</code></p><div class="code_container">
+<h4 id="移除物件">9.4 移除物件</h4><p>可以透過傳入 <code>allow_destroy: true</code> 給 <code>accepts_nested_attributes_for</code>，來允許使用者刪除關聯物件。</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Person &lt; ActiveRecord::Base
   has_many :addresses
@@ -967,9 +956,7 @@ end
 
 </pre>
 </div>
-<p>If the hash of attributes for an object contains the key <code>_destroy</code> with a value
-of <code>1</code> or <code>true</code> then the object will be destroyed. This form allows users to
-remove addresses:</p><div class="code_container">
+<p>若屬性組成的 Hash 的鍵有 <code>_destroy</code>，值是 <code>1</code> 或 <code>true</code>，則物件會被刪除。下面這個表單允許使用者刪除地址：</p><div class="code_container">
 <pre class="brush: ruby; html-script: true; gutter: false; toolbar: false">
 &lt;%= form_for @person do |f| %&gt;
   Addresses:
@@ -987,8 +974,7 @@ remove addresses:</p><div class="code_container">
 
 </pre>
 </div>
-<p>Don't forget to update the whitelisted params in your controller to also include
-the <code>_destroy</code> field:</p><div class="code_container">
+<p>不要忘記更新 Controller 過濾參數的名單，要把 <code>_destroy</code> 加進來：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 def person_params
   params.require(:person).
@@ -997,7 +983,7 @@ end
 
 </pre>
 </div>
-<h4 id="preventing-empty-records">9.5 Preventing Empty Records</h4><p>It is often useful to ignore sets of fields that the user has not filled in. You can control this by passing a <code>:reject_if</code> proc to <code>accepts_nested_attributes_for</code>. This proc will be called with each hash of attributes submitted by the form. If the proc returns <code>false</code> then Active Record will not build an associated object for that hash. The example below only tries to build an address if the <code>kind</code> attribute is set.</p><div class="code_container">
+<h4 id="避免空的紀錄">9.5 避免空的紀錄</h4><p>忽略使用者沒有填的欄位通常很有用。可以透過傳給 <code>accepts_nested_attributes_for</code> 一個 <code>:reject_if</code> <code>proc</code> 來辦到。這個 <code>proc</code> 會在每個屬性送出時呼叫。若 <code>proc</code> 回傳 <code>flase</code>，則 Active Record 不會為這組 Hash 建立關聯物件。下面這個例子只有在有給出 <code>kind</code> 屬性時，才會建立地址：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Person &lt; ActiveRecord::Base
   has_many :addresses
@@ -1006,7 +992,7 @@ end
 
 </pre>
 </div>
-<p>As a convenience you can instead pass the symbol <code>:all_blank</code> which will create a proc that will reject records where all the attributes are blank excluding any value for <code>_destroy</code>.</p><h4 id="adding-fields-on-the-fly">9.6 Adding Fields on the Fly</h4><p>Rather than rendering multiple sets of fields ahead of time you may wish to add them only when a user clicks on an 'Add new address' button. Rails does not provide any built-in support for this. When generating new sets of fields you must ensure the key of the associated array is unique - the current JavaScript date (milliseconds after the epoch) is a common choice.</p>
+<p>有一個方便的符號可以用：<code>:all_blank</code>，會建立一個 <code>proc</code>，會拒絕為有任何屬性為空（ <code>_destroy</code> 屬性除外）的 Hash 建立物件。</p><h4 id="動態添加欄位">9.6 動態添加欄位</h4><p>與其一開始就算繪多組地址，不如加入一個按鈕 <code>Add new address</code>，讓使用者自己決定什麼時候要新增一組地址。但 Rails 不支援這個功能。建立一組新的欄位時，要確保關聯陣列的鍵是獨一無二的。可在 JavaScript 使用目前的日期是常見的做法。</p>
 
         <h3>反饋</h3>
         <p>
