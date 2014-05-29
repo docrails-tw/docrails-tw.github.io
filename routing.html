@@ -233,6 +233,7 @@
 <li><a href="#%E7%BF%BB%E8%AD%AF%E8%B7%AF%E5%BE%91">翻譯路徑</a></li>
 <li><a href="#%E8%A6%86%E5%AF%AB%E5%96%AE%E6%95%B8%E5%BD%A2%E5%BC%8F">覆寫單數形式</a></li>
 <li><a href="#%E5%9C%A8%E5%B5%8C%E5%A5%97%E8%B3%87%E6%BA%90%E4%B8%AD%E4%BD%BF%E7%94%A8-:as-%E9%81%B8%E9%A0%85">在嵌套資源中使用 <code>:as</code> 選項</a></li>
+<li><a href="#%E8%A6%86%E5%AF%AB%E5%85%B7%E5%90%8D%E8%B7%AF%E7%94%B1%E5%8F%83%E6%95%B8">覆寫具名路由參數</a></li>
 </ul>
 </li>
 <li>
@@ -1522,7 +1523,28 @@ end
 
 </pre>
 </div>
-<p>這會產生出像是：<code>edit_magazine_periodical_ad_path</code> 與 <code>magazine_periodical_ads_url</code> 等輔助方法。</p><h3 id="檢查與測試路由">5 檢查與測試路由</h3><p>Rails 有提供用來檢查與測試路由的工具。</p><h4 id="列出現有的路由">5.1 列出現有的路由</h4><p>要獲得應用程式完整可用的路由列表，在開發環境下啟動伺服器，瀏覽 <code>http://localhost:3000/rails/info/routes</code>。也可以在終端機裡執行 <code>rake routes</code> 命令。</p><p>以上兩種方法都會列出所有的路由，順序與 <code>config/routes.rb</code> 裡定義的一樣，每條路由的內容會有：</p>
+<p>這會產生出像是：<code>edit_magazine_periodical_ad_path</code> 與 <code>magazine_periodical_ads_url</code> 等輔助方法。</p><h4 id="覆寫具名路由參數">4.10 覆寫具名路由參數</h4><p><code>:param</code> 選項可以覆寫辨識資源的變數，預設是 <code>:id</code>（<a href="#%E5%8B%95%E6%85%8B%E7%89%87%E6%AE%B5">動態片段</a>的名稱）。這個變數是用來產生路由的。可以在 Controller 使用 <code>params[&lt;:param&gt;]</code> 傳入片段變數。</p><div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+resources :videos, param: :identifier
+
+</pre>
+</div>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+     videos GET  /videos(.:format)                  videos#index
+            POST /videos(.:format)                  videos#create
+ new_videos GET  /videos/new(.:format)              videos#new
+edit_videos GET  /videos/:identifier/edit(.:format) videos#edit
+
+</pre>
+</div>
+<div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+Video.find_by(identifier: params[:identifier])
+
+</pre>
+</div>
+<h3 id="檢查與測試路由">5 檢查與測試路由</h3><p>Rails 有提供用來檢查與測試路由的工具。</p><h4 id="列出現有的路由">5.1 列出現有的路由</h4><p>要獲得應用程式完整可用的路由列表，在開發環境下啟動伺服器，瀏覽 <code>http://localhost:3000/rails/info/routes</code>。也可以在終端機裡執行 <code>rake routes</code> 命令。</p><p>以上兩種方法都會列出所有的路由，順序與 <code>config/routes.rb</code> 裡定義的一樣，每條路由的內容會有：</p>
 <ul>
 <li>路由名稱（有的話）</li>
 <li>使用的 HTTP 動詞（若不是回應所有動詞的路由）</li>
