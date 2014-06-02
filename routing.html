@@ -175,7 +175,7 @@
 <li>如何使用推薦的資源式寫法或使用 <code>match</code> 方法來撰寫路由。</li>
 <li>Controller 動作可接受的參數有那些。</li>
 <li>如何使用路由輔助方法來自動建立路徑與 URL。</li>
-<li>路由約束條件與 Rack Endpoint 等進階技巧。</li>
+<li>路由約束條件與 Rack 端點等進階技巧。</li>
 </ul>
 
 
@@ -186,8 +186,8 @@
 <a href="#rails-%E8%B7%AF%E7%94%B1%E5%99%A8%E7%9A%84%E7%9B%AE%E7%9A%84">Rails 路由器的目的</a>
 
 <ul>
-<li><a href="#url-%E5%B7%A5%E4%BD%9C%E5%88%86%E6%B4%BE">URL 工作分派</a></li>
-<li><a href="#%E7%94%A2%E7%94%9F%E8%B7%AF%E5%BE%91%E8%88%87-url">產生路徑與 URL</a></li>
+<li><a href="#%E8%B7%AF%E7%94%B1%E5%99%A8%E5%A6%82%E4%BD%95%E5%88%86%E6%B4%BE%E8%AB%8B%E6%B1%82">路由器如何分派請求</a></li>
+<li><a href="#%E7%94%A2%E7%94%9F%E8%B7%AF%E5%BE%91%E8%88%87%E7%B6%B2%E5%9D%80">產生路徑與網址</a></li>
 </ul>
 </li>
 <li>
@@ -261,19 +261,19 @@
   <div id="container">
     <div class="wrapper">
       <div id="mainCol">
-        <h3 id="rails-路由器的目的">1 Rails 路由器的目的</h3><p>Rails 路由器（router）識別 URL，分配給對應的 Controller 動作處理。Rails 路由器同時也可用來產生路徑與 URL，避免在 View 裡面把路徑寫死。</p><h4 id="url-工作分派">1.1 URL 工作分派</h4><p>當 Rails 收到如下請求時：</p><div class="code_container">
+        <h3 id="rails-路由器的目的">1 Rails 路由器的目的</h3><p>Rails 路由器（router）識別網址，分配給對應的 Controller 動作處理。Rails 路由器同時也可用來產生路徑與網址，避免在 View 裡面用字串來把路徑與網址寫死。</p><h4 id="路由器如何分派請求">1.1 路由器如何分派請求</h4><p>當 Rails 收到如下請求時：</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 GET /patients/17
 
 </pre>
 </div>
-<p>會詢問路由器，匹配的 Controller 動作是那個。若第一個匹配的路由為：</p><div class="code_container">
+<p>會詢問路由器，匹配的 Controller 動作是那個。若第一筆匹配的路由為：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 get '/patients/:id', to: 'patients#show'
 
 </pre>
 </div>
-<p>則請求會分派給 <code>PatientsController</code> 的 <code>show</code> 動作處理，且 <code>params</code> 裡有 <code>{ id: '17' }</code> 參數。</p><h4 id="產生路徑與-url">1.2 產生路徑與 URL</h4><p>Rails 路由器也可以產生路徑與 URL。若上例的路由改寫為：</p><div class="code_container">
+<p>則請求會分派給 <code>PatientsController</code> 的 <code>show</code> 動作處理，且 <code>params</code> 裡有 <code>{ id: '17' }</code> 參數。</p><h4 id="產生路徑與網址">1.2 產生路徑與網址</h4><p>Rails 路由器也可以產生路徑與網址。若上例的路由改寫為：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 get '/patients/:id', to: 'patients#show', as: 'patient'
 
@@ -291,13 +291,13 @@ get '/patients/:id', to: 'patients#show', as: 'patient'
 
 </pre>
 </div>
-<p>則路由器便會給 <code>patient_path(@patient)</code> 產生路徑 <code>/patients/17</code>。這使得程式碼更容易了解。注意，使用路由輔助方法（<code>patient_path</code>）時，無需指定 ID。</p><h3 id="資源式路由：rails-的預設路由">2 資源式路由：Rails 的預設路由</h3><p>資源式路由允許替給定的資源式 Controller，快速宣告出所有常見的路由。與其替每個動作（ <code>index</code>、<code>show</code>、<code>new</code>、<code>edit</code>、<code>create</code>、<code>update</code> 以及 <code>destroy</code>）個別宣告路由，資源式路由宣告只需要一行即可。</p><h4 id="web-世界裡的資源">2.1 Web 世界裡的資源</h4><p>瀏覽器向 Rails 請求頁面時，透過使用具體的 HTTP 動詞，如 <code>GET</code>、<code>POST</code>、<code>PATCH</code>、<code>PUT</code> 以及 <code>DELETE</code>，往 URL 發出請求。每個動詞都是對資源的一種操作。資源式路由將相關的請求，對應到 Controller 的不同動作。</p><p>當 Rails 應用程式收到下面這個請求時：</p><div class="code_container">
+<p>則路由器便會給 <code>patient_path(@patient)</code> 產生路徑 <code>/patients/17</code>。這使得程式碼更容易了解。注意，使用路由輔助方法（<code>patient_path</code>）時，無需指定 ID。</p><h3 id="資源式路由：rails-的預設路由">2 資源式路由：Rails 的預設路由</h3><p>資源式路由可替資源式 Controller 快速宣告出所有常見的路由。與其挨個替每個動作（ <code>index</code>、<code>show</code>、<code>new</code>、<code>edit</code>、<code>create</code>、<code>update</code> 以及 <code>destroy</code>）宣告路由，資源式路由宣告一行解決。</p><h4 id="web-世界裡的資源">2.1 Web 世界裡的資源</h4><p>瀏覽器向 Rails 請求頁面時，透過使用具體的 HTTP 動詞，如 <code>GET</code>、<code>POST</code>、<code>PATCH</code>、<code>PUT</code> 以及 <code>DELETE</code>，往 URL 發出請求。每個動詞都是對資源的一種操作。資源式路由將請求對應到 Controller 的動作。</p><p>當 Rails 應用程式收到下面這個請求時：</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 DELETE /photos/17
 
 </pre>
 </div>
-<p>會詢問路由器，該交給那個 Controller 的那個動作處理。若第一個匹配的路由為：</p><div class="code_container">
+<p>會詢問路由器，路由器會決定該交給那個 Controller 的那個動作處理。若第一筆匹配的路由為：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 resources :photos
 
@@ -309,7 +309,7 @@ resources :photos
 
 </pre>
 </div>
-<p>會在應用程式建立出七筆不同的路由，皆對應到 <code>PhotosController</code>：</p>
+<p>會建立出七筆不同的路由，皆對應到 <code>PhotosController</code>：</p>
 <table>
 <thead>
 <tr>
@@ -364,7 +364,7 @@ resources :photos
 </tr>
 </tbody>
 </table>
-<div class="note"><p>因為路由器使用 HTTP 動詞與 URL ，來匹配進來的請求，所以可以將四個 URL 對應到七種不同的動作。</p></div><div class="note"><p>Rails 路由依據宣告的順序來匹配。若在 <code>get 'photos/poll'</code> 之前宣告了 <code>resources :photos</code>，則 <code>show</code> 動作會先匹配到 <code>resources :photos</code>。若想將 <code>get 'photos/poll'</code> 的匹配順序提前，提到 <code>resources :photos</code> 之前即可。</p></div><h4 id="路徑與-url-的輔助方法">2.3 路徑與 URL 的輔助方法</h4><p>新建一筆資源式的路由，同時會給 Controller 加入一些輔助方法。以 <code>resources :photos</code> 為例，可用的輔助方法有：</p>
+<div class="note"><p>因為路由器使用 HTTP 動詞與 URL 來匹配進來的請求，所以可將四個 URL 對應到七種不同的動作。</p></div><div class="note"><p>路由依據宣告的順序來匹配。若在 <code>get 'photos/poll'</code> 之前宣告了 <code>resources :photos</code>，則 <code>show</code> 動作會先匹配到 <code>resources :photos</code>。若想將 <code>get 'photos/poll'</code> 的匹配順序提前，提到 <code>resources :photos</code> 之前即可。</p></div><h4 id="路徑與-url-的輔助方法">2.3 路徑與 URL 的輔助方法</h4><p>新建一筆資源式的路由，同時會給應用程式裡的 Controller 加入一些輔助方法。以 <code>resources :photos</code> 為例，可用的輔助方法有：</p>
 <table>
 <thead>
 <tr>
@@ -393,7 +393,7 @@ resources :photos
 </tr>
 </tbody>
 </table>
-<p>這些輔助方法有對應的 <code>*_url</code> 形式（像是 <code>photos_url</code>），<code>*_url</code> 會回傳完整的路徑，包含了主機、埠口以及路徑。</p><h4 id="同時定義多筆資源">2.4 同時定義多筆資源</h4><p>如需要給多個資源建立路由時，可以用一行 <code>resources</code> 宣告完成，節省一些打字的時間：</p><div class="code_container">
+<p>這些輔助方法有對應的 <code>*_url</code> 形式（像是 <code>photos_url</code>），<code>*_url</code> 會回傳完整的路徑，包含了主機、埠口以及路徑。</p><h4 id="同時定義多筆資源">2.4 同時定義多筆資源</h4><p>如需同時給多個資源建立路由，可以用一行 <code>resources</code> 宣告完成，可節省些打字的時間：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 resources :photos, :books, :videos
 
@@ -407,7 +407,7 @@ resources :videos
 
 </pre>
 </div>
-<h4 id="單數資源">2.5 單數資源</h4><p>有些資源不需要 ID 便能查詢。舉個例子，希望 <code>/profile</code> 顯示目前登入使用者的個人檔案。這個情況下可以使用單數資源（Singular resource），把 <code>/profile</code>（而不是 <code>/profile/:id</code>）對應到 <code>show</code> 動作：</p><div class="code_container">
+<h4 id="單數資源">2.5 單數資源</h4><p>有些資源無需 ID 便能查詢。舉個例子，希望 <code>/profile</code> 顯示目前登入使用者的個人檔案。可以用單數資源（Singular resource），把 <code>/profile</code>（而不是 <code>/profile/:id</code>）對應到 <code>show</code> 動作：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 get 'profile', to: 'users#show'
 
@@ -1126,7 +1126,7 @@ get '/:username', to: 'users#show'
 </div>
 <h4 id="基於請求的約束條件">3.9 基於請求的約束條件</h4><p>也可以使用 <a href="action_controller_overview.html#request-%E7%89%A9%E4%BB%B6"><code>request</code> 物件</a>裡，任何會回傳字串的方法，來宣告路由的約束條件。</p><p>基於 <code>request</code> 物件的約束條件的宣告方式與片段約束條件相同：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
-get 'photos', constraints: {subdomain: 'admin'}
+get 'photos', constraints: { subdomain: 'admin' }
 
 </pre>
 </div>
@@ -1152,7 +1152,7 @@ class BlacklistConstraint
   end
 end
 
-TwitterClone::Application.routes.draw do
+Rails.application.routes.draw do
   get '*path', to: 'blacklist#index',
     constraints: BlacklistConstraint.new
 end
@@ -1161,7 +1161,7 @@ end
 </div>
 <p>約束條件也可用 lambda 宣告：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
-TwitterClone::Application.routes.draw do
+Rails.application.routes.draw do
   get '*path', to: 'blacklist#index',
     constraints: lambda { |request| Blacklist.retrieve_ips.include?(request.remote_ip) }
 end
@@ -1186,7 +1186,7 @@ get '*a/foo/*b', to: 'test#index'
 
 </pre>
 </div>
-<p>會匹配 <code>zoo/woo/foo/bar/baz</code>，<code>params[:a]</code> 會設為 <code>'zoo/woo'</code>，而 <code>params[:b]</code> 則是 <code>'bar/baz'</code>。</p><div class="note"><p>若想請求 <code>"/foo/bar.json"</code>，<code>params[:pages]</code> 會設為 <code>"foo/bar"</code>，請求格式為 JSON。若想使用 3.0.x 的行為，可以傳一個 <code>format: false</code>：</p></div><div class="code_container">
+<p>會匹配 <code>zoo/woo/foo/bar/baz</code>，<code>params[:a]</code> 會設為 <code>'zoo/woo'</code>，而 <code>params[:b]</code> 則是 <code>'bar/baz'</code>。</p><div class="note"><p>發送請求到 <code>"/foo/bar.json"</code> 時，<code>params[:pages]</code> 會設為 <code>"foo/bar"</code>，請求格式為 JSON。若想使用 3.0.x 的行為，可以傳一個 <code>format: false</code>：</p></div><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 get '*pages', to: 'pages#show', format: false
 
@@ -1217,7 +1217,7 @@ get '/stories', to: redirect { |path_params, req| "/articles/#{req.subdomain}" }
 
 </pre>
 </div>
-<p>Note: 轉址是 301 "Moved Permanently" 轉址。某些瀏覽器或代理伺服器會快取 301 轉址，導致舊的頁面無法存取。</p><p>以上所有的情況裡，若沒有提供主機（<code>http://www.example.com</code>），Rails 會從當下的請求裡取得。</p><h4 id="路由到-rack-應用程式">3.13 路由到 Rack 應用程式</h4><p>除了使用像是 <code>"articles#index"</code> 的字串（會交給 <code>ArticlesController</code> 的 <code>index</code> 動作處理），還可以指定任何 <a href="/rails_on_rack.html">Rack 應用程式</a> 作為 Endpoint：</p><div class="code_container">
+<p>Note: 轉址是 301 "Moved Permanently" 轉址。某些瀏覽器或代理伺服器會快取 301 轉址，導致舊的頁面無法存取。</p><p>以上所有的情況裡，若沒有提供主機（<code>http://www.example.com</code>），Rails 會從當下的請求裡取得。</p><h4 id="路由到-rack-應用程式">3.13 路由到 Rack 應用程式</h4><p>除了使用像是 <code>"articles#index"</code> 的字串（會交給 <code>ArticlesController</code> 的 <code>index</code> 動作處理），還可以指定任何 <a href="/rails_on_rack.html">Rack 應用程式</a> 作為端點（Endpoint）：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 match '/application.js', to: Sprockets, via: :all
 
@@ -1257,10 +1257,10 @@ resources :photos, controller: 'images'
 <table>
 <thead>
 <tr>
-<th>HTTP Verb</th>
-<th>Path</th>
-<th>Controller#Action</th>
-<th>Named Helper</th>
+<th>HTTP 動詞</th>
+<th>路徑</th>
+<th>Controller#動作</th>
+<th>具名輔助方法</th>
 </tr>
 </thead>
 <tbody>
@@ -1339,10 +1339,10 @@ resources :photos, as: 'images'
 <table>
 <thead>
 <tr>
-<th>HTTP Verb</th>
-<th>Path</th>
-<th>Controller#Action</th>
-<th>Named Helper</th>
+<th>HTTP 動詞</th>
+<th>路徑</th>
+<th>Controller#動作</th>
+<th>具名輔助方法</th>
 </tr>
 </thead>
 <tbody>
@@ -1463,10 +1463,10 @@ end
 <table>
 <thead>
 <tr>
-<th>HTTP Verb</th>
-<th>Path</th>
-<th>Controller#Action</th>
-<th>Named Helper</th>
+<th>HTTP 動詞</th>
+<th>路徑</th>
+<th>Controller#動作</th>
+<th>具名輔助方法</th>
 </tr>
 </thead>
 <tbody>

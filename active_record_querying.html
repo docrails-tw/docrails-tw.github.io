@@ -206,7 +206,13 @@
 <li><a href="#%E6%8E%92%E5%BA%8F">排序</a></li>
 <li><a href="#%E9%81%B8%E5%87%BA%E7%89%B9%E5%AE%9A%E6%AC%84%E4%BD%8D">選出特定欄位</a></li>
 <li><a href="#limit-%E8%88%87-offset">Limit 與 Offset</a></li>
-<li><a href="#group">Group</a></li>
+<li>
+<a href="#group">Group</a>
+
+<ul>
+<li><a href="#%E5%88%86%E7%B5%84%E9%A0%85%E7%9B%AE%E7%9A%84%E7%B8%BD%E6%95%B8">分組項目的總數</a></li>
+</ul>
+</li>
 <li><a href="#having">Having</a></li>
 <li>
 <a href="#%E8%A6%86%E8%93%8B%E6%A2%9D%E4%BB%B6">覆蓋條件</a>
@@ -798,6 +804,21 @@ Order.select("date(created_at) as ordered_date, sum(price) as total_price").grou
 SELECT date(created_at) as ordered_date, sum(price) as total_price
 FROM orders
 GROUP BY date(created_at)
+
+</pre>
+</div>
+<h4 id="分組項目的總數">6.1 分組項目的總數</h4><p>要取得單一查詢呼叫有幾筆結果，在 <code>group</code> 之後呼叫 <code>count</code>。</p><div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+Order.group(:status).count
+# =&gt; { 'awaiting_approval' =&gt; 7, 'paid' =&gt; 12 }
+
+</pre>
+</div>
+<p>上例執行的 SQL 看起來會像是：</p><div class="code_container">
+<pre class="brush: sql; gutter: false; toolbar: false">
+SELECT COUNT (*) AS count_all, status AS status
+FROM "orders"
+GROUP BY status
 
 </pre>
 </div>
