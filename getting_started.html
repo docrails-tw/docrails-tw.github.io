@@ -50,7 +50,7 @@
                 <dd><a href="getting_started.html">Rails 起步走</a></dd>
                 <dt>Models</dt>
                 <dd><a href="active_record_basics.html">Active Record 基礎</a></dd>
-                <dd><a href="migrations.html">Active Record 遷移</a></dd>
+                <dd><a href="active_record_migrations.html">Active Record 遷移</a></dd>
                 <dd><a href="active_record_validations.html">Active Record 驗證</a></dd>
                 <dd><a href="active_record_callbacks.html">Active Record 回呼</a></dd>
                 <dd><a href="association_basics.html">Active Record 關聯</a></dd>
@@ -68,9 +68,9 @@
                 <dd><a href="i18n.html">Rails 國際化 API</a></dd>
                 <dd><a href="action_mailer_basics.html">Action Mailer 基礎</a></dd>
                 <dd><a href="security.html">Rails 安全指南</a></dd>
-                <dd><a href="debugging_rails_applications.html">Rails 應用程式除錯</a></dd>
-                <dd><a href="configuring.html">Rails 設定應用程式</a></dd>
-                <dd><a href="command_line.html">Rake 任務與 Rails 命令行工具</a></dd>
+                <dd><a href="debugging_rails_applications.html">除錯 Rails 應用程式</a></dd>
+                <dd><a href="configuring.html">Rails 應用程式設定</a></dd>
+                <dd><a href="command_line.html">Rake 任務與 Rails 命令列工具</a></dd>
                 <dd><a href="asset_pipeline.html">Asset Pipeline</a></dd>
                 <dd><a href="working_with_javascript_in_rails.html">在 Rails 使用 JavaScript</a></dd>
                 <dt>擴充 Rails</dt>
@@ -108,7 +108,7 @@
               </optgroup>
               <optgroup label="Models">
                   <option value="active_record_basics.html">Active Record 基礎</option>
-                  <option value="migrations.html">Active Record 遷移</option>
+                  <option value="active_record_migrations.html">Active Record 遷移</option>
                   <option value="active_record_validations.html">Active Record 驗證</option>
                   <option value="active_record_callbacks.html">Active Record 回呼</option>
                   <option value="association_basics.html">Active Record 關聯</option>
@@ -127,9 +127,9 @@
                   <option value="i18n.html">Rails 國際化 API</option>
                   <option value="action_mailer_basics.html">Action Mailer 基礎</option>
                   <option value="security.html">Rails 安全指南</option>
-                  <option value="debugging_rails_applications.html">Rails 應用程式除錯</option>
-                  <option value="configuring.html">Rails 設定應用程式</option>
-                  <option value="command_line.html">Rake 任務與 Rails 命令行工具</option>
+                  <option value="debugging_rails_applications.html">除錯 Rails 應用程式</option>
+                  <option value="configuring.html">Rails 應用程式設定</option>
+                  <option value="command_line.html">Rake 任務與 Rails 命令列工具</option>
                   <option value="asset_pipeline.html">Asset Pipeline</option>
                   <option value="working_with_javascript_in_rails.html">在 Rails 使用 JavaScript</option>
               </optgroup>
@@ -350,7 +350,7 @@ $ bin/rails --version
 
 </pre>
 </div>
-<p>If it says something like "Rails 4.1.0", you are ready to continue.</p><h4 id="creating-the-blog-application">3.2 Creating the Blog Application</h4><p>Rails comes with a number of scripts called generators that are designed to make
+<p>If it says something like "Rails 4.1.1", you are ready to continue.</p><h4 id="creating-the-blog-application">3.2 Creating the Blog Application</h4><p>Rails comes with a number of scripts called generators that are designed to make
 your development life easier by creating everything that's necessary to start
 working on a particular task. One of these is the new application generator,
 which will provide you with the foundation of a fresh Rails application so that
@@ -388,7 +388,7 @@ of the files and folders that Rails created by default:</p>
 </tr>
 <tr>
 <td>bin/</td>
-<td>Contains the rails script that starts your app and can contain other scripts you use to deploy or run your application.</td>
+<td>Contains the rails script that starts your app and can contain other scripts you use to setup, deploy or run your application.</td>
 </tr>
 <tr>
 <td>config/</td>
@@ -772,7 +772,7 @@ value of <code>params[:article].inspect</code>. The <code>params</code> method i
 represents the parameters (or fields) coming in from the form. The <code>params</code>
 method returns an <code>ActiveSupport::HashWithIndifferentAccess</code> object, which
 allows you to access the keys of the hash using either strings or symbols. In
-this situation, the only parameters that matter are the ones from the form.</p><p>If you re-submit the form one more time you'll now no longer get the missing
+this situation, the only parameters that matter are the ones from the form.</p><div class="info"><p>Ensure you have a firm grasp of the <code>params</code> method, as you'll use it fairly regularly. Let's consider an example URL: <strong><a href="http://www.example.com/?username=dhh&amp;email=dhh@email.com">http://www.example.com/?username=dhh&amp;email=dhh@email.com</a></strong>. In this URL, <code>params[:username]</code> would equal "dhh" and <code>params[:email]</code> would equal "<a href="mailto:dhh@email.com">dhh@email.com</a>".</p></div><p>If you re-submit the form one more time you'll now no longer get the missing
 template error. Instead, you'll see something that looks like the following:</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 {"title"=&gt;"First article!", "text"=&gt;"This is my first article."}
@@ -863,7 +863,7 @@ respective attributes, which are automatically mapped to the respective
 database columns. In the first line we do just that (remember that
 <code>params[:article]</code> contains the attributes we're interested in). Then,
 <code>@article.save</code> is responsible for saving the model in the database. Finally,
-we redirect the user to the <code>show</code> action, which we'll define later.</p><div class="info"><p>As we'll see later, <code>@article.save</code> returns a boolean indicating whether
+we redirect the user to the <code>show</code> action, which we'll define later.</p><div class="info"><p>You might be wondering why the <code>A</code> in <code>Article.new</code> is capitalized above, whereas most other references to articles in this guide have used lowercase. In this context, we are referring to the class named <code>Article</code> that is defined in <code>\models\article.rb</code>. Class names in Ruby must begin with a capital letter.</p></div><div class="info"><p>As we'll see later, <code>@article.save</code> returns a boolean indicating whether
 the article was saved or not.</p></div><p>If you now go to <a href="http://localhost:3000/articles/new">http://localhost:3000/articles/new</a> you'll <em>almost</em> be able
 to create an article. Try it! You should get an error that looks like this:</p><p><img src="images/getting_started/forbidden_attributes_for_new_article.png" alt="Forbidden attributes for new article"></p><p>Rails has several security features that help you write secure applications,
 and you're running into one of them now. This one is called <code>[strong_parameters]

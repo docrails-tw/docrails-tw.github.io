@@ -50,7 +50,7 @@
                 <dd><a href="getting_started.html">Rails 起步走</a></dd>
                 <dt>Models</dt>
                 <dd><a href="active_record_basics.html">Active Record 基礎</a></dd>
-                <dd><a href="migrations.html">Active Record 遷移</a></dd>
+                <dd><a href="active_record_migrations.html">Active Record 遷移</a></dd>
                 <dd><a href="active_record_validations.html">Active Record 驗證</a></dd>
                 <dd><a href="active_record_callbacks.html">Active Record 回呼</a></dd>
                 <dd><a href="association_basics.html">Active Record 關聯</a></dd>
@@ -68,9 +68,9 @@
                 <dd><a href="i18n.html">Rails 國際化 API</a></dd>
                 <dd><a href="action_mailer_basics.html">Action Mailer 基礎</a></dd>
                 <dd><a href="security.html">Rails 安全指南</a></dd>
-                <dd><a href="debugging_rails_applications.html">Rails 應用程式除錯</a></dd>
-                <dd><a href="configuring.html">Rails 設定應用程式</a></dd>
-                <dd><a href="command_line.html">Rake 任務與 Rails 命令行工具</a></dd>
+                <dd><a href="debugging_rails_applications.html">除錯 Rails 應用程式</a></dd>
+                <dd><a href="configuring.html">Rails 應用程式設定</a></dd>
+                <dd><a href="command_line.html">Rake 任務與 Rails 命令列工具</a></dd>
                 <dd><a href="asset_pipeline.html">Asset Pipeline</a></dd>
                 <dd><a href="working_with_javascript_in_rails.html">在 Rails 使用 JavaScript</a></dd>
                 <dt>擴充 Rails</dt>
@@ -108,7 +108,7 @@
               </optgroup>
               <optgroup label="Models">
                   <option value="active_record_basics.html">Active Record 基礎</option>
-                  <option value="migrations.html">Active Record 遷移</option>
+                  <option value="active_record_migrations.html">Active Record 遷移</option>
                   <option value="active_record_validations.html">Active Record 驗證</option>
                   <option value="active_record_callbacks.html">Active Record 回呼</option>
                   <option value="association_basics.html">Active Record 關聯</option>
@@ -127,9 +127,9 @@
                   <option value="i18n.html">Rails 國際化 API</option>
                   <option value="action_mailer_basics.html">Action Mailer 基礎</option>
                   <option value="security.html">Rails 安全指南</option>
-                  <option value="debugging_rails_applications.html">Rails 應用程式除錯</option>
-                  <option value="configuring.html">Rails 設定應用程式</option>
-                  <option value="command_line.html">Rake 任務與 Rails 命令行工具</option>
+                  <option value="debugging_rails_applications.html">除錯 Rails 應用程式</option>
+                  <option value="configuring.html">Rails 應用程式設定</option>
+                  <option value="command_line.html">Rake 任務與 Rails 命令列工具</option>
                   <option value="asset_pipeline.html">Asset Pipeline</option>
                   <option value="working_with_javascript_in_rails.html">在 Rails 使用 JavaScript</option>
               </optgroup>
@@ -1185,7 +1185,7 @@ Category.includes(articles: [{ comments: :guest }, :tags]).find(1)
 </div>
 <p>會找到 <code>category</code> <code>id</code> 為 1 的類別，並加載與類別相關聯的文章。以及文章的標籤與評論跟評論的 <code>guest</code> 關聯。</p><h4 id="對-eager-loaded-關聯下條件">13.2 對 Eager Loaded 關聯下條件</h4><p>雖然 Active Record 允許您像 <code>joins</code> 那樣對 eager loaded 關聯下條件，但推薦的做法是使用<a href="#">連接資料表</a>。</p><p>但若非要這麼做，可以像平常那樣使用 <code>where</code>：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
-Article.includes(:comments).where("comments.visible" =&gt; true)
+Article.includes(:comments).where(comments: { visible: true })
 
 </pre>
 </div>
@@ -1195,7 +1195,13 @@ SELECT "articles"."id" AS t0_r0, ... "comments"."updated_at" AS t1_r5 FROM "arti
 
 </pre>
 </div>
-<p>如果沒有下 <code>where</code> 條件，則會像平常那樣產生兩條查詢。</p><p>上例若文章都沒有評論，仍會載入所有文章。然而使用 <code>joins</code> （<code>INNER JOIN</code>）<strong>必須</strong>要滿足連接條件，不然不會回傳任何記錄。</p><h3 id="作用域">14 作用域</h3><p>作用域（Scopes）允許將常用查詢定義成關聯物件或 Model 的方法。作用域可以使用前面介紹過的 <code>where</code>、<code>joins</code>、<code>includes</code> 等方法。所有作用域方法會回傳一個 <code>ActiveRecord::Relation</code> 物件，允許之後的方法（像是作用域）來繼續呼叫。</p><p>要定義一個簡單的作用域，在類別裡使用 <code>scope</code> 方法，傳入呼叫此作用域時想執行的查詢即可：</p><div class="code_container">
+<p>如果沒有下 <code>where</code> 條件，則會像平常那樣產生兩條查詢。</p><div class="note"><p><code>where</code> 的這種用法只對參數是 Hash 有效。傳入參數是 SQL 片段，要使用 <code>references</code> 來強制連接資料表。</p></div><div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+Article.includes(:comments).where("comments.visible = true").references(:comments)
+
+</pre>
+</div>
+<p>上例若文章都沒有評論，仍會載入所有文章。然而使用 <code>joins</code> （<code>INNER JOIN</code>）<strong>必須</strong>要滿足連接條件，不然不會回傳任何記錄。</p><h3 id="作用域">14 作用域</h3><p>作用域（Scopes）允許將常用查詢定義成關聯物件或 Model 的方法。作用域可以使用前面介紹過的 <code>where</code>、<code>joins</code>、<code>includes</code> 等方法。所有作用域方法會回傳一個 <code>ActiveRecord::Relation</code> 物件，允許之後的方法（像是作用域）來繼續呼叫。</p><p>要定義一個簡單的作用域，在類別裡使用 <code>scope</code> 方法，傳入呼叫此作用域時想執行的查詢即可：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Article &lt; ActiveRecord::Base
   scope :published, -&gt; { where(published: true) }

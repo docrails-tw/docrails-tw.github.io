@@ -6,7 +6,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-<title>Rails 命令行 — Ruby on Rails 指南</title>
+<title>Rails 命令列 — Ruby on Rails 指南</title>
 <link rel="stylesheet" type="text/css" href="stylesheets/style.css" />
 <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
 
@@ -50,7 +50,7 @@
                 <dd><a href="getting_started.html">Rails 起步走</a></dd>
                 <dt>Models</dt>
                 <dd><a href="active_record_basics.html">Active Record 基礎</a></dd>
-                <dd><a href="migrations.html">Active Record 遷移</a></dd>
+                <dd><a href="active_record_migrations.html">Active Record 遷移</a></dd>
                 <dd><a href="active_record_validations.html">Active Record 驗證</a></dd>
                 <dd><a href="active_record_callbacks.html">Active Record 回呼</a></dd>
                 <dd><a href="association_basics.html">Active Record 關聯</a></dd>
@@ -68,9 +68,9 @@
                 <dd><a href="i18n.html">Rails 國際化 API</a></dd>
                 <dd><a href="action_mailer_basics.html">Action Mailer 基礎</a></dd>
                 <dd><a href="security.html">Rails 安全指南</a></dd>
-                <dd><a href="debugging_rails_applications.html">Rails 應用程式除錯</a></dd>
-                <dd><a href="configuring.html">Rails 設定應用程式</a></dd>
-                <dd><a href="command_line.html">Rake 任務與 Rails 命令行工具</a></dd>
+                <dd><a href="debugging_rails_applications.html">除錯 Rails 應用程式</a></dd>
+                <dd><a href="configuring.html">Rails 應用程式設定</a></dd>
+                <dd><a href="command_line.html">Rake 任務與 Rails 命令列工具</a></dd>
                 <dd><a href="asset_pipeline.html">Asset Pipeline</a></dd>
                 <dd><a href="working_with_javascript_in_rails.html">在 Rails 使用 JavaScript</a></dd>
                 <dt>擴充 Rails</dt>
@@ -108,7 +108,7 @@
               </optgroup>
               <optgroup label="Models">
                   <option value="active_record_basics.html">Active Record 基礎</option>
-                  <option value="migrations.html">Active Record 遷移</option>
+                  <option value="active_record_migrations.html">Active Record 遷移</option>
                   <option value="active_record_validations.html">Active Record 驗證</option>
                   <option value="active_record_callbacks.html">Active Record 回呼</option>
                   <option value="association_basics.html">Active Record 關聯</option>
@@ -127,9 +127,9 @@
                   <option value="i18n.html">Rails 國際化 API</option>
                   <option value="action_mailer_basics.html">Action Mailer 基礎</option>
                   <option value="security.html">Rails 安全指南</option>
-                  <option value="debugging_rails_applications.html">Rails 應用程式除錯</option>
-                  <option value="configuring.html">Rails 設定應用程式</option>
-                  <option value="command_line.html">Rake 任務與 Rails 命令行工具</option>
+                  <option value="debugging_rails_applications.html">除錯 Rails 應用程式</option>
+                  <option value="configuring.html">Rails 應用程式設定</option>
+                  <option value="command_line.html">Rake 任務與 Rails 命令列工具</option>
                   <option value="asset_pipeline.html">Asset Pipeline</option>
                   <option value="working_with_javascript_in_rails.html">在 Rails 使用 JavaScript</option>
               </optgroup>
@@ -169,7 +169,7 @@
 
   <div id="feature">
     <div class="wrapper">
-      <h2>Rails 命令行</h2><p>讀完本篇，您將了解：</p>
+      <h2>Rails 命令列</h2><p>讀完本篇，您將了解：</p>
 <ul>
 <li>如何新建 Rails 應用程式。</li>
 <li>如何產生 models、controllers、資料庫 migrations、單元測試。</li>
@@ -307,19 +307,18 @@ Usage: rails generate controller NAME [action action] [options]
 Description:
     ...
 
-    To create a controller within a module, specify the controller name as a
-    path like 'parent_module/controller_name'.
+    To create a controller within a module, specify the controller name as a path like 'parent_module/controller_name'.
 
     ...
 
 Example:
-    `rails generate controller CreditCard open debit credit close`
+    `rails generate controller CreditCards open debit credit close`
 
-    Credit card controller with URLs like /credit_card/debit.
+    Credit card controller with URLs like /credit_cards/debit.
         Controller: app/controllers/credit_card_controller.rb
-        Test:       test/controllers/credit_card_controller_test.rb
-        Views:      app/views/credit_card/debit.html.erb [...]
-        Helper:     app/helpers/credit_card_helper.rb
+        Test:       test/controllers/credit_cards_controller_test.rb
+        Views:      app/views/credit_cards/debit.html.erb [...]
+        Helper:     app/helpers/credit_cards_helper.rb
 
 </pre>
 </div>

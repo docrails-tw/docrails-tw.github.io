@@ -50,7 +50,7 @@
                 <dd><a href="getting_started.html">Rails 起步走</a></dd>
                 <dt>Models</dt>
                 <dd><a href="active_record_basics.html">Active Record 基礎</a></dd>
-                <dd><a href="migrations.html">Active Record 遷移</a></dd>
+                <dd><a href="active_record_migrations.html">Active Record 遷移</a></dd>
                 <dd><a href="active_record_validations.html">Active Record 驗證</a></dd>
                 <dd><a href="active_record_callbacks.html">Active Record 回呼</a></dd>
                 <dd><a href="association_basics.html">Active Record 關聯</a></dd>
@@ -68,9 +68,9 @@
                 <dd><a href="i18n.html">Rails 國際化 API</a></dd>
                 <dd><a href="action_mailer_basics.html">Action Mailer 基礎</a></dd>
                 <dd><a href="security.html">Rails 安全指南</a></dd>
-                <dd><a href="debugging_rails_applications.html">Rails 應用程式除錯</a></dd>
-                <dd><a href="configuring.html">Rails 設定應用程式</a></dd>
-                <dd><a href="command_line.html">Rake 任務與 Rails 命令行工具</a></dd>
+                <dd><a href="debugging_rails_applications.html">除錯 Rails 應用程式</a></dd>
+                <dd><a href="configuring.html">Rails 應用程式設定</a></dd>
+                <dd><a href="command_line.html">Rake 任務與 Rails 命令列工具</a></dd>
                 <dd><a href="asset_pipeline.html">Asset Pipeline</a></dd>
                 <dd><a href="working_with_javascript_in_rails.html">在 Rails 使用 JavaScript</a></dd>
                 <dt>擴充 Rails</dt>
@@ -108,7 +108,7 @@
               </optgroup>
               <optgroup label="Models">
                   <option value="active_record_basics.html">Active Record 基礎</option>
-                  <option value="migrations.html">Active Record 遷移</option>
+                  <option value="active_record_migrations.html">Active Record 遷移</option>
                   <option value="active_record_validations.html">Active Record 驗證</option>
                   <option value="active_record_callbacks.html">Active Record 回呼</option>
                   <option value="association_basics.html">Active Record 關聯</option>
@@ -127,9 +127,9 @@
                   <option value="i18n.html">Rails 國際化 API</option>
                   <option value="action_mailer_basics.html">Action Mailer 基礎</option>
                   <option value="security.html">Rails 安全指南</option>
-                  <option value="debugging_rails_applications.html">Rails 應用程式除錯</option>
-                  <option value="configuring.html">Rails 設定應用程式</option>
-                  <option value="command_line.html">Rake 任務與 Rails 命令行工具</option>
+                  <option value="debugging_rails_applications.html">除錯 Rails 應用程式</option>
+                  <option value="configuring.html">Rails 應用程式設定</option>
+                  <option value="command_line.html">Rake 任務與 Rails 命令列工具</option>
                   <option value="asset_pipeline.html">Asset Pipeline</option>
                   <option value="working_with_javascript_in_rails.html">在 Rails 使用 JavaScript</option>
               </optgroup>
@@ -217,7 +217,7 @@
   <div id="container">
     <div class="wrapper">
       <div id="mainCol">
-        <div class="warning"><p>本篇需要先了解 Rack 協定，以及 Rack 的相關概念，譬如：什麼是 Middleware、什麼是 URL 映射以及 <code>Rack::Builder</code> 等知識。</p></div><h3 id="rack-簡介">1 Rack 簡介</h3><p>Rack 給使用 Ruby 開發的網路應用程式，提供了精簡、模組化、容易介接的介面。Rack 將 HTTP 請求與響應，盡可能包裝成最簡單的形式，給網路框架、伺服器以及框架與伺服器之間的軟體（Middleware）提供了一個統一的 API 接口，<code>call</code> 方法。</p><p>更多內容請參考：<a href="http://rack.rubyforge.org/doc/">Rack API 文件</a>。</p><p>深入解釋 Rack 超出本篇的範疇。若不熟悉 Rack 的基礎知識，請閱讀<a href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99">參考資料</a>一節。</p><h3 id="rails-on-rack">2 Rails on Rack</h3><h4 id="rails-應用程式的-rack-物件">2.1 Rails 應用程式的 Rack 物件</h4><p><code>ApplicationName::Application</code> 是 Rails 應用程式主要的 Rack 物件。任何與 Rack 相容的 Web 伺服器，都應該使用 <code>ApplicationName::Application</code> 物件來執行 Rails 應用程式。<code>Rails.application</code> 是 <code>ApplicationName::Application</code> 物件 的引用。</p><h4 id="rails-server">2.2 <code>rails server</code>
+        <div class="warning"><p>本篇需要先了解 Rack 協定，以及 Rack 的相關概念，譬如：什麼是 Middleware、什麼是 URL 映射以及 <code>Rack::Builder</code> 等知識。</p></div><h3 id="rack-簡介">1 Rack 簡介</h3><p>Rack 給使用 Ruby 開發的網路應用程式，提供了精簡、模組化、容易介接的介面。Rack 將 HTTP 請求與響應，盡可能包裝成最簡單的形式，給網路框架、伺服器以及框架與伺服器之間的軟體（Middleware）提供了一個統一的 API 接口，<code>call</code> 方法。</p><p>更多內容請參考：<a href="http://rack.github.io/">Rack API 文件</a>。</p><p>深入解釋 Rack 超出本篇的範疇。若不熟悉 Rack 的基礎知識，請閱讀<a href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99">參考資料</a>一節。</p><h3 id="rails-on-rack">2 Rails on Rack</h3><h4 id="rails-應用程式的-rack-物件">2.1 Rails 應用程式的 Rack 物件</h4><p><code>ApplicationName::Application</code> 是 Rails 應用程式主要的 Rack 物件。任何與 Rack 相容的 Web 伺服器，都應該使用 <code>ApplicationName::Application</code> 物件來執行 Rails 應用程式。<code>Rails.application</code> 是 <code>ApplicationName::Application</code> 物件 的引用。</p><h4 id="rails-server">2.2 <code>rails server</code>
 </h4><p><code>rails server</code> 建立 <code>Rack::Server</code> 物件並啟動伺服器。</p><p>以下是 <code>rails server</code> 如何建立 <code>Rack::Server</code> 的實體。</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 Rails::Server.new.tap do |server|

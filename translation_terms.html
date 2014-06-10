@@ -50,7 +50,7 @@
                 <dd><a href="getting_started.html">Rails 起步走</a></dd>
                 <dt>Models</dt>
                 <dd><a href="active_record_basics.html">Active Record 基礎</a></dd>
-                <dd><a href="migrations.html">Active Record 遷移</a></dd>
+                <dd><a href="active_record_migrations.html">Active Record 遷移</a></dd>
                 <dd><a href="active_record_validations.html">Active Record 驗證</a></dd>
                 <dd><a href="active_record_callbacks.html">Active Record 回呼</a></dd>
                 <dd><a href="association_basics.html">Active Record 關聯</a></dd>
@@ -68,9 +68,9 @@
                 <dd><a href="i18n.html">Rails 國際化 API</a></dd>
                 <dd><a href="action_mailer_basics.html">Action Mailer 基礎</a></dd>
                 <dd><a href="security.html">Rails 安全指南</a></dd>
-                <dd><a href="debugging_rails_applications.html">Rails 應用程式除錯</a></dd>
-                <dd><a href="configuring.html">Rails 設定應用程式</a></dd>
-                <dd><a href="command_line.html">Rake 任務與 Rails 命令行工具</a></dd>
+                <dd><a href="debugging_rails_applications.html">除錯 Rails 應用程式</a></dd>
+                <dd><a href="configuring.html">Rails 應用程式設定</a></dd>
+                <dd><a href="command_line.html">Rake 任務與 Rails 命令列工具</a></dd>
                 <dd><a href="asset_pipeline.html">Asset Pipeline</a></dd>
                 <dd><a href="working_with_javascript_in_rails.html">在 Rails 使用 JavaScript</a></dd>
                 <dt>擴充 Rails</dt>
@@ -108,7 +108,7 @@
               </optgroup>
               <optgroup label="Models">
                   <option value="active_record_basics.html">Active Record 基礎</option>
-                  <option value="migrations.html">Active Record 遷移</option>
+                  <option value="active_record_migrations.html">Active Record 遷移</option>
                   <option value="active_record_validations.html">Active Record 驗證</option>
                   <option value="active_record_callbacks.html">Active Record 回呼</option>
                   <option value="association_basics.html">Active Record 關聯</option>
@@ -127,9 +127,9 @@
                   <option value="i18n.html">Rails 國際化 API</option>
                   <option value="action_mailer_basics.html">Action Mailer 基礎</option>
                   <option value="security.html">Rails 安全指南</option>
-                  <option value="debugging_rails_applications.html">Rails 應用程式除錯</option>
-                  <option value="configuring.html">Rails 設定應用程式</option>
-                  <option value="command_line.html">Rake 任務與 Rails 命令行工具</option>
+                  <option value="debugging_rails_applications.html">除錯 Rails 應用程式</option>
+                  <option value="configuring.html">Rails 應用程式設定</option>
+                  <option value="command_line.html">Rake 任務與 Rails 命令列工具</option>
                   <option value="asset_pipeline.html">Asset Pipeline</option>
                   <option value="working_with_javascript_in_rails.html">在 Rails 使用 JavaScript</option>
               </optgroup>
@@ -260,6 +260,7 @@
 <p>Backtick 反引號</p>
 <p><code>`</code></p>
 </li>
+<li><p>blind carbon copy 密件副本 Bcc</p></li>
 <li><p>Bound Parameters 綁定參數</p></li>
 <li><p>Bootstrap 啟動</p></li>
 <li><p>Boilerplate 樣板</p></li>
@@ -268,6 +269,7 @@
 <ul>
 <li><p>Callback 回呼</p></li>
 <li><p>Cache 快取</p></li>
+<li><p>Carbon copy 副本 Cc</p></li>
 <li>
 <p>Class 類別</p>
 <p>Ruby 的 <code>Class</code></p>
@@ -280,6 +282,8 @@
 <p>Column 欄位</p>
 <p>資料庫的欄位。</p>
 </li>
+<li><p>Command 命令</p></li>
+<li><p>Command Line 命令列</p></li>
 <li>
 <p>Commit 提交</p>
 <p>版本管理世界的用詞。<code>git commit</code>。</p>
@@ -350,6 +354,7 @@
 <h3 id="g">9 G</h3>
 <ul>
 <li><p>Generator 產生器</p></li>
+<li><p>Generic 通用</p></li>
 <li><p>Globbing 通配符號</p></li>
 </ul>
 <h3 id="h">10 H</h3>
@@ -400,6 +405,7 @@
 <ul>
 <li><p>Layout 版型</p></li>
 <li><p>Library 函式庫</p></li>
+<li><p>Log 記錄檔</p></li>
 </ul>
 <h3 id="m">15 M</h3>
 <ul>
@@ -409,17 +415,19 @@
 <p>宏通常指的是透過一行宣告，可以給目標動態新增許多新的程式碼。用宏表示這種“神奇的”程式設計手法似乎比較好。</p>
 </li>
 <li><p>Macro-style 宏風格的</p></li>
-<li><p>Migration 遷移</p></li>
-<li><p>Modifier 修飾符</p></li>
-<li><p>Module 模組</p></li>
-<li><p>Middleware 中間件</p></li>
 <li><p>Member action 成員動作</p></li>
 <li><p>Member route 成員路由</p></li>
+<li><p>Migration 遷移</p></li>
+<li><p>Middleware 中間件</p></li>
+<li><p>Modifier 修飾符</p></li>
+<li><p>Module 模組</p></li>
+<li><p>Multipart 多種格式</p></li>
 </ul>
 <h3 id="n">16 N</h3>
 <ul>
 <li><p>Namespace 命名空間</p></li>
 <li><p>Named Helpers 具名輔助方法</p></li>
+<li><p>Named Route 具名路由</p></li>
 <li><p>Nesting 嵌套的</p></li>
 <li><p>Nested 嵌套的</p></li>
 </ul>

@@ -51,7 +51,7 @@
                 <dd><a href="getting_started.html">Rails 起步走</a></dd>
                 <dt>Models</dt>
                 <dd><a href="active_record_basics.html">Active Record 基礎</a></dd>
-                <dd><a href="migrations.html">Active Record 遷移</a></dd>
+                <dd><a href="active_record_migrations.html">Active Record 遷移</a></dd>
                 <dd><a href="active_record_validations.html">Active Record 驗證</a></dd>
                 <dd><a href="active_record_callbacks.html">Active Record 回呼</a></dd>
                 <dd><a href="association_basics.html">Active Record 關聯</a></dd>
@@ -69,9 +69,9 @@
                 <dd><a href="i18n.html">Rails 國際化 API</a></dd>
                 <dd><a href="action_mailer_basics.html">Action Mailer 基礎</a></dd>
                 <dd><a href="security.html">Rails 安全指南</a></dd>
-                <dd><a href="debugging_rails_applications.html">Rails 應用程式除錯</a></dd>
-                <dd><a href="configuring.html">Rails 設定應用程式</a></dd>
-                <dd><a href="command_line.html">Rake 任務與 Rails 命令行工具</a></dd>
+                <dd><a href="debugging_rails_applications.html">除錯 Rails 應用程式</a></dd>
+                <dd><a href="configuring.html">Rails 應用程式設定</a></dd>
+                <dd><a href="command_line.html">Rake 任務與 Rails 命令列工具</a></dd>
                 <dd><a href="asset_pipeline.html">Asset Pipeline</a></dd>
                 <dd><a href="working_with_javascript_in_rails.html">在 Rails 使用 JavaScript</a></dd>
                 <dt>擴充 Rails</dt>
@@ -109,7 +109,7 @@
               </optgroup>
               <optgroup label="Models">
                   <option value="active_record_basics.html">Active Record 基礎</option>
-                  <option value="migrations.html">Active Record 遷移</option>
+                  <option value="active_record_migrations.html">Active Record 遷移</option>
                   <option value="active_record_validations.html">Active Record 驗證</option>
                   <option value="active_record_callbacks.html">Active Record 回呼</option>
                   <option value="association_basics.html">Active Record 關聯</option>
@@ -128,9 +128,9 @@
                   <option value="i18n.html">Rails 國際化 API</option>
                   <option value="action_mailer_basics.html">Action Mailer 基礎</option>
                   <option value="security.html">Rails 安全指南</option>
-                  <option value="debugging_rails_applications.html">Rails 應用程式除錯</option>
-                  <option value="configuring.html">Rails 設定應用程式</option>
-                  <option value="command_line.html">Rake 任務與 Rails 命令行工具</option>
+                  <option value="debugging_rails_applications.html">除錯 Rails 應用程式</option>
+                  <option value="configuring.html">Rails 應用程式設定</option>
+                  <option value="command_line.html">Rake 任務與 Rails 命令列工具</option>
                   <option value="asset_pipeline.html">Asset Pipeline</option>
                   <option value="working_with_javascript_in_rails.html">在 Rails 使用 JavaScript</option>
               </optgroup>
@@ -170,10 +170,10 @@
 
   <div id="feature">
     <div class="wrapper">
-      <h2>Ruby on Rails 指南 (f17fa8e)</h2>
+      <h2>Ruby on Rails 指南 (4d209b5)</h2>
 <br>
 <p>
-  這些指南基於 Rails 的 <a href="https://github.com/rails/rails/tree/f17fa8e">master</a> 分支翻譯而成。
+  這些指南基於 Rails 的 <a href="https://github.com/rails/rails/tree/4d209b5">master</a> 分支翻譯而成。
 </p>
 <p>
   這些精心撰寫的指南幫助您快速上手，快速全面地了解 Rails。
@@ -189,7 +189,7 @@
 
       <div id="subCol">
   <dl>
-    <!-- <dd class="kindle">Rails Guides are also available for <a href="kindle/ruby_on_rails_guides_f17fa8e.zh-TW.mobi">Kindle</a>.</dd> -->
+    <!-- <dd class="kindle">Rails Guides are also available for <a href="kindle/ruby_on_rails_guides_4d209b5.zh-TW.mobi">Kindle</a>.</dd> -->
     <dd class="work-in-progress">由此圖案標記的指南代表原文正在撰寫中，或是尚待翻譯。正在撰寫中的原文不會收入在上方的指南目錄裡。可能包含不完整的資訊與錯誤。</dd>
   </dl>
 </div>
@@ -214,7 +214,7 @@
   <dl>
       <dt><a href="active_record_basics.html">Active Record 基礎</a></dt><dd>
         <p>本篇介紹 Models、資料庫持久性以及 Active Record 模式。</p>
-</dd>      <dt><a href="migrations.html">Active Record 遷移</a></dt><dd>
+</dd>      <dt><a href="active_record_migrations.html">Active Record 遷移</a></dt><dd>
         <p>本篇介紹如何有條有理地使用 Active Record 來修改資料庫。</p>
 </dd>      <dt><a href="active_record_validations.html">Active Record 驗證</a></dt><dd>
         <p>本篇介紹如何使用 Active Record 驗證功能。</p>
@@ -251,18 +251,18 @@
         <p>本篇介紹由 Active Support 定義的核心擴展功能。</p>
 </dd>      <dt><a href="i18n.html">Rails 國際化 API</a></dt><dd class="work-in-progress">待翻譯</dd><dd>
         <p>本篇介紹如何國際化應用程式。將應用程式翻譯成多種語言、更改單複數規則、對不同的國家使用正確的日期格式等。</p>
-</dd>      <dt><a href="action_mailer_basics.html">Action Mailer 基礎</a></dt><dd class="work-in-progress">待翻譯</dd><dd>
+</dd>      <dt><a href="action_mailer_basics.html">Action Mailer 基礎</a></dt><dd>
         <p>本篇介紹如何使用 Action Mailer 來收發信件。</p>
 </dd>      <dt><a href="testing.html">測試 Rails 應用程式</a></dt><dd class="work-in-progress">原文撰寫中</dd><dd class="work-in-progress">待翻譯</dd><dd>
         <p>本篇介紹 Rails 裡的單元與功能性測試，從什麼是測試，解說到如何測試 API。</p>
 </dd>      <dt><a href="security.html">Rails 安全指南</a></dt><dd class="work-in-progress">待翻譯</dd><dd>
         <p>本篇介紹網路應用程式常見的安全問題，如何在 Rails 裡處理這些問題。</p>
-</dd>      <dt><a href="debugging_rails_applications.html">Rails 應用程式除錯</a></dt><dd class="work-in-progress">待翻譯</dd><dd>
+</dd>      <dt><a href="debugging_rails_applications.html">除錯 Rails 應用程式</a></dt><dd class="work-in-progress">待翻譯</dd><dd>
         <p>本篇介紹如何給 Rails 應用程式除錯。包含了多種除錯技巧、如何理解與了解程式碼背後究竟發生了什麼事。</p>
-</dd>      <dt><a href="configuring.html">Rails 設定應用程式</a></dt><dd class="work-in-progress">待翻譯</dd><dd>
+</dd>      <dt><a href="configuring.html">Rails 應用程式設定</a></dt><dd class="work-in-progress">待翻譯</dd><dd>
         <p>本篇介紹 Rails 應用程式的基本設定選項。</p>
-</dd>      <dt><a href="command_line.html">Rake 任務與 Rails 命令行工具</a></dt><dd class="work-in-progress">待翻譯</dd><dd>
-        <p>本篇介紹 Rails 提供的 Rake 任務與命令行功能。</p>
+</dd>      <dt><a href="command_line.html">Rake 任務與 Rails 命令列工具</a></dt><dd class="work-in-progress">待翻譯</dd><dd>
+        <p>本篇介紹 Rails 提供的 Rake 任務與命令列功能。</p>
 </dd>      <dt><a href="caching_with_rails.html">Rails 快取</a></dt><dd class="work-in-progress">原文撰寫中</dd><dd class="work-in-progress">待翻譯</dd><dd>
         <p>本篇介紹 Rails 提供的多種快取技巧。</p>
 </dd>      <dt><a href="asset_pipeline.html">Asset Pipeline</a></dt><dd class="work-in-progress">待翻譯</dd><dd>

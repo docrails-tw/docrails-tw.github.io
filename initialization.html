@@ -50,7 +50,7 @@
                 <dd><a href="getting_started.html">Rails 起步走</a></dd>
                 <dt>Models</dt>
                 <dd><a href="active_record_basics.html">Active Record 基礎</a></dd>
-                <dd><a href="migrations.html">Active Record 遷移</a></dd>
+                <dd><a href="active_record_migrations.html">Active Record 遷移</a></dd>
                 <dd><a href="active_record_validations.html">Active Record 驗證</a></dd>
                 <dd><a href="active_record_callbacks.html">Active Record 回呼</a></dd>
                 <dd><a href="association_basics.html">Active Record 關聯</a></dd>
@@ -68,9 +68,9 @@
                 <dd><a href="i18n.html">Rails 國際化 API</a></dd>
                 <dd><a href="action_mailer_basics.html">Action Mailer 基礎</a></dd>
                 <dd><a href="security.html">Rails 安全指南</a></dd>
-                <dd><a href="debugging_rails_applications.html">Rails 應用程式除錯</a></dd>
-                <dd><a href="configuring.html">Rails 設定應用程式</a></dd>
-                <dd><a href="command_line.html">Rake 任務與 Rails 命令行工具</a></dd>
+                <dd><a href="debugging_rails_applications.html">除錯 Rails 應用程式</a></dd>
+                <dd><a href="configuring.html">Rails 應用程式設定</a></dd>
+                <dd><a href="command_line.html">Rake 任務與 Rails 命令列工具</a></dd>
                 <dd><a href="asset_pipeline.html">Asset Pipeline</a></dd>
                 <dd><a href="working_with_javascript_in_rails.html">在 Rails 使用 JavaScript</a></dd>
                 <dt>擴充 Rails</dt>
@@ -108,7 +108,7 @@
               </optgroup>
               <optgroup label="Models">
                   <option value="active_record_basics.html">Active Record 基礎</option>
-                  <option value="migrations.html">Active Record 遷移</option>
+                  <option value="active_record_migrations.html">Active Record 遷移</option>
                   <option value="active_record_validations.html">Active Record 驗證</option>
                   <option value="active_record_callbacks.html">Active Record 回呼</option>
                   <option value="association_basics.html">Active Record 關聯</option>
@@ -127,9 +127,9 @@
                   <option value="i18n.html">Rails 國際化 API</option>
                   <option value="action_mailer_basics.html">Action Mailer 基礎</option>
                   <option value="security.html">Rails 安全指南</option>
-                  <option value="debugging_rails_applications.html">Rails 應用程式除錯</option>
-                  <option value="configuring.html">Rails 設定應用程式</option>
-                  <option value="command_line.html">Rake 任務與 Rails 命令行工具</option>
+                  <option value="debugging_rails_applications.html">除錯 Rails 應用程式</option>
+                  <option value="configuring.html">Rails 應用程式設定</option>
+                  <option value="command_line.html">Rake 任務與 Rails 命令列工具</option>
                   <option value="asset_pipeline.html">Asset Pipeline</option>
                   <option value="working_with_javascript_in_rails.html">在 Rails 使用 JavaScript</option>
               </optgroup>
@@ -344,6 +344,7 @@ is called.</p><div class="code_container">
 COMMAND_WHITELIST = %(plugin generate destroy console server dbconsole application runner new version help)
 
 def run_command!(command)
+  command = parse_command(command)
   if COMMAND_WHITELIST.include?(command)
     send(command)
   else
@@ -356,8 +357,7 @@ end
 <p>With the <code>server</code> command, Rails will further run the following code:</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 def set_application_directory!
-  Dir.chdir(File.expand_path('../../', APP_PATH)) unless
-  File.exist?(File.expand_path("config.ru"))
+  Dir.chdir(File.expand_path('../../', APP_PATH)) unless File.exist?(File.expand_path("config.ru"))
 end
 
 def server
@@ -365,6 +365,8 @@ def server
   require_command!("server")
 
   Rails::Server.new.tap do |server|
+    # We need to require application after the server sets environment,
+    # otherwise the --environment option given to the server won't propagate.
     require APP_PATH
     Dir.chdir(Rails.application.root)
     server.start
@@ -385,6 +387,7 @@ sets up the <code>Rails::Server</code> class.</p><div class="code_container">
 require 'fileutils'
 require 'optparse'
 require 'action_dispatch'
+require 'rails'
 
 module Rails
   class Server &lt; ::Rack::Server
@@ -438,7 +441,7 @@ def parse_options(args)
   # http://www.meb.uni-bonn.de/docs/cgi/cl.html
   args.clear if ENV.include?("REQUEST_METHOD")
 
-  options.merge! opt_parser.parse! args
+  options.merge! opt_parser.parse!(args)
   options[:config] = ::File.expand_path(options[:config])
   ENV["RACK_ENV"] = options[:environment]
   options
@@ -449,13 +452,16 @@ end
 <p>With the <code>default_options</code> set to this:</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 def default_options
+  environment  = ENV['RACK_ENV'] || 'development'
+  default_host = environment == 'development' ? 'localhost' : '0.0.0.0'
+
   {
-    environment: ENV['RACK_ENV'] || "development",
-    pid:         nil,
-    Port:        9292,
-    Host:        "0.0.0.0",
-    AccessLog:   [],
-    config:      "config.ru"
+    :environment =&gt; environment,
+    :pid         =&gt; nil,
+    :Port        =&gt; 9292,
+    :Host        =&gt; default_host,
+    :AccessLog   =&gt; [],
+    :config      =&gt; "config.ru"
   }
 end
 
@@ -507,6 +513,7 @@ private
   def print_boot_information
     ...
     puts "=&gt; Run `rails server -h` for more startup options"
+    ...
     puts "=&gt; Ctrl-C to shutdown server" unless options[:daemonize]
   end
 
@@ -591,7 +598,11 @@ thus memoized by now).</p><div class="code_container">
 <p>The <code>app</code> method here is defined like so:</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 def app
-  @app ||= begin
+  @app ||= options[:builder] ? build_app_from_string : build_app_and_options_from_config
+end
+...
+private
+  def build_app_and_options_from_config
     if !::File.exist? options[:config]
       abort "configuration #{options[:config]} not found"
     end
@@ -600,7 +611,10 @@ def app
     self.options.merge! options
     app
   end
-end
+
+  def build_app_from_string
+    Rack::Builder.new_from_string(self.options[:builder])
+  end
 
 </pre>
 </div>
@@ -615,8 +629,14 @@ run &lt;%= app_const %&gt;
 </div>
 <p>The <code>Rack::Builder.parse_file</code> method here takes the content from this <code>config.ru</code> file and parses it using this code:</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
-app = eval "Rack::Builder.new {( " + cfgfile + "\n )}.to_app",
-    TOPLEVEL_BINDING, config
+app = new_from_string cfgfile, config
+
+...
+
+def self.new_from_string(builder_script, file="(rackup)")
+  eval "Rack::Builder.new {\n" + builder_script + "\n}.to_app",
+    TOPLEVEL_BINDING, file, 0
+end
 
 </pre>
 </div>
@@ -627,8 +647,21 @@ require ::File.expand_path('../config/environment', __FILE__)
 </pre>
 </div>
 <h4 id="config/environment.rb">1.12 <code>config/environment.rb</code>
-</h4><p>This file is the common file required by <code>config.ru</code> (<code>rails server</code>) and Passenger. This is where these two ways to run the server meet; everything before this point has been Rack and Rails setup.</p><p>This file begins with requiring <code>config/application.rb</code>.</p><h4 id="config/application.rb">1.13 <code>config/application.rb</code>
-</h4><p>This file requires <code>config/boot.rb</code>, but only if it hasn't been required before, which would be the case in <code>rails server</code> but <strong>wouldn't</strong> be the case with Passenger.</p><p>Then the fun begins!</p><h3 id="loading-rails">2 Loading Rails</h3><p>The next line in <code>config/application.rb</code> is:</p><div class="code_container">
+</h4><p>This file is the common file required by <code>config.ru</code> (<code>rails server</code>) and Passenger. This is where these two ways to run the server meet; everything before this point has been Rack and Rails setup.</p><p>This file begins with requiring <code>config/application.rb</code>:</p><div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+require File.expand_path('../application', __FILE__)
+
+</pre>
+</div>
+<h4 id="config/application.rb">1.13 <code>config/application.rb</code>
+</h4><p>This file requires <code>config/boot.rb</code>:</p><div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+require File.expand_path('../boot', __FILE__)
+
+</pre>
+</div>
+<p>But only if it hasn't been required before, which would be the case in <code>rails server</code>
+but <strong>wouldn't</strong> be the case with Passenger.</p><p>Then the fun begins!</p><h3 id="loading-rails">2 Loading Rails</h3><p>The next line in <code>config/application.rb</code> is:</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 require 'rails/all'
 
@@ -640,11 +673,12 @@ require 'rails/all'
 require "rails"
 
 %w(
-    active_record
-    action_controller
-    action_mailer
-    rails/test_unit
-    sprockets
+  active_record
+  action_controller
+  action_view
+  action_mailer
+  rails/test_unit
+  sprockets
 ).each do |framework|
   begin
     require "#{framework}/railtie"
@@ -664,7 +698,7 @@ I18n and Rails configuration are all being defined here.</p><h4 id="back-to-conf
 initialized. When <code>config/application.rb</code> has finished loading Rails and defined
 the application namespace, we go back to <code>config/environment.rb</code>,
 where the application is initialized. For example, if the application was called
-<code>Blog</code>, here we would find <code>Blog::Application.initialize!</code>, which is
+<code>Blog</code>, here we would find <code>Rails.application.initialize!</code>, which is
 defined in <code>rails/application.rb</code></p><h4 id="railties/lib/rails/application.rb">2.3 <code>railties/lib/rails/application.rb</code>
 </h4><p>The <code>initialize!</code> method looks like this:</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
@@ -690,7 +724,7 @@ end
 
 </pre>
 </div>
-<p>The run_initializers code itself is tricky. What Rails is doing here is
+<p>The <code>run_initializers</code> code itself is tricky. What Rails is doing here is
 traversing all the class ancestors looking for those that respond to an
 <code>initializers</code> method. It then sorts the ancestors by name, and runs them.
 For example, the <code>Engine</code> class will make all the engines available by
@@ -699,10 +733,14 @@ defines <code>bootstrap</code>, <code>railtie</code>, and <code>finisher</code> 
 prepare the application (like initializing the logger) while the <code>finisher</code>
 initializers (like building the middleware stack) are run last. The <code>railtie</code>
 initializers are the initializers which have been defined on the <code>Rails::Application</code>
-itself and are run between the <code>bootstrap</code> and <code>finishers</code>.</p><p>After this is done we go back to <code>Rack::Server</code></p><h4 id="loading-rails-rack:-lib/rack/server.rb">2.4 Rack: lib/rack/server.rb</h4><p>Last time we left when the <code>app</code> method was being defined:</p><div class="code_container">
+itself and are run between the <code>bootstrap</code> and <code>finishers</code>.</p><p>After this is done we go back to <code>Rack::Server</code>.</p><h4 id="loading-rails-rack:-lib/rack/server.rb">2.4 Rack: lib/rack/server.rb</h4><p>Last time we left when the <code>app</code> method was being defined:</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 def app
-  @app ||= begin
+  @app ||= options[:builder] ? build_app_from_string : build_app_and_options_from_config
+end
+...
+private
+  def build_app_and_options_from_config
     if !::File.exist? options[:config]
       abort "configuration #{options[:config]} not found"
     end
@@ -711,7 +749,10 @@ def app
     self.options.merge! options
     app
   end
-end
+
+  def build_app_from_string
+    Rack::Builder.new_from_string(self.options[:builder])
+  end
 
 </pre>
 </div>
@@ -730,7 +771,7 @@ end
 
 </pre>
 </div>
-<p>Remember, <code>build_app</code> was called (by wrapped_app) in the last line of <code>Server#start</code>.
+<p>Remember, <code>build_app</code> was called (by <code>wrapped_app</code>) in the last line of <code>Server#start</code>.
 Here's how it looked like when we left:</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 server.run wrapped_app, options, &amp;blk
@@ -738,39 +779,49 @@ server.run wrapped_app, options, &amp;blk
 </pre>
 </div>
 <p>At this point, the implementation of <code>server.run</code> will depend on the
-server you're using. For example, if you were using Mongrel, here's what
+server you're using. For example, if you were using Puma, here's what
 the <code>run</code> method would look like:</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
-def self.run(app, options={})
-  server = ::Mongrel::HttpServer.new(
-    options[:Host]           || '0.0.0.0',
-    options[:Port]           || 8080,
-    options[:num_processors] || 950,
-    options[:throttle]       || 0,
-    options[:timeout]        || 60)
-  # Acts like Rack::URLMap, utilizing Mongrel's own path finding methods.
-  # Use is similar to #run, replacing the app argument with a hash of
-  # { path=&gt;app, ... } or an instance of Rack::URLMap.
-  if options[:map]
-    if app.is_a? Hash
-      app.each do |path, appl|
-        path = '/'+path unless path[0] == ?/
-        server.register(path, Rack::Handler::Mongrel.new(appl))
-      end
-    elsif app.is_a? URLMap
-      app.instance_variable_get(:@mapping).each do |(host, path, appl)|
-       next if !host.nil? &amp;&amp; !options[:Host].nil? &amp;&amp; options[:Host] != host
-       path = '/'+path unless path[0] == ?/
-       server.register(path, Rack::Handler::Mongrel.new(appl))
-      end
-    else
-      raise ArgumentError, "first argument should be a Hash or URLMap"
-    end
-  else
-    server.register('/', Rack::Handler::Mongrel.new(app))
+...
+DEFAULT_OPTIONS = {
+  :Host =&gt; '0.0.0.0',
+  :Port =&gt; 8080,
+  :Threads =&gt; '0:16',
+  :Verbose =&gt; false
+}
+
+def self.run(app, options = {})
+  options  = DEFAULT_OPTIONS.merge(options)
+
+  if options[:Verbose]
+    app = Rack::CommonLogger.new(app, STDOUT)
   end
+
+  if options[:environment]
+    ENV['RACK_ENV'] = options[:environment].to_s
+  end
+
+  server   = ::Puma::Server.new(app)
+  min, max = options[:Threads].split(':', 2)
+
+  puts "Puma #{::Puma::Const::PUMA_VERSION} starting..."
+  puts "* Min threads: #{min}, max threads: #{max}"
+  puts "* Environment: #{ENV['RACK_ENV']}"
+  puts "* Listening on tcp://#{options[:Host]}:#{options[:Port]}"
+
+  server.add_tcp_listener options[:Host], options[:Port]
+  server.min_threads = min
+  server.max_threads = max
   yield server if block_given?
-  server.run.join
+
+  begin
+    server.run.join
+  rescue Interrupt
+    puts "* Gracefully stopping, waiting for requests to finish"
+    server.stop(true)
+    puts "* Goodbye!"
+  end
+
 end
 
 </pre>

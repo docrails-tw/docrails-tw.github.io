@@ -6,7 +6,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-<title>Action Mailer Basics — Ruby on Rails 指南</title>
+<title>Action Mailer 基礎 — Ruby on Rails 指南</title>
 <link rel="stylesheet" type="text/css" href="stylesheets/style.css" />
 <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
 
@@ -50,7 +50,7 @@
                 <dd><a href="getting_started.html">Rails 起步走</a></dd>
                 <dt>Models</dt>
                 <dd><a href="active_record_basics.html">Active Record 基礎</a></dd>
-                <dd><a href="migrations.html">Active Record 遷移</a></dd>
+                <dd><a href="active_record_migrations.html">Active Record 遷移</a></dd>
                 <dd><a href="active_record_validations.html">Active Record 驗證</a></dd>
                 <dd><a href="active_record_callbacks.html">Active Record 回呼</a></dd>
                 <dd><a href="association_basics.html">Active Record 關聯</a></dd>
@@ -68,9 +68,9 @@
                 <dd><a href="i18n.html">Rails 國際化 API</a></dd>
                 <dd><a href="action_mailer_basics.html">Action Mailer 基礎</a></dd>
                 <dd><a href="security.html">Rails 安全指南</a></dd>
-                <dd><a href="debugging_rails_applications.html">Rails 應用程式除錯</a></dd>
-                <dd><a href="configuring.html">Rails 設定應用程式</a></dd>
-                <dd><a href="command_line.html">Rake 任務與 Rails 命令行工具</a></dd>
+                <dd><a href="debugging_rails_applications.html">除錯 Rails 應用程式</a></dd>
+                <dd><a href="configuring.html">Rails 應用程式設定</a></dd>
+                <dd><a href="command_line.html">Rake 任務與 Rails 命令列工具</a></dd>
                 <dd><a href="asset_pipeline.html">Asset Pipeline</a></dd>
                 <dd><a href="working_with_javascript_in_rails.html">在 Rails 使用 JavaScript</a></dd>
                 <dt>擴充 Rails</dt>
@@ -108,7 +108,7 @@
               </optgroup>
               <optgroup label="Models">
                   <option value="active_record_basics.html">Active Record 基礎</option>
-                  <option value="migrations.html">Active Record 遷移</option>
+                  <option value="active_record_migrations.html">Active Record 遷移</option>
                   <option value="active_record_validations.html">Active Record 驗證</option>
                   <option value="active_record_callbacks.html">Active Record 回呼</option>
                   <option value="association_basics.html">Active Record 關聯</option>
@@ -127,9 +127,9 @@
                   <option value="i18n.html">Rails 國際化 API</option>
                   <option value="action_mailer_basics.html">Action Mailer 基礎</option>
                   <option value="security.html">Rails 安全指南</option>
-                  <option value="debugging_rails_applications.html">Rails 應用程式除錯</option>
-                  <option value="configuring.html">Rails 設定應用程式</option>
-                  <option value="command_line.html">Rake 任務與 Rails 命令行工具</option>
+                  <option value="debugging_rails_applications.html">除錯 Rails 應用程式</option>
+                  <option value="configuring.html">Rails 應用程式設定</option>
+                  <option value="command_line.html">Rake 任務與 Rails 命令列工具</option>
                   <option value="asset_pipeline.html">Asset Pipeline</option>
                   <option value="working_with_javascript_in_rails.html">在 Rails 使用 JavaScript</option>
               </optgroup>
@@ -169,49 +169,47 @@
 
   <div id="feature">
     <div class="wrapper">
-      <h2>Action Mailer Basics</h2><p>This guide provides you with all you need to get started in sending and
-receiving emails from and to your application, and many internals of Action
-Mailer. It also covers how to test your mailers.</p><p>After reading this guide, you will know:</p>
+      <h2>Action Mailer 基礎</h2><p>本篇提供收發信所需要了解的所有知識，包含 Action Mailer 內部工作原理以及如何測試 Mailer。</p><p>讀完本篇，您將了解：</p>
 <ul>
-<li>How to send and receive email within a Rails application.</li>
-<li>How to generate and edit an Action Mailer class and mailer view.</li>
-<li>How to configure Action Mailer for your environment.</li>
-<li>How to test your Action Mailer classes.</li>
+<li>如何在 Rails 裡寄信收信。</li>
+<li>如何產生、編輯 Action Mailer 的類別與 View。</li>
+<li>如何針對環境設定 Action Mailer。</li>
+<li>如何測試 Action Mailer。</li>
 </ul>
 
 
                 <div id="subCol">
             <h3 class="chapter"><img src="images/chapters_icon.gif" alt="" />Chapters</h3>
             <ol class="chapters">
-<li><a href="#introduction">Introduction</a></li>
+<li><a href="#%E7%B0%A1%E4%BB%8B">簡介</a></li>
 <li>
-<a href="#sending-emails">Sending Emails</a>
+<a href="#%E5%AF%84%E4%BF%A1">寄信</a>
 
 <ul>
-<li><a href="#walkthrough-to-generating-a-mailer">Walkthrough to Generating a Mailer</a></li>
-<li><a href="#auto-encoding-header-values">Auto encoding header values</a></li>
-<li><a href="#complete-list-of-action-mailer-methods">Complete List of Action Mailer Methods</a></li>
+<li><a href="#%E7%94%A2%E7%94%9F-mailer-%E7%9A%84%E6%AD%A5%E9%A9%9F">產生 Mailer 的步驟</a></li>
+<li><a href="#%E8%87%AA%E5%8B%95%E5%B0%8D%E6%A8%99%E9%A0%AD%E7%B7%A8%E7%A2%BC">自動對標頭編碼</a></li>
+<li><a href="#action-mailer-%E6%96%B9%E6%B3%95%E6%B8%85%E5%96%AE">Action Mailer 方法清單</a></li>
 <li><a href="#mailer-views">Mailer Views</a></li>
-<li><a href="#action-mailer-layouts">Action Mailer Layouts</a></li>
-<li><a href="#generating-urls-in-action-mailer-views">Generating URLs in Action Mailer Views</a></li>
-<li><a href="#sending-multipart-emails">Sending Multipart Emails</a></li>
-<li><a href="#sending-emails-with-dynamic-delivery-options">Sending Emails with Dynamic Delivery Options</a></li>
-<li><a href="#sending-emails-without-template-rendering">Sending Emails without Template Rendering</a></li>
+<li><a href="#action-mailer-%E7%89%88%E5%9E%8B">Action Mailer 版型</a></li>
+<li><a href="#%E5%9C%A8-action-mailer-views-%E7%94%A2%E7%94%9F-url">在 Action Mailer Views 產生 URL</a></li>
+<li><a href="#%E5%AF%84%E9%80%81%E5%A4%9A%E7%A8%AE%E6%A0%BC%E5%BC%8F%E7%9A%84-email">寄送多種格式的 Email</a></li>
+<li><a href="#%E4%BD%BF%E7%94%A8%E5%8B%95%E6%85%8B%E7%99%BC%E9%80%81%E9%81%B8%E9%A0%85%E4%BE%86%E5%AF%84%E4%BF%A1">使用動態發送選項來寄信</a></li>
+<li><a href="#%E5%AF%84%E4%BF%A1%E4%BD%86%E4%B8%8D%E4%BD%BF%E7%94%A8%E6%A8%A1%E7%89%88">寄信但不使用模版</a></li>
 </ul>
 </li>
-<li><a href="#receiving-emails">Receiving Emails</a></li>
-<li><a href="#action-mailer-callbacks">Action Mailer Callbacks</a></li>
-<li><a href="#using-action-mailer-helpers">Using Action Mailer Helpers</a></li>
+<li><a href="#%E6%94%B6%E4%BF%A1">收信</a></li>
+<li><a href="#action-mailer-%E5%9B%9E%E5%91%BC">Action Mailer 回呼</a></li>
+<li><a href="#%E4%BD%BF%E7%94%A8-action-mailer-%E7%9A%84%E8%BC%94%E5%8A%A9%E6%96%B9%E6%B3%95">使用 Action Mailer 的輔助方法</a></li>
 <li>
-<a href="#action-mailer-configuration">Action Mailer Configuration</a>
+<a href="#action-mailer-%E8%A8%AD%E5%AE%9A">Action Mailer 設定</a>
 
 <ul>
-<li><a href="#example-action-mailer-configuration">Example Action Mailer Configuration</a></li>
-<li><a href="#action-mailer-configuration-for-gmail">Action Mailer Configuration for Gmail</a></li>
+<li><a href="#action-mailer-%E8%A8%AD%E5%AE%9A%E7%AF%84%E4%BE%8B">Action Mailer 設定範例</a></li>
+<li><a href="#action-mailer-gmail-%E8%A8%AD%E5%AE%9A%E7%AF%84%E4%BE%8B">Action Mailer Gmail 設定範例</a></li>
 </ul>
 </li>
-<li><a href="#mailer-testing">Mailer Testing</a></li>
-<li><a href="#intercepting-emails">Intercepting Emails</a></li>
+<li><a href="#%E6%B8%AC%E8%A9%A6-mailer">測試 Mailer</a></li>
+<li><a href="#%E6%94%94%E6%88%AA-email">攔截 Email</a></li>
 </ol>
 
           </div>
@@ -222,8 +220,7 @@ Mailer. It also covers how to test your mailers.</p><p>After reading this guide,
   <div id="container">
     <div class="wrapper">
       <div id="mainCol">
-        <h3 id="introduction">1 Introduction</h3><p>Action Mailer allows you to send emails from your application using mailer classes and views. Mailers work very similarly to controllers. They inherit from <code>ActionMailer::Base</code> and live in <code>app/mailers</code>, and they have associated views that appear in <code>app/views</code>.</p><h3 id="sending-emails">2 Sending Emails</h3><p>This section will provide a step-by-step guide to creating a mailer and its
-views.</p><h4 id="walkthrough-to-generating-a-mailer">2.1 Walkthrough to Generating a Mailer</h4><h5 id="create-the-mailer">2.1.1 Create the Mailer</h5><div class="code_container">
+        <h3 id="簡介">1 簡介</h3><p>Action Mailer 允許在應用程式裡使用 Mailer 類別與 View 來寄信。Mailer 的動作原理類似於 Controller。Action Mailer 繼承自 <code>ActionMailer::Base</code>，檔案放在 <code>app/mailers</code>，與信件有關的 View 一樣放在 <code>app/views</code>。</p><h3 id="寄信">2 寄信</h3><p>本節逐步介紹如何建立 Mailer，以及相關的 View。</p><h4 id="產生-mailer-的步驟">2.1 產生 Mailer 的步驟</h4><h5 id="新建-mailer">2.1.1 新建 Mailer</h5><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 $ bin/rails generate mailer UserMailer
 create  app/mailers/user_mailer.rb
@@ -234,20 +231,14 @@ create    test/mailers/user_mailer_test.rb
 
 </pre>
 </div>
-<p>As you can see, you can generate mailers just like you use other generators with
-Rails. Mailers are conceptually similar to controllers, and so we get a mailer,
-a directory for views, and a test.</p><p>If you didn't want to use a generator, you could create your own file inside of
-app/mailers, just make sure that it inherits from <code>ActionMailer::Base</code>:</p><div class="code_container">
+<p>如上所見，可以使用產生器來產生 Mailer。Mailer 概念上類似於 Controller，產生的檔案也類似：有 Mailer、放信件 View 的目錄，以及測試。</p><p>若不想使用產生器，可以自己在 <code>app/mailers</code> 建立檔案，記得繼承自 <code>ActionMailer::Base</code>：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class MyMailer &lt; ActionMailer::Base
 end
 
 </pre>
 </div>
-<h5 id="edit-the-mailer">2.1.2 Edit the Mailer</h5><p>Mailers are very similar to Rails controllers. They also have methods called
-"actions" and use views to structure the content. Where a controller generates
-content like HTML to send back to the client, a Mailer creates a message to be
-delivered via email.</p><p><code>app/mailers/user_mailer.rb</code> contains an empty mailer:</p><div class="code_container">
+<h5 id="編輯-mailer">2.1.2 編輯 Mailer</h5><p>Mailer 和 Controller 非常類似。方法都叫做“動作”，用 View 來組織信件內容。但 Controller 是產生 HTML，回給客戶端；Mailer 則是建立訊息，透過信件寄出。</p><p>剛剛產生出來的 <code>app/mailers/user_mailer.rb</code> 檔案裡，有空的 Mailer：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class UserMailer &lt; ActionMailer::Base
   default from: 'from@example.com'
@@ -255,8 +246,7 @@ end
 
 </pre>
 </div>
-<p>Let's add a method called <code>welcome_email</code>, that will send an email to the user's
-registered email address:</p><div class="code_container">
+<p>新增一個方法，稱之為 <code>welcome_email</code>，會寄信給使用者註冊的信箱：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class UserMailer &lt; ActionMailer::Base
   default from: 'notifications@example.com'
@@ -270,18 +260,14 @@ end
 
 </pre>
 </div>
-<p>Here is a quick explanation of the items presented in the preceding method. For
-a full list of all available options, please have a look further down at the
-Complete List of Action Mailer user-settable attributes section.</p>
+<p>以下是 <code>welcome_email</code> 的快速說明。Action Mailer 所有可用的選項請參考<a href="#">〈Action Mailer user-settable attributes〉</a>一節。</p>
 <ul>
 <li>
-<code>default Hash</code> - This is a hash of default values for any email you send from this mailer. In this case we are setting the <code>:from</code> header to a value for all messages in this class. This can be overridden on a per-email basis.</li>
+<code>default</code> ── 任何使用這個 Mailer 送出的信件，預設值都存在這個 Hash 裡。上例設定了 <code>:from</code> 標頭為 <code>'notifications@example.com'</code>。所有發出去的信件都會採用這個預設值，但可以在動作裡覆蓋。</li>
 <li>
-<code>mail</code> - The actual email message, we are passing the <code>:to</code> and <code>:subject</code> headers in.</li>
+<code>mail</code> ── 寄信的方法。上例傳入了 <code>:to</code> 與 <code>:subject</code> 這兩個標頭。</li>
 </ul>
-<p>Just like controllers, any instance variables we define in the method become
-available for use in the views.</p><h5 id="create-a-mailer-view">2.1.3 Create a Mailer View</h5><p>Create a file called <code>welcome_email.html.erb</code> in <code>app/views/user_mailer/</code>. This
-will be the template used for the email, formatted in HTML:</p><div class="code_container">
+<p>和 Controller 一樣，動作裡定義的實體變數，在 View 裡都可以取用。</p><h5 id="建立-mailer-的-view">2.1.3 建立 Mailer 的 View</h5><p>在 <code>app/views/user_mailer/</code> 新建叫做 <code>welcome_email.html.erb</code> 檔案。這個檔案會是信件的模版，採用 HTML 格式：</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 &lt;!DOCTYPE html&gt;
 &lt;html&gt;
@@ -303,9 +289,7 @@ will be the template used for the email, formatted in HTML:</p><div class="code_
 
 </pre>
 </div>
-<p>Let's also make a text part for this email. Not all clients prefer HTML emails,
-and so sending both is best practice. To do this, create a file called
-<code>welcome_email.text.erb</code> in <code>app/views/user_mailer/</code>:</p><div class="code_container">
+<p>再給信件建立一個純文字檔案。因為不是所有客戶端都可以顯示 HTML 格式的信件，兩種格式都寄是最佳實踐。在 <code>app/views/user_mailer/</code> 建立 <code>welcome_email.text.erb</code>：</p><div class="code_container">
 <pre class="brush: ruby; html-script: true; gutter: false; toolbar: false">
 Welcome to example.com, &lt;%= @user.name %&gt;
 ===============================================
@@ -319,21 +303,14 @@ Thanks for joining and have a great day!
 
 </pre>
 </div>
-<p>When you call the <code>mail</code> method now, Action Mailer will detect the two templates
-(text and HTML) and automatically generate a <code>multipart/alternative</code> email.</p><h5 id="calling-the-mailer">2.1.4 Calling the Mailer</h5><p>Mailers are really just another way to render a view. Instead of rendering a
-view and sending out the HTTP protocol, they are just sending it out through the
-email protocols instead. Due to this, it makes sense to just have your
-controller tell the Mailer to send an email when a user is successfully created.</p><p>Setting this up is painfully simple.</p><p>First, let's create a simple <code>User</code> scaffold:</p><div class="code_container">
+<p>呼叫 <code>mail</code> 方法時，Action Mailer 會偵測出有兩個模版（純文字與 HTML），會自動產生 <code>multipart/alternative</code> 的信件。</p><h5 id="呼叫-mailer">2.1.4 呼叫 Mailer</h5><p>Mailer 其實只是另一種算繪 View 的方式，只是算繪的 View 不透過 HTTP 協定送出，而是透過 Email 協定送出。也是因為這個原因，成功建立使用者之後，應該用 Controller 呼叫 mailer 來寄信。</p><p>設定起來非常非常簡單。</p><p>首先，建立一個簡單的 <code>User</code> 鷹架：</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 $ bin/rails generate scaffold user name email login
 $ bin/rake db:migrate
 
 </pre>
 </div>
-<p>Now that we have a user model to play with, we will just edit the
-<code>app/controllers/users_controller.rb</code> make it instruct the UserMailer to deliver
-an email to the newly created user by editing the create action and inserting a
-call to <code>UserMailer.welcome_email</code> right after the user is successfully saved:</p><div class="code_container">
+<p>現在有了可以實驗的 <code>User</code> Model，打開 <code>app/controllers/users_controller.rb</code>，修改 <code>create</code> 動作，成功新建使用者之後，讓 Controller 呼叫 <code>UserMailer</code> 寄信出去。將 <code>UserMailer.welcome_email</code> 這一行放到使用者成功儲存之後：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class UsersController &lt; ApplicationController
   # POST /users
@@ -358,31 +335,19 @@ end
 
 </pre>
 </div>
-<p>The method <code>welcome_email</code> returns a <code>Mail::Message</code> object which can then just
-be told <code>deliver</code> to send itself out.</p><h4 id="auto-encoding-header-values">2.2 Auto encoding header values</h4><p>Action Mailer handles the auto encoding of multibyte characters inside of
-headers and bodies.</p><p>For more complex examples such as defining alternate character sets or
-self-encoding text first, please refer to the
-<a href="https://github.com/mikel/mail">Mail</a> library.</p><h4 id="complete-list-of-action-mailer-methods">2.3 Complete List of Action Mailer Methods</h4><p>There are just three methods that you need to send pretty much any email
-message:</p>
+<p><code>welcome_email</code> 會回傳 <code>Mail::Message</code> 物件，對這個物件呼叫 <code>deliver</code> 便會送出信件。</p><h4 id="自動對標頭編碼">2.2 自動對標頭編碼</h4><p>Action Mailer 會自動對標頭（header）與信件主體（body）裡的多位元組字元編碼。</p><p>定義其它字元組、自編碼純文字等更複雜的範例，請參考 <a href="https://github.com/mikel/mail">Mail</a> 函式庫的說明文件。</p><h4 id="action-mailer-方法清單">2.3 Action Mailer 方法清單</h4><p>有三個方法最為重要：</p>
 <ul>
 <li>
-<code>headers</code> - Specifies any header on the email you want. You can pass a hash of
-header field names and value pairs, or you can call <code>headers[:field_name] =
-'value'</code>.</li>
+<code>headers</code> ── 指定信件的標頭。可以用 Hash 傳入欄位名與數值，或是呼叫 <code>headers[:field_name] = 'value'</code>。</li>
 <li>
-<code>attachments</code> - Allows you to add attachments to your email. For example,
-<code>attachments['file-name.jpg'] = File.read('file-name.jpg')</code>.</li>
+<code>attachments</code> ── 加入附件到信件。例如，<code>attachments['file-name.jpg'] = File.read('file-name.jpg')</code>。</li>
 <li>
-<code>mail</code> - Sends the actual email itself. You can pass in headers as a hash to
-the mail method as a parameter, mail will then create an email, either plain
-text, or multipart, depending on what email templates you have defined.</li>
+<code>mail</code> ── 寄出實際信件。可以將標頭作為 Hash 傳給 <code>mail</code> 作為參數。<code>mail</code> 會新建一封信，純文字或是多種格式（multipart），取決於定義的模版是那種。</li>
 </ul>
-<h5 id="adding-attachments">2.3.1 Adding Attachments</h5><p>Action Mailer makes it very easy to add attachments.</p>
+<h5 id="新增附件">2.3.1 新增附件</h5><p>Action Mailer 把新增附件變得非常簡單。</p>
 <ul>
 <li>
-<p>Pass the file name and content and Action Mailer and the
-<a href="https://github.com/mikel/mail">Mail gem</a> will automatically guess the
-mime_type, set the encoding and create the attachment.</p>
+<p>傳入檔名與內容，Action Mailer 與 <a href="https://github.com/mikel/mail">Mail gem</a> 會自動推出 mime_type，設定編碼、建立附件。</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 attachments['filename.jpg'] = File.read('/path/to/filename.jpg')
@@ -391,16 +356,10 @@ attachments['filename.jpg'] = File.read('/path/to/filename.jpg')
 </div>
 </li>
 </ul>
-<p>  When the <code>mail</code> method will be triggered, it will send a multipart email with
-  an attachment, properly nested with the top level being <code>multipart/mixed</code> and
-  the first part being a <code>multipart/alternative</code> containing the plain text and
-  HTML email messages.</p><div class="note"><p>Mail will automatically Base64 encode an attachment. If you want something
-different, encode your content and pass in the encoded content and encoding in a
-<code>Hash</code> to the <code>attachments</code> method.</p></div>
+<p>  觸發 <code>mail</code> 方法之後，會寄出由多個部分組成的 Email，附件嵌套在頂層之下 <code>multipart/mixed</code>，而第一個部分則是 <code>multipart/alternative</code>，包含 HTML 與純文字格式的信件。</p><div class="note"><p>Mail 會自動使用 Base64 來對附件做編碼。若想用不同的編碼，先自行編碼，再使用 Hash 傳給 <code>attachments</code> 方法。</p></div>
 <ul>
 <li>
-<p>Pass the file name and specify headers and content and Action Mailer and Mail
-will use the settings you pass in.</p>
+<p>傳入檔名、指定標頭與內容，Action Mailer 與 Mail 會使用傳入的設定來新增附件。</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 encoded_content = SpecialEncode(File.read('/path/to/filename.jpg'))
@@ -412,11 +371,10 @@ attachments['filename.jpg'] = {mime_type: 'application/x-gzip',
 </div>
 </li>
 </ul>
-<div class="note"><p>If you specify an encoding, Mail will assume that your content is already
-encoded and not try to Base64 encode it.</p></div><h5 id="making-inline-attachments">2.3.2 Making Inline Attachments</h5><p>Action Mailer 3.0 makes inline attachments, which involved a lot of hacking in pre 3.0 versions, much simpler and trivial as they should be.</p>
+<div class="note"><p>如有指定編碼，Mail 假設信件內容已經經過編碼了，不會再對附件做 Base64 編碼。</p></div><h5 id="製作行內附件">2.3.2 製作行內附件</h5><p>Action Mailer 3.0 可製作行內附件（inline attachments）。3.0 以前需要很多 Hacking 才辦的到，3.0 之後，要使用行內附件變得非常簡單直觀。</p>
 <ul>
 <li>
-<p>First, to tell Mail to turn an attachment into an inline attachment, you just call <code>#inline</code> on the attachments method within your Mailer:</p>
+<p>首先，告訴 Mail 將附件轉成行內附件。只要對 <code>attachments</code> 方法呼叫 <code>#inline</code> 即可：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 def welcome
@@ -427,9 +385,7 @@ end
 </div>
 </li>
 <li>
-<p>Then in your view, you can just reference <code>attachments</code> as a hash and specify
-which attachment you want to show, calling <code>url</code> on it and then passing the
-result into the <code>image_tag</code> method:</p>
+<p>接著在 View 裡，可以把 <code>attachments</code> 當成 Hash，指定要顯示的附件，對附件呼叫 <code>url</code>，接著傳給 <code>image_tag</code>：</p>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 &lt;p&gt;Hello there, this is our image&lt;/p&gt;
@@ -440,8 +396,7 @@ result into the <code>image_tag</code> method:</p>
 </div>
 </li>
 <li>
-<p>As this is a standard call to <code>image_tag</code> you can pass in an options hash
-after the attachment URL as you could for any other image:</p>
+<p>這不過是 <code>image_tag</code> 的標準呼叫方式，附件 URL 之後還可以傳別的選項：</p>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 &lt;p&gt;Hello there, this is our image&lt;/p&gt;
@@ -453,10 +408,7 @@ after the attachment URL as you could for any other image:</p>
 </div>
 </li>
 </ul>
-<h5 id="sending-email-to-multiple-recipients">2.3.3 Sending Email To Multiple Recipients</h5><p>It is possible to send email to one or more recipients in one email (e.g.,
-informing all admins of a new signup) by setting the list of emails to the <code>:to</code>
-key. The list of emails can be an array of email addresses or a single string
-with the addresses separated by commas.</p><div class="code_container">
+<h5 id="寄信給多個收件者">2.3.3 寄信給多個收件者</h5><p>可能會需要將信一次寄給多個人（譬如有人註冊通知所有的管理員），透過將 <code>:to</code> 設定成一組 Email 即可。一組 Email 可以用陣列表示，或是由逗號分開的 Email 字串。</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class AdminMailer &lt; ActionMailer::Base
   default to: Proc.new { Admin.pluck(:email) },
@@ -470,10 +422,7 @@ end
 
 </pre>
 </div>
-<p>The same format can be used to set carbon copy (Cc:) and blind carbon copy
-(Bcc:) recipients, by using the <code>:cc</code> and <code>:bcc</code> keys respectively.</p><h5 id="sending-email-with-name">2.3.4 Sending Email With Name</h5><p>Sometimes you wish to show the name of the person instead of just their email
-address when they receive the email. The trick to doing that is to format the
-email address in the format <code>"Full Name &lt;email&gt;"</code>.</p><div class="code_container">
+<p>同樣的格式也可以用來設定副本與密件副本，分別設定 <code>:cc</code> 與 <code>:bcc</code> 即可。</p><h5 id="使用名稱寄信">2.3.4 使用名稱寄信</h5><p>有時希望收件者可看到寄件者的名稱，而不是寄件者的 Email。秘訣是以 <code>"Full Name &lt;email&gt;"</code> 格式書寫 Email 地址。</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 def welcome_email(user)
   @user = user
@@ -483,11 +432,7 @@ end
 
 </pre>
 </div>
-<h4 id="mailer-views">2.4 Mailer Views</h4><p>Mailer views are located in the <code>app/views/name_of_mailer_class</code> directory. The
-specific mailer view is known to the class because its name is the same as the
-mailer method. In our example from above, our mailer view for the
-<code>welcome_email</code> method will be in <code>app/views/user_mailer/welcome_email.html.erb</code>
-for the HTML version and <code>welcome_email.text.erb</code> for the plain text version.</p><p>To change the default mailer view for your action you do something like:</p><div class="code_container">
+<h4 id="mailer-views">2.4 Mailer Views</h4><p>Mailer views 檔案在 <code>app/views/name_of_mailer_class</code> 目錄下。Mailer 之所以知道要使用那個 View，是因為 View 的名稱和 Mailer 的方法同名。上面的例子裡，<code>welcome_email</code> 方法的 View 的 HTML 格式會存在 <code>app/views/user_mailer/welcome_email.html.erb</code>；純文字格式則是 <code>app/views/user_mailer/welcome_email.text.erb</code>。</p><p>要修改 Mailer 動作預設使用的 View，可以這麼做：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class UserMailer &lt; ActionMailer::Base
   default from: 'notifications@example.com'
@@ -504,10 +449,7 @@ end
 
 </pre>
 </div>
-<p>In this case it will look for templates at <code>app/views/notifications</code> with name
-<code>another</code>.  You can also specify an array of paths for <code>template_path</code>, and they
-will be searched in order.</p><p>If you want more flexibility you can also pass a block and render specific
-templates or even render inline or text without using a template file:</p><div class="code_container">
+<p>這個例子 <code>UserMailer</code> 會去 <code>app/views/notifications</code> 尋找 <code>another</code> 這個 View。<code>template_path</code> 也可以是一組路徑（陣列形式），會依序在路徑下搜索 View。</p><p>若想更靈活的話，也可以傳入區塊，在區塊內明確算繪要用的模版，或是不使用模版，直接傳入字串也可以：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class UserMailer &lt; ActionMailer::Base
   default from: 'notifications@example.com'
@@ -525,13 +467,7 @@ end
 
 </pre>
 </div>
-<p>This will render the template 'another_template.html.erb' for the HTML part and
-use the rendered text for the text part. The render command is the same one used
-inside of Action Controller, so you can use all the same options, such as
-<code>:text</code>, <code>:inline</code> etc.</p><h4 id="action-mailer-layouts">2.5 Action Mailer Layouts</h4><p>Just like controller views, you can also have mailer layouts. The layout name
-needs to be the same as your mailer, such as <code>user_mailer.html.erb</code> and
-<code>user_mailer.text.erb</code> to be automatically recognized by your mailer as a
-layout.</p><p>In order to use a different file, call <code>layout</code> in your mailer:</p><div class="code_container">
+<p>上例程式會使用 <code>another_template.html.erb</code> 來算繪出 HTML 格式的信件，使用 <code>'Render text'</code> 來算繪純文字格式。<code>render</code> 方法與 Action Controller 內的 <code>render</code> 相同，接受同樣選項，像是 <code>:text</code>、<code>:inline</code> 等。</p><h4 id="action-mailer-版型">2.5 Action Mailer 版型</h4><p>和 Controller 的 View 類似，可以有 Mailer 版型。版型名稱必須與 Mailer 名稱相同，譬如 <code>user_mailer.html.erb</code> 或 <code>user_mailer.text.erb</code>，才可以自動認成 Mailer 的版型。</p><p>為了要使用不同的檔案，在 Mailer 裡呼叫 <code>layout</code>：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class UserMailer &lt; ActionMailer::Base
   layout 'awesome' # use awesome.(html|text).erb as the layout
@@ -539,9 +475,7 @@ end
 
 </pre>
 </div>
-<p>Just like with controller views, use <code>yield</code> to render the view inside the
-layout.</p><p>You can also pass in a <code>layout: 'layout_name'</code> option to the render call inside
-the format block to specify different layouts for different formats:</p><div class="code_container">
+<p>和 Controller View 一樣，在版型裡使用 <code>yield</code> 來算繪 View。</p><p>也可以在算繪呼叫裡，傳入 <code>layout: 'layout_name'</code> 選項來指定版型：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class UserMailer &lt; ActionMailer::Base
   def welcome_email(user)
@@ -554,20 +488,13 @@ end
 
 </pre>
 </div>
-<p>Will render the HTML part using the <code>my_layout.html.erb</code> file and the text part
-with the usual <code>user_mailer.text.erb</code> file if it exists.</p><h4 id="generating-urls-in-action-mailer-views">2.6 Generating URLs in Action Mailer Views</h4><p>Unlike controllers, the mailer instance doesn't have any context about the
-incoming request so you'll need to provide the <code>:host</code> parameter yourself.</p><p>As the <code>:host</code> usually is consistent across the application you can configure it
-globally in <code>config/application.rb</code>:</p><div class="code_container">
+<p>HTML 部分會使用 <code>my_layout.html.erb</code>，而純文字部分則會使用一般的 <code>user_mailer.text.erb</code> （如果存在的話）。</p><h4 id="在-action-mailer-views-產生-url">2.6 在 Action Mailer Views 產生 URL</h4><p>跟 Controllers 不一樣，Mailer 實體不知道與請求有關的上下文，所以要自行提供 <code>:host</code> 參數。</p><p>通常應用程式裡的 <code>:host</code> 都是相同的，可以在 <code>config/application.rb</code> 一併設定：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 config.action_mailer.default_url_options = { host: 'example.com' }
 
 </pre>
 </div>
-<h5 id="generating-urls-with-url_for">2.6.1 generating URLs with <code>url_for</code>
-</h5><p>You need to pass the <code>only_path: false</code> option when using <code>url_for</code>. This will
-ensure that absolute URLs are generated because the <code>url_for</code> view helper will,
-by default, generate relative URLs when a <code>:host</code> option isn't explicitly
-provided.</p><div class="code_container">
+<h5 id="使用-url_for-產生-url">2.6.1 使用 <code>url_for</code> 產生 URL</h5><p>使用 <code>url_for</code> 時，需要傳入 <code>only_path: false</code> 選項。確保產生的是絕對 URL，因為 <code>url_for</code> 輔助方法預設會產生相對 URL。</p><div class="code_container">
 <pre class="brush: ruby; html-script: true; gutter: false; toolbar: false">
 &lt;%= url_for(controller: 'welcome',
             action: 'greeting',
@@ -575,8 +502,7 @@ provided.</p><div class="code_container">
 
 </pre>
 </div>
-<p>If you did not configure the <code>:host</code> option globally make sure to pass it to
-<code>url_for</code>.</p><div class="code_container">
+<p>若沒有全域設定 <code>:host</code>，記得在用 <code>url_for</code> 時要傳進來。</p><div class="code_container">
 <pre class="brush: ruby; html-script: true; gutter: false; toolbar: false">
 &lt;%= url_for(host: 'example.com',
             controller: 'welcome',
@@ -584,24 +510,13 @@ provided.</p><div class="code_container">
 
 </pre>
 </div>
-<div class="note"><p>When you explicitly pass the <code>:host</code> Rails will always generate absolute
-URLs, so there is no need to pass <code>only_path: false</code>.</p></div><h5 id="generating-urls-with-named-routes">2.6.2 generating URLs with named routes</h5><p>Email clients have no web context and so paths have no base URL to form complete
-web addresses. Thus, you should always use the "_url" variant of named route
-helpers.</p><p>If you did not configure the <code>:host</code> option globally make sure to pass it to the
-url helper.</p><div class="code_container">
+<div class="note"><p>當明確傳入 <code>:host</code> 時，Rails 會產生絕對 URL，所以不需要再指定 <code>only_path: false</code>。</p></div><h5 id="使用具名路由產生-url">2.6.2 使用具名路由產生 URL</h5><p>Email 客戶端對 Web 一無所知，無法根據某個基礎 URL 來產生完整的 URL。因此，具名路由應該要永遠使用 <code>*_url</code>。</p><p>若沒有全域設定 <code>:host</code>，記得要傳進來。</p><div class="code_container">
 <pre class="brush: ruby; html-script: true; gutter: false; toolbar: false">
 &lt;%= user_url(@user, host: 'example.com') %&gt;
 
 </pre>
 </div>
-<h4 id="sending-multipart-emails">2.7 Sending Multipart Emails</h4><p>Action Mailer will automatically send multipart emails if you have different
-templates for the same action. So, for our UserMailer example, if you have
-<code>welcome_email.text.erb</code> and <code>welcome_email.html.erb</code> in
-<code>app/views/user_mailer</code>, Action Mailer will automatically send a multipart email
-with the HTML and text versions setup as different parts.</p><p>The order of the parts getting inserted is determined by the <code>:parts_order</code>
-inside of the <code>ActionMailer::Base.default</code> method.</p><h4 id="sending-emails-with-dynamic-delivery-options">2.8 Sending Emails with Dynamic Delivery Options</h4><p>If you wish to override the default delivery options (e.g. SMTP credentials)
-while delivering emails, you can do this using <code>delivery_method_options</code> in the
-mailer action.</p><div class="code_container">
+<h4 id="寄送多種格式的-email">2.7 寄送多種格式的 Email</h4><p>如果 Action Mailer 的動作有多個模版，Action Mailer 會自動寄出多種格式的 Email。在 <code>UserMailer</code> 例子裡，若 <code>app/views/user_mailer</code> 有 <code>welcome_email.text.erb</code> 以及 <code>welcome_email.html.erb</code>，則 Action Mailer 會自動寄出多種格式的 Email。</p><p>Email 格式收到的順序由 <code>ActionMailer::Base.default</code> 方法裡的 <code>:parts_order</code> 決定。</p><h4 id="使用動態發送選項來寄信">2.8 使用動態發送選項來寄信</h4><p>若想送信時覆蓋預設的發送選項（譬如 SMTP credential），可以在 Mailer 的動作裡使用 <code>delivery_method_options</code>。</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class UserMailer &lt; ActionMailer::Base
   def welcome_email(user, company)
@@ -618,10 +533,7 @@ end
 
 </pre>
 </div>
-<h4 id="sending-emails-without-template-rendering">2.9 Sending Emails without Template Rendering</h4><p>There may be cases in which you want to skip the template rendering step and
-supply the email body as a string. You can achieve this using the <code>:body</code>
-option. In such cases don't forget to add the <code>:content_type</code> option. Rails
-will default to <code>text/plain</code> otherwise.</p><div class="code_container">
+<h4 id="寄信但不使用模版">2.9 寄信但不使用模版</h4><p>有些情況可能不想要使用模版，需要直接將信件主體（Email Body）作為字串送出。可以使用 <code>:body</code> 選項。同時記得要加上 <code>:content_type</code> 選項（Rails 預設是 <code>text/plain</code>）。</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class UserMailer &lt; ActionMailer::Base
   def welcome_email(user, email_body)
@@ -634,20 +546,13 @@ end
 
 </pre>
 </div>
-<h3 id="receiving-emails">3 Receiving Emails</h3><p>Receiving and parsing emails with Action Mailer can be a rather complex
-endeavor. Before your email reaches your Rails app, you would have had to
-configure your system to somehow forward emails to your app, which needs to be
-listening for that. So, to receive emails in your Rails app you'll need to:</p>
+<h3 id="收信">3 收信</h3><p>在 Action Mailer 接受與解析信件相對複雜許多。在信件送到 Rails 應用程式之前，需要設定作業系統轉發信件到 Rails，所以作業系統會需要監聽進來的信。總結在 Rails 裡收信會需要：</p>
 <ul>
-<li><p>Implement a <code>receive</code> method in your mailer.</p></li>
-<li><p>Configure your email server to forward emails from the address(es) you would
-like your app to receive to <code>/path/to/app/bin/rails runner
-'UserMailer.receive(STDIN.read)'</code>.</p></li>
+<li><p>在 Mailer 實作 <code>receive</code> 方法。</p></li>
+<li><p>設定郵件伺服器轉發信件到 <code>/path/to/app/bin/rails runner
+'UserMailer.receive(STDIN.read)'</code>。</p></li>
 </ul>
-<p>Once a method called <code>receive</code> is defined in any mailer, Action Mailer will
-parse the raw incoming email into an email object, decode it, instantiate a new
-mailer, and pass the email object to the mailer <code>receive</code> instance
-method. Here's an example:</p><div class="code_container">
+<p>一旦在任何 Mailer 裡定義了 <code>receive</code>，Action Mailer 會將進來的信件解析成 Email 物件、解碼、實體化新的 Mailer，接著將 Email 物件傳給 Mailer 的 <code>receive</code>。以下是範例：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class UserMailer &lt; ActionMailer::Base
   def receive(email)
@@ -670,14 +575,12 @@ end
 
 </pre>
 </div>
-<h3 id="action-mailer-callbacks">4 Action Mailer Callbacks</h3><p>Action Mailer allows for you to specify a <code>before_action</code>, <code>after_action</code> and
-<code>around_action</code>.</p>
+<h3 id="action-mailer-回呼">4 Action Mailer 回呼</h3><p>Action Mailer 允許指定 <code>before_action</code>、<code>after_action</code> 以及 <code>around_action</code> 回呼。</p>
 <ul>
-<li><p>Filters can be specified with a block or a symbol to a method in the mailer
-class similar to controllers.</p></li>
-<li><p>You could use a <code>before_action</code> to populate the mail object with defaults,
+<li><p>濾動器（filters）可用方法名稱（符號）或區塊指定，跟 Controller 指定方法類似。</p></li>
+<li><p>可以使用 <code>before_action</code> to populate the mail object with defaults,
 delivery_method_options or insert default headers and attachments.</p></li>
-<li><p>You could use an <code>after_action</code> to do similar setup as a <code>before_action</code> but
+<li><p>可以使用 <code>after_action</code> to do similar setup as a <code>before_action</code> but
 using instance variables set in your mailer action.</p></li>
 </ul>
 <div class="code_container">
@@ -725,11 +628,9 @@ end
 </div>
 
 <ul>
-<li>Mailer Filters abort further processing if body is set to a non-nil value.</li>
+<li>若信件的 body 不是 <code>nil</code>，Mailer Filters 會終止處理。</li>
 </ul>
-<h3 id="using-action-mailer-helpers">5 Using Action Mailer Helpers</h3><p>Action Mailer now just inherits from <code>AbstractController</code>, so you have access to
-the same generic helpers as you do in Action Controller.</p><h3 id="action-mailer-configuration">6 Action Mailer Configuration</h3><p>The following configuration options are best made in one of the environment
-files (environment.rb, production.rb, etc...)</p>
+<h3 id="使用-action-mailer-的輔助方法">5 使用 Action Mailer 的輔助方法</h3><p>Action Mailer 只是繼承自 <code>AbstractController</code>，所以 Action Controller 有的通用輔助方法，Action Mailer 裡也有。</p><h3 id="action-mailer-設定">6 Action Mailer 設定</h3><p>以下設定選項最好在跟環境相關的檔案裡設定（environment.rb, production.rb 等）。</p>
 <table>
 <thead>
 <tr>
@@ -740,73 +641,70 @@ files (environment.rb, production.rb, etc...)</p>
 <tbody>
 <tr>
 <td><code>logger</code></td>
-<td>Generates information on the mailing run if available. Can be set to <code>nil</code> for no logging. Compatible with both Ruby's own <code>Logger</code> and <code>Log4r</code> loggers.</td>
+<td>產生 Mailer 執行時的記錄檔。設為 <code>nil</code> 則不記錄。可以使用 Ruby 的 <code>Logger</code> 與 <code>log4r</code>。</td>
 </tr>
 <tr>
 <td><code>smtp_settings</code></td>
-<td>Allows detailed configuration for <code>:smtp</code> delivery method:<ul>
+<td>用來設定 <code>:smtp</code> 發送方法：<ul>
 <li>
-<code>:address</code> - Allows you to use a remote mail server. Just change it from its default "localhost" setting.</li>
+<code>:address</code> ─ 允許使用遠端郵件伺服器。預設是 <code>"localhost"</code>。</li>
 <li>
-<code>:port</code> - On the off chance that your mail server doesn't run on port 25, you can change it.</li>
+<code>:port</code> ─ 若郵件伺服器不是使用埠口 25，這個選項可以改。</li>
 <li>
-<code>:domain</code> - If you need to specify a HELO domain, you can do it here.</li>
+<code>:domain</code> ─ 指定 HELO 網域。</li>
 <li>
-<code>:user_name</code> - If your mail server requires authentication, set the username in this setting.</li>
+<code>:user_name</code> ─ 如果郵件伺服器需要驗證身分，這個選項可以設定使用者名稱。</li>
 <li>
-<code>:password</code> - If your mail server requires authentication, set the password in this setting.</li>
+<code>:password</code> ─ 如果郵件伺服器需要驗證身分，這個選項可以設定密碼。</li>
 <li>
-<code>:authentication</code> - If your mail server requires authentication, you need to specify the authentication type here. This is a symbol and one of <code>:plain</code>, <code>:login</code>, <code>:cram_md5</code>.</li>
+<code>:authentication</code> ─ 如果郵件伺服器需要驗證身分，這個選項可以設定驗證類型，可用的值有（符號）：<code>:plain</code>、<code>:login</code>、<code>:cram_md5</code>。</li>
 <li>
-<code>:enable_starttls_auto</code> - Set this to <code>false</code> if there is a problem with your server certificate that you cannot resolve.</li>
+<code>:enable_starttls_auto</code> ─ 如果無法解析郵件伺服器的證書，把這個設定設為 <code>false</code>。</li>
 </ul>
 </td>
 </tr>
 <tr>
 <td><code>sendmail_settings</code></td>
-<td>Allows you to override options for the <code>:sendmail</code> delivery method.<ul>
+<td>設定 <code>:sendmail</code> 發送方法的選項。<ul>
 <li>
-<code>:location</code> - The location of the sendmail executable. Defaults to <code>/usr/sbin/sendmail</code>.</li>
+<code>:location</code> ─ <code>sendmail</code> 執行檔案的位置。預設是 <code>/usr/sbin/sendmail</code>。</li>
 <li>
-<code>:arguments</code> - The command line arguments to be passed to sendmail. Defaults to <code>-i -t</code>.</li>
+<code>:arguments</code> ─ 傳給 <code>sendmail</code> 參數的命令列參數，預設是 <code>-i -t</code>。</li>
 </ul>
 </td>
 </tr>
 <tr>
 <td><code>raise_delivery_errors</code></td>
-<td>Whether or not errors should be raised if the email fails to be delivered. This only works if the external email server is configured for immediate delivery.</td>
+<td>信件寄送失敗時是否要拋出錯誤。只在外部郵件伺服器設為立即送出時有效。</td>
 </tr>
 <tr>
 <td><code>delivery_method</code></td>
-<td>Defines a delivery method. Possible values are:<ul>
+<td>定義送信的方法。可用的數值有：<ul>
 <li>
-<code>:smtp</code> (default), can be configured by using <code>config.action_mailer.smtp_settings</code>.</li>
+<code>:smtp</code>（預設值），可以透過 <code>config.action_mailer.smtp_settings</code> 來設定。</li>
 <li>
-<code>:sendmail</code>, can be configured by using <code>config.action_mailer.sendmail_settings</code>.</li>
+<code>:sendmail</code>，可以透過 <code>config.action_mailer.sendmail_settings</code> 來設定。</li>
 <li>
-<code>:file</code>: save emails to files; can be configured by using <code>config.action_mailer.file_settings</code>.</li>
+<code>:file</code>：把信件存成檔案。可以透過 <code>config.action_mailer.file_settings</code> 來設定。</li>
 <li>
-<code>:test</code>: save emails to <code>ActionMailer::Base.deliveries</code> array.</li>
-</ul>See <a href="http://api.rubyonrails.org/classes/ActionMailer/Base.html">API docs</a> for more info.</td>
+<code>:test</code>：把信件存到 <code>ActionMailer::Base.deliveries</code> 陣列裡。</li>
+</ul>參考 <a href="http://api.rubyonrails.org/classes/ActionMailer/Base.html">API 文件</a>來了解更多資訊。</td>
 </tr>
 <tr>
 <td><code>perform_deliveries</code></td>
-<td>Determines whether deliveries are actually carried out when the <code>deliver</code> method is invoked on the Mail message. By default they are, but this can be turned off to help functional testing.</td>
+<td>決定 <code>deliver</code> 方法是否真的要送出信件。預設是會，但可以在做功能性測試時關掉。</td>
 </tr>
 <tr>
 <td><code>deliveries</code></td>
-<td>Keeps an array of all the emails sent out through the Action Mailer with delivery_method :test. Most useful for unit and functional testing.</td>
+<td>由 Action Mailer 使用 <code>:test</code> 方法送出的信件保存到陣列裡。主要用來做功能性與單元測試。</td>
 </tr>
 <tr>
 <td><code>default_options</code></td>
-<td>Allows you to set default values for the <code>mail</code> method options (<code>:from</code>, <code>:reply_to</code>, etc.).</td>
+<td>設定 <code>mail</code> 方法的預設值（如 <code>:from</code>、<code>:reply_to</code> 等）。</td>
 </tr>
 </tbody>
 </table>
-<p>For a complete writeup of possible configurations see the
-<a href="configuring.html#configuring-action-mailer">Action Mailer section</a> in
-our Configuring Rails Applications guide.</p><h4 id="example-action-mailer-configuration">6.1 Example Action Mailer Configuration</h4><p>An example would be adding the following to your appropriate
-<code>config/environments/$RAILS_ENV.rb</code> file:</p><div class="code_container">
+<p>完整設定選項請參考<a href="configuring.html#configuring-action-mailer">《Rails 應用程式設定》文中的〈Action Mailer〉一節</a>。</p><h4 id="action-mailer-設定範例">6.1 Action Mailer 設定範例</h4><p><code>config/environments/$RAILS_ENV.rb</code> 檔案關於 Mailer 的設定範例：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 config.action_mailer.delivery_method = :sendmail
 # Defaults to:
@@ -820,8 +718,7 @@ config.action_mailer.default_options = {from: 'no-reply@example.com'}
 
 </pre>
 </div>
-<h4 id="action-mailer-configuration-for-gmail">6.2 Action Mailer Configuration for Gmail</h4><p>As Action Mailer now uses the <a href="https://github.com/mikel/mail">Mail gem</a>, this
-becomes as simple as adding to your <code>config/environments/$RAILS_ENV.rb</code> file:</p><div class="code_container">
+<h4 id="action-mailer-gmail-設定範例">6.2 Action Mailer Gmail 設定範例</h4><p>由於 Action Mailer 現在使用 <a href="https://github.com/mikel/mail">Mail gem</a> 了，Gmail 的設定非常簡單，將下面的程式碼加到 <code>config/environments/$RAILS_ENV.rb</code> 檔案即可：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 config.action_mailer.delivery_method = :smtp
 config.action_mailer.smtp_settings = {
@@ -835,11 +732,7 @@ config.action_mailer.smtp_settings = {
 
 </pre>
 </div>
-<h3 id="mailer-testing">7 Mailer Testing</h3><p>You can find detailed instructions on how to test your mailers in the
-<a href="testing.html#testing-your-mailers">testing guide</a>.</p><h3 id="intercepting-emails">8 Intercepting Emails</h3><p>There are situations where you need to edit an email before it's
-delivered. Fortunately Action Mailer provides hooks to intercept every
-email. You can register an interceptor to make modifications to mail messages
-right before they are handed to the delivery agents.</p><div class="code_container">
+<h3 id="測試-mailer">7 測試 Mailer</h3><p>如何測試 Mailer 的詳細教學可以參考<a href="testing.html#testing-your-mailers">測試指南</a>。</p><h3 id="攔截-email">8 攔截 Email</h3><p>有時候需要在信件寄出前做些修改。Action Mailer 提供攔截 Email 的 hook。可以註冊一個攔截器，在信件內容交給發送服務前對信件做修改。</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class SandboxEmailInterceptor
   def self.delivering_email(message)
@@ -849,18 +742,13 @@ end
 
 </pre>
 </div>
-<p>Before the interceptor can do its job you need to register it with the Action
-Mailer framework. You can do this in an initializer file
-<code>config/initializers/sandbox_email_interceptor.rb</code></p><div class="code_container">
+<p>攔截器執行任務之前，需要先給 Action Mailer 打聲招呼。建立一個 initializer 檔案，<code>config/initializers/sandbox_email_interceptor.rb</code>：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 ActionMailer::Base.register_interceptor(SandboxEmailInterceptor) if Rails.env.staging?
 
 </pre>
 </div>
-<div class="note"><p>The example above uses a custom environment called "staging" for a
-production like server but for testing purposes. You can read
-<a href="./configuring.html#creating-rails-environments">Creating Rails environments</a>
-for more information about custom Rails environments.</p></div>
+<div class="note"><p>上例使用了自訂的環境，叫做 “staging”，跟 production 環境類似，做測試之用。自訂 Rails 環境的更多資訊，請閱讀<a href="configuring.html#creating-rails-environments">建立 Rails 環境</a>。</p></div>
 
         <h3>反饋</h3>
         <p>
