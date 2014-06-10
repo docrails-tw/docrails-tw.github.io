@@ -220,7 +220,7 @@
   <div id="container">
     <div class="wrapper">
       <div id="mainCol">
-        <h3 id="簡介">1 簡介</h3><p>Action Mailer 允許在應用程式裡使用 Mailer 類別與 View 來寄信。Mailer 的動作原理類似於 Controller。Action Mailer 繼承自 <code>ActionMailer::Base</code>，檔案放在 <code>app/mailers</code>，與信件有關的 View 一樣放在 <code>app/views</code>。</p><h3 id="寄信">2 寄信</h3><p>本節逐步介紹如何建立 Mailer，以及相關的 View。</p><h4 id="產生-mailer-的步驟">2.1 產生 Mailer 的步驟</h4><h5 id="新建-mailer">2.1.1 新建 Mailer</h5><div class="code_container">
+        <h3 id="簡介">1 簡介</h3><p>Action Mailer 允許在應用程式裡使用 Mailer 類別與 View 來寄信。Mailer 的工作原理和 Controller 類似。Action Mailer 繼承自 <code>ActionMailer::Base</code>，檔案放在 <code>app/mailers</code>，與信件有關的 View 一樣放在 <code>app/views</code>。</p><h3 id="寄信">2 寄信</h3><p>本節逐步介紹如何建立 Mailer，以及相關的 View。</p><h4 id="產生-mailer-的步驟">2.1 產生 Mailer 的步驟</h4><h5 id="新建-mailer">2.1.1 新建 Mailer</h5><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 $ bin/rails generate mailer UserMailer
 create  app/mailers/user_mailer.rb
@@ -231,14 +231,14 @@ create    test/mailers/user_mailer_test.rb
 
 </pre>
 </div>
-<p>如上所見，可以使用產生器來產生 Mailer。Mailer 概念上類似於 Controller，產生的檔案也類似：有 Mailer、放信件 View 的目錄，以及測試。</p><p>若不想使用產生器，可以自己在 <code>app/mailers</code> 建立檔案，記得繼承自 <code>ActionMailer::Base</code>：</p><div class="code_container">
+<p>如上所見，可以使用產生器來產生 Mailer。Mailer 概念上類似於 Controller，產生的檔案也差不多：有 Mailer、放信件內容的目錄（View），以及測試 Mailer 的檔案。</p><p>若不想使用產生器，可以自己在 <code>app/mailers</code> 建立檔案，記得要繼承 <code>ActionMailer::Base</code>：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class MyMailer &lt; ActionMailer::Base
 end
 
 </pre>
 </div>
-<h5 id="編輯-mailer">2.1.2 編輯 Mailer</h5><p>Mailer 和 Controller 非常類似。方法都叫做“動作”，用 View 來組織信件內容。但 Controller 是產生 HTML，回給客戶端；Mailer 則是建立訊息，透過信件寄出。</p><p>剛剛產生出來的 <code>app/mailers/user_mailer.rb</code> 檔案裡，有空的 Mailer：</p><div class="code_container">
+<h5 id="編輯-mailer">2.1.2 編輯 Mailer</h5><p>Mailer 和 Controller 非常類似。方法都叫做“動作”，用 View 來組織信件內容。但 Controller 是產生 HTML，回給客戶端；然而 Mailer 則是建立訊息，透過信件寄出。</p><p>看看剛剛產生出來的 <code>UserMailer</code>（<code>app/mailers/user_mailer.rb</code>）：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class UserMailer &lt; ActionMailer::Base
   default from: 'from@example.com'
@@ -260,12 +260,12 @@ end
 
 </pre>
 </div>
-<p>以下是 <code>welcome_email</code> 的快速說明。Action Mailer 所有可用的選項請參考<a href="#action-mailer-%E8%A8%AD%E5%AE%9A">〈Action Mailer 設定〉</a>一節。</p>
+<p>以下是 <code>welcome_email</code> 的快速說明。關於 Action Mailer 所有可用的選項請參考<a href="#action-mailer-%E8%A8%AD%E5%AE%9A">〈Action Mailer 設定〉</a>一節。</p>
 <ul>
 <li>
-<code>default</code> ─ 任何使用這個 Mailer 送出的信件，預設值都存在這個 Hash 裡。上例設定了 <code>:from</code> 標頭為 <code>'notifications@example.com'</code>。所有發出去的信件都會採用這個預設值，但可以在動作裡覆蓋。</li>
+<code>default</code> ─ 任何使用這個 Mailer 送出的信件，預設值都存在這個 Hash 裡。上例設定了 <code>:from</code> 設為 <code>'notifications@example.com'</code>。所有發出去的信都會採用這個預設值，但可以在動作裡覆蓋。</li>
 <li>
-<code>mail</code> ─ 寄信的方法。上例傳入了 <code>:to</code> 與 <code>:subject</code> 這兩個標頭。</li>
+<code>mail</code> ─ 寄信的方法。上例傳入了 <code>:to</code> 與 <code>:subject</code> 這兩個標頭（Header）。</li>
 </ul>
 <p>和 Controller 一樣，動作裡定義的實體變數，在 View 裡都可以取用。</p><h5 id="建立-mailer-的-view">2.1.3 建立 Mailer 的 View</h5><p>在 <code>app/views/user_mailer/</code> 新建叫做 <code>welcome_email.html.erb</code> 檔案。這個檔案會是信件的模版，採用 HTML 格式：</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
@@ -303,14 +303,14 @@ Thanks for joining and have a great day!
 
 </pre>
 </div>
-<p>呼叫 <code>mail</code> 方法時，Action Mailer 會偵測出有兩個模版（純文字與 HTML），會自動產生 <code>multipart/alternative</code> 的信件。</p><h5 id="呼叫-mailer">2.1.4 呼叫 Mailer</h5><p>Mailer 其實只是另一種算繪 View 的方式，只是算繪的 View 不透過 HTTP 協定送出，而是透過 Email 協定送出。也是因為這個原因，成功建立使用者之後，應該用 Controller 呼叫 mailer 來寄信。</p><p>設定起來非常非常簡單。</p><p>首先，建立一個簡單的 <code>User</code> 鷹架：</p><div class="code_container">
+<p>呼叫 <code>mail</code> 方法時，Action Mailer 會偵測出有兩個模版（純文字與 HTML），會自動產生類型為 <code>multipart/alternative</code> 的信件。</p><h5 id="呼叫-mailer">2.1.4 呼叫 Mailer</h5><p>Mailer 其實只是另一種算繪（render） View 的方式，只是算繪的 View 不透過 HTTP 協定送出，而是透過 Email 協定送出。也是因為這個原因，成功建立使用者之後，應該用 Controller 呼叫 mailer 來寄信。</p><p>設定起來非常非常簡單。</p><p>首先，用鷹架建立簡單的 <code>User</code> ：</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 $ bin/rails generate scaffold user name email login
 $ bin/rake db:migrate
 
 </pre>
 </div>
-<p>現在有了可以實驗的 <code>User</code> Model，打開 <code>app/controllers/users_controller.rb</code>，修改 <code>create</code> 動作，成功新建使用者之後，讓 Controller 呼叫 <code>UserMailer</code> 寄信出去。將 <code>UserMailer.welcome_email</code> 這一行放到使用者成功儲存之後：</p><div class="code_container">
+<p>現在有了可以實驗的 <code>User</code> Model，打開 <code>app/controllers/users_controller.rb</code>，修改 <code>create</code> 動作，在成功新建使用者之後，讓 Controller 呼叫 <code>UserMailer</code> 寄信出去。將 <code>UserMailer.welcome_email</code> 這一行，放到成功儲存使用者之後：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class UsersController &lt; ApplicationController
   # POST /users
@@ -335,19 +335,19 @@ end
 
 </pre>
 </div>
-<p><code>welcome_email</code> 會回傳 <code>Mail::Message</code> 物件，對這個物件呼叫 <code>deliver</code> 便會送出信件。</p><h4 id="自動對標頭編碼">2.2 自動對標頭編碼</h4><p>Action Mailer 會自動對標頭（header）與信件主體（body）裡的多位元組字元編碼。</p><p>定義其它字元組、自編碼純文字等更複雜的範例，請參考 <a href="https://github.com/mikel/mail">Mail</a> 函式庫的說明文件。</p><h4 id="action-mailer-方法清單">2.3 Action Mailer 方法清單</h4><p>有三個方法最為重要：</p>
+<p><code>welcome_email</code> 會回傳 <code>Mail::Message</code> 物件，對這個物件呼叫 <code>deliver</code> 便會將信件發送出去。</p><h4 id="自動對標頭編碼">2.2 自動對標頭編碼</h4><p>Action Mailer 會自動對標頭（header）與信件主體（body）裡的多位元組字元進行編碼。</p><p>定義其它字元組、自編碼純文字等更複雜的範例，請參考 <a href="https://github.com/mikel/mail">Mail</a> 函式庫的說明文件。</p><h4 id="action-mailer-方法清單">2.3 Action Mailer 方法清單</h4><p>有三個方法最為重要：</p>
 <ul>
 <li>
-<code>headers</code> ── 指定信件的標頭。可以用 Hash 傳入欄位名與數值，或是呼叫 <code>headers[:field_name] = 'value'</code>。</li>
+<code>headers</code> ─ 指定信件的標頭。可以用 Hash 傳入欄位名與數值，或是使用 <code>headers[:field_name] = 'value'</code> 進行設定。</li>
 <li>
-<code>attachments</code> ── 加入附件到信件。例如，<code>attachments['file-name.jpg'] = File.read('file-name.jpg')</code>。</li>
+<code>attachments</code> ─ 加入附件到信件。例如，<code>attachments['file-name.jpg'] = File.read('file-name.jpg')</code>。</li>
 <li>
-<code>mail</code> ── 寄出實際信件。可以將標頭作為 Hash 傳給 <code>mail</code> 作為參數。<code>mail</code> 會新建一封信，純文字或是多種格式（multipart），取決於定義的模版是那種。</li>
+<code>mail</code> ─ 寄出實際信件。可以將標頭作為 Hash 傳給 <code>mail</code> 作為參數。<code>mail</code> 會新建一封信，純文字或是多種格式（multipart），取決於定義的模版是那種。</li>
 </ul>
 <h5 id="新增附件">2.3.1 新增附件</h5><p>Action Mailer 把新增附件變得非常簡單。</p>
 <ul>
 <li>
-<p>傳入檔名與內容，Action Mailer 與 <a href="https://github.com/mikel/mail">Mail gem</a> 會自動推出 mime_type，設定編碼、建立附件。</p>
+<p>傳入檔名與內容，Action Mailer 與 <a href="https://github.com/mikel/mail">Mail gem</a> 會自動推出 <code>mime_type</code>，設定編碼、建立附件。</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 attachments['filename.jpg'] = File.read('/path/to/filename.jpg')
@@ -356,22 +356,20 @@ attachments['filename.jpg'] = File.read('/path/to/filename.jpg')
 </div>
 </li>
 </ul>
-<p>  觸發 <code>mail</code> 方法之後，會寄出由多個部分組成的 Email，附件嵌套在頂層之下 <code>multipart/mixed</code>，而第一個部分則是 <code>multipart/alternative</code>，包含 HTML 與純文字格式的信件。</p><div class="note"><p>Mail 會自動使用 Base64 來對附件做編碼。若想用不同的編碼，先自行編碼，再使用 Hash 傳給 <code>attachments</code> 方法。</p></div>
+<p>  觸發 <code>mail</code> 方法之後，會寄出由多個部分組成的 Email，附件會嵌套在 <code>multipart/mixed</code> 類型裡，<code>multipart/mixed</code> 第一個部分是 <code>multipart/alternative</code>，包含 HTML 與純文字格式的信件，接著是附件。</p><div class="note"><p>Mail 會自動使用 Base64 來對附件做編碼。若想用不同的編碼，先自行編碼，再使用 Hash 傳給 <code>attachments</code> 方法。</p></div>
 <ul>
 <li>
 <p>傳入檔名、指定標頭與內容，Action Mailer 與 Mail 會使用傳入的設定來新增附件。</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 encoded_content = SpecialEncode(File.read('/path/to/filename.jpg'))
-attachments['filename.jpg'] = {mime_type: 'application/x-gzip',
-                               encoding: 'SpecialEncoding',
-                               content: encoded_content }
+attachments['filename.jpg'] = {mime_type: 'application/x-gzip',encoding: 'SpecialEncoding',content: encoded_content }
 
 </pre>
 </div>
 </li>
 </ul>
-<div class="note"><p>如有指定編碼，Mail 假設信件內容已經經過編碼了，不會再對附件做 Base64 編碼。</p></div><h5 id="製作行內附件">2.3.2 製作行內附件</h5><p>Action Mailer 3.0 起可製作行內附件（inline attachments）。3.0 以前需要很多 Hacking 才辦的到，3.0 之後，行內附件使用起來變得非常簡單直觀。</p>
+<div class="note"><p>如有指定編碼，Mail 會假設信件內容已經經過編碼了，不會再對附件做 Base64 編碼。</p></div><h5 id="製作行內附件">2.3.2 製作行內附件</h5><p>Action Mailer 3.0 起可製作行內附件（inline attachments）。3.0 以前需要很多 Hacking 才辦的到，3.0 之後，行內附件使用起來變得非常簡單直觀。</p>
 <ul>
 <li>
 <p>首先，告訴 Mail 將附件轉成行內附件。只要對 <code>attachments</code> 方法呼叫 <code>#inline</code> 即可：</p>
