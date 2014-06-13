@@ -363,7 +363,11 @@ attachments['filename.jpg'] = File.read('/path/to/filename.jpg')
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 encoded_content = SpecialEncode(File.read('/path/to/filename.jpg'))
-attachments['filename.jpg'] = {mime_type: 'application/x-gzip',encoding: 'SpecialEncoding',content: encoded_content }
+attachments['filename.jpg'] = {
+  mime_type: 'application/x-gzip',
+  encoding: 'SpecialEncoding',
+  content: encoded_content
+}
 
 </pre>
 </div>
@@ -424,7 +428,7 @@ end
 <pre class="brush: ruby; gutter: false; toolbar: false">
 def welcome_email(user)
   @user = user
-  email_with_name = "#{@user.name} &lt;#{@user.email}&gt;"
+  email_with_name = %("#{@user.name}" &lt;#{@user.email}&gt;)
   mail(to: email_with_name, subject: 'Welcome to My Awesome Site')
 end
 

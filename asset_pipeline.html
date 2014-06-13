@@ -666,11 +666,11 @@ config.assets.raise_runtime_errors = false
 </div>
 <p>When this option is true, the asset pipeline will check if all the assets loaded
 in your application are included in the <code>config.assets.precompile</code> list.
-If <code>config.assets.digests</code> is also true, the asset pipeline will require that
+If <code>config.assets.digest</code> is also true, the asset pipeline will require that
 all requests for assets include digests.</p><h4 id="turning-digests-off">3.2 Turning Digests Off</h4><p>You can turn off digests by updating <code>config/environments/development.rb</code> to
 include:</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
-config.assets.digests = false
+config.assets.digest = false
 
 </pre>
 </div>
@@ -753,7 +753,7 @@ the cached page.</p><p>The default matcher for compiling files includes <code>ap
 <code>application.css</code> and all non-JS/CSS files (this will include all image assets
 automatically) from <code>app/assets</code> folders including your gems:</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
-[ Proc.new { |path, fn| fn =~ /app\/assets/ &amp;&amp; !%w(.js .css).include?(File.extname(path)) },
+[ Proc.new { |filename, path| path =~ /app\/assets/ &amp;&amp; !%w(.js .css).include?(File.extname(filename)) },
 /application.(css|js)$/ ]
 
 </pre>
@@ -820,14 +820,16 @@ headers.</p><p>For Apache:</p><div class="code_container">
 # `mod_expires` to be enabled.
 &lt;Location /assets/&gt;
   # Use of ETag is discouraged when Last-Modified is present
-  Header unset ETag FileETag None
+  Header unset ETag
+  FileETag None
   # RFC says only cache for 1 year
-  ExpiresActive On ExpiresDefault "access plus 1 year"
+  ExpiresActive On
+  ExpiresDefault "access plus 1 year"
 &lt;/Location&gt;
 
 </pre>
 </div>
-<p>For nginx:</p><div class="code_container">
+<p>For NGINX:</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 location ~ ^/assets/ {
   expires 1y;
@@ -845,7 +847,7 @@ servers are typically configured to use a moderate compression ratio as a
 compromise, but since precompilation happens once, Sprockets uses the maximum
 compression ratio, thus reducing the size of the data transfer to the minimum.
 On the other hand, web servers can be configured to serve compressed content
-directly from disk, rather than deflating non-compressed files themselves.</p><p>Nginx is able to do this automatically enabling <code>gzip_static</code>:</p><div class="code_container">
+directly from disk, rather than deflating non-compressed files themselves.</p><p>NGINX is able to do this automatically enabling <code>gzip_static</code>:</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 location ~ ^/(assets)/  {
   root /path/to/public;
@@ -864,7 +866,7 @@ the module compiled. Otherwise, you may need to perform a manual compilation:</p
 
 </pre>
 </div>
-<p>If you're compiling nginx with Phusion Passenger you'll need to pass that option
+<p>If you're compiling NGINX with Phusion Passenger you'll need to pass that option
 when prompted.</p><p>A robust configuration for Apache is possible but tricky; please Google around.
 (Or help update this Guide if you have a good configuration example for Apache.)</p><h4 id="local-precompilation">4.2 Local Precompilation</h4><p>There are several reasons why you might want to precompile your assets locally.
 Among them are:</p>
@@ -875,10 +877,12 @@ duplication of work.</li>
 <li>You may be doing frequent deploys that do not include asset changes.</li>
 </ul>
 <p>Local compilation allows you to commit the compiled files into source control,
-and deploy as normal.</p><p>There are two caveats:</p>
+and deploy as normal.</p><p>There are three caveats:</p>
 <ul>
 <li>You must not run the Capistrano deployment task that precompiles assets.</li>
-<li>You must change the following two application configuration settings.</li>
+<li>You must ensure any necessary compressors or minifiers are
+available on your development system.</li>
+<li>You must change the following application configuration setting:</li>
 </ul>
 <p>In <code>config/environments/development.rb</code>, place the following line:</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
@@ -890,8 +894,7 @@ config.assets.prefix = "/dev-assets"
 development mode, and pass all requests to Sprockets. The prefix is still set to
 <code>/assets</code> in the production environment. Without this change, the application
 would serve the precompiled assets from <code>/assets</code> in development, and you would
-not see any local changes until you compile assets again.</p><p>You will also need to ensure any necessary compressors or minifiers are
-available on your development system.</p><p>In practice, this will allow you to precompile locally, have those files in your
+not see any local changes until you compile assets again.</p><p>In practice, this will allow you to precompile locally, have those files in your
 working tree, and commit those files to source control when needed.  Development
 mode will work as expected.</p><h4 id="live-compilation">4.3 Live Compilation</h4><p>In some circumstances you may wish to use live compilation. In this mode all
 requests for assets in the pipeline are handled by Sprockets directly.</p><p>To enable this option set:</p><div class="code_container">
@@ -921,7 +924,7 @@ cache forever. This can cause problems. If you use
 <code>config.action_controller.perform_caching = true</code>, Rack::Cache will use
 <code>Rails.cache</code> to store assets. This can cause your cache to fill up quickly.</p><p>Every cache is different, so evaluate how your CDN handles caching and make sure
 that it plays nicely with the pipeline. You may find quirks related to your
-specific set up, you may not. The defaults nginx uses, for example, should give
+specific set up, you may not. The defaults NGINX uses, for example, should give
 you no problems when used as an HTTP cache.</p><p>If you want to serve only some assets from your CDN, you can use custom
 <code>:host</code> option of  <code>asset_url</code> helper, which overwrites value set in
 <code>config.action_controller.asset_host</code>.</p><div class="code_container">
@@ -994,11 +997,11 @@ from the application, and instead serve a specified file from disk. This option
 is off by default, but can be enabled if your server supports it. When enabled,
 this passes responsibility for serving the file to the web server, which is
 faster. Have a look at <a href="http://api.rubyonrails.org/classes/ActionController/DataStreaming.html#method-i-send_file">send_file</a>
-on how to use this feature.</p><p>Apache and nginx support this option, which can be enabled in
+on how to use this feature.</p><p>Apache and NGINX support this option, which can be enabled in
 <code>config/environments/production.rb</code>:</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
-# config.action_dispatch.x_sendfile_header = "X-Sendfile" # for apache
-# config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect' # for nginx
+# config.action_dispatch.x_sendfile_header = "X-Sendfile" # for Apache
+# config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect' # for NGINX
 
 </pre>
 </div>
@@ -1007,7 +1010,7 @@ option, take care to paste this configuration option only into <code>production.
 and any other environments you define with production behavior (not
 <code>application.rb</code>).</p></div><div class="info"><p>For further details have a look at the docs of your production web server:
 - <a href="https://tn123.org/mod_xsendfile/">Apache</a>
-- <a href="http://wiki.nginx.org/XSendfile">Nginx</a></p></div><h3 id="assets-cache-store">6 Assets Cache Store</h3><p>The default Rails cache store will be used by Sprockets to cache assets in
+- <a href="http://wiki.nginx.org/XSendfile">NGINX</a></p></div><h3 id="assets-cache-store">6 Assets Cache Store</h3><p>The default Rails cache store will be used by Sprockets to cache assets in
 development and production. This can be changed by setting
 <code>config.assets.cache_store</code>:</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
