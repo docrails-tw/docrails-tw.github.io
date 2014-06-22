@@ -174,7 +174,7 @@
 <li>如何使用 PostgreSQL 的資料類型。</li>
 <li>如何使用 UUID 主鍵。</li>
 <li>如何在 PostgreSQL 實作全文搜索。</li>
-<li>如何用 PostgreSQL 的 View 來支援 Active Record Model。</li>
+<li>如何用 資料庫的 View 來支援 Active Record Model。</li>
 </ul>
 
 
@@ -200,7 +200,7 @@
 </li>
 <li><a href="#uuid-%E4%B8%BB%E9%8D%B5">UUID 主鍵</a></li>
 <li><a href="#%E5%85%A8%E6%96%87%E6%90%9C%E7%B4%A2">全文搜索</a></li>
-<li><a href="#views">Views</a></li>
+<li><a href="#%E8%B3%87%E6%96%99%E5%BA%AB-views">資料庫 Views</a></li>
 </ol>
 
           </div>
@@ -563,7 +563,7 @@ Document.where("to_tsvector('english', title || ' ' || body) @@ to_tsquery(?)",
 
 </pre>
 </div>
-<h3 id="views">4 Views</h3>
+<h3 id="資料庫-views">4 資料庫 Views</h3>
 <ul>
 <li><a href="http://www.postgresql.org/docs/9.3/static/sql-createview.html">建立 View</a></li>
 </ul>

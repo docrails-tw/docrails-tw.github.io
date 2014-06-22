@@ -298,9 +298,9 @@ end
 </pre>
 </div>
 </li>
-<li><p>A file at <code>lib/blorgh/engine.rb</code>, which is identical in function to a</p></li>
 <li>
-<p>standard Rails application's <code>config/application.rb</code> file:</p>
+<p>A file at <code>lib/blorgh/engine.rb</code>, which is identical in function to a
+standard Rails application's <code>config/application.rb</code> file:</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 module Blorgh
@@ -617,7 +617,7 @@ namespacing the files under a <code>blorgh</code> directory and creating a model
 called <code>Blorgh::Comment</code>. Now run the migration to create our blorgh_comments
 table:</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
-$ bin/rake db:migrate
+$ rake db:migrate
 
 </pre>
 </div>
@@ -801,14 +801,14 @@ table which need to be created in the application's database so that the
 engine's models can query them correctly. To copy these migrations into the
 application use this command:</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
-$ bin/rake blorgh:install:migrations
+$ rake blorgh:install:migrations
 
 </pre>
 </div>
 <p>If you have multiple engines that need migrations copied over, use
 <code>railties:install:migrations</code> instead:</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
-$ bin/rake railties:install:migrations
+$ rake railties:install:migrations
 
 </pre>
 </div>
@@ -919,7 +919,7 @@ write that into the migration for you. You don't need to tell it any more than
 this.</p></div><p>This migration will need to be run on the application. To do that, it must first
 be copied using this command:</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
-$ bin/rake blorgh:install:migrations
+$ rake blorgh:install:migrations
 
 </pre>
 </div>
@@ -936,7 +936,7 @@ with the same name already exists. Copied migration
 </div>
 <p>Run the migration using:</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
-$ bin/rake db:migrate
+$ rake db:migrate
 
 </pre>
 </div>

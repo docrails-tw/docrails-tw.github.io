@@ -257,6 +257,7 @@
 <ul>
 <li><a href="#%E5%85%A7%E5%BB%BA%E7%9A%84-500%E3%80%81404-%E8%88%87-422-%E6%A8%A1%E7%89%88">內建的 500、404 與 422 模版</a></li>
 <li><a href="#rescue_from"><code>rescue_from</code></a></li>
+<li><a href="#%E8%87%AA%E8%A8%82%E9%8C%AF%E8%AA%A4%E9%A0%81%E9%9D%A2">自訂錯誤頁面</a></li>
 </ul>
 </li>
 <li><a href="#%E5%BC%B7%E5%88%B6%E4%BD%BF%E7%94%A8-https-%E5%8D%94%E5%AE%9A">強制使用 HTTPS 協定</a></li>
@@ -1169,7 +1170,68 @@ end
 
 </pre>
 </div>
-<div class="note"><p>特定的異常只有在 <code>ApplicationController</code> 裡面可以捕捉的到，因為他們在 Controller 被實體化出來之前，或動作執行之前便發生了。參考 Pratik Naik 的<a href="http://m.onkey.org/2008/7/20/rescue-from-dispatching">文章</a>來了解更多關於這個問題的細節。</p></div><h3 id="強制使用-https-協定">15 強制使用 HTTPS 協定</h3><p>有時候出於安全性考量，可能想讓特定的 Controller 只可以透過 HTTPS 來存取。可以在 Controller 使用 <code>force_ssl</code> 方法：</p><div class="code_container">
+<div class="note"><p>特定的異常只有在 <code>ApplicationController</code> 裡面可以捕捉的到，因為他們在 Controller 被實體化出來之前，或動作執行之前便發生了。參考 Pratik Naik 的<a href="http://m.onkey.org/2008/7/20/rescue-from-dispatching">文章</a>來了解更多關於這個問題的細節。</p></div><h4 id="自訂錯誤頁面">14.3 自訂錯誤頁面</h4><p>可以使用 Controller 與 View 來自己客製化錯誤處理的版面。首先定義顯示錯誤頁面的路由。</p>
+<ul>
+<li><code>config/application.rb</code></li>
+</ul>
+<div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+  config.exceptions_app = self.routes
+
+</pre>
+</div>
+
+<ul>
+<li><code>config/routes.rb</code></li>
+</ul>
+<div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+  get '/404', to: 'errors#not_found'
+  get '/422', to: 'errors#unprocessable_entity'
+  get '/500', to: 'errors#server_error'
+
+</pre>
+</div>
+<p>建立 Controller 與 View。</p>
+<ul>
+<li><code>app/controllers/errors_controller.rb</code></li>
+</ul>
+<div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+  class ErrorsController &lt; ActionController::Base
+    layout 'error'
+
+    def not_found
+      render status: :not_found
+    end
+
+    def unprocessable_entity
+      render status: :unprocessable_entity
+    end
+
+    def server_error
+      render status: :server_error
+    end
+  end
+
+</pre>
+</div>
+
+<ul>
+<li><code>app/views</code></li>
+</ul>
+<div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+    errors/
+      not_found.html.erb
+      unprocessable_entity.html.erb
+      server_error.html.erb
+    layouts/
+      error.html.erb
+
+</pre>
+</div>
+<p>別忘記在 Controller 設定正確的錯誤碼（如上所示）。錯誤頁面要避免使用資料庫，或進行任何複雜的操作。因為使用者已經到了錯誤頁面這裡，在錯誤頁面產生另外的錯誤會造成不必要的問題。</p><h3 id="強制使用-https-協定">15 強制使用 HTTPS 協定</h3><p>有時候出於安全性考量，可能想讓特定的 Controller 只可以透過 HTTPS 來存取。可以在 Controller 使用 <code>force_ssl</code> 方法：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class DinnerController
   force_ssl

@@ -169,12 +169,7 @@
 
   <div id="feature">
     <div class="wrapper">
-      <h2>Ruby on Rails 4.2 發佈記</h2><p>Rails 4.2 精華摘要：</p>
-<ul>
-<li>...</li>
-<li>...</li>
-</ul>
-<p>本篇僅記錄主要的變化。要了解關於已修復的 Bug、功能變更等，請參考 [Rails GitHub 主頁][rails]上各個 Gem 的 CHANGELOG 或是 <a href="https://github.com/rails/rails/commits/master">Rails 的提交歷史</a>。</p>
+      <h2>Ruby on Rails 4.2 發佈記</h2><p>Rails 4.2 精華摘要：</p><p>本篇僅記錄主要的變化。要了解關於已修復的 Bug、功能變更等，請參考 [Rails GitHub 主頁][rails]上各個 Gem 的 CHANGELOG 或是 <a href="https://github.com/rails/rails/commits/master">Rails 的提交歷史</a>。</p>
 
                 <div id="subCol">
             <h3 class="chapter"><img src="images/chapters_icon.gif" alt="" />Chapters</h3>
@@ -208,6 +203,7 @@
 <a href="#active-record">Active Record</a>
 
 <ul>
+<li><a href="#active-record-%E6%A3%84%E7%94%A8">棄用</a></li>
 <li><a href="#active-record-%E5%80%BC%E5%BE%97%E4%B8%80%E6%8F%90%E7%9A%84%E8%AE%8A%E5%8C%96">值得一提的變化</a></li>
 </ul>
 </li>
@@ -223,7 +219,7 @@
 
 <ul>
 <li><a href="#active-support-%E7%A7%BB%E9%99%A4">移除</a></li>
-<li><a href="#active-support-%E6%A3%84%E7%94%A8">棄用</a></li>
+<li><a href="#%E6%A3%84%E7%94%A8">棄用</a></li>
 <li><a href="#active-support-%E5%80%BC%E5%BE%97%E4%B8%80%E6%8F%90%E7%9A%84%E8%AE%8A%E5%8C%96">值得一提的變化</a></li>
 </ul>
 </li>
@@ -257,7 +253,18 @@
 <h3 id="action-pack">4 Action Pack</h3><p>請參考 <a href="https://github.com/rails/rails/blob/4-1-stable/actionpack/CHANGELOG.md">CHANGELOG</a> 來了解更多細節。</p><h4 id="action-pack-棄用">4.1 棄用</h4>
 <ul>
 <li>
-<p>棄用 <code>*_filter</code> 的方法，偏好 <code>*_action</code> 的方法。</p>
+<p>Deprecated support for setting the <code>to:</code> option of a router to a symbol or a
+string that does not contain a <code>#</code> character:</p>
+<p>  get '/posts', to: MyRackApp    =&gt; (No change necessary)
+  get '/posts', to: 'post#index' =&gt; (No change necessary)
+  get '/posts', to: 'posts'      =&gt; get '/posts', controller: :posts
+  get '/posts', to: :index       =&gt; get '/posts', action: :index</p>
+</li>
+</ul>
+<p>  (<a href="https://github.com/rails/rails/commit/cc26b6b7bccf0eea2e2c1a9ebdcc9d30ca7390d9">Commit</a>)</p><h4 id="action-pack-值得一提的變化">4.2 值得一提的變化</h4>
+<ul>
+<li>
+<p><code>*_filter</code> 方法已經從文件中移除，已經不鼓勵使用。偏好使用 <code>*_action</code> 方法：</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 after_filter          =&gt; after_action
@@ -279,7 +286,9 @@ skip_filter           =&gt; skip_action_callback
 </li>
 </ul>
 <p>  若應用程式依賴這些 <code>*_filter</code> 方法，應該使用 <code>*_action</code> 方法替換。
-  (<a href="https://github.com/rails/rails/commit/6c5f43bab8206747a8591435b2aa0ff7051ad3de">Commit</a>)</p><h4 id="action-pack-值得一提的變化">4.2 值得一提的變化</h4>
+  因為 <code>*_filter</code> 方法最終會從 Rails 裡拿掉。
+  (Commit <a href="https://github.com/rails/rails/commit/6c5f43bab8206747a8591435b2aa0ff7051ad3de">1</a>,
+  <a href="https://github.com/rails/rails/commit/489a8f2a44dc9cea09154ee1ee2557d1f037c7d4">2</a>)</p>
 <ul>
 <li><p>從 RFC-4791 新增 HTTP 方法 <code>MKCALENDAR</code>。
 (<a href="https://github.com/rails/rails/pull/15121">Pull Request</a>)</p></li>
@@ -289,23 +298,43 @@ skip_filter           =&gt; skip_action_callback
 (<a href="https://github.com/rails/rails/commit/5460591f0226a9d248b7b4f89186bd5553e7768f">Commit</a>)</p></li>
 <li><p>改善路由錯誤頁面，搜索路由支持模糊搜尋。
 (<a href="https://github.com/rails/rails/pull/14619">Pull Request</a>)</p></li>
-<li><p>新增關掉 CSRF 失敗記錄的選項。
+<li><p>新增關掉記錄 CSRF 失敗的選項。
 (<a href="https://github.com/rails/rails/pull/14280">Pull Request</a>)</p></li>
 </ul>
-<h3 id="action-mailer">5 Action Mailer</h3><p>請參考 <a href="https://github.com/rails/rails/blob/4-1-stable/actionmailer/CHANGELOG.md">CHANGELOG</a> 來了解更多細節。</p><h4 id="action-mailer-值得一提的變化">5.1 值得一提的變化</h4>
+<h3 id="action-mailer">5 Action Mailer</h3><p>請參考 <a href="https://github.com/rails/rails/blob/4-1-stable/actionmailer/CHANGELOG.md">CHANGELOG</a> 來了解更多細節。</p><h4 id="action-mailer-值得一提的變化">5.1 值得一提的變化</h4><h3 id="active-record">6 Active Record</h3><p>請參考 <a href="https://github.com/rails/rails/blob/4-1-stable/activerecord/CHANGELOG.md">CHANGELOG</a> 來了解更多細節。</p><h4 id="active-record-棄用">6.1 棄用</h4>
 <ul>
-<li>...</li>
-<li>...</li>
+<li><p>依賴實體狀態（有定義接受參數的作用域）的關聯現在不能使用 <code>.joins</code>、<code>.preload</code> 以及 <code>.eager_load</code> 了。
+(<a href="https://github.com/rails/rails/commit/ed56e596a0467390011bc9d56d462539776adac1">Commit</a>)</p></li>
+<li><p>棄用 <code>.find</code> 或 <code>.exists?</code> 可傳入 Active Record 物件。請先對物件呼叫 <code>#id</code>。
+(Commit <a href="https://github.com/rails/rails/commit/d92ae6ccca3bcfd73546d612efaea011270bd270">1</a>,
+<a href="https://github.com/rails/rails/commit/d35f0033c7dec2b8d8b52058fb8db495d49596f7">2</a>)</p></li>
+<li><p>棄用半支持的 PostgreSQL 範圍數值（不包含起始值）。目前我們把 PostgreSQL 的範圍對應到 Ruby 的範圍。但由於 Ruby 的範圍不支援不包含起始值，所以無法完全轉換。</p></li>
 </ul>
-<h3 id="active-record">6 Active Record</h3><p>請參考 <a href="https://github.com/rails/rails/blob/4-1-stable/activerecord/CHANGELOG.md">CHANGELOG</a> 來了解更多細節。</p><h4 id="active-record-值得一提的變化">6.1 值得一提的變化</h4>
+<p>  目前的解決方法是將起始數遞增，這是不對的，已經棄用了。關於不知如何遞增的子類型（比如沒有定義 <code>#succ</code>）會對不包含起始值的拋出 <code>ArgumentError</code>。</p><p>  (<a href="https://github.com/rails/rails/commit/91949e48cf41af9f3e4ffba3e5eecf9b0a08bfc3">Commit</a>)</p><h4 id="active-record-值得一提的變化">6.2 值得一提的變化</h4>
 <ul>
-<li>...</li>
-<li>...</li>
+<li><p>新增 <code>ActiveRecord::Base</code> 物件的 <code>#pretty_print</code> 方法。
+(<a href="https://github.com/rails/rails/pull/15172">Pull Request</a>)</p></li>
+<li><p>PostgreSQL 與 SQLite 連接器不再預設限制字串只能 255 字元。
+(<a href="https://github.com/rails/rails/pull/14579">Pull Request</a>)</p></li>
+<li><p><code>sqlite3:///some/path</code> 現在可以解析系統的絕對路徑 <code>/some/path</code>。
+相對路徑請使用 <code>sqlite3:some/path</code>。(先前是 <code>sqlite3:///some/path</code>
+會解析成 <code>some/path</code>。這個行為已在 Rails 4.1 被棄用了。  Rails 4.1.)
+(<a href="https://github.com/rails/rails/pull/14569">Pull Request</a>)</p></li>
+<li><p>引入 <code>#validate</code> 作為 <code>#valid?</code> 的別名。
+(<a href="https://github.com/rails/rails/pull/14456">Pull Request</a>)</p></li>
+<li><p><code>#touch</code> 現在可一次對多屬性操作。
+(<a href="https://github.com/rails/rails/pull/14423">Pull Request</a>)</p></li>
+<li><p>新增 MySQL 5.6 以上版本的 fractional seconds 支持。
+(Pull Request <a href="https://github.com/rails/rails/pull/8240">1</a>, <a href="https://github.com/rails/rails/pull/14359">2</a>)</p></li>
+<li><p>新增 PostgreSQL 連接器的 <code>citext</code> 支持。
+(<a href="https://github.com/rails/rails/pull/12523">Pull Request</a>)</p></li>
+<li><p>新增 PostgreSQL 連接器的使用自建的範圍類型支持。
+(<a href="https://github.com/rails/rails/commit/4cb47167e747e8f9dc12b0ddaf82bdb68c03e032">Commit</a>)</p></li>
 </ul>
 <h3 id="active-model">7 Active Model</h3><p>請參考 <a href="https://github.com/rails/rails/blob/4-1-stable/activemodel/CHANGELOG.md">CHANGELOG</a> 來了解更多細節。</p><h4 id="active-model-值得一提的變化">7.1 值得一提的變化</h4>
 <ul>
-<li>...</li>
-<li>...</li>
+<li>引入 <code>#validate</code> 作為 <code>#valid?</code> 的別名。
+(<a href="https://github.com/rails/rails/pull/14456">Pull Request</a>)</li>
 </ul>
 <h3 id="active-support">8 Active Support</h3><p>請參考 <a href="https://github.com/rails/rails/blob/4-1-stable/activesupport/CHANGELOG.md">CHANGELOG</a> 來了解更多細節。</p><h4 id="active-support-移除">8.1 移除</h4>
 <ul>
@@ -314,7 +343,7 @@ skip_filter           =&gt; skip_action_callback
 <li><p>移除棄用 <code>ActiveSupport::Callbacks</code> 基於字串的終止符。
 (<a href="https://github.com/rails/rails/pull/15100">Pull Request</a>)</p></li>
 </ul>
-<h4 id="active-support-棄用">8.2 棄用</h4>
+<h4 id="棄用">8.2 棄用</h4>
 <ul>
 <li><p>棄用 <code>Class#superclass_delegating_accessor</code>，請改用 <code>Class#class_attribute</code>。
 (<a href="https://github.com/rails/rails/pull/14271">Pull Request</a>)</p></li>
