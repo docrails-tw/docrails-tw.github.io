@@ -267,7 +267,7 @@
   <div id="container">
     <div class="wrapper">
       <div id="mainCol">
-        <h3 id="application-architecture">1 Application Architecture</h3><p>There are two major changes in the architecture of Rails applications: complete integration of the <a href="http://rack.rubyforge.org/">Rack</a> modular web server interface, and renewed support for Rails Engines.</p><h4 id="rack-integration">1.1 Rack Integration</h4><p>Rails has now broken with its CGI past, and uses Rack everywhere. This required and resulted in a tremendous number of internal changes (but if you use CGI, don't worry; Rails now supports CGI through a proxy interface.) Still, this is a major change to Rails internals. After upgrading to 2.3, you should test on your local environment and your production environment. Some things to test:</p>
+        <h3 id="application-architecture">1 Application Architecture</h3><p>There are two major changes in the architecture of Rails applications: complete integration of the <a href="http://rack.github.io/">Rack</a> modular web server interface, and renewed support for Rails Engines.</p><h4 id="rack-integration">1.1 Rack Integration</h4><p>Rails has now broken with its CGI past, and uses Rack everywhere. This required and resulted in a tremendous number of internal changes (but if you use CGI, don't worry; Rails now supports CGI through a proxy interface.) Still, this is a major change to Rails internals. After upgrading to 2.3, you should test on your local environment and your production environment. Some things to test:</p>
 <ul>
 <li>Sessions</li>
 <li>Cookies</li>
@@ -803,7 +803,7 @@ rake rails:template LOCATION=~/template.rb
 <li>Rails Guides have been converted from AsciiDoc to Textile markup.</li>
 <li>Scaffolded views and controllers have been cleaned up a bit.</li>
 <li>
-<code>script/server</code> now accepts a <tt>--path</tt> argument to mount a Rails application from a specific path.</li>
+<code>script/server</code> now accepts a <code>--path</code> argument to mount a Rails application from a specific path.</li>
 <li>If any configured gems are missing, the gem rake tasks will skip loading much of the environment. This should solve many of the "chicken-and-egg" problems where rake gems:install couldn't run because gems were missing.</li>
 <li>Gems are now unpacked exactly once. This fixes issues with gems (hoe, for instance) which are packed with read-only permissions on the files.</li>
 </ul>
@@ -824,7 +824,7 @@ rake rails:template LOCATION=~/template.rb
 <li>The <code>:connector</code> and <code>:skip_last_comma</code> options of <code>to_sentence</code> have been replaced by <code>:words_connnector</code>, <code>:two_words_connector</code>, and <code>:last_word_connector</code> options.</li>
 <li>Posting a multipart form with an empty <code>file_field</code> control used to submit an empty string to the controller. Now it submits a nil, due to differences between Rack's multipart parser and the old Rails one.</li>
 </ul>
-<h3 id="credits">10 Credits</h3><p>Release notes compiled by <a href="http://afreshcup.com.">Mike Gunderloy</a> This version of the Rails 2.3 release notes was compiled based on RC2 of Rails 2.3.</p>
+<h3 id="credits">10 Credits</h3><p>Release notes compiled by <a href="http://afreshcup.com">Mike Gunderloy</a>. This version of the Rails 2.3 release notes was compiled based on RC2 of Rails 2.3.</p>
 
         <h3>反饋</h3>
         <p>

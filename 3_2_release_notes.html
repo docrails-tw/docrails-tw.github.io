@@ -379,7 +379,7 @@ end
 </div>
 <p>Rails will use <code>layouts/single_car</code> when a request comes in <code>:show</code> action, and use <code>layouts/application</code> (or <code>layouts/cars</code>, if exists) when a request comes in for any other actions.</p>
 </li>
-<li><p><code>form\_for</code> is changed to use <code>#{action}\_#{as}</code> as the css class and id if <code>:as</code> option is provided. Earlier versions used <code>#{as}\_#{action}</code>.</p></li>
+<li><p><code>form_for</code> is changed to use <code>#{action}_#{as}</code> as the css class and id if <code>:as</code> option is provided. Earlier versions used <code>#{as}_#{action}</code>.</p></li>
 <li><p><code>ActionController::ParamsWrapper</code> on Active Record models now only wrap <code>attr_accessible</code> attributes if they were set. If not, only the attributes returned by the class method <code>attribute_names</code> will be wrapped. This fixes the wrapping of nested attributes by adding them to <code>attr_accessible</code>.</p></li>
 <li><p>Log "Filter chain halted as CALLBACKNAME rendered or redirected" every time a before callback halts.</p></li>
 <li><p><code>ActionDispatch::ShowExceptions</code> is refactored. The controller is responsible for choosing to show exceptions. It's possible to override <code>show_detailed_exceptions?</code> in controllers to specify which requests should provide debugging information on errors.</p></li>
@@ -751,7 +751,7 @@ ActiveSupport::BufferedLogger.new f
 </li>
 <li><p><code>ActiveSupport::BufferedLogger#flush</code> is deprecated. Set sync on your filehandle, or tune your filesystem.</p></li>
 </ul>
-<h3 id="credits">12 Credits</h3><p>See the <a href="http://contributors.rubyonrails.org/">full list of contributors to Rails</a> for the many people who spent many hours making Rails, the stable and robust framework it is. Kudos to all of them.</p><p>Rails 3.2 Release Notes were compiled by <a href="https://github.com/vijaydev.">Vijay Dev</a></p>
+<h3 id="credits">12 Credits</h3><p>See the <a href="http://contributors.rubyonrails.org/">full list of contributors to Rails</a> for the many people who spent many hours making Rails, the stable and robust framework it is. Kudos to all of them.</p><p>Rails 3.2 Release Notes were compiled by <a href="https://github.com/vijaydev">Vijay Dev</a>.</p>
 
         <h3>反饋</h3>
         <p>

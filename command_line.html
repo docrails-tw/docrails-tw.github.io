@@ -172,7 +172,7 @@
       <h2>Rails 命令列</h2><p>讀完本篇，您將了解：</p>
 <ul>
 <li>如何新建 Rails 應用程式。</li>
-<li>如何產生 models、controllers、資料庫 migrations、單元測試。</li>
+<li>如何產生 Models、Controllers、資料庫遷移以及單元測試。</li>
 <li>如何啟動開發伺服器。</li>
 <li>如何用互動的 Shell 來實驗物件。</li>
 <li>如何測量應用程式的瓶頸。</li>
@@ -207,15 +207,15 @@
 <li><a href="#routes"><code>routes</code></a></li>
 <li><a href="#test"><code>test</code></a></li>
 <li><a href="#tmp"><code>tmp</code></a></li>
-<li><a href="#miscellaneous">Miscellaneous</a></li>
-<li><a href="#custom-rake-tasks">Custom Rake Tasks</a></li>
+<li><a href="#%E5%85%B6%E5%AE%83">其它</a></li>
+<li><a href="#%E8%87%AA%E8%A8%82-rake-%E4%BB%BB%E5%8B%99">自訂 Rake 任務</a></li>
 </ul>
 </li>
 <li>
-<a href="#the-rails-advanced-command-line">The Rails Advanced Command Line</a>
+<a href="#%E9%80%B2%E9%9A%8E%E5%91%BD%E4%BB%A4%E5%88%97">進階命令列</a>
 
 <ul>
-<li><a href="#rails-with-databases-and-scm">Rails with Databases and SCM</a></li>
+<li><a href="#rails-%E8%88%87%E8%B3%87%E6%96%99%E5%BA%AB%E3%80%81%E5%8E%9F%E5%A7%8B%E7%A2%BC%E7%AE%A1%E7%90%86%E7%B3%BB%E7%B5%B1">Rails 與資料庫、原始碼管理系統</a></li>
 </ul>
 </li>
 </ol>
@@ -228,7 +228,7 @@
   <div id="container">
     <div class="wrapper">
       <div id="mainCol">
-        <div class="note"><p>本文假設你已閱讀<a href="getting_started.html">Rails 起步走</a>並有基礎的 Rails 知識。</p></div><h3 id="命令列基礎">1 命令列基礎</h3><p>Rails 開發有幾個每天都會用到的命令。以下按照通常的使用順序排列：</p>
+        <div class="note"><p>本文假設你已閱讀 <a href="getting_started.html">Rails 起步走</a>並有基礎的 Rails 知識。</p></div><h3 id="命令列基礎">1 命令列基礎</h3><p>有幾個開發 Rails 每天都會用到的命令。以下按常見的使用順序排列：</p>
 <ul>
 <li><code>rails console</code></li>
 <li><code>rails server</code></li>
@@ -237,7 +237,7 @@
 <li><code>rails dbconsole</code></li>
 <li><code>rails new app_name</code></li>
 </ul>
-<p>每個命令都可以傳入 <code>-h or --help</code> 來列出更多資訊。</p><p>首先建立一個簡單的 Rails 應用程式，用來講解這些命令。</p><h4 id="rails-new">1.1 <code>rails new</code>
+<p>每個命令都可以傳入 <code>-h</code> 或 <code>--help</code> 來列出更多資訊。</p><p>首先建立一個簡單的 Rails 應用程式，用來講解這些命令。</p><h4 id="rails-new">1.1 <code>rails new</code>
 </h4><p>通常安裝 Rails 之後，第一個會用到的命令是 <code>rails new</code>，用來新建 Rails 應用程式。</p><div class="info"><p>可以使用 <code>gem install rails</code> 來安裝 Rails。</p></div><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 $ rails new commandsapp
@@ -256,12 +256,12 @@ $ rails new commandsapp
 </pre>
 </div>
 <p>才一個命令，Rails 就建立了這麼多東西！有了這些產生出來的東西之後，就可以試著把伺服器跑起來了。</p><h4 id="rails-server">1.2 <code>rails server</code>
-</h4><p><code>rails server</code> 命令會啟動一個小型的網路伺服器，叫做 WEBrick，是 Ruby 內建的伺服器。想要在瀏覽器存取應用程式，就要使用 <code>rails server</code> 來啟動伺服器。</p><p><code>rails server</code> 會啟動剛剛新產生出來的 Rails 應用程式：</p><div class="code_container">
+</h4><p><code>rails server</code> 命令會啟動一個小型的網路伺服器，叫做 WEBrick，是 Ruby 內建的伺服器。想要在瀏覽器存取 Rails 應用程式，使用 <code>rails server</code> 來啟動伺服器。</p><p><code>rails server</code> 會啟動剛剛新產生出來的 Rails 應用程式：</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 $ cd commandsapp
 $ bin/rails server
 =&gt; Booting WEBrick
-=&gt; Rails 4.1.2 application starting in development on http://0.0.0.0:3000
+=&gt; Rails 4.2.0 application starting in development on http://0.0.0.0:3000
 =&gt; Run `rails server -h` for more startup options
 =&gt; Notice: server is listening on all interfaces (0.0.0.0). Consider using 127.0.0.1 (--binding option)
 =&gt; Ctrl-C to shutdown server
@@ -271,14 +271,14 @@ $ bin/rails server
 
 </pre>
 </div>
-<p>僅使用了三個命令，便能把 Rails 在埠口 3000 跑起來了。開啟瀏覽器並瀏覽 <a href="http://localhost:3000">http://localhost:3000</a>，會看到 Rails 正在執行。</p><div class="info"><p>也可以使用縮寫 <code>s</code> 來啟動伺服器：<code>rails s</code>。</p></div><p>伺服器可以跑在不同的埠口，使用 <code>-p</code> 選項。而預設的開發環境可以使用 <code>-e</code> 更改。</p><div class="code_container">
+<p>只用了三個命令，便能把 Rails 在埠口 3000 跑起來了。開啟瀏覽器並瀏覽 <a href="http://localhost:3000">http://localhost:3000</a>，會看到簡單的 Rails 應用程式正在執行。</p><div class="info"><p>也可以使用縮寫 <code>s</code> 來啟動伺服器：<code>rails s</code>。</p></div><p>伺服器可以跑在不同的埠口，使用 <code>-p</code> 選項。而環境可以使用 <code>-e</code> 更改。</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 $ bin/rails server -e production -p 4000
 
 </pre>
 </div>
-<p><code>-b</code> 選項可把 Rails 綁定到特定的 IP，預設是 <code>0.0.0.0</code>。<code>-d</code> 選項可以把伺服器放在背景裡執行（daemon）。</p><h4 id="rails-generate">1.3 <code>rails generate</code>
-</h4><p><code>rails generate</code> 命令使用模版來產生一大堆東西。執行 <code>rails generate</code> 可以看到所有可用的產生器。</p><div class="info"><p>也可以使用縮寫 <code>g</code> 來使用產生器命令：<code>rails g</code>。</p></div><div class="code_container">
+<p><code>-b</code> 選項可以把 Rails 綁定在特定的 IP，預設 IP 是 <code>0.0.0.0</code>。<code>-d</code> 選項可以把伺服器放在背景裡執行（daemon）。</p><h4 id="rails-generate">1.3 <code>rails generate</code>
+</h4><p><code>rails generate</code> 命令使用模版來產生很多東西。執行 <code>rails generate</code>，會看到所有可用的產生器。</p><div class="info"><p>也可以使用別名 <code>g</code> 來使用產生器命令：<code>rails g</code>。</p></div><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 $ bin/rails generate
 Usage: rails generate GENERATOR [args] [options]
@@ -298,7 +298,7 @@ Rails:
 
 </pre>
 </div>
-<div class="note"><p>透過 Gems 還能安裝更多產生器、插件，甚至可以建立自己的產生器！</p></div><p>使用產生器會節省許多撰寫“樣板程式”的時間。</p><p>讓我們來自己建立產生 Controller 的產生器。該怎麼產生“產生器”？問問便知：</p><div class="info"><p>和所有的 *nix 工具一樣，所有的 Rails 子命令都有說明文件。可以在命令最後加上 <code>--help</code> 或 <code>-h</code> 試試看，譬如 <code>rails server --help</code>。</p></div><div class="code_container">
+<div class="note"><p>透過 Gems 還能安裝更多產生器、插件，甚至可以建立自己的產生器！</p></div><p>使用產生器會節省許多撰寫“樣板程式”的時間。</p><p>讓我們來自己建立產生 Controller 的產生器。該怎麼產生“產生器”？問問便知：</p><div class="info"><p>和所有的 *nix 工具一樣，所有的 Rails 子命令都有說明文件。在命令最後加上 <code>--help</code> 或 <code>-h</code> 試試看，譬如 <code>rails server --help</code>。</p></div><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 $ bin/rails generate controller
 Usage: rails generate controller NAME [action action] [options]
@@ -324,7 +324,7 @@ Example:
 
 </pre>
 </div>
-<p>從上可知 Controller 產生器預期參數形式為 <code>generate controller ControllerName action1 action2</code>。讓我們建立一個 <code>Greetings</code> Controller，內有 <code>hello</code> 動作，會說些好聽的話。</p><div class="code_container">
+<p>從上可知 Controller 產生器預期參數形式為 <code>generate controller ControllerName action1 action2</code>。接著建立一個 <code>Greetings</code> Controller，內有一個會打招呼的 <code>hello</code> 動作。</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 $ bin/rails generate controller Greetings hello
      create  app/controllers/greetings_controller.rb
@@ -346,7 +346,7 @@ $ bin/rails generate controller Greetings hello
 
 </pre>
 </div>
-<p>這些是怎麼產生的？建了許多資料夾，建了 Controller、View、功能性測試、View 的輔助方法、JavaScript 以及樣式表。</p><p>打開 Controller 並稍微修改一下 (in <code>app/controllers/greetings_controller.rb</code>)：</p><div class="code_container">
+<p>產生出來的這些檔案是什麼？在應用程式裡建了許多資料夾，建了 Controller、View、功能性測試、View 的輔助方法、JavaScript 以及樣式表。</p><p>打開 Controller 並稍微修改一下 (in <code>app/controllers/greetings_controller.rb</code>)：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class GreetingsController &lt; ApplicationController
   def hello
@@ -370,7 +370,7 @@ $ bin/rails server
 
 </pre>
 </div>
-<p>網址是 <a href="http://localhost:3000/greetings/hello">http://localhost:3000/greetings/hello</a>。</p><div class="info"><p>Rails 應用程式 URL 通常會遵循這個模式 <code>http://(host)/(controller)/(action)</code>，而 URL 像是 <code>http://(host)/(controller)</code> 會觸發該 Controller 的 <code>index</code> 動作。</p></div><p>Rails 也有產生 Model 的產生器。</p><div class="code_container">
+<p>網址是 <a href="http://localhost:3000/greetings/hello">http://localhost:3000/greetings/hello</a>。</p><div class="info"><p>Rails 應用程式的網址的模式是 <code>http://(host)/(controller)/(action)</code>，而像是 <code>http://(host)/(controller)</code> 的網址，會觸發 Controller 的 <code>index</code> 動作。</p></div><p>Rails 也有產生 Model 之用的產生器。</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 $ bin/rails generate model
 Usage:
@@ -395,7 +395,7 @@ Available field types:
 
 </pre>
 </div>
-<div class="note"><p>所有可用的欄位類型，請參考 <a href="http://api.rubyonrails.org/classes/ActiveRecord/ConnectionAdapters/TableDefinition.html#method-i-column">API 文件</a> <code>TableDefinition</code> 類別的 <code>column</code> 方法。</p></div><p>但與其直接產生 Model，讓我們來設定一個鷹架。Rails 的鷹架是用來產生一組完整的 Model、遷移、Controller、View 以及測試。</p><p>產生一個簡單的資源叫做 “HighScore”，用來追蹤玩過的電玩遊戲的最高分。</p><div class="code_container">
+<div class="note"><p>所有可用的欄位類型，請參考 <a href="http://api.rubyonrails.org/classes/ActiveRecord/ConnectionAdapters/TableDefinition.html#method-i-column">API 文件</a> <code>TableDefinition</code> 類別的 <code>column</code> 方法。</p></div><p>但與其直接產生 Model，先用鷹架試試。Rails 的鷹架是用來產生一組完整的 Model、遷移、Controller、View 以及測試。</p><p>產生一個簡單的資源叫做 “HighScore”，用來追蹤電玩遊戲的最高分。</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 $ bin/rails generate scaffold HighScore game:string score:integer
     invoke  active_record
@@ -434,7 +434,7 @@ $ bin/rails generate scaffold HighScore game:string score:integer
 
 </pre>
 </div>
-<p>The generator checks that there exist the directories for models, controllers, helpers, layouts, functional and unit tests, stylesheets, creates the views, controller, model and database migration for HighScore (creating the <code>high_scores</code> table and fields), takes care of the route for the <strong>resource</strong>, and new tests for everything.</p><p>The migration requires that we <strong>migrate</strong>, that is, run some Ruby code (living in that <code>20130717151933_create_high_scores.rb</code>) to modify the schema of our database. Which database? The SQLite3 database that Rails will create for you when we run the <code>rake db:migrate</code> command. We'll talk more about Rake in-depth in a little while.</p><div class="code_container">
+<p>產生器會建立 HighScroe 資源所需的所有檔案，包含了 Controller、Model、Model 的遷移檔案、輔助方法、Assets（JavaScript、CSS）、設定路由，以及所有的測試檔案（Controller、Model、輔助方法的測試）。</p><p>遷移檔案產生出來之後，需要手動進行執行“遷移”，也就是執行 <code>20130717151933_create_high_scores.rb</code> 檔案裡的 Ruby 程式碼，用來修改資料庫的綱要檔案。修改那個資料庫？執行 <code>rake db:migrate</code> 命令，Rails 會建立一個 SQLite3 資料庫。稍後會再詳細介紹 Rake。</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 $ bin/rake db:migrate
 ==  CreateHighScores: migrating ===============================================
@@ -444,20 +444,20 @@ $ bin/rake db:migrate
 
 </pre>
 </div>
-<div class="info"><p>Let's talk about unit tests. Unit tests are code that tests and makes assertions about code. In unit testing, we take a little part of code, say a method of a model, and test its inputs and outputs. Unit tests are your friend. The sooner you make peace with the fact that your quality of life will drastically increase when you unit test your code, the better. Seriously. We'll make one in a moment.</p></div><p>Let's see the interface Rails created for us.</p><div class="code_container">
+<div class="info"><p>介紹一下單元測試。單元測試是用來測試、檢查邏輯的程式。在單元測試裡，從小部分的程式下手，譬如 Model 的一個方法，測試輸入輸出。單元測試是你的好朋友。很快你就會發現到，當你有對程式做單元測試，生活的品質便會提高了許多。我說真的，稍後寫一個單元測試做示範。</p></div><p>首先看一下 Rails 建立的介面。</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 $ bin/rails server
 
 </pre>
 </div>
-<p>Go to your browser and open <a href="http://localhost:3000/high_scores">http://localhost:3000/high_scores</a>, now we can create new high scores (55,160 on Space Invaders!)</p><h4 id="rails-console">1.4 <code>rails console</code>
-</h4><p>The <code>console</code> command lets you interact with your Rails application from the command line. On the underside, <code>rails console</code> uses IRB, so if you've ever used it, you'll be right at home. This is useful for testing out quick ideas with code and changing data server-side without touching the website.</p><div class="info"><p>You can also use the alias "c" to invoke the console: <code>rails c</code>.</p></div><p>You can specify the environment in which the <code>console</code> command should operate.</p><div class="code_container">
+<p>到瀏覽器打開 <a href="http://localhost:3000/high_scores">http://localhost:3000/high_scores</a>，現在可以建立新的高分了（太空侵略者的最高分是 55160 分）</p><h4 id="rails-console">1.4 <code>rails console</code>
+</h4><p><code>console</code> 命令可以從命令列跟 Rails 應用程式互動。<code>rails console</code> 背後用的是 IRB，有用過 IRB 的話，一定會感到很熟悉。可以用來快速驗證想法、不到網站便可修改伺服器上的資料等。</p><div class="info"><p>也可以使用別名 <code>c</code> 來啟動伺服器：<code>rails c</code>。</p></div><p>指定 <code>console</code> 命令要運行的環境。</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 $ bin/rails console staging
 
 </pre>
 </div>
-<p>If you wish to test out some code without changing any data, you can do that by invoking <code>rails console --sandbox</code>.</p><div class="code_container">
+<p>若想測試而不想修改到資料，可以使用 <code>rails console --sandbox</code>。</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 $ bin/rails console --sandbox
 Loading development environment in sandbox (Rails 4.0.0)
@@ -466,7 +466,7 @@ irb(main):001:0&gt;
 
 </pre>
 </div>
-<h5 id="the-app-and-helper-objects">1.4.1 The app and helper objects</h5><p>Inside the <code>rails console</code> you have access to the <code>app</code> and <code>helper</code> instances.</p><p>With the <code>app</code> method you can access url and path helpers, as well as do requests.</p><div class="code_container">
+<h5 id="app-與-helper-物件">1.4.1 <code>app</code> 與 <code>helper</code> 物件</h5><p>在 <code>rails console</code> 裡，有兩個實體可以存取：<code>app</code> 與 <code>helper</code>。</p><p><code>app</code> 可以存取網址與路徑的輔助方法，也可以發送請求。</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 &gt;&gt; app.root_path
 =&gt; "/"
@@ -477,7 +477,7 @@ Started GET "/" for 127.0.0.1 at 2014-06-19 10:41:57 -0300
 
 </pre>
 </div>
-<p>With the <code>helper</code> method it is possible to access Rails and your application's helpers.</p><div class="code_container">
+<p>而 <code>helper</code> 方法可以存取應用程式裡的輔助方法。</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 &gt;&gt; helper.time_ago_in_words 30.days.ago
 =&gt; "about 1 month"
@@ -488,21 +488,21 @@ Started GET "/" for 127.0.0.1 at 2014-06-19 10:41:57 -0300
 </pre>
 </div>
 <h4 id="rails-dbconsole">1.5 <code>rails dbconsole</code>
-</h4><p><code>rails dbconsole</code> figures out which database you're using and drops you into whichever command line interface you would use with it (and figures out the command line parameters to give to it, too!). It supports MySQL, PostgreSQL, SQLite and SQLite3.</p><div class="info"><p>You can also use the alias "db" to invoke the dbconsole: <code>rails db</code>.</p></div><h4 id="rails-runner">1.6 <code>rails runner</code>
-</h4><p><code>runner</code> runs Ruby code in the context of Rails non-interactively. For instance:</p><div class="code_container">
+</h4><p><code>rails dbconsole</code> 知道正在使用的資料庫，打開每個資料庫的命令列介面（也能接受傳給命令列的參數哦！）支援 MySQL、PostgreSQL、SQLite 以及 SQLite3。</p><div class="info"><p>別名 <code>db</code>，<code>rails db</code>。</p></div><h4 id="rails-runner">1.6 <code>rails runner</code>
+</h4><p><code>runner</code> 在 Rails 的上下文裡執行 Ruby 程式碼。譬如：</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 $ bin/rails runner "Model.long_running_method"
 
 </pre>
 </div>
-<div class="info"><p>You can also use the alias "r" to invoke the runner: <code>rails r</code>.</p></div><p>You can specify the environment in which the <code>runner</code> command should operate using the <code>-e</code> switch.</p><div class="code_container">
+<div class="info"><p>別名 <code>r</code>，<code>rails r</code>。</p></div><p>可以使用 <code>-e</code> 指定命令執行的環境。</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 $ bin/rails runner -e staging "Model.long_running_method"
 
 </pre>
 </div>
 <h4 id="rails-destroy">1.7 <code>rails destroy</code>
-</h4><p>Think of <code>destroy</code> as the opposite of <code>generate</code>. It'll figure out what generate did, and undo it.</p><div class="info"><p>You can also use the alias "d" to invoke the destroy command: <code>rails d</code>.</p></div><div class="code_container">
+</h4><p>可以把 <code>destroy</code> 想成是 <code>generate</code> 的反操作。<code>destroy</code> 會研究出 <code>generate</code> 做了什麼，並復原。</p><div class="info"><p>別名 <code>d</code>，<code>rails d</code>。</p></div><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 $ bin/rails generate model Oops
       invoke  active_record
@@ -526,64 +526,61 @@ $ bin/rails destroy model Oops
 
 </pre>
 </div>
-<h3 id="rake">2 Rake</h3><p>Rake is Ruby Make, a standalone Ruby utility that replaces the Unix utility 'make', and uses a 'Rakefile' and <code>.rake</code> files to build up a list of tasks. In Rails, Rake is used for common administration tasks, especially sophisticated ones that build off of each other.</p><p>You can get a list of Rake tasks available to you, which will often depend on your current directory, by typing <code>rake --tasks</code>. Each task has a description, and should help you find the thing you need.</p><p>To get the full backtrace for running rake task you can pass the option
-<code>--trace</code> to command line, for example <code>rake db:create --trace</code>.</p><div class="code_container">
+<h3 id="rake">2 Rake</h3><p>Rake 是 Ruby 的 “Make”，獨立的 Ruby 工具，用來取代 Unix 的 make。Rake 使用 <code>Rakefile</code> 與 <code>.rake</code> 檔案來撰寫一系列的任務。在 Rails，Rake 用來做一些管理的任務，特別是相互之間有關聯、又複雜的管理任務。</p><p>可以輸入 <code>rake --tasks</code> 來獲得這個 Rails 應用程式所有可用的任務清單，應該可以找到需要用的任務。</p><p>要獲得執行 Rake 任務完整的 Backtrace，可以傳入 <code>--trace</code> 選項，譬如：<code>rake db:create --trace</code>。</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 $ bin/rake --tasks
-rake about              # List versions of all Rails frameworks and the environment
-rake assets:clean       # Remove old compiled assets
-rake assets:clobber     # Remove compiled assets
-rake assets:precompile  # Compile all the assets named in config.assets.precompile
-rake db:create          # Create the database from config/database.yml for the current Rails.env
+rake about              # 列出整個 Rails 框架與環境的版本
+rake assets:clean       # 移除過時已編譯過的 Assets
+rake assets:clobber     # 移除編譯過的 Assets
+rake assets:precompile  # 編譯所有在 config.assets.precompile 所指定的 Assets
+rake db:create          # 根據 config/database.yml 給目前的 Rails.env 環境建立資料庫
 ...
-rake log:clear          # Truncates all *.log files in log/ to zero bytes (specify which logs with LOGS=test,development)
-rake middleware         # Prints out your Rack middleware stack
+rake log:clear          # 刪掉 log/ 目錄下所有的 *.log 檔案（可以用 LOGS 選項指定要刪除那個環境的記錄檔，譬如 LOGS=test,development）。
+rake middleware         # 印出所有的 Rack 中間件
 ...
-rake tmp:clear          # Clear session, cache, and socket files from tmp/ (narrow w/ tmp:sessions:clear, tmp:cache:clear, tmp:sockets:clear)
-rake tmp:create         # Creates tmp directories for sessions, cache, sockets, and pids
+rake tmp:clear          # 清空 tmp/ 目錄下的 Session、快取以及 Socket 檔案。（清除單一個請用 tmp:sessions:clear、tmp:cache:clear、tmp:sockets:clear）
+rake tmp:create         # 建立 tmp/ 目錄，用來存放 Session、快取、Socket 以及 pid 等資料。
 
 </pre>
 </div>
-<div class="info"><p>You can also use <code>rake -T</code>  to get the list of tasks.</p></div><h4 id="about">2.1 <code>about</code>
-</h4><p><code>rake about</code> gives information about version numbers for Ruby, RubyGems, Rails, the Rails subcomponents, your application's folder, the current Rails environment name, your app's database adapter, and schema version. It is useful when you need to ask for help, check if a security patch might affect you, or when you need some stats for an existing Rails installation.</p><div class="code_container">
+<div class="info"><p><code>rake --tasks</code> 縮寫為 <code>rake -T</code>。</p></div><h4 id="about">2.1 <code>about</code>
+</h4><p><code>rake about</code> 會輸出關於 Ruby、RubyGems、Rails、Rails 各個元件的版本、Middleware、應用程式根目錄、目前的 Rails 環境、資料庫連接器以及資料庫綱要的版本。在需要知道現有 Rails 的一些資料的情況下很有用，比如檢查某個安全性補丁有沒有影響到正在使用的版本。</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 $ bin/rake about
 About your application's environment
-Ruby version              1.9.3 (x86_64-linux)
-RubyGems version          1.3.6
-Rack version              1.3
-Rails version             4.1.1
+Ruby version              2.1.2-p95 (x86_64-darwin13.0)
+RubyGems version          2.3.0
+Rack version              1.5
+Rails version             4.2.0
 JavaScript Runtime        Node.js (V8)
-Active Record version     4.1.1
-Action Pack version       4.1.1
-Action View version       4.1.1
-Action Mailer version     4.1.1
-Active Support version    4.1.1
-Middleware                Rack::Sendfile, ActionDispatch::Static, Rack::Lock, #&lt;ActiveSupport::Cache::Strategy::LocalCache::Middleware:0x007ffd131a7c88&gt;, Rack::Runtime, Rack::MethodOverride, ActionDispatch::RequestId, Rails::Rack::Logger, ActionDispatch::ShowExceptions, ActionDispatch::DebugExceptions, ActionDispatch::RemoteIp, ActionDispatch::Reloader, ActionDispatch::Callbacks, ActiveRecord::Migration::CheckPending, ActiveRecord::ConnectionAdapters::ConnectionManagement, ActiveRecord::QueryCache, ActionDispatch::Cookies, ActionDispatch::Session::CookieStore, ActionDispatch::Flash, ActionDispatch::ParamsParser, Rack::Head, Rack::ConditionalGet, Rack::ETag
-Application root          /home/foobar/commandsapp
+Active Record version     4.2.0
+Action Pack version       4.2.0
+Action View version       4.2.0
+Action Mailer version     4.2.0
+Active Support version    4.2.0
+Active Model version      4.2.0
+Middleware                Rack::Sendfile, ActionDispatch::Static, Rack::Lock, #&lt;ActiveSupport::Cache::Strategy::LocalCache::Middleware:0x007fe45ae964e8&gt;, Rack::Runtime, Rack::MethodOverride, ActionDispatch::RequestId, Rails::Rack::Logger, ActionDispatch::ShowExceptions, ActionDispatch::DebugExceptions, ActionDispatch::RemoteIp, ActionDispatch::Reloader, ActionDispatch::Callbacks, ActiveRecord::Migration::CheckPending, ActiveRecord::ConnectionAdapters::ConnectionManagement, ActiveRecord::QueryCache, ActionDispatch::Cookies, ActionDispatch::Session::CookieStore, ActionDispatch::Flash, ActionDispatch::ParamsParser, Rack::Head, Rack::ConditionalGet, Rack::ETag
+Application root          /Users/Juan/play/gitapp
 Environment               development
-Database adapter          sqlite3
-Database schema version   20110805173523
+Database adapter          postgresql
+Database schema version   0
 
 </pre>
 </div>
 <h4 id="assets">2.2 <code>assets</code>
-</h4><p>You can precompile the assets in <code>app/assets</code> using <code>rake assets:precompile</code>,
-and remove older compiled assets using <code>rake assets:clean</code>. The <code>assets:clean</code>
-task allows for rolling deploys that may still be linking to an old asset while
-the new assets are being built.</p><p>If you want to clear <code>public/assets</code> completely, you can use <code>rake assets:clobber</code>.</p><h4 id="db">2.3 <code>db</code>
-</h4><p>The most common tasks of the <code>db:</code> Rake namespace are <code>migrate</code> and <code>create</code>, and it will pay off to try out all of the migration rake tasks (<code>up</code>, <code>down</code>, <code>redo</code>, <code>reset</code>). <code>rake db:version</code> is useful when troubleshooting, telling you the current version of the database.</p><p>More information about migrations can be found in the <a href="migrations.html">Migrations</a> guide.</p><h4 id="doc">2.4 <code>doc</code>
-</h4><p>The <code>doc:</code> namespace has the tools to generate documentation for your app, API documentation, guides. Documentation can also be stripped which is mainly useful for slimming your codebase, like if you're writing a Rails application for an embedded platform.</p>
+</h4><p>使用 <code>rake assets:precompile</code> 來預編譯 <code>app/assets</code> 下的 Assets 檔案，<code>rake assets:clean</code> 會刪除編譯過的 Assets 檔案。<code>assets:clean</code> 任務允許在部署時編譯新的 Asset 時，仍使用先前編譯過的 Assets 檔案。</p><p>若想完整清空 <code>public/assets</code>，可以使用 <code>rake assets:clobber</code>。</p><h4 id="db">2.3 <code>db</code>
+</h4><p><code>db:</code> 命名空間下最常使用的任務是 <code>migrate</code> 與 <code>create</code>。這兩個任務會試著執行所有遷移相關的 Rake 任務（<code>up</code>、<code>down</code>、<code>redo</code>、<code>reset</code>）。<code>rake db:version</code> 在除錯時有用，會告訴你當前資料庫的版本號是多少。</p><p>更多遷移有關的資料，請閱讀 <a href="migrations.html">Active Record 遷移</a>指南。</p><h4 id="doc">2.4 <code>doc</code>
+</h4><p><code>doc:</code> 命名空間下有用來給應用程式產生文件的任務，API 文件、指南等。文件可以從應用程式裡拿掉，減少整個程式的大小，比如在嵌入式平台上撰寫 Rails 應用程式。</p>
 <ul>
 <li>
-<code>rake doc:app</code> generates documentation for your application in <code>doc/app</code>.</li>
+<code>rake doc:app</code> 為應用程式產生文件，放在 <code>doc/app</code>。</li>
 <li>
-<code>rake doc:guides</code> generates Rails guides in <code>doc/guides</code>.</li>
+<code>rake doc:guides</code> 產生 Rails 指南，放在 <code>doc/guides</code>。</li>
 <li>
-<code>rake doc:rails</code> generates API documentation for Rails in <code>doc/api</code>.</li>
+<code>rake doc:rails</code> 產生 API 文件，放在 <code>doc/api</code>。</li>
 </ul>
 <h4 id="notes">2.5 <code>notes</code>
-</h4><p><code>rake notes</code> will search through your code for comments beginning with FIXME, OPTIMIZE or TODO. The search is done in files with extension <code>.builder</code>, <code>.rb</code>, <code>.rake</code>, <code>.yml</code>, <code>.yaml</code>, <code>.ruby</code>, <code>.css</code>, <code>.js</code> and <code>.erb</code> for both default and custom annotations.</p><div class="code_container">
+</h4><p><code>rake notes</code> 會到程式碼裡尋找是否有以 <code>FIXME</code>、<code>OPTIMIZE</code> 或 <code>TODO</code> 開頭的註解。會搜索這些副檔名的檔案：<code>.builder</code>、<code>.rb</code>、<code>.rake</code>、<code>.yml</code>、<code>.yaml</code>、<code>.ruby</code>、<code>.css</code>、<code>.js</code> 以及 <code>.erb</code>。會同時搜索預設的註解，以及自訂的註解。</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 $ bin/rake notes
 (in /home/foobar/commandsapp)
@@ -597,13 +594,13 @@ app/models/school.rb:
 
 </pre>
 </div>
-<p>You can add support for new file extensions using <code>config.annotations.register_extensions</code> option, which receives a list of the extensions with its corresponding regex to match it up.</p><div class="code_container">
+<p>可以使用 <code>config.annotations.register_extensions</code> 選項新增要搜尋的副檔名。選項接受一組副檔名，區塊內放實際搜尋的正則表達式。</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 config.annotations.register_extensions("scss", "sass", "less") { |annotation| /\/\/\s*(#{annotation}):?\s*(.*)$/ }
 
 </pre>
 </div>
-<p>If you are looking for a specific annotation, say FIXME, you can use <code>rake notes:fixme</code>. Note that you have to lower case the annotation's name.</p><div class="code_container">
+<p>若要搜尋特定的註解，譬如 <code>FIXME</code>，可以使用 <code>rake notes:fixme</code>。</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 $ bin/rake notes:fixme
 (in /home/foobar/commandsapp)
@@ -615,7 +612,7 @@ app/models/school.rb:
 
 </pre>
 </div>
-<p>You can also use custom annotations in your code and list them using <code>rake notes:custom</code> by specifying the annotation using an environment variable <code>ANNOTATION</code>.</p><div class="code_container">
+<p>也可以在程式裡使用自訂的註解，並用 <code>rake notes:custom</code> 來搜尋，要搜尋的註解使用環境變數 <code>ANNOTATION</code> 來指定。</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 $ bin/rake notes:custom ANNOTATION=BUG
 (in /home/foobar/commandsapp)
@@ -624,7 +621,7 @@ app/models/article.rb:
 
 </pre>
 </div>
-<div class="note"><p>When using specific annotations and custom annotations, the annotation name (FIXME, BUG etc) is not displayed in the output lines.</p></div><p>By default, <code>rake notes</code> will look in the <code>app</code>, <code>config</code>, <code>lib</code>, <code>bin</code> and <code>test</code> directories. If you would like to search other directories, you can provide them as a comma separated list in an environment variable <code>SOURCE_ANNOTATION_DIRECTORIES</code>.</p><div class="code_container">
+<div class="note"><p>使用自訂註解時，搜尋結果不會顯示註解的名稱（例如 BUG、FIXME 等）。</p></div><p><code>rake notes</code> 預設會在 <code>app</code>、<code>config</code>、<code>lib</code>、<code>bin</code> 以及 <code>test</code> 目錄下搜尋。若想搜尋其它目錄，可以使用 <code>SOURCE_ANNOTATION_DIRECTORIES</code> 來指定，目錄之間以逗號區隔。</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 $ export SOURCE_ANNOTATION_DIRECTORIES='spec,vendor'
 $ bin/rake notes
@@ -637,33 +634,31 @@ spec/models/user_spec.rb:
 </pre>
 </div>
 <h4 id="routes">2.6 <code>routes</code>
-</h4><p><code>rake routes</code> will list all of your defined routes, which is useful for tracking down routing problems in your app, or giving you a good overview of the URLs in an app you're trying to get familiar with.</p><h4 id="test">2.7 <code>test</code>
-</h4><div class="info"><p>A good description of unit testing in Rails is given in <a href="testing.html">A Guide to Testing Rails Applications</a></p></div><p>Rails comes with a test suite called Minitest. Rails owes its stability to the use of tests. The tasks available in the <code>test:</code> namespace helps in running the different tests you will hopefully write.</p><h4 id="tmp">2.8 <code>tmp</code>
-</h4><p>The <code>Rails.root/tmp</code> directory is, like the *nix /tmp directory, the holding place for temporary files like sessions (if you're using a file store for files), process id files, and cached actions.</p><p>The <code>tmp:</code> namespaced tasks will help you clear and create the <code>Rails.root/tmp</code> directory:</p>
+</h4><p><code>rake routes</code> 會列出所有定義的路由，可以用來追蹤有關路由的問題，或是在需要熟習 Rails 時，綜覽一下整個 Rails 應用程式裡的路由。</p><h4 id="test">2.7 <code>test</code>
+</h4><div class="info"><p>關於單元測試，請閱讀 <a href="testing.html">Rails 測試指南</a>。</p></div><p>Rails 內建了叫做 Minitest 的測試套裝。Rails 本身也是使用 Minitest 做測試。<code>test:</code> 命名空間下的任務可用來執行各種測試。</p><h4 id="tmp">2.8 <code>tmp</code>
+</h4><p><code>Rails.root/tmp</code> 目錄和 *nix 的 <code>/tmp</code> 目錄的作用相同，用來存放像是 Session 等的暫存檔案（如果 Session 是用檔案來存的話）、進程的 ID 檔案、快取檔案等。</p><p><code>tmp:</code> 命名空間下的任務可以清理、新建 <code>Rails.root/tmp</code> 目錄：</p>
 <ul>
 <li>
-<code>rake tmp:cache:clear</code> clears <code>tmp/cache</code>.</li>
+<code>rake tmp:cache:clear</code> 清空 <code>tmp/cache</code>。</li>
 <li>
-<code>rake tmp:sessions:clear</code> clears <code>tmp/sessions</code>.</li>
+<code>rake tmp:sessions:clear</code> 清空 <code>tmp/sessions</code>。</li>
 <li>
-<code>rake tmp:sockets:clear</code> clears <code>tmp/sockets</code>.</li>
+<code>rake tmp:sockets:clear</code> 清空 <code>tmp/sockets</code>。</li>
 <li>
-<code>rake tmp:clear</code> clears all the three: cache, sessions and sockets.</li>
+<code>rake tmp:clear</code> 完整清空這三個目錄：<code>cache</code>、<code>sessions</code> 以及 sockets。</li>
 <li>
-<code>rake tmp:create</code> creates tmp directories for sessions, cache, sockets, and pids.</li>
+<code>rake tmp:create</code> 給 sessions、cache、sockets 以及 pids 新建臨時目錄。</li>
 </ul>
-<h4 id="miscellaneous">2.9 Miscellaneous</h4>
+<h4 id="其它">2.9 其它</h4>
 <ul>
 <li>
-<code>rake stats</code> is great for looking at statistics on your code, displaying things like KLOCs (thousands of lines of code) and your code to test ratio.</li>
+<code>rake stats</code> 可以查看程式的統計資料。像是 KLOCs、程式測試比等資料。</li>
 <li>
-<code>rake secret</code> will give you a pseudo-random key to use for your session secret.</li>
+<code>rake secret</code> 會產生一個偽隨機字串，作 Session Secret 之用。</li>
 <li>
-<code>rake time:zones:all</code> lists all the timezones Rails knows about.</li>
+<code>rake time:zones:all</code> 會列出所有 Rails 知道的時區資料。</li>
 </ul>
-<h4 id="custom-rake-tasks">2.10 Custom Rake Tasks</h4><p>Custom rake tasks have a <code>.rake</code> extension and are placed in
-<code>Rails.root/lib/tasks</code>. You can create these custom rake tasks with the
-<code>bin/rails generate task</code> command.</p><div class="code_container">
+<h4 id="自訂-rake-任務">2.10 自訂 Rake 任務</h4><p>自訂的 rake 任務有 <code>.rake</code> 副檔名，放在 <code>Rails.root/lib/tasks</code> 目錄下。可以使用 <code>bin/rails generate task</code> 命令來產生自訂的 Rake 任務。</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 desc "I am short, but comprehensive description for my cool task"
 task task_name: [:prerequisite_task, :another_task_we_depend_on] do
@@ -673,7 +668,7 @@ end
 
 </pre>
 </div>
-<p>To pass arguments to your custom rake task:</p><div class="code_container">
+<p>傳入參數給自訂的 Rake 任務：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 task :task_name, [:arg_1] =&gt; [:pre_1, :pre_2] do |t, args|
   # You can use args from here
@@ -681,7 +676,7 @@ end
 
 </pre>
 </div>
-<p>You can group tasks by placing them in namespaces:</p><div class="code_container">
+<p>把相同任務放在命名空間下管理：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 namespace :db do
   desc "This task does nothing"
@@ -692,7 +687,7 @@ end
 
 </pre>
 </div>
-<p>Invocation of the tasks will look like:</p><div class="code_container">
+<p>使用命名空間下的任務：</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 $ bin/rake task_name
 $ bin/rake "task_name[value 1]" # entire argument string should be quoted
@@ -700,7 +695,7 @@ $ bin/rake db:nothing
 
 </pre>
 </div>
-<div class="note"><p>If your need to interact with your application models, perform database queries and so on, your task should depend on the <code>environment</code> task, which will load your application code.</p></div><h3 id="the-rails-advanced-command-line">3 The Rails Advanced Command Line</h3><p>More advanced use of the command line is focused around finding useful (even surprising at times) options in the utilities, and fitting those to your needs and specific work flow. Listed here are some tricks up Rails' sleeve.</p><h4 id="rails-with-databases-and-scm">3.1 Rails with Databases and SCM</h4><p>When creating a new Rails application, you have the option to specify what kind of database and what kind of source code management system your application is going to use. This will save you a few minutes, and certainly many keystrokes.</p><p>Let's see what a <code>--git</code> option and a <code>--database=postgresql</code> option will do for us:</p><div class="code_container">
+<div class="note"><p>如需與應用程式的 Model 互動、進行資料庫查詢等操作，任務需要依賴於 <code>environment</code> 任務，<code>environment</code> 任務 會載入應用程式的程式進來。</p></div><h3 id="進階命令列">3 進階命令列</h3><p>命令列更進階的用途主要在如何找到每個工具有用的選項，找到符合需求的選項，結合到工作流程裡。以下列出一些小撇步。</p><h4 id="rails-與資料庫、原始碼管理系統">3.1 Rails 與資料庫、原始碼管理系統</h4><p>建立新的 Rails 應用程式時，可以指定要使用的資料庫與原始碼管理系統。可以省下一點打字的時間。</p><p>看看 <code>--git</code> 與 <code>--database=postgresql</code> 選項可以幹嘛：</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 $ mkdir gitapp
 $ cd gitapp
@@ -727,7 +722,7 @@ add 'log/test.log'
 
 </pre>
 </div>
-<p>We had to create the <strong>gitapp</strong> directory and initialize an empty git repository before Rails would add files it created to our repository. Let's see what it put in our database configuration:</p><div class="code_container">
+<p>必須要在使用 <code>rails new . --git --database=postgresql</code> 命令之前先建立一個空的資料夾，並做 <code>git init</code>。看看資料庫設定檔的內容：</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 $ cat config/database.yml
 # PostgreSQL. Versions 8.2 and up are supported.
@@ -746,19 +741,22 @@ $ cat config/database.yml
 # Configure Using Gemfile
 # gem 'pg'
 #
-development:
+default: &amp;default
   adapter: postgresql
   encoding: unicode
-  database: gitapp_development
+  # For details on connection pooling, see rails configuration guide
+  # http://guides.rubyonrails.org/configuring.html#database-pooling
   pool: 5
-  username: gitapp
-  password:
+
+development:
+  &lt;&lt;: *default
+  database: gitapp_development
 ...
 ...
 
 </pre>
 </div>
-<p>It also generated some lines in our database.yml configuration corresponding to our choice of PostgreSQL for database.</p><div class="note"><p>The only catch with using the SCM options is that you have to make your application's directory first, then initialize your SCM, then you can run the <code>rails new</code> command to generate the basis of your app.</p></div>
+<p>會根據 PostgreSQL 產生相關的設定到 <code>database.yml</code>。</p><div class="note"><p>指定原始碼管理系統要注意先建立資料夾、初始化，接著才執行 <code>rails new</code> 命令。</p></div>
 
         <h3>反饋</h3>
         <p>
