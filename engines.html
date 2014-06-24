@@ -77,8 +77,8 @@
                 <dd><a href="rails_on_rack.html">Rails on Rack</a></dd>
                 <dd><a href="generators.html">客製與新建 Rails 產生器</a></dd>
                 <dd><a href="rails_application_templates.html">Rails 應用程式模版</a></dd>
-                <dt>貢獻至 Ruby on Rails</dt>
-                <dd><a href="contributing_to_ruby_on_rails.html">貢獻至 Ruby on Rails</a></dd>
+                <dt>貢獻 Ruby on Rails</dt>
+                <dd><a href="contributing_to_ruby_on_rails.html">貢獻 Ruby on Rails</a></dd>
                 <dd><a href="api_documentation_guidelines.html">API 文件準則</a></dd>
                 <dd><a href="ruby_on_rails_guides_guidelines.html">Ruby on Rails 指南準則</a></dd>
                 <dt>維護方針</dt>
@@ -138,8 +138,8 @@
                   <option value="generators.html">客製與新建 Rails 產生器</option>
                   <option value="rails_application_templates.html">Rails 應用程式模版</option>
               </optgroup>
-              <optgroup label="貢獻至 Ruby on Rails">
-                  <option value="contributing_to_ruby_on_rails.html">貢獻至 Ruby on Rails</option>
+              <optgroup label="貢獻 Ruby on Rails">
+                  <option value="contributing_to_ruby_on_rails.html">貢獻 Ruby on Rails</option>
                   <option value="api_documentation_guidelines.html">API 文件準則</option>
                   <option value="ruby_on_rails_guides_guidelines.html">Ruby on Rails 指南準則</option>
               </optgroup>
@@ -284,8 +284,11 @@ $ bin/rails plugin --help
 
 </pre>
 </div>
-<p>The <code>--full</code> option tells the generator that you want to create an engine,
-including a skeleton structure that provides the following:</p>
+<p>The <code>--mountable</code> option tells the generator that you want to create a
+"mountable" and namespace-isolated engine. This generator will provide the same
+skeleton structure as would the <code>--full</code> option. The <code>--full</code> option tells the
+generator that you want to create an engine, including a skeleton structure
+that provides the following:</p>
 <ul>
 <li>An <code>app</code> directory tree</li>
 <li>
@@ -312,9 +315,7 @@ end
 </div>
 </li>
 </ul>
-<p>The <code>--mountable</code> option tells the generator that you want to create a
-"mountable" and namespace-isolated engine. This generator will provide the same
-skeleton structure as would the <code>--full</code> option, and will add:</p>
+<p>The <code>--mountable</code> option will add to the <code>--full</code> option:</p>
 <ul>
 <li>Asset manifest files (<code>application.js</code> and <code>application.css</code>)</li>
 <li>A namespaced <code>ApplicationController</code> stub</li>
