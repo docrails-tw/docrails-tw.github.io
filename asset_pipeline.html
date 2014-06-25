@@ -604,10 +604,8 @@ so you can easily add asset pipelining later if you like.</p><p>The directives t
 one, requiring all stylesheets from the current directory.</p><p>In this example, <code>require_self</code> is used. This puts the CSS contained within the
 file (if any) at the precise location of the <code>require_self</code> call. If
 <code>require_self</code> is called more than once, only the last call is respected.</p><div class="note"><p>If you want to use multiple Sass files, you should generally use the <a href="http://sass-lang.com/docs/yardoc/file.SASS_REFERENCE.html#import">Sass <code>@import</code> rule</a>
-instead of these Sprockets directives. Using Sprockets directives all Sass files exist within
-their own scope, making variables or mixins only available within the document they were defined in.
-You can do file globbing as well using <code>@import "*"</code>, and <code>@import "**/*"</code> to add the whole tree
-equivalent to how <code>require_tree</code> works. Check the <a href="https://github.com/rails/sass-rails#features">sass-rails documentation</a> for more info and important caveats.</p></div><p>You can have as many manifest files as you need. For example, the <code>admin.css</code>
+instead of these Sprockets directives. When using Sprockets directives, Sass files exist within
+their own scope, making variables or mixins only available within the document they were defined in.</p></div><p>You can do file globbing as well using <code>@import "*"</code>, and <code>@import "**/*"</code> to add the whole tree which is equivalent to how <code>require_tree</code> works. Check the <a href="https://github.com/rails/sass-rails#features">sass-rails documentation</a> for more info and important caveats.</p><p>You can have as many manifest files as you need. For example, the <code>admin.css</code>
 and <code>admin.js</code> manifest could contain the JS and CSS files that are used for the
 admin section of an application.</p><p>The same remarks about ordering made above apply. In particular, you can specify
 individual files and they are compiled in the order specified. For example, you
@@ -800,7 +798,7 @@ typical manifest file looks like:</p><div class="code_container">
 "digest":"12b3c7dd74d2e9df37e7cbb1efa76a6d"},"application-1c5752789588ac18d7e1a50b1f0fd4c2.css":{"logical_path":"application.css","mtime":"2013-07-26T22:56:17-07:00","size":1591,
 "digest":"1c5752789588ac18d7e1a50b1f0fd4c2"},"favicon-a9c641bf2b81f0476e876f7c5e375969.ico":{"logical_path":"favicon.ico","mtime":"2013-07-26T23:00:10-07:00","size":1406,
 "digest":"a9c641bf2b81f0476e876f7c5e375969"},"my_image-231a680f23887d9dd70710ea5efd3c62.png":{"logical_path":"my_image.png","mtime":"2013-07-26T23:00:27-07:00","size":6646,
-"digest":"231a680f23887d9dd70710ea5efd3c62"}},"assets"{"application.js":
+"digest":"231a680f23887d9dd70710ea5efd3c62"}},"assets":{"application.js":
 "application-723d1be6cc741a3aabb1cec24276d681.js","application.css":
 "application-1c5752789588ac18d7e1a50b1f0fd4c2.css",
 "favicon.ico":"favicona9c641bf2b81f0476e876f7c5e375969.ico","my_image.png":

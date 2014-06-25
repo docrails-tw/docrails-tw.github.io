@@ -270,7 +270,7 @@
   <div id="container">
     <div class="wrapper">
       <div id="mainCol">
-        <h3 id="introduction-to-instrumentation">1 Introduction to instrumentation</h3><p>The instrumentation API provided by Active Support allows developers to provide hooks which other developers may hook into. There are several of these within the Rails framework, as described below in <todo: link to section detailing each hook point>. With this API, developers can choose to be notified when certain events occur inside their application or another piece of Ruby code.</todo:></p><p>For example, there is a hook provided within Active Record that is called every time Active Record uses an SQL query on a database. This hook could be <strong>subscribed</strong> to, and used to track the number of queries during a certain action. There's another hook around the processing of an action of a controller. This could be used, for instance, to track how long a specific action has taken.</p><p>You are even able to create your own events inside your application which you can later subscribe to.</p><h3 id="rails-framework-hooks">2 Rails framework hooks</h3><p>Within the Ruby on Rails framework, there are a number of hooks provided for common events. These are detailed below.</p><h3 id="action-controller">3 Action Controller</h3><h4 id="write_fragment.action_controller">3.1 write_fragment.action_controller</h4>
+        <h3 id="introduction-to-instrumentation">1 Introduction to instrumentation</h3><p>The instrumentation API provided by Active Support allows developers to provide hooks which other developers may hook into. There are several of these within the Rails framework, as described below in (TODO: link to section detailing each hook point). With this API, developers can choose to be notified when certain events occur inside their application or another piece of Ruby code.</p><p>For example, there is a hook provided within Active Record that is called every time Active Record uses an SQL query on a database. This hook could be <strong>subscribed</strong> to, and used to track the number of queries during a certain action. There's another hook around the processing of an action of a controller. This could be used, for instance, to track how long a specific action has taken.</p><p>You are even able to create your own events inside your application which you can later subscribe to.</p><h3 id="rails-framework-hooks">2 Rails framework hooks</h3><p>Within the Ruby on Rails framework, there are a number of hooks provided for common events. These are detailed below.</p><h3 id="action-controller">3 Action Controller</h3><h4 id="write_fragment.action_controller">3.1 write_fragment.action_controller</h4>
 <table>
 <thead>
 <tr>
@@ -1042,6 +1042,7 @@ end
 ActiveSupport::Notifications.subscribe "process_action.action_controller" do |*args|
   data = args.extract_options!
   data # { extra: :information }
+end
 
 </pre>
 </div>

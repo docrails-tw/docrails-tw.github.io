@@ -1170,7 +1170,7 @@ end
 
 </pre>
 </div>
-<div class="note"><p>特定的異常只有在 <code>ApplicationController</code> 裡面可以捕捉的到，因為他們在 Controller 被實體化出來之前，或動作執行之前便發生了。參考 Pratik Naik 的<a href="http://m.onkey.org/2008/7/20/rescue-from-dispatching">文章</a>來了解更多關於這個問題的細節。</p></div><h4 id="自訂錯誤頁面">14.3 自訂錯誤頁面</h4><p>可以使用 Controller 與 View 來自己客製化錯誤處理的版面。首先定義顯示錯誤頁面的路由。</p>
+<div class="warning"><p>不要做 <code>rescue_from Exception</code> 或 <code>rescue_from StandardError</code>，除非有很好的理由。因為這會帶來嚴重的副作用（譬如無法得知異常的細節、無法在開發時追蹤 Backtrace）。若想要動態產生錯誤頁面請參考<a href="#%E8%87%AA%E8%A8%82%E9%8C%AF%E8%AA%A4%E9%A0%81%E9%9D%A2">自訂錯誤頁面</a>。</p></div><div class="note"><p>特定的異常只有在 <code>ApplicationController</code> 裡面可以捕捉的到，因為他們在 Controller 被實體化出來之前，或動作執行之前便發生了。參考 Pratik Naik 的<a href="http://m.onkey.org/2008/7/20/rescue-from-dispatching">文章</a>來了解更多關於這個問題的細節。</p></div><h4 id="自訂錯誤頁面">14.3 自訂錯誤頁面</h4><p>可以使用 Controller 與 View 來自己客製化錯誤處理的版面。首先定義顯示錯誤頁面的路由。</p>
 <ul>
 <li><code>config/application.rb</code></li>
 </ul>
