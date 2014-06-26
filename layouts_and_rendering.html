@@ -6,7 +6,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-<title>Layouts and Rendering in Rails — Ruby on Rails 指南</title>
+<title>Rails 算繪與版型 — Ruby on Rails 指南</title>
 <link rel="stylesheet" type="text/css" href="stylesheets/style.css" />
 <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
 
@@ -169,37 +169,37 @@
 
   <div id="feature">
     <div class="wrapper">
-      <h2>Layouts and Rendering in Rails</h2><p>This guide covers the basic layout features of Action Controller and Action View.</p><p>After reading this guide, you will know:</p>
+      <h2>Rails 算繪與版型</h2><p>本篇介紹 Action Controller 與 Action View 關於版型的基本功能</p><p>讀完本篇，您將了解：</p>
 <ul>
-<li>How to use the various rendering methods built into Rails.</li>
-<li>How to create layouts with multiple content sections.</li>
-<li>How to use partials to DRY up your views.</li>
-<li>How to use nested layouts (sub-templates).</li>
+<li>如何使用 Rails 內建的算繪方法。</li>
+<li>如何建立有多個內容區域的版型（Layout）。</li>
+<li>如何使用局部頁面（Partial）來避免重複。</li>
+<li>如何使用嵌套版型（子模版）。</li>
 </ul>
 
 
                 <div id="subCol">
             <h3 class="chapter"><img src="images/chapters_icon.gif" alt="" />Chapters</h3>
             <ol class="chapters">
-<li><a href="#overview:-how-the-pieces-fit-together">Overview: How the Pieces Fit Together</a></li>
+<li><a href="#%E7%B6%9C%E8%A6%BD%EF%BC%9Amvc-%E5%8D%94%E5%90%8C%E5%90%88%E4%BD%9C">綜覽：MVC 協同合作</a></li>
 <li>
-<a href="#creating-responses">Creating Responses</a>
+<a href="#%E5%BB%BA%E7%AB%8B%E9%9F%BF%E6%87%89">建立響應</a>
 
 <ul>
-<li><a href="#rendering-by-default:-convention-over-configuration-in-action">Rendering by Default: Convention Over Configuration in Action</a></li>
-<li><a href="#using-render">Using <code>render</code></a></li>
-<li><a href="#using-redirect_to">Using <code>redirect_to</code></a></li>
-<li><a href="#using-head-to-build-header-only-responses">Using <code>head</code> To Build Header-Only Responses</a></li>
+<li><a href="#%E9%A0%90%E8%A8%AD%E7%AE%97%E7%B9%AA%EF%BC%9A%E6%85%A3%E4%BE%8B%E5%8B%9D%E6%96%BC%E8%A8%AD%E5%AE%9A%E7%9A%84%E5%AF%A6%E8%B8%90">預設算繪：慣例勝於設定的實踐</a></li>
+<li><a href="#%E4%BD%BF%E7%94%A8-render">使用 <code>render</code></a></li>
+<li><a href="#%E4%BD%BF%E7%94%A8-redirect_to">使用 <code>redirect_to</code></a></li>
+<li><a href="#%E4%BD%BF%E7%94%A8-head-%E4%BE%86%E5%BB%BA%E7%AB%8B%E5%8F%AA%E5%90%AB%E6%A8%99%E9%A0%AD%E7%9A%84%E9%9F%BF%E6%87%89">使用 <code>head</code> 來建立只含標頭的響應</a></li>
 </ul>
 </li>
 <li>
-<a href="#structuring-layouts">Structuring Layouts</a>
+<a href="#%E7%B5%84%E7%B9%94%E7%89%88%E5%9E%8B">組織版型</a>
 
 <ul>
-<li><a href="#asset-tag-helpers">Asset Tag Helpers</a></li>
-<li><a href="#understanding-yield">Understanding <code>yield</code></a></li>
-<li><a href="#using-the-content_for-method">Using the <code>content_for</code> Method</a></li>
-<li><a href="#using-partials">Using Partials</a></li>
+<li><a href="#asset-tag-%E8%BC%94%E5%8A%A9%E6%96%B9%E6%B3%95">Asset Tag 輔助方法</a></li>
+<li><a href="#%E7%90%86%E8%A7%A3-yield">理解 <code>yield</code></a></li>
+<li><a href="#%E4%BD%BF%E7%94%A8-content_for-%E6%96%B9%E6%B3%95">使用 <code>content_for</code> 方法</a></li>
+<li><a href="#%E4%BD%BF%E7%94%A8%E5%B1%80%E9%83%A8%E9%A0%81%E9%9D%A2">使用局部頁面</a></li>
 <li><a href="#using-nested-layouts">Using Nested Layouts</a></li>
 </ul>
 </li>
@@ -213,32 +213,32 @@
   <div id="container">
     <div class="wrapper">
       <div id="mainCol">
-        <h3 id="overview:-how-the-pieces-fit-together">1 Overview: How the Pieces Fit Together</h3><p>This guide focuses on the interaction between Controller and View in the Model-View-Controller triangle. As you know, the Controller is responsible for orchestrating the whole process of handling a request in Rails, though it normally hands off any heavy code to the Model. But then, when it's time to send a response back to the user, the Controller hands things off to the View. It's that handoff that is the subject of this guide.</p><p>In broad strokes, this involves deciding what should be sent as the response and calling an appropriate method to create that response. If the response is a full-blown view, Rails also does some extra work to wrap the view in a layout and possibly to pull in partial views. You'll see all of those paths later in this guide.</p><h3 id="creating-responses">2 Creating Responses</h3><p>From the controller's point of view, there are three ways to create an HTTP response:</p>
+        <h3 id="綜覽：mvc-協同合作">1 綜覽：MVC 協同合作</h3><p>本篇著重介紹 MVC 架構中，Controller 與 View 之間的互動關係。Controller 負責策劃處理請求（Request）的整個過程，但通常會把複雜的事情交給 Model 處理；要把響應（Response）回給使用者時，Controller 把事情交給 View 處理。Controller 如何將工作派給別人便是本篇要介紹的主題。</p><p>更完整的說，這個過程包含了，響應要傳送什麼內容，要呼叫那些方法來建立響應。如果響應是完整的 View，Rails 會做些額外工作，譬如會把 View 放到版型裡，或是把某個局部頁面加進來。本篇之後會完整介紹這整個過程。</p><h3 id="建立響應">2 建立響應</h3><p>從 Controller 的觀點來看，有三種方法可以建立 HTTP 響應：</p>
 <ul>
-<li>Call <code>render</code> to create a full response to send back to the browser</li>
-<li>Call <code>redirect_to</code> to send an HTTP redirect status code to the browser</li>
-<li>Call <code>head</code> to create a response consisting solely of HTTP headers to send back to the browser</li>
+<li>呼叫 <code>render</code> 方法，建立完整響應給瀏覽器。</li>
+<li>呼叫 <code>redirect_to</code> 方法，來寄送 HTTP 轉址狀態給瀏覽器。</li>
+<li>呼叫 <code>head</code> 方法，來建立只有 HTTP 標頭的響應給瀏覽器。</li>
 </ul>
-<h4 id="rendering-by-default:-convention-over-configuration-in-action">2.1 Rendering by Default: Convention Over Configuration in Action</h4><p>You've heard that Rails promotes "convention over configuration". Default rendering is an excellent example of this. By default, controllers in Rails automatically render views with names that correspond to valid routes. For example, if you have this code in your <code>BooksController</code> class:</p><div class="code_container">
+<h4 id="預設算繪：慣例勝於設定的實踐">2.1 預設算繪：慣例勝於設定的實踐</h4><p>你可能聽說過，Rails 遵行“慣例勝於設定”的原則。Rails 預設的算繪功能便是一個很好的例子。Controller 預設會算繪與路由同名的 View。舉例來說，若 <code>BooksController</code> 有如下程式：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class BooksController &lt; ApplicationController
 end
 
 </pre>
 </div>
-<p>And the following in your routes file:</p><div class="code_container">
+<p>而路由檔案裡有：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 resources :books
 
 </pre>
 </div>
-<p>And you have a view file <code>app/views/books/index.html.erb</code>:</p><div class="code_container">
+<p>並有 View <code>app/views/books/index.html.erb</code>：</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 &lt;h1&gt;Books are coming soon!&lt;/h1&gt;
 
 </pre>
 </div>
-<p>Rails will automatically render <code>app/views/books/index.html.erb</code> when you navigate to <code>/books</code> and you will see "Books are coming soon!" on your screen.</p><p>However a coming soon screen is only minimally useful, so you will soon create your <code>Book</code> model and add the index action to <code>BooksController</code>:</p><div class="code_container">
+<p>則當你瀏覽 <code>/books</code> 時，Rails 會自動算繪 <code>app/views/books/index.html.erb</code> 這一頁。你會看到網頁裡顯示了 <code>"Books are coming soon!</code>。</p><p>然而只顯示 coming soon 的頁面沒有太大用處，很快的便會建立 <code>Book</code> Model，並給 <code>BooksController</code> 加入 <code>index</code> 動作：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class BooksController &lt; ApplicationController
   def index
@@ -248,7 +248,7 @@ end
 
 </pre>
 </div>
-<p>Note that we don't have explicit render at the end of the index action in accordance with "convention over configuration" principle. The rule is that if you do not explicitly render something at the end of a controller action, Rails will automatically look for the <code>action_name.html.erb</code> template in the controller's view path and render it. So in this case, Rails will render the <code>app/views/books/index.html.erb</code> file.</p><p>If we want to display the properties of all the books in our view, we can do so with an ERB template like this:</p><div class="code_container">
+<p>注意到，基於“慣例勝於設定”原則，在 <code>index</code> 動作結尾並沒有明確執行“算繪”這個動作。這裡的慣例是，即便沒有在 Controller 動作結尾明確指定要“算繪”的頁面，Rails 也會自動在 Controller 的 View 路徑尋找 <code>action_name.html.erb</code> 模版，並算繪之。所以這個情況裡，Rails 會自動算繪 <code>app/views/books/index.html.erb</code>。</p><p>若想在 View 裡顯示所有書本的資訊，ERB 可以這麼寫：</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 &lt;h1&gt;Listing Books&lt;/h1&gt;
 
@@ -278,14 +278,14 @@ end
 
 </pre>
 </div>
-<div class="note"><p>The actual rendering is done by subclasses of <code>ActionView::TemplateHandlers</code>. This guide does not dig into that process, but it's important to know that the file extension on your view controls the choice of template handler. Beginning with Rails 2, the standard extensions are <code>.erb</code> for ERB (HTML with embedded Ruby), and <code>.builder</code> for Builder (XML generator).</p></div><h4 id="using-render">2.2 Using <code>render</code>
-</h4><p>In most cases, the <code>ActionController::Base#render</code> method does the heavy lifting of rendering your application's content for use by a browser. There are a variety of ways to customize the behavior of <code>render</code>. You can render the default view for a Rails template, or a specific template, or a file, or inline code, or nothing at all. You can render text, JSON, or XML. You can specify the content type or HTTP status of the rendered response as well.</p><div class="info"><p>If you want to see the exact results of a call to <code>render</code> without needing to inspect it in a browser, you can call <code>render_to_string</code>. This method takes exactly the same options as <code>render</code>, but it returns a string instead of sending a response back to the browser.</p></div><h5 id="rendering-nothing">2.2.1 Rendering Nothing</h5><p>Perhaps the simplest thing you can do with <code>render</code> is to render nothing at all:</p><div class="code_container">
+<div class="note"><p>實際的算繪工作是由 <code>ActionView::TemplateHandlers</code> 的子類完成。本篇不深入探討整個過程，但有一點很重要，就是 View 的副檔名，決定了使用的模版處理器。從 Rails 2 起，Rails 標準的模版處理器是 ERB，副檔名是 <code>.erb</code>；另一個是 Builder（XML 產生器），副檔名是 <code>.builder</code> 。</p></div><h4 id="使用-render">2.2 使用 <code>render</code>
+</h4><p>在多數情況下，<code>ActionController::Base#render</code> 方法，負責把應用程式要傳給瀏覽器的內容算繪好。<code>render</code> 的行為有多種方法可以客製化。可以給 Rails 的模版算繪預設的 View，或是算繪某個特定的模版，檔案，甚至是一段程式碼，或者什麼都不算繪，都可以。可以算繪純文字內容、JSON 或 XML。也可以指定 Content Type、HTTP 狀態碼等。</p><div class="info"><p>若想不在瀏覽器，來看 <code>render</code> 方法的算繪結果，可以呼叫 <code>render_to_string</code>。這個方法接受的參數和 <code>render</code> 一樣，但回傳的是字串，而不是一般要回給瀏覽器的響應。</p></div><h5 id="什麼都不算繪">2.2.1 什麼都不算繪</h5><p>也許最簡單的 <code>render</code> 便是什麼也不算繪：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 render nothing: true
 
 </pre>
 </div>
-<p>If you look at the response for this using cURL, you will see the following:</p><div class="code_container">
+<p>若使用 cURL 來檢視響應，會看到如下輸出：</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 $ curl -i 127.0.0.1:3000/books
 HTTP/1.1 200 OK
@@ -301,7 +301,7 @@ $
 
 </pre>
 </div>
-<p>We see there is an empty response (no data after the <code>Cache-Control</code> line), but the request was successful because Rails has set the response to 200 OK. You can set the <code>:status</code> option on render to change this response. Rendering nothing can be useful for Ajax requests where all you want to send back to the browser is an acknowledgment that the request was completed.</p><div class="info"><p>You should probably be using the <code>head</code> method, discussed later in this guide, instead of <code>render :nothing</code>. This provides additional flexibility and makes it explicit that you're only generating HTTP headers.</p></div><h5 id="rendering-an-action's-view">2.2.2 Rendering an Action's View</h5><p>If you want to render the view that corresponds to a different template within the same controller, you can use <code>render</code> with the name of the view:</p><div class="code_container">
+<p>可以看到一個空的響應（<code>Cache-Control</code> 之後沒有資料），但請求本身是成功的，因為 Rails 將響應的狀態設為 <code>200 OK</code>。可以透過 <code>render</code> 的 <code>:status</code> 選項來更改響應的狀態碼。“什麼都不算繪”對於 Ajax 的請求很有用，因為只是要跟瀏覽器確認請求已完成。</p><div class="info"><p>應該要使用 <code>header</code> 方法，而不是 <code>render :nothing</code>，本篇稍後會介紹。<code>head</code> 的靈活性更高，明確的指定只需要產生 HTTP 標頭。</p></div><h5 id="算繪動作的-view">2.2.2 算繪動作的 View</h5><p>若想在 Controller 算繪不同的模版，可以使用 <code>render</code>，指定模版的名稱：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 def update
   @book = Book.find(params[:id])
@@ -314,7 +314,7 @@ end
 
 </pre>
 </div>
-<p>If the call to <code>update</code> fails, calling the <code>update</code> action in this controller will render the <code>edit.html.erb</code> template belonging to the same controller.</p><p>If you prefer, you can use a symbol instead of a string to specify the action to render:</p><div class="code_container">
+<p>若 <code>update</code> 動作失敗，則 Controller 會 <code>render</code> Controller 的 <code>edit.html.erb</code> 模版。</p><p>可以使用符號來明確指定要算繪的動作，字串是用來指定模版。</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 def update
   @book = Book.find(params[:id])
@@ -327,31 +327,31 @@ end
 
 </pre>
 </div>
-<h5 id="rendering-an-action's-template-from-another-controller">2.2.3 Rendering an Action's Template from Another Controller</h5><p>What if you want to render a template from an entirely different controller from the one that contains the action code? You can also do that with <code>render</code>, which accepts the full path (relative to <code>app/views</code>) of the template to render. For example, if you're running code in an <code>AdminProductsController</code> that lives in <code>app/controllers/admin</code>, you can render the results of an action to a template in <code>app/views/products</code> this way:</p><div class="code_container">
+<h5 id="從別的-controller-算繪模版">2.2.3 從別的 Controller 算繪模版</h5><p>要是想從別的 Controller 算繪別的 Controller 的模版怎麼辦？也可以使用 <code>render</code> 來達成，傳入要算繪模版的（相對於 <code>app/views</code>）路徑即可。舉例來說，<code>AdminProductsController</code> 放在 <code>app/controllers/admin</code>，想在 <code>AdminProductsController</code> 算繪 <code>app/views/products</code> 的模版可以這麼做：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 render "products/show"
 
 </pre>
 </div>
-<p>Rails knows that this view belongs to a different controller because of the embedded slash character in the string. If you want to be explicit, you can use the <code>:template</code> option (which was required on Rails 2.2 and earlier):</p><div class="code_container">
+<p>Rails 會發現這個 View 屬於不同的 Controller，因為字串裡有斜線 <code>/</code>。若想更明確，可以用 <code>:template</code> 選項（Rails 2.2 之後）：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 render template: "products/show"
 
 </pre>
 </div>
-<h5 id="rendering-an-arbitrary-file">2.2.4 Rendering an Arbitrary File</h5><p>The <code>render</code> method can also use a view that's entirely outside of your application (perhaps you're sharing views between two Rails applications):</p><div class="code_container">
+<h5 id="算繪任何檔案">2.2.4 算繪任何檔案</h5><p><code>render</code> 方法也接受在應用程式外的 View（也許是兩個 Rails 應用程式之間共享的 View）：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 render "/u/apps/warehouse_app/current/app/views/products/show"
 
 </pre>
 </div>
-<p>Rails determines that this is a file render because of the leading slash character. To be explicit, you can use the <code>:file</code> option (which was required on Rails 2.2 and earlier):</p><div class="code_container">
+<p>Rails 知道這要算繪的是檔案，因為字串開頭有一個斜線。更明確一點可以用 <code>:file</code> 選項指定（Rails 2.2 之後）：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 render file: "/u/apps/warehouse_app/current/app/views/products/show"
 
 </pre>
 </div>
-<p>The <code>:file</code> option takes an absolute file-system path. Of course, you need to have rights to the view that you're using to render the content.</p><div class="note"><p>By default, the file is rendered without using the current layout. If you want Rails to put the file into the current layout, you need to add the <code>layout: true</code> option.</p></div><div class="info"><p>If you're running Rails on Microsoft Windows, you should use the <code>:file</code> option to render a file, because Windows filenames do not have the same format as Unix filenames.</p></div><h5 id="wrapping-it-up">2.2.5 Wrapping it up</h5><p>The above three ways of rendering (rendering another template within the controller, rendering a template within another controller and rendering an arbitrary file on the file system) are actually variants of the same action.</p><p>In fact, in the BooksController class, inside of the update action where we want to render the edit template if the book does not update successfully, all of the following render calls would all render the <code>edit.html.erb</code> template in the <code>views/books</code> directory:</p><div class="code_container">
+<p><code>:file</code> 選項接受系統的絕對路徑，要算繪的檔案必須要有權限才行。</p><div class="note"><p>算繪檔案預設不會使用版型。若想 Rails 將算繪的檔案內容放入版型裡，需要加上 <code>layout: true</code> 選項。</p></div><div class="info"><p>若想在 Microsoft Windows 執行 Rails，要算繪檔案必須要使用 <code>:file</code> 選項，因為 Windows 的檔名跟 Unix 的檔名格式不同。</p></div><h5 id="總結">2.2.5 總結</h5><p>上述三種算繪方法（算繪模版、算繪別的 Controller 的模版、算繪檔案）實際上都是同種動作的不同表現方式。</p><p>實際上，在 <code>BooksController</code> 類別裡，在 <code>update</code> 動作裡，書本更新失敗時，我們想算繪 <code>edit</code> 模版。以下的呼叫都會算繪 <code>app/views/books</code> 目錄下的 <code>edit.html.erb</code>：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 render :edit
 render action: :edit
@@ -370,408 +370,395 @@ render file: "/path/to/rails/app/views/books/edit.html.erb"
 
 </pre>
 </div>
-<p>Which one you use is really a matter of style and convention, but the rule of thumb is to use the simplest one that makes sense for the code you are writing.</p><h5 id="using-render-with-:inline">2.2.6 Using <code>render</code> with <code>:inline</code>
-</h5><p>The <code>render</code> method can do without a view completely, if you're willing to use the <code>:inline</code> option to supply ERB as part of the method call. This is perfectly valid:</p><div class="code_container">
+<p>用那一種完全取決於風格與慣例，但最佳實踐表示，用最能反映出程式實際情況的最簡形式最好。</p><h5 id="使用-render-的-:inline-選項">2.2.6 使用 <code>render</code> 的 <code>:inline</code> 選項</h5><p><code>render</code> 方法完全可以不使用 View 模版。使用 <code>:inline</code> 選項（“內聯算繪”），提供一段 ERB 程式碼即可。以下是完全合法的呼叫：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 render inline: "&lt;% products.each do |p| %&gt;&lt;p&gt;&lt;%= p.name %&gt;&lt;/p&gt;&lt;% end %&gt;"
 
 </pre>
 </div>
-<div class="warning"><p>There is seldom any good reason to use this option. Mixing ERB into your controllers defeats the MVC orientation of Rails and will make it harder for other developers to follow the logic of your project. Use a separate erb view instead.</p></div><p>By default, inline rendering uses ERB. You can force it to use Builder instead with the <code>:type</code> option:</p><div class="code_container">
+<div class="warning"><p>這個選項很少有用它的好理由。把 ERB 混入 Controller 違反了 Rails 的 MVC 原則，這也讓一起開發的開發者，更難理解專案的邏輯。把要算繪的內容放到另一個 ERB 模版比較好。</p></div><p>預設的“內聯算繪”使用 ERB 作為模版。可以使用 <code>:type</code> 來指定別的模版處理器，譬如使用 Builder：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 render inline: "xml.p {'Horrid coding practice!'}", type: :builder
 
 </pre>
 </div>
-<h5 id="rendering-text">2.2.7 Rendering Text</h5><p>You can send plain text - with no markup at all - back to the browser by using
-the <code>:plain</code> option to <code>render</code>:</p><div class="code_container">
+<h5 id="算繪純文字">2.2.7 算繪純文字</h5><p>要給瀏覽器發純文字，不含標記語言。使用 <code>render</code> 的 <code>:plain</code> 選項：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 render plain: "OK"
 
 </pre>
 </div>
-<div class="info"><p>Rendering pure text is most useful when you're responding to Ajax or web
-service requests that are expecting something other than proper HTML.</p></div><div class="note"><p>By default, if you use the <code>:plain</code> option, the text is rendered without
-using the current layout. If you want Rails to put the text into the current
-layout, you need to add the <code>layout: true</code> option.</p></div><h5 id="rendering-html">2.2.8 Rendering HTML</h5><p>You can send a HTML string back to the browser by using the <code>:html</code> option to
-<code>render</code>:</p><div class="code_container">
+<div class="info"><p>算繪純文字最主要的用途是回應 Ajax ，或只需要回純文字的 Web Service。</p></div><div class="note"><p>若使用了 <code>:plain</code> 選項，文字算繪時不會使用版型。若想 Rails 將算繪的純文字放入版型，需要加上 <code>layout: true</code> 選項。</p></div><h5 id="算繪-html">2.2.8 算繪 HTML</h5><p>給瀏覽器發 HTML，使用 <code>render</code> 的 <code>:html</code> 選項：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 render html: "&lt;strong&gt;Not Found&lt;/strong&gt;".html_safe
 
 </pre>
 </div>
-<div class="info"><p>This is useful when you're rendering a small snippet of HTML code.
-However, you might want to consider moving it to a template file if the markup
-is complex.</p></div><div class="note"><p>This option will escape HTML entities if the string is not html safe.</p></div><h5 id="rendering-json">2.2.9 Rendering JSON</h5><p>JSON is a JavaScript data format used by many Ajax libraries. Rails has built-in support for converting objects to JSON and rendering that JSON back to the browser:</p><div class="code_container">
+<div class="info"><p>要算繪一小段 HTML 可能有用。稍微複雜點可能就考慮放到單獨的檔案裡比較好。</p></div><div class="note"><p>若字串不是 HTML 安全的，會自動對 HTML 進行跳脫字元處理。</p></div><h5 id="算繪-json">2.2.9 算繪 JSON</h5><p>JSON 是一種許多 Ajax 函式庫採用的 JavaScript 資料格式。Rails 原生支援物件到 JSON 的轉換，並將 JSON 算繪完回給瀏覽器：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 render json: @product
 
 </pre>
 </div>
-<div class="info"><p>You don't need to call <code>to_json</code> on the object that you want to render. If you use the <code>:json</code> option, <code>render</code> will automatically call <code>to_json</code> for you.</p></div><h5 id="rendering-xml">2.2.10 Rendering XML</h5><p>Rails also has built-in support for converting objects to XML and rendering that XML back to the caller:</p><div class="code_container">
+<div class="info"><p>不需要對要算繪的物件呼叫 <code>to_json</code>。使用了 <code>:json</code> 選項自動會對物件呼叫 <code>to_json</code>。</p></div><h5 id="算繪-xml">2.2.10 算繪 XML</h5><p>Rails 也內建轉換物件到 XML、XML 回給呼叫者的支援：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 render xml: @product
 
 </pre>
 </div>
-<div class="info"><p>You don't need to call <code>to_xml</code> on the object that you want to render. If you use the <code>:xml</code> option, <code>render</code> will automatically call <code>to_xml</code> for you.</p></div><h5 id="rendering-vanilla-javascript">2.2.11 Rendering Vanilla JavaScript</h5><p>Rails can render vanilla JavaScript:</p><div class="code_container">
+<div class="info"><p>不需要對要算繪的物件呼叫 <code>to_xml</code>。使用了 <code>:json</code> 選項自動會對物件呼叫 <code>to_xml</code>。</p></div><h5 id="算繪純-javascript">2.2.11 算繪純 JavaScript</h5><p>Rails 可以算繪純 JavaScript：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 render js: "alert('Hello Rails');"
 
 </pre>
 </div>
-<p>This will send the supplied string to the browser with a MIME type of <code>text/javascript</code>.</p><h5 id="rendering-raw-body">2.2.12 Rendering raw body</h5><p>You can send a raw content back to the browser, without setting any content
-type, by using the <code>:body</code> option to <code>render</code>:</p><div class="code_container">
+<p>這會把 MIME 類型設定為 <code>text/javascript</code>，再將字串傳給瀏覽器，</p><h5 id="算繪未經處理的內容">2.2.12 算繪未經處理的內容</h5><p>可以使用 <code>render</code> 的 <code>:body</code> 選項，把未經處理的內容發給瀏覽器，而無需設定 Content-Type：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 render body: "raw"
 
 </pre>
 </div>
-<div class="info"><p>This option should be used only if you don't care about the content type of
-the response. Using <code>:plain</code> or <code>:html</code> might be more appropriate in most of the
-time.</p></div><div class="note"><p>Unless overridden, your response returned from this render option will be
-<code>text/html</code>, as that is the default content type of Action Dispatch response.</p></div><h5 id="options-for-render">2.2.13 Options for <code>render</code>
-</h5><p>Calls to the <code>render</code> method generally accept four options:</p>
+<div class="info"><p>這個選項應該在不在意響應的 Content-Type 時使用。使用 <code>:plain</code> 或 <code>:html</code> 在多數情況下更合理。</p></div><div class="note"><p>使用 <code>:body</code> 選項，響應的內容類型會是 <code>text/html</code>，這是 Action Dispatch 響應預設的 Content-Type。</p></div><h5 id="render-接受的選項">2.2.13 <code>render</code> 接受的選項</h5><p><code>render</code> 方法一般接受下列四個選項：</p>
 <ul>
 <li><code>:content_type</code></li>
 <li><code>:layout</code></li>
 <li><code>:location</code></li>
 <li><code>:status</code></li>
 </ul>
-<h6 id="the-:content_type-option">2.2.13.1 The <code>:content_type</code> Option</h6><p>By default, Rails will serve the results of a rendering operation with the MIME content-type of <code>text/html</code> (or <code>application/json</code> if you use the <code>:json</code> option, or <code>application/xml</code> for the <code>:xml</code> option.). There are times when you might like to change this, and you can do so by setting the <code>:content_type</code> option:</p><div class="code_container">
+<h6 id=":content_type-選項">2.2.13.1 <code>:content_type</code> 選項</h6><p>Rails 算繪操作預設的 MIME Content-Type 為 <code>text/html</code>（若用了 <code>:json</code> 選項，則為 <code>application/json</code>；<code>:xml</code> 選項為 <code>application/xml</code>）。有時候會想要修改 Content-Type，可以使用 <code>:content_type</code> 選項來設定：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 render file: filename, content_type: "application/rss"
 
 </pre>
 </div>
-<h6 id="the-:layout-option">2.2.13.2 The <code>:layout</code> Option</h6><p>With most of the options to <code>render</code>, the rendered content is displayed as part of the current layout. You'll learn more about layouts and how to use them later in this guide.</p><p>You can use the <code>:layout</code> option to tell Rails to use a specific file as the layout for the current action:</p><div class="code_container">
+<h6 id=":layout-選項">2.2.13.2 <code>:layout</code> 選項</h6><p><code>render</code> 方法多數的選項，都會把內容顯示到目前的版型裡。後面會更詳細介紹版型、版型如何使用。</p><p>用 <code>:layout</code> 選項指定動作要使用的版型：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 render layout: "special_layout"
 
 </pre>
 </div>
-<p>You can also tell Rails to render with no layout at all:</p><div class="code_container">
+<p>也可以停用版型：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 render layout: false
 
 </pre>
 </div>
-<h6 id="the-:location-option">2.2.13.3 The <code>:location</code> Option</h6><p>You can use the <code>:location</code> option to set the HTTP <code>Location</code> header:</p><div class="code_container">
+<h6 id=":location-選項">2.2.13.3 <code>:location</code> 選項</h6><p>可以使用 <code>:location</code> 選項設定 HTTP 標頭的 <code>Location</code>：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 render xml: photo, location: photo_url(photo)
 
 </pre>
 </div>
-<h6 id="the-:status-option">2.2.13.4 The <code>:status</code> Option</h6><p>Rails will automatically generate a response with the correct HTTP status code (in most cases, this is <code>200 OK</code>). You can use the <code>:status</code> option to change this:</p><div class="code_container">
+<h6 id=":status-選項">2.2.13.4 <code>:status</code> 選項</h6><p>Rails 會自動給響應產生正確的 HTTP 狀態碼（多數情況是 <code>200 OK</code>），可以用 <code>:status</code> 選項來修改：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 render status: 500
 render status: :forbidden
 
 </pre>
 </div>
-<p>Rails understands both numeric status codes and the corresponding symbols shown below.</p>
+<p>可以用數字或是符號指定 HTTP 狀態碼：</p>
 <table>
 <thead>
 <tr>
-<th>Response Class</th>
-<th>HTTP Status Code</th>
-<th>Symbol</th>
+<th>響應類別</th>
+<th>HTTP 狀態碼</th>
+<th>符號</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><strong>Informational</strong></td>
+<td><strong>資訊</strong></td>
 <td>100</td>
-<td>:continue</td>
+<td><code>:continue</code></td>
 </tr>
 <tr>
 <td></td>
 <td>101</td>
-<td>:switching_protocols</td>
+<td><code>:switching_protocols</code></td>
 </tr>
 <tr>
 <td></td>
 <td>102</td>
-<td>:processing</td>
+<td><code>:processing</code></td>
 </tr>
 <tr>
-<td><strong>Success</strong></td>
+<td><strong>成功</strong></td>
 <td>200</td>
-<td>:ok</td>
+<td><code>:ok</code></td>
 </tr>
 <tr>
 <td></td>
 <td>201</td>
-<td>:created</td>
+<td><code>:created</code></td>
 </tr>
 <tr>
 <td></td>
 <td>202</td>
-<td>:accepted</td>
+<td><code>:accepted</code></td>
 </tr>
 <tr>
 <td></td>
 <td>203</td>
-<td>:non_authoritative_information</td>
+<td><code>:non_authoritative_information</code></td>
 </tr>
 <tr>
 <td></td>
 <td>204</td>
-<td>:no_content</td>
+<td><code>:no_content</code></td>
 </tr>
 <tr>
 <td></td>
 <td>205</td>
-<td>:reset_content</td>
+<td><code>:reset_content</code></td>
 </tr>
 <tr>
 <td></td>
 <td>206</td>
-<td>:partial_content</td>
+<td><code>:partial_content</code></td>
 </tr>
 <tr>
 <td></td>
 <td>207</td>
-<td>:multi_status</td>
+<td><code>:multi_status</code></td>
 </tr>
 <tr>
 <td></td>
 <td>208</td>
-<td>:already_reported</td>
+<td><code>:already_reported</code></td>
 </tr>
 <tr>
 <td></td>
 <td>226</td>
-<td>:im_used</td>
+<td><code>:im_used</code></td>
 </tr>
 <tr>
-<td><strong>Redirection</strong></td>
+<td><strong>重新導向</strong></td>
 <td>300</td>
-<td>:multiple_choices</td>
+<td><code>:multiple_choices</code></td>
 </tr>
 <tr>
 <td></td>
 <td>301</td>
-<td>:moved_permanently</td>
+<td><code>:moved_permanently</code></td>
 </tr>
 <tr>
 <td></td>
 <td>302</td>
-<td>:found</td>
+<td><code>:found</code></td>
 </tr>
 <tr>
 <td></td>
 <td>303</td>
-<td>:see_other</td>
+<td><code>:see_other</code></td>
 </tr>
 <tr>
 <td></td>
 <td>304</td>
-<td>:not_modified</td>
+<td><code>:not_modified</code></td>
 </tr>
 <tr>
 <td></td>
 <td>305</td>
-<td>:use_proxy</td>
+<td><code>:use_proxy</code></td>
 </tr>
 <tr>
 <td></td>
 <td>306</td>
-<td>:reserved</td>
+<td><code>:reserved</code></td>
 </tr>
 <tr>
 <td></td>
 <td>307</td>
-<td>:temporary_redirect</td>
+<td><code>:temporary_redirect</code></td>
 </tr>
 <tr>
 <td></td>
 <td>308</td>
-<td>:permanent_redirect</td>
+<td><code>:permanent_redirect</code></td>
 </tr>
 <tr>
-<td><strong>Client Error</strong></td>
+<td><strong>用戶端錯誤</strong></td>
 <td>400</td>
-<td>:bad_request</td>
+<td><code>:bad_request</code></td>
 </tr>
 <tr>
 <td></td>
 <td>401</td>
-<td>:unauthorized</td>
+<td><code>:unauthorized</code></td>
 </tr>
 <tr>
 <td></td>
 <td>402</td>
-<td>:payment_required</td>
+<td><code>:payment_required</code></td>
 </tr>
 <tr>
 <td></td>
 <td>403</td>
-<td>:forbidden</td>
+<td><code>:forbidden</code></td>
 </tr>
 <tr>
 <td></td>
 <td>404</td>
-<td>:not_found</td>
+<td><code>:not_found</code></td>
 </tr>
 <tr>
 <td></td>
 <td>405</td>
-<td>:method_not_allowed</td>
+<td><code>:method_not_allowed</code></td>
 </tr>
 <tr>
 <td></td>
 <td>406</td>
-<td>:not_acceptable</td>
+<td><code>:not_acceptable</code></td>
 </tr>
 <tr>
 <td></td>
 <td>407</td>
-<td>:proxy_authentication_required</td>
+<td><code>:proxy_authentication_required</code></td>
 </tr>
 <tr>
 <td></td>
 <td>408</td>
-<td>:request_timeout</td>
+<td><code>:request_timeout</code></td>
 </tr>
 <tr>
 <td></td>
 <td>409</td>
-<td>:conflict</td>
+<td><code>:conflict</code></td>
 </tr>
 <tr>
 <td></td>
 <td>410</td>
-<td>:gone</td>
+<td><code>:gone</code></td>
 </tr>
 <tr>
 <td></td>
 <td>411</td>
-<td>:length_required</td>
+<td><code>:length_required</code></td>
 </tr>
 <tr>
 <td></td>
 <td>412</td>
-<td>:precondition_failed</td>
+<td><code>:precondition_failed</code></td>
 </tr>
 <tr>
 <td></td>
 <td>413</td>
-<td>:request_entity_too_large</td>
+<td><code>:request_entity_too_large</code></td>
 </tr>
 <tr>
 <td></td>
 <td>414</td>
-<td>:request_uri_too_long</td>
+<td><code>:request_uri_too_long</code></td>
 </tr>
 <tr>
 <td></td>
 <td>415</td>
-<td>:unsupported_media_type</td>
+<td><code>:unsupported_media_type</code></td>
 </tr>
 <tr>
 <td></td>
 <td>416</td>
-<td>:requested_range_not_satisfiable</td>
+<td><code>:requested_range_not_satisfiable</code></td>
 </tr>
 <tr>
 <td></td>
 <td>417</td>
-<td>:expectation_failed</td>
+<td><code>:expectation_failed</code></td>
 </tr>
 <tr>
 <td></td>
 <td>422</td>
-<td>:unprocessable_entity</td>
+<td><code>:unprocessable_entity</code></td>
 </tr>
 <tr>
 <td></td>
 <td>423</td>
-<td>:locked</td>
+<td><code>:locked</code></td>
 </tr>
 <tr>
 <td></td>
 <td>424</td>
-<td>:failed_dependency</td>
+<td><code>:failed_dependency</code></td>
 </tr>
 <tr>
 <td></td>
 <td>426</td>
-<td>:upgrade_required</td>
+<td><code>:upgrade_required</code></td>
 </tr>
 <tr>
 <td></td>
 <td>428</td>
-<td>:precondition_required</td>
+<td><code>:precondition_required</code></td>
 </tr>
 <tr>
 <td></td>
 <td>429</td>
-<td>:too_many_requests</td>
+<td><code>:too_many_requests</code></td>
 </tr>
 <tr>
 <td></td>
 <td>431</td>
-<td>:request_header_fields_too_large</td>
+<td><code>:request_header_fields_too_large</code></td>
 </tr>
 <tr>
-<td><strong>Server Error</strong></td>
+<td><strong>伺服器錯誤</strong></td>
 <td>500</td>
-<td>:internal_server_error</td>
+<td><code>:internal_server_error</code></td>
 </tr>
 <tr>
 <td></td>
 <td>501</td>
-<td>:not_implemented</td>
+<td><code>:not_implemented</code></td>
 </tr>
 <tr>
 <td></td>
 <td>502</td>
-<td>:bad_gateway</td>
+<td><code>:bad_gateway</code></td>
 </tr>
 <tr>
 <td></td>
 <td>503</td>
-<td>:service_unavailable</td>
+<td><code>:service_unavailable</code></td>
 </tr>
 <tr>
 <td></td>
 <td>504</td>
-<td>:gateway_timeout</td>
+<td><code>:gateway_timeout</code></td>
 </tr>
 <tr>
 <td></td>
 <td>505</td>
-<td>:http_version_not_supported</td>
+<td><code>:http_version_not_supported</code></td>
 </tr>
 <tr>
 <td></td>
 <td>506</td>
-<td>:variant_also_negotiates</td>
+<td><code>:variant_also_negotiates</code></td>
 </tr>
 <tr>
 <td></td>
 <td>507</td>
-<td>:insufficient_storage</td>
+<td><code>:insufficient_storage</code></td>
 </tr>
 <tr>
 <td></td>
 <td>508</td>
-<td>:loop_detected</td>
+<td><code>:loop_detected</code></td>
 </tr>
 <tr>
 <td></td>
 <td>510</td>
-<td>:not_extended</td>
+<td><code>:not_extended</code></td>
 </tr>
 <tr>
 <td></td>
 <td>511</td>
-<td>:network_authentication_required</td>
+<td><code>:network_authentication_required</code></td>
 </tr>
 </tbody>
 </table>
-<h5 id="finding-layouts">2.2.14 Finding Layouts</h5><p>To find the current layout, Rails first looks for a file in <code>app/views/layouts</code> with the same base name as the controller. For example, rendering actions from the <code>PhotosController</code> class will use <code>app/views/layouts/photos.html.erb</code> (or <code>app/views/layouts/photos.builder</code>). If there is no such controller-specific layout, Rails will use <code>app/views/layouts/application.html.erb</code> or <code>app/views/layouts/application.builder</code>. If there is no <code>.erb</code> layout, Rails will use a <code>.builder</code> layout if one exists. Rails also provides several ways to more precisely assign specific layouts to individual controllers and actions.</p><h6 id="specifying-layouts-for-controllers">2.2.14.1 Specifying Layouts for Controllers</h6><p>You can override the default layout conventions in your controllers by using the <code>layout</code> declaration. For example:</p><div class="code_container">
+<h5 id="尋找版型">2.2.14 尋找版型</h5><p>Rails 在 <code>app/views/layouts</code> 下尋找與 Controller 同名的檔案作為目前的版型。舉例來說，<code>PhotosController</code> 會使用 <code>app/views/layouts/photos.html.erb</code>（或是 <code>app/views/layouts/photos.builder</code>）。若找不到與 Controller 同名的版型，會使用 <code>app/views/layouts/application.html.erb</code> 或是 <code>app/views/layouts/application.builder</code> 作為版型。若 <code>.erb</code> 版型不存在，Rails 會使用 <code>.builder</code> 版型（如果有的話）。Rails 也提供數種方式用來給 Controller 與動作設定版型。</p><h6 id="給-controller-指定版型">2.2.14.1 給 Controller 指定版型</h6><p>在 Controller 使用 <code>layout</code> 宣告來覆寫預設的版型：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class ProductsController &lt; ApplicationController
   layout "inventory"
@@ -780,7 +767,7 @@ end
 
 </pre>
 </div>
-<p>With this declaration, all of the views rendered by the <code>ProductsController</code> will use <code>app/views/layouts/inventory.html.erb</code> as their layout.</p><p>To assign a specific layout for the entire application, use a <code>layout</code> declaration in your <code>ApplicationController</code> class:</p><div class="code_container">
+<p>加上這行宣告以後，<code>ProductsController</code> 會使用 <code>app/views/layouts/inventory.html.erb</code> 作為版型。</p><p>要給整個應用程式指定版型，在 <code>ApplicationController</code> 使用 <code>layout</code> 來指定：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class ApplicationController &lt; ActionController::Base
   layout "main"
@@ -789,7 +776,7 @@ end
 
 </pre>
 </div>
-<p>With this declaration, all of the views in the entire application will use <code>app/views/layouts/main.html.erb</code> for their layout.</p><h6 id="choosing-layouts-at-runtime">2.2.14.2 Choosing Layouts at Runtime</h6><p>You can use a symbol to defer the choice of layout until a request is processed:</p><div class="code_container">
+<p>加上這行宣告以後，應用程式全都使用 <code>app/views/layouts/main.html.erb</code> 作為版型。</p><h6 id="動態指定版型">2.2.14.2 動態指定版型</h6><p>可以使用符號來推遲版型的選擇，版型會在處理請求時選擇：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class ProductsController &lt; ApplicationController
   layout :products_layout
@@ -807,7 +794,7 @@ end
 
 </pre>
 </div>
-<p>Now, if the current user is a special user, they'll get a special layout when viewing a product.</p><p>You can even use an inline method, such as a Proc, to determine the layout. For example, if you pass a Proc object, the block you give the Proc will be given the <code>controller</code> instance, so the layout can be determined based on the current request:</p><div class="code_container">
+<p>若目前的使用者是一個特殊的使用者，會使用特殊的版型。</p><p>甚至可以使用一個“內聯方法”，比如 <code>Proc</code> 來指定版型。舉例來說，若傳入 <code>Proc</code> 物件，這個 <code>Proc</code> 會傳給 Controller 的實體，版型則可以在當下的請求裡指定：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class ProductsController &lt; ApplicationController
   layout Proc.new { |controller| controller.request.xhr? ? "popup" : "application" }
@@ -815,7 +802,7 @@ end
 
 </pre>
 </div>
-<h6 id="conditional-layouts">2.2.14.3 Conditional Layouts</h6><p>Layouts specified at the controller level support the <code>:only</code> and <code>:except</code> options. These options take either a method name, or an array of method names, corresponding to method names within the controller:</p><div class="code_container">
+<h6 id="條件式版型">2.2.14.3 條件式版型</h6><p>在 Controller 裡指定版型還接受 <code>:only</code> 與 <code>:except</code> 選項。這些選項接受方法名稱、方法名稱組成的陣列。這些名稱對應到 Controller 裡的方法。</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class ProductsController &lt; ApplicationController
   layout "product", except: [:index, :rss]
@@ -823,7 +810,7 @@ end
 
 </pre>
 </div>
-<p>With this declaration, the <code>product</code> layout would be used for everything but the <code>rss</code> and <code>index</code> methods.</p><h6 id="layout-inheritance">2.2.14.4 Layout Inheritance</h6><p>Layout declarations cascade downward in the hierarchy, and more specific layout declarations always override more general ones. For example:</p>
+<p>加了上面這條宣告後，<code>index</code> 與 <code>rss</code> 會使用 <code>product</code> 版型。</p><h6 id="版型繼承">2.2.14.4 版型繼承</h6><p>版型宣告可以“串接”，會採用最具體的版型指定。舉例來說：</p>
 <ul>
 <li>
 <p><code>application_controller.rb</code></p>
@@ -879,19 +866,19 @@ end
 </div>
 </li>
 </ul>
-<p>In this application:</p>
+<p>在這個應用程式裡：</p>
 <ul>
-<li>In general, views will be rendered in the <code>main</code> layout</li>
+<li>View 通常會在 <code>main</code> 版型裡算繪。</li>
 <li>
-<code>ArticlesController#index</code> will use the <code>main</code> layout</li>
+<code>ArticlesController#index</code> 會使用 <code>main</code> 版型。</li>
 <li>
-<code>SpecialArticlesController#index</code> will use the <code>special</code> layout</li>
+<code>SpecialArticlesController#index</code> 會使用 <code>special</code> 版型。</li>
 <li>
-<code>OldArticlesController#show</code> will use no layout at all</li>
+<code>OldArticlesController#show</code> 不會使用任何版型。</li>
 <li>
-<code>OldArticlesController#index</code> will use the <code>old</code> layout</li>
+<code>OldArticlesController#index</code> 會使用 <code>old</code> 版型。</li>
 </ul>
-<h5 id="avoiding-double-render-errors">2.2.15 Avoiding Double Render Errors</h5><p>Sooner or later, most Rails developers will see the error message "Can only render or redirect once per action". While this is annoying, it's relatively easy to fix. Usually it happens because of a fundamental misunderstanding of the way that <code>render</code> works.</p><p>For example, here's some code that will trigger this error:</p><div class="code_container">
+<h5 id="避免雙重算繪錯誤">2.2.15 避免雙重算繪錯誤</h5><p>多數的 Rails 開發者遲早會看過這個錯誤訊息："Can only render or redirect once per action"。這個提示雖然很討厭，但也很容易修正。通常的發生原因是不了解 <code>render</code> 的工作原理。</p><p>舉例來說，以下是會觸發此錯誤的程式：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 def show
   @book = Book.find(params[:id])
@@ -903,7 +890,7 @@ end
 
 </pre>
 </div>
-<p>If <code>@book.special?</code> evaluates to <code>true</code>, Rails will start the rendering process to dump the <code>@book</code> variable into the <code>special_show</code> view. But this will <em>not</em> stop the rest of the code in the <code>show</code> action from running, and when Rails hits the end of the action, it will start to render the <code>regular_show</code> view - and throw an error. The solution is simple: make sure that you have only one call to <code>render</code> or <code>redirect</code> in a single code path. One thing that can help is <code>and return</code>. Here's a patched version of the method:</p><div class="code_container">
+<p>若 <code>@book.special?</code> 求值為 <code>true</code>，Rails 會把 <code>@book</code> 變數放到 <code>special_show</code> View 裡算繪。但之後的程式碼還是會執行，會繼續算繪 <code>regular_show</code>，進而造成錯誤。解決方法很簡單，確保程式只會執行一次 <code>render</code> 或是 <code>redirect</code>。或是加上 <code>and return</code>，以下是上面程式的修正版本：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 def show
   @book = Book.find(params[:id])
@@ -915,7 +902,7 @@ end
 
 </pre>
 </div>
-<p>Make sure to use <code>and return</code> instead of <code>&amp;&amp; return</code> because <code>&amp;&amp; return</code> will not work due to the operator precedence in the Ruby Language.</p><p>Note that the implicit render done by ActionController detects if <code>render</code> has been called, so the following will work without errors:</p><div class="code_container">
+<p>記得要使用 <code>and return</code> 而不是 <code>&amp;&amp; return</code>，因為 Ruby 運算子優先權的關係，<code>&amp;&amp; return</code> 不會有任何作用。</p><p>注意 <code>ActionController</code> 默認會執行 <code>render</code>，但會先檢查 <code>render</code> 是否有呼叫過，所以下面這段程式不會有錯誤：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 def show
   @book = Book.find(params[:id])
@@ -926,27 +913,26 @@ end
 
 </pre>
 </div>
-<p>This will render a book with <code>special?</code> set with the <code>special_show</code> template, while other books will render with the default <code>show</code> template.</p><h4 id="using-redirect_to">2.3 Using <code>redirect_to</code>
-</h4><p>Another way to handle returning responses to an HTTP request is with <code>redirect_to</code>. As you've seen, <code>render</code> tells Rails which view (or other asset) to use in constructing a response. The <code>redirect_to</code> method does something completely different: it tells the browser to send a new request for a different URL. For example, you could redirect from wherever you are in your code to the index of photos in your application with this call:</p><div class="code_container">
+<p>特殊的書會算繪 <code>special_view</code> 模版，而一般的書則會算繪預設的 <code>show</code> 模版。</p><h4 id="使用-redirect_to">2.3 使用 <code>redirect_to</code>
+</h4><p>另一種回傳響應給 HTTP 請求的方式是使用 <code>redirect_to</code>。<code>render</code> 告訴 Rails 要用那個 View （或是其他 Asset）來打造響應。而 <code>redirect_to</code> 方法則完全不同，告訴瀏覽器對不同的 URL 發一個新請求。舉例來說，可以在程式碼任何一個地方做轉址，比如轉到 <code>photos</code> 的 <code>index</code>：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 redirect_to photos_url
 
 </pre>
 </div>
-<p>You can use <code>redirect_to</code> with any arguments that you could use with <code>link_to</code> or <code>url_for</code>. There's also a special redirect that sends the user back to the page they just came from:</p><div class="code_container">
+<p>可以對 <code>redirect_to</code> 使用任何 <code>link_to</code> 或 <code>url_for</code> 也接受的參數。有一個特殊的轉址，會回到使用者到這頁的“前一頁”：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 redirect_to :back
 
 </pre>
 </div>
-<h5 id="getting-a-different-redirect-status-code">2.3.1 Getting a Different Redirect Status Code</h5><p>Rails uses HTTP status code 302, a temporary redirect, when you call <code>redirect_to</code>. If you'd like to use a different status code, perhaps 301, a permanent redirect, you can use the <code>:status</code> option:</p><div class="code_container">
+<h5 id="獲得不同的狀態碼">2.3.1 獲得不同的狀態碼</h5><p>當呼叫 <code>redirect_to</code> 時，Rails 使用 HTTP 狀態碼 302，即暫時轉址（temporary redirect）。若想使用不同的狀態碼，譬如 301，永久轉址，可以使用 <code>:status</code> 選項：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 redirect_to photos_path, status: 301
 
 </pre>
 </div>
-<p>Just like the <code>:status</code> option for <code>render</code>, <code>:status</code> for <code>redirect_to</code> accepts both numeric and symbolic header designations.</p><h5 id="the-difference-between-render-and-redirect_to">2.3.2 The Difference Between <code>render</code> and <code>redirect_to</code>
-</h5><p>Sometimes inexperienced developers think of <code>redirect_to</code> as a sort of <code>goto</code> command, moving execution from one place to another in your Rails code. This is <em>not</em> correct. Your code stops running and waits for a new request for the browser. It just happens that you've told the browser what request it should make next, by sending back an HTTP 302 status code.</p><p>Consider these actions to see the difference:</p><div class="code_container">
+<p>和 <code>render</code> 方法的 <code>:status</code> 選項一樣，<code>redirect_to</code> 的 <code>:status</code> 接受數字與符號來指定狀態碼。</p><h5 id="render-和-redirect_to-的差異">2.3.2 <code>render</code> 和 <code>redirect_to</code> 的差異</h5><p>有時候經驗不足的開發者會認為 <code>redirect_to</code> 是某種 <code>goto</code> 命令，在 Rails 程式裡從一處跳至另一處。<strong>這是不正確的</strong>。<code>redirect_to</code> 方法會讓程式停止執行，等待瀏覽器發起新請求。你需要用 HTTP 302 狀態碼，告訴瀏覽器下個請求是什麼才是。</p><p>考量下面這幾個動作來看出差異：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 def index
   @books = Book.all
@@ -961,7 +947,7 @@ end
 
 </pre>
 </div>
-<p>With the code in this form, there will likely be a problem if the <code>@book</code> variable is <code>nil</code>. Remember, a <code>render :action</code> doesn't run any code in the target action, so nothing will set up the <code>@books</code> variable that the <code>index</code> view will probably require. One way to fix this is to redirect instead of rendering:</p><div class="code_container">
+<p>在上面的程式裡，若 <code>@book</code> 的值為 <code>nil</code>，則會有問題。<code>render :action</code> 不會執行 <code>:action</code> 裡的任何程式，因此不會執行 <code>index</code> 裡的 <code>@books = Book.all</code>。解決辦法是使用 <code>redirect_to</code>：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 def index
   @books = Book.all
@@ -976,7 +962,7 @@ end
 
 </pre>
 </div>
-<p>With this code, the browser will make a fresh request for the index page, the code in the <code>index</code> method will run, and all will be well.</p><p>The only downside to this code is that it requires a round trip to the browser: the browser requested the show action with <code>/books/1</code> and the controller finds that there are no books, so the controller sends out a 302 redirect response to the browser telling it to go to <code>/books/</code>, the browser complies and sends a new request back to the controller asking now for the <code>index</code> action, the controller then gets all the books in the database and renders the index template, sending it back down to the browser which then shows it on your screen.</p><p>While in a small application, this added latency might not be a problem, it is something to think about if response time is a concern. We can demonstrate one way to handle this with a contrived example:</p><div class="code_container">
+<p>程式改成這樣後，瀏覽器會對 <code>index</code> 頁面發一個新的請求，這麼一來便會執行 <code>index</code> 方法裡的程式，一切正常。</p><p>這段程式的唯一缺點是，無法直接跳到 <code>index</code>，需要經過瀏覽器：瀏覽器起初對 <code>show</code> 動作發起 <code>/books/1</code>，Controller 發現找不到該本書（<code>@book.nil?</code>），Controller 傳送 <code>302 redirect response</code> 給瀏覽器，告訴瀏覽器到 <code>/books/</code>，瀏覽器按照要求，對 Controller 對 <code>index</code> 動作發一個新的請求，Controller 從資料庫將所有的書拿來，算繪 <code>index</code> 模版，發回給瀏覽器，最終顯示在螢幕上。</p><p>小的應用程式裡，這加了一些延遲時間（latency），可能沒什麼問題。但如果響應時間很重要，就需要考慮這個問題。以下用一個假設的例子來示範如何處理這個問題：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 def index
   @books = Book.all
@@ -993,13 +979,13 @@ end
 
 </pre>
 </div>
-<p>This would detect that there are no books with the specified ID, populate the <code>@books</code> instance variable with all the books in the model, and then directly render the <code>index.html.erb</code> template, returning it to the browser with a flash alert message to tell the user what happened.</p><h4 id="using-head-to-build-header-only-responses">2.4 Using <code>head</code> To Build Header-Only Responses</h4><p>The <code>head</code> method can be used to send responses with only headers to the browser. It provides a more obvious alternative to calling <code>render :nothing</code>. The <code>head</code> method accepts a number or symbol (see <a href="#the-status-option">reference table</a>) representing a HTTP status code. The options argument is interpreted as a hash of header names and values. For example, you can return only an error header:</p><div class="code_container">
+<p>找不到該本書時，會將所有的書取出來，放到 <code>@books</code>，在直接算繪 <code>index.html.erb</code>，把算繪結果加上一條提示訊息回給瀏覽器，告訴使用者究竟發生了什麼事。</p><h4 id="使用-head-來建立只含標頭的響應">2.4 使用 <code>head</code> 來建立只含標頭的響應</h4><p><code>head</code> 方法可以用來建立只有標頭的響應，來傳給瀏覽器。使用 <code>head</code> 與 <code>render :nothing</code> 比起來，意圖更明確清晰。<code>head</code> 方法接受數字或符號（參考 <a href="#:status-%E9%81%B8%E9%A0%85">〈HTTP 狀態選項〉</a>一節的表格）。選項參數是一個 Hash，指定標頭的名稱與數值。舉個例子，可以只回傳錯誤標頭：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 head :bad_request
 
 </pre>
 </div>
-<p>This would produce the following header:</p><div class="code_container">
+<p>會產生出以下的標頭：</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 HTTP/1.1 400 Bad Request
 Connection: close
@@ -1012,13 +998,13 @@ Cache-Control: no-cache
 
 </pre>
 </div>
-<p>Or you can use other HTTP headers to convey other information:</p><div class="code_container">
+<p>或可以使用別的 HTTP 標頭來傳遞其他資訊：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 head :created, location: photo_path(@photo)
 
 </pre>
 </div>
-<p>Which would produce:</p><div class="code_container">
+<p>會產生：</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 HTTP/1.1 201 Created
 Connection: close
@@ -1032,15 +1018,15 @@ Cache-Control: no-cache
 
 </pre>
 </div>
-<h3 id="structuring-layouts">3 Structuring Layouts</h3><p>When Rails renders a view as a response, it does so by combining the view with the current layout, using the rules for finding the current layout that were covered earlier in this guide. Within a layout, you have access to three tools for combining different bits of output to form the overall response:</p>
+<h3 id="組織版型">3 組織版型</h3><p>當 Rails 算繪 View 作為響應時，首先使用前文所述的慣例找到版型，將 View 與版型結合起來。在版型裡，可以使用三種工具，將每個部分組合在一起，來產生完整的響應：</p>
 <ul>
 <li>Asset tags</li>
 <li>
-<code>yield</code> and <code>content_for</code>
+<code>yield</code> 與 <code>content_for</code>
 </li>
-<li>Partials</li>
+<li>局部頁面</li>
 </ul>
-<h4 id="asset-tag-helpers">3.1 Asset Tag Helpers</h4><p>Asset tag helpers provide methods for generating HTML that link views to feeds, JavaScript, stylesheets, images, videos and audios. There are six asset tag helpers available in Rails:</p>
+<h4 id="asset-tag-輔助方法">3.1 Asset Tag 輔助方法</h4><p>Asset Tag 輔助方法提供用來產生連結，可以產生連結到 feeds、JavaScript、樣式表、圖片、影片和音訊的 HTML 程式碼。Rails 提供以下六個 Asset Tag 輔助方法：</p>
 <ul>
 <li><code>auto_discovery_link_tag</code></li>
 <li><code>javascript_include_tag</code></li>
@@ -1049,118 +1035,114 @@ Cache-Control: no-cache
 <li><code>video_tag</code></li>
 <li><code>audio_tag</code></li>
 </ul>
-<p>You can use these tags in layouts or other views, although the <code>auto_discovery_link_tag</code>, <code>javascript_include_tag</code>, and <code>stylesheet_link_tag</code>, are most commonly used in the <code>&lt;head&gt;</code> section of a layout.</p><div class="warning"><p>The asset tag helpers do <em>not</em> verify the existence of the assets at the specified locations; they simply assume that you know what you're doing and generate the link.</p></div><h5 id="linking-to-feeds-with-the-auto_discovery_link_tag">3.1.1 Linking to Feeds with the <code>auto_discovery_link_tag</code>
-</h5><p>The <code>auto_discovery_link_tag</code> helper builds HTML that most browsers and feed readers can use to detect the presence of RSS or Atom feeds. It takes the type of the link (<code>:rss</code> or <code>:atom</code>), a hash of options that are passed through to url_for, and a hash of options for the tag:</p><div class="code_container">
+<p>這些方法可以在版型、或其他的 View 裡使用，雖然 <code>auto_discovery_link_tag</code>、<code>javascript_include_tag</code> 和 <code>stylesheet_link_tag</code> 這三個方法一般是在 HTML 裡的 <code>&lt;head&gt;</code> 裡使用。</p><div class="warning"><p>Asset Tag 輔助方法不會檢查 Assets 是否存在，這些方法是假設你知道自己在幹什麼，純粹幫你產生連結出來。</p></div><h5 id="用-auto_discovery_link_tag-來連結到-feeds">3.1.1 用 <code>auto_discovery_link_tag</code> 來連結到 Feeds</h5><p><code>auto_discovery_link_tag</code> 輔助方法所產生的 HTML，多數瀏覽器與 Feed 閱讀器都會識別成 RSS 或是 Atom Feeds。這個方法接受的參數有：連結的類型（<code>:rss</code> 或 <code>:atom</code>），給 <code>url_for</code> 的選項（Hash）以及給 <code>auto_discovery_link_tag</code> 本身的選項（Hash）：</p><div class="code_container">
 <pre class="brush: ruby; html-script: true; gutter: false; toolbar: false">
 &lt;%= auto_discovery_link_tag(:rss, {action: "feed"},
   {title: "RSS Feed"}) %&gt;
 
 </pre>
 </div>
-<p>There are three tag options available for the <code>auto_discovery_link_tag</code>:</p>
+<p><code>auto_discovery_link_tag</code> 可用的選項有三個：</p>
 <ul>
 <li>
-<code>:rel</code> specifies the <code>rel</code> value in the link. The default value is "alternate".</li>
+<code>:rel</code> 指定連結的 <code>rel</code>。預設值是 <code>"alternate"</code>。</li>
 <li>
-<code>:type</code> specifies an explicit MIME type. Rails will generate an appropriate MIME type automatically.</li>
+<code>:type</code> 指定 MIME 類型。Rails 會自動產生適當的 MIME 類型。</li>
 <li>
-<code>:title</code> specifies the title of the link. The default value is the uppercase <code>:type</code> value, for example, "ATOM" or "RSS".</li>
+<code>:title</code> 指定連結的 <code>title</code>。預設值是 <code>:type</code> 的值轉大寫，譬如 <code>"ATOM"</code> 或 <code>"RSS"</code>。</li>
 </ul>
-<h5 id="linking-to-javascript-files-with-the-javascript_include_tag">3.1.2 Linking to JavaScript Files with the <code>javascript_include_tag</code>
-</h5><p>The <code>javascript_include_tag</code> helper returns an HTML <code>script</code> tag for each source provided.</p><p>If you are using Rails with the <a href="asset_pipeline.html">Asset Pipeline</a> enabled, this helper will generate a link to <code>/assets/javascripts/</code> rather than <code>public/javascripts</code> which was used in earlier versions of Rails. This link is then served by the asset pipeline.</p><p>A JavaScript file within a Rails application or Rails engine goes in one of three locations: <code>app/assets</code>, <code>lib/assets</code> or <code>vendor/assets</code>. These locations are explained in detail in the <a href="asset_pipeline.html#asset-organization">Asset Organization section in the Asset Pipeline Guide</a></p><p>You can specify a full path relative to the document root, or a URL, if you prefer. For example, to link to a JavaScript file that is inside a directory called <code>javascripts</code> inside of one of <code>app/assets</code>, <code>lib/assets</code> or <code>vendor/assets</code>, you would do this:</p><div class="code_container">
+<h5 id="使用-javascript_include_tag-來引入-javascript">3.1.2 使用 <code>javascript_include_tag</code> 來引入 JavaScript</h5><p><code>javascript_include_tag</code> 輔助方法根據提供的來源，回傳 HTML 的 <code>&lt;script&gt;</code> 標籤。</p><p>若有啟用 Rails 的 <a href="asset_pipeline.html">Asset Pipeline</a>，連結會由 Asset Pipeline 來供應。這個方法產生的連結會連到 <code>/assets/javascripts</code>，而不是 <code>public/javascripts</code>（舊版 Rails，JavaScript 都放在這個目錄下）。</p><p>Rails 應用程式或 Rails Engine 裡的 JavaScript，通常放在三個地方：<code>app/assets</code>、<code>lib/assets</code> 或 <code>vendor/assets</code>。這些擺放的位置在《Asset Pipeline》一文的<a href="asset_pipeline.html#asset-organization">〈組織 Asset〉</a> 一節裡有更深入的介紹。</p><p>可以指定相對於根目錄的完整路徑，或是 URL 也可以。舉例來說，要連結到放在 <code>javascripts</code> 目錄（<code>app/assets</code>、<code>lib/assets</code> 或是 <code>vendor/assets</code>）下的 JavaScript 檔案，可以這麼寫：</p><div class="code_container">
 <pre class="brush: ruby; html-script: true; gutter: false; toolbar: false">
 &lt;%= javascript_include_tag "main" %&gt;
 
 </pre>
 </div>
-<p>Rails will then output a <code>script</code> tag such as this:</p><div class="code_container">
+<p>Rails 則會輸出像是這樣的 <code>script</code> 標籤：</p><div class="code_container">
 <pre class="brush: xml; gutter: false; toolbar: false">
 &lt;script src='/assets/main.js'&gt;&lt;/script&gt;
 
 </pre>
 </div>
-<p>The request to this asset is then served by the Sprockets gem.</p><p>To include multiple files such as <code>app/assets/javascripts/main.js</code> and <code>app/assets/javascripts/columns.js</code> at the same time:</p><div class="code_container">
+<p>Asset 的請求則是交給 Sprockets Gem 來處理。</p><p>要引入多個 JavaScript 檔案，像是一次引入 <code>app/assets/javascripts/main.js</code> 和 <code>app/assets/javascripts/columns.js</code>：</p><div class="code_container">
 <pre class="brush: ruby; html-script: true; gutter: false; toolbar: false">
 &lt;%= javascript_include_tag "main", "columns" %&gt;
 
 </pre>
 </div>
-<p>To include <code>app/assets/javascripts/main.js</code> and <code>app/assets/javascripts/photos/columns.js</code>:</p><div class="code_container">
+<p>要引入 <code>app/assets/javascripts/main.js</code> 和 <code>app/assets/javascripts/photos/columns.js</code>：</p><div class="code_container">
 <pre class="brush: ruby; html-script: true; gutter: false; toolbar: false">
 &lt;%= javascript_include_tag "main", "/photos/columns" %&gt;
 
 </pre>
 </div>
-<p>To include <code>http://example.com/main.js</code>:</p><div class="code_container">
+<p>要引入 <code>http://example.com/main.js</code>：</p><div class="code_container">
 <pre class="brush: ruby; html-script: true; gutter: false; toolbar: false">
 &lt;%= javascript_include_tag "http://example.com/main.js" %&gt;
 
 </pre>
 </div>
-<h5 id="linking-to-css-files-with-the-stylesheet_link_tag">3.1.3 Linking to CSS Files with the <code>stylesheet_link_tag</code>
-</h5><p>The <code>stylesheet_link_tag</code> helper returns an HTML <code>&lt;link&gt;</code> tag for each source provided.</p><p>If you are using Rails with the "Asset Pipeline" enabled, this helper will generate a link to <code>/assets/stylesheets/</code>. This link is then processed by the Sprockets gem. A stylesheet file can be stored in one of three locations: <code>app/assets</code>, <code>lib/assets</code> or <code>vendor/assets</code>.</p><p>You can specify a full path relative to the document root, or a URL. For example, to link to a stylesheet file that is inside a directory called <code>stylesheets</code> inside of one of <code>app/assets</code>, <code>lib/assets</code> or <code>vendor/assets</code>, you would do this:</p><div class="code_container">
+<h5 id="使用-stylesheet_link_tag-來引入樣式表檔案">3.1.3 使用 <code>stylesheet_link_tag</code> 來引入樣式表檔案</h5><p><code>stylesheet_link_tag</code> 輔助方法根據提供的來源，回傳 HTML 的 <code>&lt;link&gt;</code> 標籤。</p><p>若有啟用 Rails 的 <a href="asset_pipeline.html">Asset Pipeline</a>，這個輔助方法會產生指向 <code>assets/stylesheets</code> 的連結。接著交給 Sprockets Gem 來處理。樣式表檔案可以存在這三個地方：<code>app/assets</code>、<code>lib/assets</code> 或 <code>vendor/assets</code>。</p><p>可以指定相對於根目錄的完整路徑，或是 URL 也可以。舉例來說，要連結到放在 <code>stylesheets</code> 目錄（<code>app/assets</code>、<code>lib/assets</code> 或是 <code>vendor/assets</code>）下的樣式表檔案，可以這麼寫：</p><div class="code_container">
 <pre class="brush: ruby; html-script: true; gutter: false; toolbar: false">
 &lt;%= stylesheet_link_tag "main" %&gt;
 
 </pre>
 </div>
-<p>To include <code>app/assets/stylesheets/main.css</code> and <code>app/assets/stylesheets/columns.css</code>:</p><div class="code_container">
+<p>要引入 <code>app/assets/stylesheets/main.css</code> 和 <code>app/assets/stylesheets/columns.css</code>：</p><div class="code_container">
 <pre class="brush: ruby; html-script: true; gutter: false; toolbar: false">
 &lt;%= stylesheet_link_tag "main", "columns" %&gt;
 
 </pre>
 </div>
-<p>To include <code>app/assets/stylesheets/main.css</code> and <code>app/assets/stylesheets/photos/columns.css</code>:</p><div class="code_container">
+<p>要引入 <code>app/assets/stylesheets/main.css</code> 和 <code>app/assets/stylesheets/photos/columns.css</code>：</p><div class="code_container">
 <pre class="brush: ruby; html-script: true; gutter: false; toolbar: false">
 &lt;%= stylesheet_link_tag "main", "photos/columns" %&gt;
 
 </pre>
 </div>
-<p>To include <code>http://example.com/main.css</code>:</p><div class="code_container">
+<p>要引入 <code>http://example.com/main.css</code>：</p><div class="code_container">
 <pre class="brush: ruby; html-script: true; gutter: false; toolbar: false">
 &lt;%= stylesheet_link_tag "http://example.com/main.css" %&gt;
 
 </pre>
 </div>
-<p>By default, the <code>stylesheet_link_tag</code> creates links with <code>media="screen" rel="stylesheet"</code>. You can override any of these defaults by specifying an appropriate option (<code>:media</code>, <code>:rel</code>):</p><div class="code_container">
+<p><code>stylesheet_link_tag</code> 建立出 <code>&lt;link&gt;</code> 標籤，預設有 <code>media="screen" rel="stylesheet"</code> 屬性。可以覆寫這些預設值，使用 <code>:media</code>、<code>:rel</code> 選項來修改：</p><div class="code_container">
 <pre class="brush: ruby; html-script: true; gutter: false; toolbar: false">
 &lt;%= stylesheet_link_tag "main_print", media: "print" %&gt;
 
 </pre>
 </div>
-<h5 id="linking-to-images-with-the-image_tag">3.1.4 Linking to Images with the <code>image_tag</code>
-</h5><p>The <code>image_tag</code> helper builds an HTML <code>&lt;img /&gt;</code> tag to the specified file. By default, files are loaded from <code>public/images</code>.</p><div class="warning"><p>Note that you must specify the extension of the image.</p></div><div class="code_container">
+<h5 id="使用-image_tag-來連結圖片">3.1.4 使用 <code>image_tag</code> 來連結圖片</h5><p><code>image_tag</code> 輔助方法根據指定的檔案建立出 <code>&lt;img /&gt;</code> 標籤。預設情況會載入 <code>public/images</code> 目錄下的檔案。</p><div class="warning"><p>必須指定圖片的副檔名。</p></div><div class="code_container">
 <pre class="brush: ruby; html-script: true; gutter: false; toolbar: false">
 &lt;%= image_tag "header.png" %&gt;
 
 </pre>
 </div>
-<p>You can supply a path to the image if you like:</p><div class="code_container">
+<p>可以指定圖片的路徑：</p><div class="code_container">
 <pre class="brush: ruby; html-script: true; gutter: false; toolbar: false">
 &lt;%= image_tag "icons/delete.gif" %&gt;
 
 </pre>
 </div>
-<p>You can supply a hash of additional HTML options:</p><div class="code_container">
+<p>也可以提供其它的 HTML 選項：</p><div class="code_container">
 <pre class="brush: ruby; html-script: true; gutter: false; toolbar: false">
 &lt;%= image_tag "icons/delete.gif", {height: 45} %&gt;
 
 </pre>
 </div>
-<p>You can supply alternate text for the image which will be used if the user has images turned off in their browser. If you do not specify an alt text explicitly, it defaults to the file name of the file, capitalized and with no extension. For example, these two image tags would return the same code:</p><div class="code_container">
+<p>可以提供當使用者把瀏覽器顯示圖片功能關掉所要顯示的文字。若沒特別指定 <code>alt</code> 文字，預設值是檔案名稱（轉成大寫、去掉副檔名）。舉例來說，以下兩個 image 標籤會回傳一樣的 HTML：</p><div class="code_container">
 <pre class="brush: ruby; html-script: true; gutter: false; toolbar: false">
 &lt;%= image_tag "home.gif" %&gt;
 &lt;%= image_tag "home.gif", alt: "Home" %&gt;
 
 </pre>
 </div>
-<p>You can also specify a special size tag, in the format "{width}x{height}":</p><div class="code_container">
+<p>也可以指定大小，格式為 <code>"{width}x{height}"</code>。</p><div class="code_container">
 <pre class="brush: ruby; html-script: true; gutter: false; toolbar: false">
 &lt;%= image_tag "home.gif", size: "50x20" %&gt;
 
 </pre>
 </div>
-<p>In addition to the above special tags, you can supply a final hash of standard HTML options, such as <code>:class</code>, <code>:id</code> or <code>:name</code>:</p><div class="code_container">
+<p>除了上開選項之外，可以提供標準 HTML 所接受的選項，以 Hash 傳入，像是 <code>:class</code>、<code>:id</code>、<code>:name</code>：</p><div class="code_container">
 <pre class="brush: ruby; html-script: true; gutter: false; toolbar: false">
 &lt;%= image_tag "home.gif", alt: "Go Home",
                           id: "HomeImage",
@@ -1168,68 +1150,66 @@ Cache-Control: no-cache
 
 </pre>
 </div>
-<h5 id="linking-to-videos-with-the-video_tag">3.1.5 Linking to Videos with the <code>video_tag</code>
-</h5><p>The <code>video_tag</code> helper builds an HTML 5 <code>&lt;video&gt;</code> tag to the specified file. By default, files are loaded from <code>public/videos</code>.</p><div class="code_container">
+<h5 id="使用-video_tag-連結到視訊檔案">3.1.5 使用 <code>video_tag</code> 連結到視訊檔案</h5><p><code>video_tag</code> 輔助方法根據指定的檔案建立 HTML 5 的 <code>&lt;video&gt;</code> 標籤。預設從 <code>public/videos</code> 載入檔案。</p><div class="code_container">
 <pre class="brush: ruby; html-script: true; gutter: false; toolbar: false">
 &lt;%= video_tag "movie.ogg" %&gt;
 
 </pre>
 </div>
-<p>Produces</p><div class="code_container">
+<p>會產生：</p><div class="code_container">
 <pre class="brush: ruby; html-script: true; gutter: false; toolbar: false">
 &lt;video src="/videos/movie.ogg" /&gt;
 
 </pre>
 </div>
-<p>Like an <code>image_tag</code> you can supply a path, either absolute, or relative to the <code>public/videos</code> directory. Additionally you can specify the <code>size: "#{width}x#{height}"</code> option just like an <code>image_tag</code>. Video tags can also have any of the HTML options specified at the end (<code>id</code>, <code>class</code> et al).</p><p>The video tag also supports all of the <code>&lt;video&gt;</code> HTML options through the HTML options hash, including:</p>
+<p>和 <code>image_tag</code> 一樣，可以提供路徑，絕對路徑或相對於 <code>public/videos</code> 的路徑。除此之外，可以指定大小：<code>size: "#{width}x#{height}"</code>。也接受標準 HTML 所接受的選項（<code>id</code>、<code>class</code> 等）。</p><p><code>video_tag</code> 也支持所有 <code>&lt;video&gt;</code> 所支援的 HTML 選項：</p>
 <ul>
 <li>
-<code>poster: "image_name.png"</code>, provides an image to put in place of the video before it starts playing.</li>
+<code>poster: "image_name.png"</code>，提供一張播放前的預覽圖片。</li>
 <li>
-<code>autoplay: true</code>, starts playing the video on page load.</li>
+<code>autoplay: true</code>，頁面載入時自動播放影片。</li>
 <li>
-<code>loop: true</code>, loops the video once it gets to the end.</li>
+<code>loop: true</code>，播放結束時重新播放。</li>
 <li>
-<code>controls: true</code>, provides browser supplied controls for the user to interact with the video.</li>
+<code>controls: true</code>，提供瀏覽器支持的控件給使用者，用來與影片做互動。</li>
 <li>
-<code>autobuffer: true</code>, the video will pre load the file for the user on page load.</li>
+<code>autobuffer: true</code>，頁面載入時，會先緩衝影片。</li>
 </ul>
-<p>You can also specify multiple videos to play by passing an array of videos to the <code>video_tag</code>:</p><div class="code_container">
+<p>也可以一次指定多筆要播放的影片：</p><div class="code_container">
 <pre class="brush: ruby; html-script: true; gutter: false; toolbar: false">
 &lt;%= video_tag ["trailer.ogg", "movie.ogg"] %&gt;
 
 </pre>
 </div>
-<p>This will produce:</p><div class="code_container">
+<p>會產生：</p><div class="code_container">
 <pre class="brush: ruby; html-script: true; gutter: false; toolbar: false">
 &lt;video&gt;&lt;source src="trailer.ogg" /&gt;&lt;source src="movie.ogg" /&gt;&lt;/video&gt;
 
 </pre>
 </div>
-<h5 id="linking-to-audio-files-with-the-audio_tag">3.1.6 Linking to Audio Files with the <code>audio_tag</code>
-</h5><p>The <code>audio_tag</code> helper builds an HTML 5 <code>&lt;audio&gt;</code> tag to the specified file. By default, files are loaded from <code>public/audios</code>.</p><div class="code_container">
+<h5 id="使用-audio_tag-連結到音訊檔案">3.1.6 使用 <code>audio_tag</code> 連結到音訊檔案</h5><p><code>audio_tag</code> 輔助方法根據指定的檔案建立 HTML 5 的 <code>&lt;audio&gt;</code> 標籤。預設從 <code>public/audios</code> 載入檔案。</p><div class="code_container">
 <pre class="brush: ruby; html-script: true; gutter: false; toolbar: false">
 &lt;%= audio_tag "music.mp3" %&gt;
 
 </pre>
 </div>
-<p>You can supply a path to the audio file if you like:</p><div class="code_container">
+<p>可以指定音訊檔案的路徑：</p><div class="code_container">
 <pre class="brush: ruby; html-script: true; gutter: false; toolbar: false">
 &lt;%= audio_tag "music/first_song.mp3" %&gt;
 
 </pre>
 </div>
-<p>You can also supply a hash of additional options, such as <code>:id</code>, <code>:class</code> etc.</p><p>Like the <code>video_tag</code>, the <code>audio_tag</code> has special options:</p>
+<p>也可以提供標準 HTML 所接受的選項（<code>id</code>、<code>class</code> 等）。</p><p>和 <code>video_tag</code> 一樣，<code>audio_tag</code> 有特殊選項：</p>
 <ul>
 <li>
-<code>autoplay: true</code>, starts playing the audio on page load</li>
+<code>autoplay: true</code>，頁面載入時自動播放音訊。</li>
 <li>
-<code>controls: true</code>, provides browser supplied controls for the user to interact with the audio.</li>
+<code>controls: true</code>，提供瀏覽器支持的控件給使用者，用來與音訊檔案做互動。</li>
 <li>
-<code>autobuffer: true</code>, the audio will pre load the file for the user on page load.</li>
+<code>autobuffer: true</code>，頁面載入時，會先緩衝音訊檔案。</li>
 </ul>
-<h4 id="understanding-yield">3.2 Understanding <code>yield</code>
-</h4><p>Within the context of a layout, <code>yield</code> identifies a section where content from the view should be inserted. The simplest way to use this is to have a single <code>yield</code>, into which the entire contents of the view currently being rendered is inserted:</p><div class="code_container">
+<h4 id="理解-yield">3.2 理解 <code>yield</code>
+</h4><p>在版型的上下文裡，<code>yield</code> 分出一塊區域，決定應該要插入什麼內容。最簡單就是使用單一個 <code>yield</code>，算繪的整個 View 都會插入到這個區域：</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 &lt;html&gt;
   &lt;head&gt;
@@ -1241,7 +1221,7 @@ Cache-Control: no-cache
 
 </pre>
 </div>
-<p>You can also create a layout with multiple yielding regions:</p><div class="code_container">
+<p>可以建立多個 <code>yield</code> 區域：</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 &lt;html&gt;
   &lt;head&gt;
@@ -1254,7 +1234,7 @@ Cache-Control: no-cache
 
 </pre>
 </div>
-<p>The main body of the view will always render into the unnamed <code>yield</code>. To render content into a named <code>yield</code>, you use the <code>content_for</code> method.</p><h4 id="using-the-content_for-method">3.3 Using the <code>content_for</code> Method</h4><p>The <code>content_for</code> method allows you to insert content into a named <code>yield</code> block in your layout. For example, this view would work with the layout that you just saw:</p><div class="code_container">
+<p>View 的主要內容總是會插入到無名的 <code>yield</code>。要把算繪內容到具名的 <code>yield</code> 區域，可以使用 <code>content_for</code> 方法。</p><h4 id="使用-content_for-方法">3.3 使用 <code>content_for</code> 方法</h4><p><code>content_for</code> 方法允許在版型裡插入內容到 <code>yield</code> 具名的區塊。舉例來說，上例有 <code>&lt;%= yield :head %&gt;</code> 的版型，要結合下面的 <code>content_for</code> 使用：</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 &lt;% content_for :head do %&gt;
   &lt;title&gt;A simple page&lt;/title&gt;
@@ -1264,7 +1244,7 @@ Cache-Control: no-cache
 
 </pre>
 </div>
-<p>The result of rendering this page into the supplied layout would be this HTML:</p><div class="code_container">
+<p>算繪此頁的結果為：</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 &lt;html&gt;
   &lt;head&gt;
@@ -1277,19 +1257,19 @@ Cache-Control: no-cache
 
 </pre>
 </div>
-<p>The <code>content_for</code> method is very helpful when your layout contains distinct regions such as sidebars and footers that should get their own blocks of content inserted. It's also useful for inserting tags that load page-specific JavaScript or css files into the header of an otherwise generic layout.</p><h4 id="using-partials">3.4 Using Partials</h4><p>Partial templates - usually just called "partials" - are another device for breaking the rendering process into more manageable chunks. With a partial, you can move the code for rendering a particular piece of a response to its own file.</p><h5 id="naming-partials">3.4.1 Naming Partials</h5><p>To render a partial as part of a view, you use the <code>render</code> method within the view:</p><div class="code_container">
+<p><code>content_for</code> 在版型分多個區域，各個區域內容不同時很有用，像是邊欄、頁尾。<code>content_for</code> 也可以用來針對特定頁面插入 JavaScript 或 CSS。</p><h4 id="使用局部頁面">3.4 使用局部頁面</h4><p>局部頁面模版，如其名“局部頁面”──是另個可以把算繪過程分成多個片段的工具。有了局部頁面，可以把某些特定內容的算繪移到單獨的檔案。</p><h5 id="局部頁面命名">3.4.1 局部頁面命名</h5><p>在 View 算繪局部頁面：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 &lt;%= render "menu" %&gt;
 
 </pre>
 </div>
-<p>This will render a file named <code>_menu.html.erb</code> at that point within the view being rendered. Note the leading underscore character: partials are named with a leading underscore to distinguish them from regular views, even though they are referred to without the underscore. This holds true even when you're pulling in a partial from another folder:</p><div class="code_container">
+<p>會在呼叫的地方對 <code>_menu.html.erb</code> 進行算繪。注意名字開頭有“底線”（<code>_</code>）：局部頁面的命名規則是由底線開始，用來和一般的 View 區隔開來，但引入局部頁面時，無需寫底線：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 &lt;%= render "shared/menu" %&gt;
 
 </pre>
 </div>
-<p>That code will pull in the partial from <code>app/views/shared/_menu.html.erb</code>.</p><h5 id="using-partials-to-simplify-views">3.4.2 Using Partials to Simplify Views</h5><p>One way to use partials is to treat them as the equivalent of subroutines: as a way to move details out of a view so that you can grasp what's going on more easily. For example, you might have a view that looked like this:</p><div class="code_container">
+<p>這段程式碼會從 <code>app/views/shared/_menu.html.erb</code> 引入局部頁面。</p><h5 id="使用局部頁面來簡化-view">3.4.2 使用局部頁面來簡化 View</h5><p>使用局部頁面的一種方式是，把它想成是副程式：把細節抽離出去，以便更好理解 View 在做什麼。舉個例子，可能看過這樣寫的 View：</p><div class="code_container">
 <pre class="brush: ruby; html-script: true; gutter: false; toolbar: false">
 &lt;%= render "shared/ad_banner" %&gt;
 
@@ -1302,13 +1282,13 @@ Cache-Control: no-cache
 
 </pre>
 </div>
-<p>Here, the <code>_ad_banner.html.erb</code> and <code>_footer.html.erb</code> partials could contain content that is shared among many pages in your application. You don't need to see the details of these sections when you're concentrating on a particular page.</p><div class="info"><p>For content that is shared among all pages in your application, you can use partials directly from layouts.</p></div><h5 id="partial-layouts">3.4.3 Partial Layouts</h5><p>A partial can use its own layout file, just as a view can use a layout. For example, you might call a partial like this:</p><div class="code_container">
+<p>這裡的 <code>_ad_banner.html.erb</code> 和 <code>_footer.html.erb</code>，內容可以包含應用程式裡可以共用的內容。這麼一來在撰寫特定頁面時，引用這些局部頁面就好，而無需關注細節。</p><div class="info"><p>對於應用程式裡都可以共用的內容，可以直接在版型裡使用局部頁面。</p></div><h5 id="局部頁面的版型">3.4.3 局部頁面的版型</h5><p>局部頁面可以使用自己的版型，就跟 View 可以使用版型一樣。舉例來說，可能會這麼呼叫局部頁面：</p><div class="code_container">
 <pre class="brush: ruby; html-script: true; gutter: false; toolbar: false">
 &lt;%= render partial: "link_area", layout: "graybar" %&gt;
 
 </pre>
 </div>
-<p>This would look for a partial named <code>_link_area.html.erb</code> and render it using the layout <code>_graybar.html.erb</code>. Note that layouts for partials follow the same leading-underscore naming as regular partials, and are placed in the same folder with the partial that they belong to (not in the master <code>layouts</code> folder).</p><p>Also note that explicitly specifying <code>:partial</code> is required when passing additional options such as <code>:layout</code>.</p><h5 id="passing-local-variables">3.4.4 Passing Local Variables</h5><p>You can also pass local variables into partials, making them even more powerful and flexible. For example, you can use this technique to reduce duplication between new and edit pages, while still keeping a bit of distinct content:</p>
+<p>會尋找 <code>_link_area.html.erb</code> 的局部頁面，使用 <code>_grabar.html.erb</code> 版型來算繪。注意局部頁面的版型，同樣遵循用底線開頭的命名規則。局部頁面的版型和局部頁面放在同一個資料夾裡（而不是放在應用程式的版型目錄裡 <code>app/views/layouts</code>）。</p><p>同樣注意到，傳入額外的選項，像是 <code>:layout</code> 時，需要明確指定 <code>:partial</code>。</p><h5 id="傳入區域變數">3.4.4 傳入區域變數</h5><p>可以傳入區域變數到局部頁面裡，這麼一來局部頁面變得更強大靈活。舉個例子，用至這個方法來減少 <code>new</code> 與 <code>edit</code> 頁面重複的程式碼，但仍保有不同的內容：</p>
 <ul>
 <li>
 <p><code>new.html.erb</code></p>
@@ -1348,19 +1328,19 @@ Cache-Control: no-cache
 </div>
 </li>
 </ul>
-<p>Although the same partial will be rendered into both views, Action View's submit helper will return "Create Zone" for the new action and "Update Zone" for the edit action.</p><p>Every partial also has a local variable with the same name as the partial (minus the underscore). You can pass an object in to this local variable via the <code>:object</code> option:</p><div class="code_container">
+<p>雖然 <code>new</code> 與 <code>edit</code> 使用同樣的局部頁面，Action View 的 <code>submit</code> 輔助方法對 <code>new</code> 動作會回傳 <code>"Create Zone"</code>；而 <code>edit</code> 動作則會回傳 <code>"Update Zone"</code>。</p><p>每個局部頁面都有個與局部頁面同名的區域變數（沒有開頭的底線）。可以用 <code>:object</code> 選項把物件傳給這個區域變數：</p><div class="code_container">
 <pre class="brush: ruby; html-script: true; gutter: false; toolbar: false">
 &lt;%= render partial: "customer", object: @new_customer %&gt;
 
 </pre>
 </div>
-<p>Within the <code>customer</code> partial, the <code>customer</code> variable will refer to <code>@new_customer</code> from the parent view.</p><p>If you have an instance of a model to render into a partial, you can use a shorthand syntax:</p><div class="code_container">
+<p>在 <code>customer</code> 局部頁面裡，<code>customer</code> 變數會對應到呼叫時的 <code>@new_customer</code>。</p><p>若有一個實體變數要傳入局部頁面，可以使用簡寫：</p><div class="code_container">
 <pre class="brush: ruby; html-script: true; gutter: false; toolbar: false">
 &lt;%= render @customer %&gt;
 
 </pre>
 </div>
-<p>Assuming that the <code>@customer</code> instance variable contains an instance of the <code>Customer</code> model, this will use <code>_customer.html.erb</code> to render it and will pass the local variable <code>customer</code> into the partial which will refer to the <code>@customer</code> instance variable in the parent view.</p><h5 id="rendering-collections">3.4.5 Rendering Collections</h5><p>Partials are very useful in rendering collections. When you pass a collection to a partial via the <code>:collection</code> option, the partial will be inserted once for each member in the collection:</p>
+<p>假設 <code>@customer</code> 實體變數是 <code>Customer</code> Model 的實體。上面的程式碼會用 <code>_customer.html.erb</code> 來算繪，區域變數 <code>customer</code> 的值是 <code>@customer</code>。</p><h5 id="算繪集合">3.4.5 算繪集合</h5><p>局部頁面在算繪集合時非常有用。當使用 <code>:collection</code> 選項，會把集合的每個元素插入的局部頁面裡：</p>
 <ul>
 <li>
 <p><code>index.html.erb</code></p>
@@ -1382,14 +1362,14 @@ Cache-Control: no-cache
 </div>
 </li>
 </ul>
-<p>When a partial is called with a pluralized collection, then the individual instances of the partial have access to the member of the collection being rendered via a variable named after the partial. In this case, the partial is <code>_product</code>, and within the <code>_product</code> partial, you can refer to <code>product</code> to get the instance that is being rendered.</p><p>There is also a shorthand for this. Assuming <code>@products</code> is a collection of <code>product</code> instances, you can simply write this in the <code>index.html.erb</code> to produce the same result:</p><div class="code_container">
+<p>當局部頁面傳入複數形式的集合時，可以在局部頁面裡透過與局部頁面同名的變數來存取到集合的成員。上例裡，局部頁面是 <code>_product</code>，<code>product</code> 則是當下被算繪的實體。</p><p>算繪集合有簡寫形式。假設 <code>@products</code> 是 <code>product</code> 實體的集合，則在 <code>index.html.erb</code> 可以這麼寫：</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 &lt;h1&gt;Products&lt;/h1&gt;
 &lt;%= render @products %&gt;
 
 </pre>
 </div>
-<p>Rails determines the name of the partial to use by looking at the model name in the collection. In fact, you can even create a heterogeneous collection and render it this way, and Rails will choose the proper partial for each member of the collection:</p>
+<p>Rails 根據集合各元素的 Model 名稱，來決定要使用的是那個局部頁面。實際上，集合內的元素可以來自不同的 Model，Rails 會給元素選擇正確的局部頁面進行算繪。</p>
 <ul>
 <li>
 <p><code>index.html.erb</code></p>
@@ -1420,39 +1400,39 @@ Cache-Control: no-cache
 </div>
 </li>
 </ul>
-<p>In this case, Rails will use the customer or employee partials as appropriate for each member of the collection.</p><p>In the event that the collection is empty, <code>render</code> will return nil, so it should be fairly simple to provide alternative content.</p><div class="code_container">
+<p>這個例子裡，Rails 會根據集合成員所屬的 Model，來選擇要使用的局部頁面。</p><p>若集合為空，則 <code>render</code> 方法會回傳 <code>nil</code>，所以最好提供集合為空時的替代文字。</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 &lt;h1&gt;Products&lt;/h1&gt;
 &lt;%= render(@products) || "There are no products available." %&gt;
 
 </pre>
 </div>
-<h5 id="local-variables">3.4.6 Local Variables</h5><p>To use a custom local variable name within the partial, specify the <code>:as</code> option in the call to the partial:</p><div class="code_container">
+<h5 id="區域變數">3.4.6 區域變數</h5><p>要在局部頁面裡使用區域變數，在呼叫局部頁面時使用 <code>:as</code> 選項：</p><div class="code_container">
 <pre class="brush: ruby; html-script: true; gutter: false; toolbar: false">
 &lt;%= render partial: "product", collection: @products, as: :item %&gt;
 
 </pre>
 </div>
-<p>With this change, you can access an instance of the <code>@products</code> collection as the <code>item</code> local variable within the partial.</p><p>You can also pass in arbitrary local variables to any partial you are rendering with the <code>locals: {}</code> option:</p><div class="code_container">
+<p>這樣修改以後，可以在局部頁面裡，用 <code>item</code> 來存取到 <code>@products</code> 集合裡的成員。</p><p>也可以使用 <code>locals: {}</code> 選項，給任何的局部頁面，傳入隨意的區域變數。</p><div class="code_container">
 <pre class="brush: ruby; html-script: true; gutter: false; toolbar: false">
 &lt;%= render partial: "product", collection: @products,
            as: :item, locals: {title: "Products Page"} %&gt;
 
 </pre>
 </div>
-<p>In this case, the partial will have access to a local variable <code>title</code> with the value "Products Page".</p><div class="info"><p>Rails also makes a counter variable available within a partial called by the collection, named after the member of the collection followed by <code>_counter</code>. For example, if you're rendering <code>@products</code>, within the partial you can refer to <code>product_counter</code> to tell you how many times the partial has been rendered. This does not work in conjunction with the <code>as: :value</code> option.</p></div><p>You can also specify a second partial to be rendered between instances of the main partial by using the <code>:spacer_template</code> option:</p><h5 id="spacer-templates">3.4.7 Spacer Templates</h5><div class="code_container">
+<p>在這個情況裡，局部頁面裡可以存取到 <code>title</code> 區域變數，值是 <code>"Products Page"</code>。</p><div class="info"><p>Rails 也給傳入集合的局部頁面，提供了一個計數器變數。名稱是集合名加上 <code>_counter</code>。譬如在算繪 <code>@products</code> 時，可以在局部頁面裡使用 <code>product_counter</code>，來知道局部頁面被算繪了幾次。但不能和 <code>as: :value</code> 選項一起使用。</p></div><p>在主局部頁面渲染實體之間，可以使用 <code>:spacer_template</code> 選項指定第二個局部頁面。</p><h5 id="spacer-模版">3.4.7 Spacer 模版</h5><div class="code_container">
 <pre class="brush: ruby; html-script: true; gutter: false; toolbar: false">
 &lt;%= render partial: @products, spacer_template: "product_ruler" %&gt;
 
 </pre>
 </div>
-<p>Rails will render the <code>_product_ruler</code> partial (with no data passed in to it) between each pair of <code>_product</code> partials.</p><h5 id="collection-partial-layouts">3.4.8 Collection Partial Layouts</h5><p>When rendering collections it is also possible to use the <code>:layout</code> option:</p><div class="code_container">
+<p>Rails 會在算繪 <code>_product</code> 局部頁面時，在兩次算繪之間，算繪 <code>_product_ruler</code> 局部頁面（不傳入任何資料）。</p><h5 id="集合局部頁面的版型">3.4.8 集合局部頁面的版型</h5><p>當算繪集合時，也可以使用 <code>:layout</code> 選項。</p><div class="code_container">
 <pre class="brush: ruby; html-script: true; gutter: false; toolbar: false">
 &lt;%= render partial: "product", collection: @products, layout: "special_layout" %&gt;
 
 </pre>
 </div>
-<p>The layout will be rendered together with the partial for each item in the collection. The current object and object_counter variables will be available in the layout as well, the same way they do within the partial.</p><h4 id="using-nested-layouts">3.5 Using Nested Layouts</h4><p>You may find that your application requires a layout that differs slightly from your regular application layout to support one particular controller. Rather than repeating the main layout and editing it, you can accomplish this by using nested layouts (sometimes called sub-templates). Here's an example:</p><p>Suppose you have the following <code>ApplicationController</code> layout:</p>
+<p>在算繪集合各元素時，會同時算繪指定的版型。目前的物件和 <code>object_counter</code> 變數在版型裡也可以使用。</p><h4 id="using-nested-layouts">3.5 Using Nested Layouts</h4><p>可能會需要給特定的 Controller，使用和一般應用程式版型不太一樣的版型。與其重複主版型進行編輯，可以使用嵌套版型來完成（有時候也叫子模版）。以下是個範例。</p><p>假設 <code>ApplicationController</code> 的版型如下：</p>
 <ul>
 <li>
 <p><code>app/views/layouts/application.html.erb</code></p>
@@ -1475,7 +1455,7 @@ Cache-Control: no-cache
 </div>
 </li>
 </ul>
-<p>On pages generated by <code>NewsController</code>, you want to hide the top menu and add a right menu:</p>
+<p>而由 <code>NewsController</code> 產生的頁面，想要把上面的選單隱藏起來，並且在右邊新增一個選單：</p>
 <ul>
 <li>
 <p><code>app/views/layouts/news.html.erb</code></p>
@@ -1495,7 +1475,7 @@ Cache-Control: no-cache
 </div>
 </li>
 </ul>
-<p>That's it. The News views will use the new layout, hiding the top menu and adding a new right menu inside the "content" div.</p><p>There are several ways of getting similar results with different sub-templating schemes using this technique. Note that there is no limit in nesting levels. One can use the <code>ActionView::render</code> method via <code>render template: 'layouts/news'</code> to base a new layout on the News layout. If you are sure you will not subtemplate the <code>News</code> layout, you can replace the <code>content_for?(:news_content) ? yield(:news_content) : yield</code> with simply <code>yield</code>.</p>
+<p>這樣就可以了。<code>NewsController</code> 會使用 <code>news.html.erb</code> 版型，隱藏上面的選單，在 <code>id</code> 是 <code>"content"</code> 的 <code>div</code> 右邊加一個選單。</p><p>有數種使用子模版的方式可以達到同樣的效果。但注意，嵌套層數沒有限制。也可以透過 <code>render template: 'layout/news'</code> 來使用 <code>ActionView::render</code> 方法，在 <code>news</code> 版型的基礎上使用新的版型。若確定 <code>news</code> 版型不會有子模版，則可以把 <code>content_for?(:news_content) ? yield(:news_content) : yield</code> 換成 <code>yield</code> 即可。</p>
 
         <h3>反饋</h3>
         <p>
