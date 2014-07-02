@@ -297,7 +297,7 @@ numbers. New applications filter out passwords by adding the following <code>con
 <li><p><code>config.middleware</code> allows you to configure the application's middleware. This is covered in depth in the <a href="#configuring-middleware">Configuring Middleware</a> section below.</p></li>
 <li><p><code>config.reload_classes_only_on_change</code> enables or disables reloading of classes only when tracked files change. By default tracks everything on autoload paths and is set to true. If <code>config.cache_classes</code> is true, this option is ignored.</p></li>
 <li><p><code>secrets.secret_key_base</code> is used for specifying a key which allows sessions for the application to be verified against a known secure key to prevent tampering. Applications get <code>secrets.secret_key_base</code> initialized to a random key present in <code>config/secrets.yml</code>.</p></li>
-<li><p><code>config.serve_static_assets</code> configures Rails itself to serve static assets. Defaults to true, but in the production environment is turned off as the server software (e.g. Nginx or Apache) used to run the application should serve static assets instead. Unlike the default setting set this to true when running (absolutely not recommended!) or testing your app in production mode using WEBrick. Otherwise you won't be able use page caching and requests for files that exist regularly under the public directory will anyway hit your Rails app.</p></li>
+<li><p><code>config.serve_static_assets</code> configures Rails itself to serve static assets. Defaults to true, but in the production environment is turned off as the server software (e.g. NGINX or Apache) used to run the application should serve static assets instead. Unlike the default setting set this to true when running (absolutely not recommended!) or testing your app in production mode using WEBrick. Otherwise you won't be able use page caching and requests for files that exist regularly under the public directory will anyway hit your Rails app.</p></li>
 <li>
 <p><code>config.session_store</code> is usually set up in <code>config/initializers/session_store.rb</code> and specifies what class to use to store the session. Possible values are <code>:cookie_store</code> which is the default, <code>:mem_cache_store</code>, and <code>:disabled</code>. The last one tells Rails not to deal with sessions. Custom session stores can also be specified:</p>
 <div class="code_container">
@@ -494,6 +494,7 @@ default value is true if this configuration is not set.</p></li>
 <li><p><code>config.action_controller.relative_url_root</code> can be used to tell Rails that you are <a href="configuring.html#deploy-to-a-subdirectory-relative-url-root">deploying to a subdirectory</a>. The default is <code>ENV['RAILS_RELATIVE_URL_ROOT']</code>.</p></li>
 <li><p><code>config.action_controller.permit_all_parameters</code> sets all the parameters for mass assignment to be permitted by default. The default value is <code>false</code>.</p></li>
 <li><p><code>config.action_controller.action_on_unpermitted_parameters</code> enables logging or raising an exception if parameters that are not explicitly permitted are found. Set to <code>:log</code> or <code>:raise</code> to enable. The default value is <code>:log</code> in development and test environments, and <code>false</code> in all other environments.</p></li>
+<li><p><code>config.action_controller.always_permitted_parameters</code> sets a list of whitelisted parameters that are permitted by default. The default values are <code>['controller', 'action']</code>.</p></li>
 </ul>
 <h4 id="configuring-action-dispatch">3.8 Configuring Action Dispatch</h4>
 <ul>
@@ -627,6 +628,24 @@ config.action_mailer.interceptors = ["MailInterceptor"]
 </pre>
 </div>
 </li>
+<li>
+<p><code>config.action_mailer.preview_path</code> specifies the location of mailer previews.</p>
+<div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+config.action_mailer.preview_path = "#{Rails.root}/lib/mailer_previews"
+
+</pre>
+</div>
+</li>
+<li>
+<p><code>config.action_mailer.show_previews</code> enable or disable mailer previews. By default this is <code>true</code> in development.</p>
+<div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+config.action_mailer.show_previews = false
+
+</pre>
+</div>
+</li>
 </ul>
 <h4 id="configuring-active-support">3.11 Configuring Active Support</h4><p>There are a few configuration options available in Active Support:</p>
 <ul>
@@ -701,7 +720,7 @@ development:
 $ echo $DATABASE_URL
 postgresql://localhost/my_database
 
-$ bin/rails runner 'puts ActiveRecord::Base.connections'
+$ bin/rails runner 'puts ActiveRecord::Base.configurations'
 {"development"=&gt;{"adapter"=&gt;"postgresql", "host"=&gt;"localhost", "database"=&gt;"my_database"}}
 
 </pre>
@@ -716,7 +735,7 @@ development:
 $ echo $DATABASE_URL
 postgresql://localhost/my_database
 
-$ bin/rails runner 'puts ActiveRecord::Base.connections'
+$ bin/rails runner 'puts ActiveRecord::Base.configurations'
 {"development"=&gt;{"adapter"=&gt;"postgresql", "host"=&gt;"localhost", "database"=&gt;"my_database", "pool"=&gt;5}}
 
 </pre>
@@ -730,7 +749,7 @@ development:
 $ echo $DATABASE_URL
 postgresql://localhost/my_database
 
-$ bin/rails runner 'puts ActiveRecord::Base.connections'
+$ bin/rails runner 'puts ActiveRecord::Base.configurations'
 {"development"=&gt;{"adapter"=&gt;"sqlite3", "database"=&gt;"NOT_my_database"}}
 
 </pre>
@@ -830,9 +849,33 @@ config.relative_url_root = "/app1"
 </pre>
 </div>
 <p>alternatively you can set the <code>RAILS_RELATIVE_URL_ROOT</code> environment
-variable.</p><p>Rails will now prepend "/app1" when generating links.</p><h5 id="using-passenger">3.15.1 Using Passenger</h5><p>Passenger makes it easy to run your application in a subdirectory. You can find
-the relevant configuration in the
-<a href="http://www.modrails.com/documentation/Users%20guide%20Apache.html#deploying_rails_to_sub_uri">passenger manual</a>.</p><h5 id="using-a-reverse-proxy">3.15.2 Using a Reverse Proxy</h5><p>TODO</p><h5 id="considerations-when-deploying-to-a-subdirectory">3.15.3 Considerations when deploying to a subdirectory</h5><p>Deploying to a subdirectory in production has implications on various parts of
+variable.</p><p>Rails will now prepend "/app1" when generating links.</p><h5 id="using-passenger">3.15.1 Using Passenger</h5><p>Passenger makes it easy to run your application in a subdirectory. You can find the relevant configuration in the <a href="http://www.modrails.com/documentation/Users%20guide%20Apache.html#deploying_rails_to_sub_uri">Passenger manual</a>.</p><h5 id="using-a-reverse-proxy">3.15.2 Using a Reverse Proxy</h5><p>Deploying your application using a reverse proxy has definite advantages over traditional deploys. They allow you to have more control over your server by layering the components required by your application.</p><p>Many modern web servers can be used as a proxy server to balance third-party elements such as caching servers or application servers.</p><p>One such application server you can use is <a href="http://unicorn.bogomips.org/">Unicorn</a> to run behind a reverse proxy.</p><p>In this case, you would need to configure the proxy server (NGINX, Apache, etc) to accept connections from your application server (Unicorn). By default Unicorn will listen for TCP connections on port 8080, but you can change the port or configure it to use sockets instead.</p><p>You can find more information in the <a href="http://unicorn.bogomips.org/README.html">Unicorn readme</a> and understand the <a href="http://unicorn.bogomips.org/PHILOSOPHY.html">philosophy</a> behind it.</p><p>Once you've configured the application server, you must proxy requests to it by configuring your web server appropriately. For example your NGINX config may include:</p><div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+upstream application_server {
+  server 0.0.0.0:8080
+}
+
+server {
+  listen 80;
+  server_name localhost;
+
+  root /root/path/to/your_app/public;
+
+  try_files $uri/index.html $uri.html @app;
+
+  location @app {
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header Host $http_host;
+    proxy_redirect off;
+    proxy_pass http://application_server;
+  }
+
+  # some other configuration
+}
+
+</pre>
+</div>
+<p>Be sure to read the <a href="http://nginx.org/en/docs/">NGINX documentation</a> for the most up-to-date information.</p><h5 id="considerations-when-deploying-to-a-subdirectory">3.15.3 Considerations when deploying to a subdirectory</h5><p>Deploying to a subdirectory in production has implications on various parts of
 Rails.</p>
 <ul>
 <li>development environment:</li>

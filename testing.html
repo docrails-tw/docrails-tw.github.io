@@ -224,7 +224,7 @@
 </ul>
 </li>
 <li><a href="#rake-tasks-for-running-your-tests">Rake Tasks for Running your Tests</a></li>
-<li><a href="#brief-note-about-minitest">Brief Note About <code>MiniTest</code></a></li>
+<li><a href="#brief-note-about-minitest">Brief Note About <code>Minitest</code></a></li>
 <li><a href="#setup-and-teardown">Setup and Teardown</a></li>
 <li><a href="#testing-routes">Testing Routes</a></li>
 <li>
@@ -256,7 +256,9 @@ fixtures/       integration/    models/
 
 </pre>
 </div>
-<p>The <code>models</code> directory is meant to hold tests for your models, the <code>controllers</code> directory is meant to hold tests for your controllers and the <code>integration</code> directory is meant to hold tests that involve any number of controllers interacting.</p><p>Fixtures are a way of organizing test data; they reside in the <code>fixtures</code> folder.</p><p>The <code>test_helper.rb</code> file holds the default configuration for your tests.</p><h4 id="the-low-down-on-fixtures">2.3 The Low-Down on Fixtures</h4><p>For good tests, you'll need to give some thought to setting up test data. In Rails, you can handle this by defining and customizing fixtures.</p><h5 id="what-are-fixtures-questionmark">2.3.1 What Are Fixtures?</h5><p><em>Fixtures</em> is a fancy word for sample data. Fixtures allow you to populate your testing database with predefined data before your tests run. Fixtures are database independent written in YAML. There is one file per model.</p><p>You'll find fixtures under your <code>test/fixtures</code> directory. When you run <code>rails generate model</code> to create a new model fixture stubs will be automatically created and placed in this directory.</p><h5 id="yaml">2.3.2 YAML</h5><p>YAML-formatted fixtures are a very human-friendly way to describe your sample data. These types of fixtures have the <strong>.yml</strong> file extension (as in <code>users.yml</code>).</p><p>Here's a sample YAML fixture file:</p><div class="code_container">
+<p>The <code>models</code> directory is meant to hold tests for your models, the <code>controllers</code> directory is meant to hold tests for your controllers and the <code>integration</code> directory is meant to hold tests that involve any number of controllers interacting.</p><p>Fixtures are a way of organizing test data; they reside in the <code>fixtures</code> folder.</p><p>The <code>test_helper.rb</code> file holds the default configuration for your tests.</p><h4 id="the-low-down-on-fixtures">2.3 The Low-Down on Fixtures</h4><p>For good tests, you'll need to give some thought to setting up test data.
+In Rails, you can handle this by defining and customizing fixtures.
+You can find comprehensive documentation in the <a href="http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html">fixture api documentation</a>.</p><h5 id="what-are-fixtures-questionmark">2.3.1 What Are Fixtures?</h5><p><em>Fixtures</em> is a fancy word for sample data. Fixtures allow you to populate your testing database with predefined data before your tests run. Fixtures are database independent written in YAML. There is one file per model.</p><p>You'll find fixtures under your <code>test/fixtures</code> directory. When you run <code>rails generate model</code> to create a new model fixture stubs will be automatically created and placed in this directory.</p><h5 id="yaml">2.3.2 YAML</h5><p>YAML-formatted fixtures are a very human-friendly way to describe your sample data. These types of fixtures have the <strong>.yml</strong> file extension (as in <code>users.yml</code>).</p><p>Here's a sample YAML fixture file:</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 # lo &amp; behold! I am a YAML comment!
 david:
@@ -287,7 +289,11 @@ one:
 
 </pre>
 </div>
-<h5 id="erb'in-it-up">2.3.3 ERB'in It Up</h5><p>ERB allows you to embed Ruby code within templates. The YAML fixture format is pre-processed with ERB when Rails loads fixtures. This allows you to use Ruby to help you generate some sample data. For example, the following code generates a thousand users:</p><div class="code_container">
+<p>Note: For associations to reference one another by name, you cannot specify the <code>id:</code>
+ attribute on the fixtures. Rails will auto assign a primary key to be consistent between
+ runs. If you manually specify an <code>id:</code> attribute, this behavior will not work. For more
+  information on this assocation behavior please read the
+  <a href="http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html">fixture api documentation</a>.</p><h5 id="erb'in-it-up">2.3.3 ERB'in It Up</h5><p>ERB allows you to embed Ruby code within templates. The YAML fixture format is pre-processed with ERB when Rails loads fixtures. This allows you to use Ruby to help you generate some sample data. For example, the following code generates a thousand users:</p><div class="code_container">
 <pre class="brush: ruby; html-script: true; gutter: false; toolbar: false">
 &lt;% 1000.times do |n| %&gt;
 user_&lt;%= n %&gt;:
@@ -351,8 +357,8 @@ class ArticleTest &lt; ActiveSupport::TestCase
 
 </pre>
 </div>
-<p>The <code>ArticleTest</code> class defines a <em>test case</em> because it inherits from <code>ActiveSupport::TestCase</code>. <code>ArticleTest</code> thus has all the methods available from <code>ActiveSupport::TestCase</code>. You'll see those methods a little later in this guide.</p><p>Any method defined within a class inherited from <code>MiniTest::Unit::TestCase</code>
-(which is the superclass of <code>ActiveSupport::TestCase</code>) that begins with <code>test</code> (case sensitive) is simply called a test. So, <code>test_password</code>, <code>test_valid_password</code> and <code>testValidPassword</code> all are legal test names and are run automatically when the test case is run.</p><p>Rails adds a <code>test</code> method that takes a test name and a block. It generates a normal <code>MiniTest::Unit</code> test with method names prefixed with <code>test_</code>. So,</p><div class="code_container">
+<p>The <code>ArticleTest</code> class defines a <em>test case</em> because it inherits from <code>ActiveSupport::TestCase</code>. <code>ArticleTest</code> thus has all the methods available from <code>ActiveSupport::TestCase</code>. You'll see those methods a little later in this guide.</p><p>Any method defined within a class inherited from <code>Minitest::Test</code>
+(which is the superclass of <code>ActiveSupport::TestCase</code>) that begins with <code>test_</code> (case sensitive) is simply called a test. So, <code>test_password</code> and <code>test_valid_password</code> are legal test names and are run automatically when the test case is run.</p><p>Rails adds a <code>test</code> method that takes a test name and a block. It generates a normal <code>Minitest::Unit</code> test with method names prefixed with <code>test_</code>. So,</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 test "the truth" do
   assert true
@@ -612,7 +618,7 @@ Here's an extract of the assertions you can use with <code>minitest</code>, the 
 </tr>
 </tbody>
 </table>
-<p>Because of the modular nature of the testing framework, it is possible to create your own assertions. In fact, that's exactly what Rails does. It includes some specialized assertions to make your life easier.</p><div class="note"><p>Creating your own assertions is an advanced topic that we won't cover in this tutorial.</p></div><h4 id="rails-specific-assertions">3.5 Rails Specific Assertions</h4><p>Rails adds some custom assertions of its own to the <code>test/unit</code> framework:</p>
+<p>Because of the modular nature of the testing framework, it is possible to create your own assertions. In fact, that's exactly what Rails does. It includes some specialized assertions to make your life easier.</p><div class="note"><p>Creating your own assertions is an advanced topic that we won't cover in this tutorial.</p></div><h4 id="rails-specific-assertions">3.5 Rails Specific Assertions</h4><p>Rails adds some custom assertions of its own to the <code>minitest</code> framework:</p>
 <table>
 <thead>
 <tr>
@@ -790,7 +796,7 @@ end
 <p>is the correct way to assert for the layout when the view renders a partial with name <code>_form</code>. Omitting the <code>:partial</code> key in your <code>assert_template</code> call will complain.</p><h4 id="a-fuller-functional-test-example">4.7 A Fuller Functional Test Example</h4><p>Here's another example that uses <code>flash</code>, <code>assert_redirected_to</code>, and <code>assert_difference</code>:</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 test "should create article" do
-  assert_difference('article.count') do
+  assert_difference('Article.count') do
     post :create, article: {title: 'Hi', body: 'This is my first article.'}
   end
   assert_redirected_to article_path(assigns(:article))
@@ -944,8 +950,6 @@ end
 require 'test_helper'
 
 class UserFlowsTest &lt; ActionDispatch::IntegrationTest
-  fixtures :users
-
   test "login and browse site" do
     # login via https
     https!
@@ -970,10 +974,7 @@ end
 require 'test_helper'
 
 class UserFlowsTest &lt; ActionDispatch::IntegrationTest
-  fixtures :users
-
   test "login and browse site" do
-
     # User david logs in
     david = login(:david)
     # User guest logs in
@@ -1076,10 +1077,8 @@ when you initiate a Rails project.</p>
 </tr>
 </tbody>
 </table>
-<h3 id="brief-note-about-minitest">7 Brief Note About <code>MiniTest</code>
-</h3><p>Ruby ships with a vast Standard Library for all common use-cases including testing. Ruby 1.8 provided <code>Test::Unit</code>, a framework for unit testing in Ruby. All the basic assertions discussed above are actually defined in <code>Test::Unit::Assertions</code>. The class <code>ActiveSupport::TestCase</code> which we have been using in our unit and functional tests extends <code>Test::Unit::TestCase</code>, allowing
-us to use all of the basic assertions in our tests.</p><p>Ruby 1.9 introduced <code>MiniTest</code>, an updated version of <code>Test::Unit</code> which provides a backwards compatible API for <code>Test::Unit</code>. You could also use <code>MiniTest</code> in Ruby 1.8 by installing the <code>minitest</code> gem.</p><div class="note"><p>For more information on <code>Test::Unit</code>, refer to <a href="http://ruby-doc.org/stdlib/libdoc/test/unit/rdoc/">test/unit Documentation</a>
-For more information on <code>MiniTest</code>, refer to <a href="http://www.ruby-doc.org/stdlib-1.9.3/libdoc/minitest/unit/rdoc/">Minitest</a></p></div><h3 id="setup-and-teardown">8 Setup and Teardown</h3><p>If you would like to run a block of code before the start of each test and another block of code after the end of each test you have two special callbacks for your rescue. Let's take note of this by looking at an example for our functional test in <code>Articles</code> controller:</p><div class="code_container">
+<h3 id="brief-note-about-minitest">7 Brief Note About <code>Minitest</code>
+</h3><p>Ruby ships with a vast Standard Library for all common use-cases including testing. Since version 1.9, Ruby provides <code>Minitest</code>, a framework for testing. All the basic assertions such as <code>assert_equal</code> discussed above are actually defined in <code>Minitest::Assertions</code>. The classes <code>ActiveSupport::TestCase</code>, <code>ActionController::TestCase</code>, <code>ActionMailer::TestCase</code>, <code>ActionView::TestCase</code> and <code>ActionDispatch::IntegrationTest</code> - which we have been inheriting in our test classes - include <code>Minitest::Assertions</code>, allowing us to use all of the basic assertions in our tests.</p><div class="note"><p>For more information on <code>Minitest</code>, refer to <a href="http://ruby-doc.org/stdlib-2.1.0/libdoc/minitest/rdoc/MiniTest.html">Minitest</a></p></div><h3 id="setup-and-teardown">8 Setup and Teardown</h3><p>If you would like to run a block of code before the start of each test and another block of code after the end of each test you have two special callbacks for your rescue. Let's take note of this by looking at an example for our functional test in <code>Articles</code> controller:</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 require 'test_helper'
 
@@ -1232,7 +1231,7 @@ class UserControllerTest &lt; ActionController::TestCase
 
     assert_equal "You have been invited by me@example.com", invite_email.subject
     assert_equal 'friend@example.com', invite_email.to[0]
-    assert_match(/Hi friend@example.com/, invite_email.body)
+    assert_match(/Hi friend@example.com/, invite_email.body.to_s)
   end
 end
 
@@ -1274,7 +1273,7 @@ end
 </pre>
 </div>
 <p>Moreover, since the test class extends from <code>ActionView::TestCase</code>, you have
-access to Rails' helper methods such as <code>link_to</code> or <code>pluralize</code>.</p><h3 id="other-testing-approaches">12 Other Testing Approaches</h3><p>The built-in <code>test/unit</code> based testing is not the only way to test Rails applications. Rails developers have come up with a wide variety of other approaches and aids for testing, including:</p>
+access to Rails' helper methods such as <code>link_to</code> or <code>pluralize</code>.</p><h3 id="other-testing-approaches">12 Other Testing Approaches</h3><p>The built-in <code>minitest</code> based testing is not the only way to test Rails applications. Rails developers have come up with a wide variety of other approaches and aids for testing, including:</p>
 <ul>
 <li>
 <a href="http://avdi.org/projects/nulldb/">NullDB</a>, a way to speed up testing by avoiding database use.</li>
