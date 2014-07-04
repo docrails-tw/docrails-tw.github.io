@@ -248,8 +248,10 @@ applications also share a common structure.</p><p>Engines are also closely relat
 directory structure, and are both generated using the <code>rails plugin new</code>
 generator. The difference is that an engine is considered a "full plugin" by
 Rails (as indicated by the <code>--full</code> option that's passed to the generator
-command). This guide will refer to them simply as "engines" throughout. An
-engine <strong>can</strong> be a plugin, and a plugin <strong>can</strong> be an engine.</p><p>The engine that will be created in this guide will be called "blorgh". The
+command). We'll actually be using the <code>--mountable</code> option here, which includes
+all the features of <code>--full</code>, and then some. This guide will refer to these
+"full plugins" simply as "engines" throughout. An engine <strong>can</strong> be a plugin,
+and a plugin <strong>can</strong> be an engine.</p><p>The engine that will be created in this guide will be called "blorgh". This
 engine will provide blogging functionality to its host applications, allowing
 for new articles and comments to be created. At the beginning of this guide, you
 will be working solely within the engine itself, but in later sections you'll
@@ -260,9 +262,8 @@ application is able to have a path provided by a routing helper such as
 and table names are also namespaced. You'll see how to do this later in this
 guide.</p><p>It's important to keep in mind at all times that the application should
 <strong>always</strong> take precedence over its engines. An application is the object that
-has final say in what goes on in the universe (with the universe being the
-application's environment) where the engine should only be enhancing it, rather
-than changing it drastically.</p><p>To see demonstrations of other engines, check out
+has final say in what goes on in its environment. The engine should
+only be enhancing it, rather than changing it drastically.</p><p>To see demonstrations of other engines, check out
 <a href="https://github.com/plataformatec/devise">Devise</a>, an engine that provides
 authentication for its parent applications, or
 <a href="https://github.com/radar/forem">Forem</a>, an engine that provides forum
@@ -553,7 +554,7 @@ end
 </pre>
 </div>
 <p>This helps prevent conflicts with any other engine or application that may have
-a article resource as well.</p><p>Finally, the assets for this resource are generated in two files:
+an article resource as well.</p><p>Finally, the assets for this resource are generated in two files:
 <code>app/assets/javascripts/blorgh/articles.js</code> and
 <code>app/assets/stylesheets/blorgh/articles.css</code>. You'll see how to use these a little
 later.</p><p>By default, the scaffold styling is not applied to the engine because the
@@ -651,8 +652,8 @@ end
 <div class="note"><p>Because the <code>has_many</code> is defined inside a class that is inside the
 <code>Blorgh</code> module, Rails will know that you want to use the <code>Blorgh::Comment</code>
 model for these objects, so there's no need to specify that using the
-<code>:class_name</code> option here.</p></div><p>Next, there needs to be a form so that comments can be created on a article. To add
-this, put this line underneath the call to <code>render @article.comments</code> in
+<code>:class_name</code> option here.</p></div><p>Next, there needs to be a form so that comments can be created on an article. To
+add this, put this line underneath the call to <code>render @article.comments</code> in
 <code>app/views/blorgh/articles/show.html.erb</code>:</p><div class="code_container">
 <pre class="brush: ruby; html-script: true; gutter: false; toolbar: false">
 &lt;%= render "blorgh/comments/form" %&gt;
@@ -849,11 +850,13 @@ rake db:migrate SCOPE=blorgh VERSION=0
 application to provide links between the pieces of the engine and the pieces of
 the application. In the case of the <code>blorgh</code> engine, making articles and comments
 have authors would make a lot of sense.</p><p>A typical application might have a <code>User</code> class that would be used to represent
-authors for a article or a comment. But there could be a case where the application
-calls this class something different, such as <code>Person</code>. For this reason, the
-engine should not hardcode associations specifically for a <code>User</code> class.</p><p>To keep it simple in this case, the application will have a class called <code>User</code>
-that represents the users of the application. It can be generated using this
-command inside the application:</p><div class="code_container">
+authors for an article or a comment. But there could be a case where the
+application calls this class something different, such as <code>Person</code>. For this
+reason, the engine should not hardcode associations specifically for a <code>User</code>
+class.</p><p>To keep it simple in this case, the application will have a class called <code>User</code>
+that represents the users of the application (we'll get into making this
+configurable further on). It can be generated using this command inside the
+application:</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 rails g model user name:string
 
