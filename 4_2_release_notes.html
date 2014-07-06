@@ -394,6 +394,8 @@ Rails 5.0 將會回傳 Null Object。
 (<a href="https://github.com/rails/rails/pull/12523">Pull Request</a>)</p></li>
 <li><p>新增 PostgreSQL 連接器的使用自建的範圍類型支持。
 (<a href="https://github.com/rails/rails/commit/4cb47167e747e8f9dc12b0ddaf82bdb68c03e032">Commit</a>)</p></li>
+<li><p>單數關聯增加 <code>:required</code> 選項，用來定義關聯的存在性驗證。
+(<a href="https://github.com/rails/rails/pull/16056">Pull Request</a>)</p></li>
 </ul>
 <h3 id="active-model">8 Active Model</h3><p>請參考 <a href="https://github.com/rails/rails/blob/4-2-stable/activemodel/CHANGELOG.md">CHANGELOG</a> 來了解更多細節。</p><h4 id="active-model-移除">8.1 移除</h4>
 <ul>
@@ -428,6 +430,9 @@ Rails 5.0 將會回傳 Null Object。
 <li><p>導入 <code>Concern#class_methods</code> 來取代 <code>module ClassMethods</code> 以及 <code>Kernel#concern</code>，
 來避免使用 <code>module Foo; extend ActiveSupport::Concern; end</code> 這樣的樣板。
 (<a href="https://github.com/rails/rails/commit/b16c36e688970df2f96f793a759365b248b582ad">Commit</a>)</p></li>
+<li><p>新增 <code>Hash#transform_values</code> 與 <code>Hash#transform_values!</code> 方法，來簡化 Hash
+值需要更新、但鍵保留不變這樣的常見模式。
+(<a href="https://github.com/rails/rails/pull/15819">Pull Request</a>)</p></li>
 </ul>
 <h3 id="致謝">10 致謝</h3><p>許多人花了寶貴的時間貢獻至 Rails 專案，使 Rails 成為更穩定、更強韌的網路框架，參考<a href="http://contributors.rubyonrails.org/">完整的 Rails 貢獻者清單</a>，感謝所有的貢獻者！</p>
 
