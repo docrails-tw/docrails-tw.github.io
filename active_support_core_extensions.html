@@ -814,11 +814,11 @@ end
 </pre>
 </div>
 <p>Rails uses <code>alias_method_chain</code> all over the code base. For example validations are added to <code>ActiveRecord::Base#save</code> by wrapping the method that way in a separate module specialized in validations.</p><div class="note"><p>Defined in <code>active_support/core_ext/module/aliasing.rb</code>.</p></div><h4 id="attributes">3.2 Attributes</h4><h5 id="alias_attribute">3.2.1 <code>alias_attribute</code>
-</h5><p>Model attributes have a reader, a writer, and a predicate. You can alias a model attribute having the corresponding three methods defined for you in one shot. As in other aliasing methods, the new name is the first argument, and the old name is the second (my mnemonic is they go in the same order as if you did an assignment):</p><div class="code_container">
+</h5><p>Model attributes have a reader, a writer, and a predicate. You can alias a model attribute having the corresponding three methods defined for you in one shot. As in other aliasing methods, the new name is the first argument, and the old name is the second (one mnemonic is that they go in the same order as if you did an assignment):</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class User &lt; ActiveRecord::Base
-  # let me refer to the email column as "login",
-  # possibly meaningful for authentication code
+  # You can refer to the email column as "login".
+  # This can be meaningful for authentication code.
   alias_attribute :login, :email
 end
 
@@ -954,7 +954,7 @@ Math.qualified_const_get("E") # =&gt; 2.718281828459045
 
 </pre>
 </div>
-<p>These methods are analogous to their builtin counterparts. In particular,
+<p>These methods are analogous to their built-in counterparts. In particular,
 <code>qualified_constant_defined?</code> accepts an optional second argument to be
 able to say whether you want the predicate to look in the ancestors.
 This flag is taken into account for each constant in the expression while
@@ -981,7 +981,7 @@ N.qualified_const_defined?("C::X")        # =&gt; true
 </pre>
 </div>
 <p>As the last example implies, the second argument defaults to true,
-as in <code>const_defined?</code>.</p><p>For coherence with the builtin methods only relative paths are accepted.
+as in <code>const_defined?</code>.</p><p>For coherence with the built-in methods only relative paths are accepted.
 Absolute qualified constant names like <code>::Math::PI</code> raise <code>NameError</code>.</p><div class="note"><p>Defined in <code>active_support/core_ext/module/qualified_const.rb</code>.</p></div><h4 id="reachable">3.5 Reachable</h4><p>A named module is reachable if it is stored in its corresponding constant. It means you can reach the module object via the constant.</p><p>That is what ordinarily happens, if a module is called "M", the <code>M</code> constant exists and holds it:</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 module M
@@ -1113,22 +1113,7 @@ delegate :size, to: :attachment, prefix: :avatar
 
 </pre>
 </div>
-<p>In the previous example the macro generates <code>avatar_size</code> rather than <code>size</code>.</p><div class="note"><p>Defined in <code>active_support/core_ext/module/delegation.rb</code></p></div><h4 id="redefining-methods">3.8 Redefining Methods</h4><p>There are cases where you need to define a method with <code>define_method</code>, but don't know whether a method with that name already exists. If it does, a warning is issued if they are enabled. No big deal, but not clean either.</p><p>The method <code>redefine_method</code> prevents such a potential warning, removing the existing method before if needed. Rails uses it in a few places, for instance when it generates an association's API:</p><div class="code_container">
-<pre class="brush: ruby; gutter: false; toolbar: false">
-redefine_method("#{reflection.name}=") do |new_value|
-  association = association_instance_get(reflection.name)
-
-  if association.nil? || association.target != new_value
-    association = association_proxy_class.new(self, reflection)
-  end
-
-  association.replace(new_value)
-  association_instance_set(reflection.name, new_value.nil? ? nil : association)
-end
-
-</pre>
-</div>
-<div class="note"><p>Defined in <code>active_support/core_ext/module/remove_method.rb</code></p></div><h3 id="extensions-to-class">4 Extensions to <code>Class</code>
+<p>In the previous example the macro generates <code>avatar_size</code> rather than <code>size</code>.</p><div class="note"><p>Defined in <code>active_support/core_ext/module/delegation.rb</code></p></div><h4 id="redefining-methods">3.8 Redefining Methods</h4><p>There are cases where you need to define a method with <code>define_method</code>, but don't know whether a method with that name already exists. If it does, a warning is issued if they are enabled. No big deal, but not clean either.</p><p>The method <code>redefine_method</code> prevents such a potential warning, removing the existing method before if needed.</p><div class="note"><p>Defined in <code>active_support/core_ext/module/remove_method.rb</code></p></div><h3 id="extensions-to-class">4 Extensions to <code>Class</code>
 </h3><h4 id="class-attributes">4.1 Class Attributes</h4><h5 id="class_attribute">4.1.1 <code>class_attribute</code>
 </h5><p>The method <code>class_attribute</code> declares one or more inheritable class attributes that can be overridden at any level down the hierarchy.</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
@@ -1246,7 +1231,7 @@ end
 
 </pre>
 </div>
-<p>A model may find it useful to set <code>:instance_accessor</code> to <code>false</code> as a way to prevent mass-assignment from setting the attribute.</p><div class="note"><p>Defined in <code>active_support/core_ext/module/attribute_accessors.rb</code>. <code>active_support/core_ext/class/attribute_accessors.rb</code> is deprecated and will be removed in Ruby on Rails 4.2.</p></div><h4 id="subclasses-&amp;-descendants">4.2 Subclasses &amp; Descendants</h4><h5 id="subclasses">4.2.1 <code>subclasses</code>
+<p>A model may find it useful to set <code>:instance_accessor</code> to <code>false</code> as a way to prevent mass-assignment from setting the attribute.</p><div class="note"><p>Defined in <code>active_support/core_ext/module/attribute_accessors.rb</code>.</p></div><h4 id="subclasses-&amp;-descendants">4.2 Subclasses &amp; Descendants</h4><h5 id="subclasses">4.2.1 <code>subclasses</code>
 </h5><p>The <code>subclasses</code> method returns the subclasses of the receiver:</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class C; end
@@ -1631,6 +1616,9 @@ end
 "Product".demodulize                        # =&gt; "Product"
 "Backoffice::UsersController".demodulize    # =&gt; "UsersController"
 "Admin::Hotel::ReservationUtils".demodulize # =&gt; "ReservationUtils"
+"::Inflections".demodulize                  # =&gt; "Inflections"
+"".demodulize                               # =&gt; ""
+
 
 </pre>
 </div>
@@ -1738,21 +1726,34 @@ end
 </pre>
 </div>
 <div class="note"><p>Defined in <code>active_support/core_ext/string/inflections.rb</code>.</p></div><h5 id="humanize">5.10.13 <code>humanize</code>
-</h5><p>The method <code>humanize</code> gives you a sensible name for display out of an attribute name. To do so it replaces underscores with spaces, removes any "_id" suffix, and capitalizes the first word:</p><div class="code_container">
+</h5><p>The method <code>humanize</code> tweaks an attribute name for display to end users.</p><p>Specifically performs these transformations:</p>
+<ul>
+<li>Applies human inflection rules to the argument.</li>
+<li>Deletes leading underscores, if any.</li>
+<li>Removes a "_id" suffix if present.</li>
+<li>Replaces underscores with spaces, if any.</li>
+<li>Downcases all words except acronyms.</li>
+<li>Capitalizes the first word.</li>
+</ul>
+<p>The capitalization of the first word can be turned off by setting the
++:capitalize+ option to false (default is true).</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
-"name".humanize           # =&gt; "Name"
-"author_id".humanize      # =&gt; "Author"
-"comments_count".humanize # =&gt; "Comments count"
-
-</pre>
-</div>
-<p>The capitalization of the first word can be turned off by setting the optional parameter <code>capitalize</code> to false:</p><div class="code_container">
-<pre class="brush: ruby; gutter: false; toolbar: false">
+"name".humanize                         # =&gt; "Name"
+"author_id".humanize                    # =&gt; "Author"
 "author_id".humanize(capitalize: false) # =&gt; "author"
+"comments_count".humanize               # =&gt; "Comments count"
+"_id".humanize                          # =&gt; "Id"
 
 </pre>
 </div>
-<p>The helper method <code>full_messages</code> uses <code>humanize</code> as a fallback to include attribute names:</p><div class="code_container">
+<p>If "SSL" was defined to be an acronym:</p><div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+'ssl_error'.humanize # =&gt; "SSL error"
+
+</pre>
+</div>
+<p>The helper method <code>full_messages</code> uses <code>humanize</code> as a fallback to include
+attribute names:</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 def full_messages
   full_messages = []
@@ -3264,7 +3265,7 @@ t.advance(seconds: 1)
 <li>If <code>since</code> or <code>ago</code> jump to a time that can't be expressed with <code>Time</code> a <code>DateTime</code> object is returned instead.</li>
 </ul>
 <h5 id="time.current">17.1.1 <code>Time.current</code>
-</h5><p>Active Support defines <code>Time.current</code> to be today in the current time zone. That's like <code>Time.now</code>, except that it honors the user time zone, if defined. It also defines <code>Time.yesterday</code> and <code>Time.tomorrow</code>, and the instance predicates <code>past?</code>, <code>today?</code>, and <code>future?</code>, all of them relative to <code>Time.current</code>.</p><p>When making Time comparisons using methods which honor the user time zone, make sure to use <code>Time.current</code> and not <code>Time.now</code>. There are cases where the user time zone might be in the future compared to the system time zone, which <code>Time.today</code> uses by default. This means <code>Time.now</code> may equal <code>Time.yesterday</code>.</p><h5 id="all_day,-all_week,-all_month,-all_quarter-and-all_year">17.1.2 <code>all_day</code>, <code>all_week</code>, <code>all_month</code>, <code>all_quarter</code> and <code>all_year</code>
+</h5><p>Active Support defines <code>Time.current</code> to be today in the current time zone. That's like <code>Time.now</code>, except that it honors the user time zone, if defined. It also defines the instance predicates <code>past?</code>, <code>today?</code>, and <code>future?</code>, all of them relative to <code>Time.current</code>.</p><p>When making Time comparisons using methods which honor the user time zone, make sure to use <code>Time.current</code> instead of <code>Time.now</code>. There are cases where the user time zone might be in the future compared to the system time zone, which <code>Time.now</code> uses by default. This means <code>Time.now.to_date</code> may equal <code>Date.yesterday</code>.</p><h5 id="all_day,-all_week,-all_month,-all_quarter-and-all_year">17.1.2 <code>all_day</code>, <code>all_week</code>, <code>all_month</code>, <code>all_quarter</code> and <code>all_year</code>
 </h5><p>The method <code>all_day</code> returns a range representing the whole day of the current time.</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 now = Time.current
@@ -3388,7 +3389,7 @@ end
 
 </pre>
 </div>
-<div class="note"><p>Defined in <code>actionpack/lib/abstract_controller/helpers.rb</code>.</p></div><h3 id="extensions-to-loaderror">22 Extensions to <code>LoadError</code>
+<div class="note"><p>Defined in <code>active_support/core_ext/name_error.rb</code>.</p></div><h3 id="extensions-to-loaderror">22 Extensions to <code>LoadError</code>
 </h3><p>Active Support adds <code>is_missing?</code> to <code>LoadError</code>, and also assigns that class to the constant <code>MissingSourceFile</code> for backwards compatibility.</p><p>Given a path name <code>is_missing?</code> tests whether the exception was raised due to that particular file (except perhaps for the ".rb" extension).</p><p>For example, when an action of <code>ArticlesController</code> is called Rails tries to load <code>articles_helper.rb</code>, but that file may not exist. That's fine, the helper module is not mandatory so Rails silences a load error. But it could be the case that the helper module does exist and in turn requires another library that is missing. In that case Rails must reraise the exception. The method <code>is_missing?</code> provides a way to distinguish both cases:</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 def default_helper_module!
@@ -3403,7 +3404,7 @@ end
 
 </pre>
 </div>
-<div class="note"><p>Defined in <code>actionpack/lib/abstract_controller/helpers.rb</code>.</p></div>
+<div class="note"><p>Defined in <code>active_support/core_ext/load_error.rb</code>.</p></div>
 
         <h3>反饋</h3>
         <p>

@@ -342,7 +342,7 @@ end
 
 </pre>
 </div>
-<p>如此一來便可以訪問 <a href="http://localhost:3000/rails/mailers/notifier/welcome">http://localhost:3000/rails/mailers/notifier/welcome</a> 來預覽 Email。</p><p>所有可預覽的 Email 可在此找到：<a href="http://localhost:3000/rails/mailers%E3%80%82">http://localhost:3000/rails/mailers。</a></p><p>預設這些 preview class 產生在 <code>test/mailers/previews</code>、可以透過 <code>preview_path</code> 選項來調整存放的位置。</p><p>參見 <a href="http://api.rubyonrails.org/v4.1.0/classes/ActionMailer/Base.html">Action Mailer 的文件</a>來了解更多細節。</p><h4 id="active-record-enums">2.5 Active Record enums</h4><p>宣告一個 <code>enum</code> 屬性，將屬性映射到資料庫的整數，並可透過名字查詢出來：</p><div class="code_container">
+<p>如此一來便可以訪問 <a href="http://localhost:3000/rails/mailers/notifier/welcome">http://localhost:3000/rails/mailers/notifier/welcome</a> 來預覽 Email。</p><p>所有可預覽的 Email 可在此找到：<a href="http://localhost:3000/rails/mailers%E3%80%82">http://localhost:3000/rails/mailers。</a></p><p>預設這些 preview class 產生在 <code>test/mailers/previews</code>、可以透過 <code>preview_path</code> 選項來調整存放的位置。</p><p>參見 <a href="http://api.rubyonrails.org/v4.1.0/classes/ActionMailer/Base.html#class-ActionMailer::Base-label-Previewing+emails">Action Mailer 的文件</a>來了解更多細節。</p><h4 id="active-record-enums">2.5 Active Record enums</h4><p>宣告一個 <code>enum</code> 屬性，將屬性映射到資料庫的整數，並可透過名字查詢出來：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Conversation &lt; ActiveRecord::Base
   enum status: [ :active, :archived ]
