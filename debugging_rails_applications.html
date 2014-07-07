@@ -6,7 +6,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-<title>Debugging Rails Applications — Ruby on Rails 指南</title>
+<title>除錯 Rails 應用程式 — Ruby on Rails 指南</title>
 <link rel="stylesheet" type="text/css" href="stylesheets/style.css" />
 <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
 
@@ -169,12 +169,13 @@
 
   <div id="feature">
     <div class="wrapper">
-      <h2>Debugging Rails Applications</h2><p>This guide introduces techniques for debugging Ruby on Rails applications.</p><p>After reading this guide, you will know:</p>
+      <h2>除錯 Rails 應用程式</h2><p>本篇介紹 Rails 應用程式除錯技巧。</p><p>讀完本篇，您將了解：</p>
 <ul>
-<li>The purpose of debugging.</li>
-<li>How to track down problems and issues in your application that your tests aren&#39;t identifying.</li>
-<li>The different ways of debugging.</li>
-<li>How to analyze the stack trace.</li>
+<li>除錯的目的。</li>
+<li>如何追蹤應用程式問題。</li>
+<li>如何追蹤測試沒有找出的問題。</li>
+<li>各種除錯方法。</li>
+<li>如何分析 Stack Trace。</li>
 </ul>
 
 
@@ -182,7 +183,7 @@
             <h3 class="chapter"><img src="images/chapters_icon.gif" alt="" />Chapters</h3>
             <ol class="chapters">
 <li>
-<a href="#view-helpers-for-debugging">View Helpers for Debugging</a>
+<a href="#%E9%99%A4%E9%8C%AF%E7%94%A8%E7%9A%84-view-%E8%BC%94%E5%8A%A9%E6%96%B9%E6%B3%95">除錯用的 View 輔助方法</a>
 
 <ul>
 <li><a href="#debug"><code>debug</code></a></li>
@@ -191,43 +192,43 @@
 </ul>
 </li>
 <li>
-<a href="#the-logger">The Logger</a>
+<a href="#logger">Logger</a>
 
 <ul>
-<li><a href="#what-is-the-logger-questionmark">What is the Logger?</a></li>
-<li><a href="#log-levels">Log Levels</a></li>
-<li><a href="#sending-messages">Sending Messages</a></li>
-<li><a href="#tagged-logging">Tagged Logging</a></li>
-<li><a href="#impact-of-logs-on-performance">Impact of Logs on Performance</a></li>
+<li><a href="#%E4%BB%80%E9%BA%BC%E6%98%AF-logger%EF%BC%9F">什麼是 Logger？</a></li>
+<li><a href="#log-%E5%B1%A4%E7%B4%9A">Log 層級</a></li>
+<li><a href="#%E5%AF%AB%E5%85%A5%E8%A8%8A%E6%81%AF">寫入訊息</a></li>
+<li><a href="#%E7%B5%A6%E8%A8%98%E9%8C%84%E6%89%93%E6%A8%99%E7%B1%A4">給記錄打標籤</a></li>
+<li><a href="#%E8%A8%98%E9%8C%84%E5%B0%8D%E6%95%88%E8%83%BD%E7%9A%84%E5%BD%B1%E9%9F%BF">記錄對效能的影響</a></li>
 </ul>
 </li>
 <li>
-<a href="#debugging-with-the-byebug-gem">Debugging with the <code>byebug</code> gem</a>
+<a href="#%E4%BD%BF%E7%94%A8-byebug-gem-%E4%BE%86%E9%99%A4%E9%8C%AF">使用 <code>byebug</code> Gem 來除錯</a>
 
 <ul>
-<li><a href="#setup">Setup</a></li>
-<li><a href="#the-shell">The Shell</a></li>
-<li><a href="#the-context">The Context</a></li>
-<li><a href="#threads">Threads</a></li>
-<li><a href="#inspecting-variables">Inspecting Variables</a></li>
-<li><a href="#step-by-step">Step by Step</a></li>
+<li><a href="#%E4%BD%BF%E7%94%A8-byebug-gem-%E4%BE%86%E9%99%A4%E9%8C%AF-%E8%A8%AD%E5%AE%9A">設定</a></li>
+<li><a href="#shell">Shell</a></li>
+<li><a href="#%E4%B8%8A%E4%B8%8B%E6%96%87">上下文</a></li>
+<li><a href="#%E5%9F%B7%E8%A1%8C%E7%B7%92">執行緒</a></li>
+<li><a href="#%E6%9F%A5%E7%9C%8B%E8%AE%8A%E6%95%B8">查看變數</a></li>
+<li><a href="#%E9%80%90%E6%AD%A5%E5%9F%B7%E8%A1%8C">逐步執行</a></li>
 <li><a href="#breakpoints">Breakpoints</a></li>
-<li><a href="#catching-exceptions">Catching Exceptions</a></li>
-<li><a href="#resuming-execution">Resuming Execution</a></li>
-<li><a href="#editing">Editing</a></li>
-<li><a href="#quitting">Quitting</a></li>
-<li><a href="#settings">Settings</a></li>
+<li><a href="#%E8%A3%9C%E6%8D%89%E7%95%B0%E5%B8%B8">補捉異常</a></li>
+<li><a href="#%E7%B9%BC%E7%BA%8C%E5%9F%B7%E8%A1%8C">繼續執行</a></li>
+<li><a href="#%E7%B7%A8%E8%BC%AF">編輯</a></li>
+<li><a href="#%E9%9B%A2%E9%96%8B">離開</a></li>
+<li><a href="#%E4%BD%BF%E7%94%A8-byebug-gem-%E4%BE%86%E9%99%A4%E9%8C%AF-%E8%A8%AD%E5%AE%9A">設定</a></li>
 </ul>
 </li>
 <li>
-<a href="#debugging-memory-leaks">Debugging Memory Leaks</a>
+<a href="#%E6%89%BE%E5%87%BA%E8%A8%98%E6%86%B6%E9%AB%94%E6%B4%A9%E6%BC%8F">找出記憶體洩漏</a>
 
 <ul>
 <li><a href="#valgrind">Valgrind</a></li>
 </ul>
 </li>
-<li><a href="#plugins-for-debugging">Plugins for Debugging</a></li>
-<li><a href="#references">References</a></li>
+<li><a href="#%E9%99%A4%E9%8C%AF%E5%A5%97%E4%BB%B6">除錯套件</a></li>
+<li><a href="#%E5%8F%83%E8%80%83%E8%B3%87%E6%96%99">參考資料</a></li>
 </ol>
 
           </div>
@@ -238,14 +239,14 @@
   <div id="container">
     <div class="wrapper">
       <div id="mainCol">
-        <h3 id="view-helpers-for-debugging">1 View Helpers for Debugging</h3><p>One common task is to inspect the contents of a variable. In Rails, you can do this with three methods:</p>
+        <h3 id="除錯用的-view-輔助方法">1 除錯用的 View 輔助方法</h3><p>除錯常見任務之一是查看變數的內容。在 Rails 可以用三種方法：</p>
 <ul>
 <li><code>debug</code></li>
 <li><code>to_yaml</code></li>
 <li><code>inspect</code></li>
 </ul>
 <h4 id="debug">1.1 <code>debug</code>
-</h4><p>The <code>debug</code> helper will return a &lt;pre&gt; tag that renders the object using the YAML format. This will generate human-readable data from any object. For example, if you have this code in a view:</p><div class="code_container">
+</h4><p><code>debug</code> 輔助方法會對物件以 YAML 格式算繪，把結果放在 <code>&lt;pre&gt;</code> 內回傳。任何物件皆可產生出可讀的資料。譬如，View 有如下程式：</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 &lt;%= debug @article %&gt;
 &lt;p&gt;
@@ -255,7 +256,7 @@
 
 </pre>
 </div>
-<p>You'll see something like this:</p><div class="code_container">
+<p>輸出則像是：</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 --- !ruby/object Article
 attributes:
@@ -273,7 +274,7 @@ Title: Rails debugging guide
 </pre>
 </div>
 <h4 id="to_yaml">1.2 <code>to_yaml</code>
-</h4><p>Displaying an instance variable, or any other object or method, in YAML format can be achieved this way:</p><div class="code_container">
+</h4><p>以 YAML 格式顯示實體變數、物件、方法。用法：</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 &lt;%= simple_format @article.to_yaml %&gt;
 &lt;p&gt;
@@ -283,7 +284,7 @@ Title: Rails debugging guide
 
 </pre>
 </div>
-<p>The <code>to_yaml</code> method converts the method to YAML format leaving it more readable, and then the <code>simple_format</code> helper is used to render each line as in the console. This is how <code>debug</code> method does its magic.</p><p>As a result of this, you will have something like this in your view:</p><div class="code_container">
+<p><code>to_yaml</code> 方法把物件轉成可讀性比較高的 YAML 格式，接著 <code>simple_format</code> 會使用和終端同樣的方法來算繪物件。<code>debug</code> 方法其實就是這兩者的結合：</p><p>上例輸出結果：</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 --- !ruby/object Article
 attributes:
@@ -300,7 +301,7 @@ Title: Rails debugging guide
 </pre>
 </div>
 <h4 id="inspect">1.3 <code>inspect</code>
-</h4><p>Another useful method for displaying object values is <code>inspect</code>, especially when working with arrays or hashes. This will print the object value as a string. For example:</p><div class="code_container">
+</h4><p>另一個顯示物件數值的有用方法是 <code>inspect</code>，陣列或 Hash 尤其有用。會把物件的數值以字串形式印出，譬如：</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 &lt;%= [1, 2, 3, 4, 5].inspect %&gt;
 &lt;p&gt;
@@ -310,7 +311,7 @@ Title: Rails debugging guide
 
 </pre>
 </div>
-<p>Will be rendered as follows:</p><div class="code_container">
+<p>算繪出來為：</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 [1, 2, 3, 4, 5]
 
@@ -318,28 +319,28 @@ Title: Rails debugging guide
 
 </pre>
 </div>
-<h3 id="the-logger">2 The Logger</h3><p>It can also be useful to save information to log files at runtime. Rails maintains a separate log file for each runtime environment.</p><h4 id="what-is-the-logger-questionmark">2.1 What is the Logger?</h4><p>Rails makes use of the <code>ActiveSupport::Logger</code> class to write log information. You can also substitute another logger such as <code>Log4r</code> if you wish.</p><p>You can specify an alternative logger in your <code>environment.rb</code> or any environment file:</p><div class="code_container">
+<h3 id="logger">2 Logger</h3><p>程式執行時寫入資訊到記錄檔很有用。Rails 替每個環境都準備了一個記錄檔。</p><h4 id="什麼是-logger？">2.1 什麼是 Logger？</h4><p>Rails 使用 <code>ActiveSupport::Logger</code> 來寫入記錄資訊。也可以換用別的 Logger，譬如 <code>Log4r</code>。</p><p>可以在 <code>environment.rb</code> 指定其它的 Logger，或在其它環境檔案內指定也可以。</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 Rails.logger = Logger.new(STDOUT)
 Rails.logger = Log4r::Logger.new("Application Log")
 
 </pre>
 </div>
-<p>Or in the <code>Initializer</code> section, add <em>any</em> of the following</p><div class="code_container">
+<p>或在 <code>Initializer</code> 加入下列任一種：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 config.logger = Logger.new(STDOUT)
 config.logger = Log4r::Logger.new("Application Log")
 
 </pre>
 </div>
-<div class="info"><p>By default, each log is created under <code>Rails.root/log/</code> and the log file is named after the environment in which the application is running.</p></div><h4 id="log-levels">2.2 Log Levels</h4><p>When something is logged it's printed into the corresponding log if the log level of the message is equal or higher than the configured log level. If you want to know the current log level you can call the <code>Rails.logger.level</code> method.</p><p>The available log levels are: <code>:debug</code>, <code>:info</code>, <code>:warn</code>, <code>:error</code>, <code>:fatal</code>, and <code>:unknown</code>, corresponding to the log level numbers from 0 up to 5 respectively. To change the default log level, use</p><div class="code_container">
+<div class="info"><p>記錄檔預設存在 <code>Rails.root/log/</code> 目錄下，記錄檔以應用程式正執行的環境命名。</p></div><h4 id="log-層級">2.2 Log 層級</h4><p>當產生的 Log 訊息層級高過設定的 Log 層級時，就會把 Log 記錄到對應的記錄檔裡。若想知道當前的 Log 層級，可以呼叫 <code>Rails.logger.level</code> 方法。</p><p>可用 Log 層級有：<code>:debug</code>、<code>:info</code>、<code>:warn</code>、<code>:error</code>、<code>:fatal</code> 以及 <code>:unknown</code>，分別對應到數字 <code>0</code> 到 <code>5</code>。要修改預設 Log 層級，使用：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 config.log_level = :warn # In any environment initializer, or
 Rails.logger.level = 0 # at any time
 
 </pre>
 </div>
-<p>This is useful when you want to log under development or staging, but you don't want to flood your production log with unnecessary information.</p><div class="info"><p>The default Rails log level is <code>info</code> in production mode and <code>debug</code> in development and test mode.</p></div><h4 id="sending-messages">2.3 Sending Messages</h4><p>To write in the current log use the <code>logger.(debug|info|warn|error|fatal)</code> method from within a controller, model or mailer:</p><div class="code_container">
+<p>這在開發與準上線環境（Staging）很有用，但上線環境不會寫入大量不必要的資訊。</p><div class="info"><p>Rails 預設上線環境的 Log 層級是 <code>info</code>，開發與測試環境是 <code>debug</code>。</p></div><h4 id="寫入訊息">2.3 寫入訊息</h4><p>要寫入訊息到目前的記錄檔裡，在 Controller、Model、Mailer 使用 <code>logger.(debug|info|warn|error|fatal)</code>：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 logger.debug "Person attributes hash: #{@person.attributes.inspect}"
 logger.info "Processing the request..."
@@ -347,7 +348,7 @@ logger.fatal "Terminating application, raised unrecoverable error!!!"
 
 </pre>
 </div>
-<p>Here's an example of a method instrumented with extra logging:</p><div class="code_container">
+<p>以下是額外記錄的方法範例：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class ArticlesController &lt; ApplicationController
   # ...
@@ -371,7 +372,7 @@ end
 
 </pre>
 </div>
-<p>Here's an example of the log generated when this controller action is executed:</p><div class="code_container">
+<p>動作執行的紀錄檔：</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 Processing ArticlesController#create (for 127.0.0.1 at 2008-09-08 11:52:54) [POST]
   Session ID: BAh7BzoMY3NyZl9pZCIlMDY5MWU1M2I1ZDRjODBlMzkyMWI1OTg2NWQyNzViZjYiCmZsYXNoSUM6J0FjdGl
@@ -391,9 +392,7 @@ Completed in 0.01224 (81 reqs/sec) | DB: 0.00044 (3%) | 302 Found [http://localh
 
 </pre>
 </div>
-<p>Adding extra logging like this makes it easy to search for unexpected or unusual behavior in your logs. If you add extra logging, be sure to make sensible use of log levels to avoid filling your production logs with useless trivia.</p><h4 id="tagged-logging">2.4 Tagged Logging</h4><p>When running multi-user, multi-account applications, it's often useful
-to be able to filter the logs using some custom rules. <code>TaggedLogging</code>
-in Active Support helps in doing exactly that by stamping log lines with subdomains, request ids, and anything else to aid debugging such applications.</p><div class="code_container">
+<p>增加額外的記錄可以更容易找到異常行為。若需要更多記錄，記得設定合理的 Log 等級，避免在上線環境的紀錄檔裡寫入不必要的訊息。</p><h4 id="給記錄打標籤">2.4 給記錄打標籤</h4><p>執行多使用者、多帳號的應用程式時，可以使用自訂規則來過濾記錄檔很有用。Active Support 的 <code>TaggedLogging</code> 為此而生。可以在記錄裡加入像是子域名、請求 ID 等其它有助於除錯的訊息。</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 logger = ActiveSupport::TaggedLogging.new(Logger.new(STDOUT))
 logger.tagged("BCX") { logger.info "Stuff" }                            # Logs "[BCX] Stuff"
@@ -402,46 +401,25 @@ logger.tagged("BCX") { logger.tagged("Jason") { logger.info "Stuff" } } # Logs "
 
 </pre>
 </div>
-<h4 id="impact-of-logs-on-performance">2.5 Impact of Logs on Performance</h4><p>Logging will always have a small impact on performance of your rails app,
-        particularly when logging to disk.However, there are a few subtleties:</p><p>Using the <code>:debug</code> level will have a greater performance penalty than <code>:fatal</code>,
-      as a far greater number of strings are being evaluated and written to the
-      log output (e.g. disk).</p><p>Another potential pitfall is that if you have many calls to <code>Logger</code> like this
-      in your code:</p><div class="code_container">
+<h4 id="記錄對效能的影響">2.5 記錄對效能的影響</h4><p>記錄肯定會對效能產生影響，特別是將記錄存到硬碟裡。有幾個潛在的問題：</p><p>使用 <code>:debug</code> 層級對效能的影響最大（與 <code>:fatal</code> 相比）。因為 <code>:debug</code> 與 <code>:fatal</code> 相比起來，需要處理的字串多很多，還得再寫入到磁碟。</p><p>另一個潛在的陷阱是，若是這樣使用 <code>Logger</code>：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 logger.debug "Person attributes hash: #{@person.attributes.inspect}"
 
 </pre>
 </div>
-<p>In the above example, There will be a performance impact even if the allowed
-output level doesn't include debug. The reason is that Ruby has to evaluate
-these strings, which includes instantiating the somewhat heavy <code>String</code> object
-and interpolating the variables, and which takes time.
-Therefore, it's recommended to pass blocks to the logger methods, as these are
-only evaluated if the output level is the same or included in the allowed level
-(i.e. lazy loading). The same code rewritten would be:</p><div class="code_container">
+<p>在上例裡，即便 Logger 層級不包含 <code>:debug</code> 也會影響效能。因為 Ruby 需要對這些字串做求值，便需要實體化這些字串，處理字串插值，這些都需要時間。</p><p>因此 <code>logger</code> 方法傳入區塊比較好，區塊只在 Logger 層級相符時才會求值（即惰性加載）。上例可改寫為：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 logger.debug {"Person attributes hash: #{@person.attributes.inspect}"}
 
 </pre>
 </div>
-<p>The contents of the block, and therefore the string interpolation, is only
-evaluated if debug is enabled. This performance savings is only really
-noticeable with large amounts of logging, but it's a good practice to employ.</p><h3 id="debugging-with-the-byebug-gem">3 Debugging with the <code>byebug</code> gem</h3><p>When your code is behaving in unexpected ways, you can try printing to logs or
-the console to diagnose the problem. Unfortunately, there are times when this
-sort of error tracking is not effective in finding the root cause of a problem.
-When you actually need to journey into your running source code, the debugger
-is your best companion.</p><p>The debugger can also help you if you want to learn about the Rails source code
-but don't know where to start. Just debug any request to your application and
-use this guide to learn how to move from the code you have written deeper into
-Rails code.</p><h4 id="setup">3.1 Setup</h4><p>You can use the <code>byebug</code> gem to set breakpoints and step through live code in
-Rails. To install it, just run:</p><div class="code_container">
+<p>區塊的內容只在 <code>:debug</code> 層級的紀錄啟用時才會求值。省下的效能只在大量記錄時會體現出來，但這是可以採納的良好實踐。</p><h3 id="使用-byebug-gem-來除錯">3 使用 <code>byebug</code> Gem 來除錯</h3><p>當程式不按預期執行時，可以試著印出 Log 或查看終端來找出問題。不幸的是，有時候這些方法無法有效的找出問題的根源。當需要一步一步追蹤執行的程式碼時，除錯器是你最好的幫手。</p><p>除錯器也可以幫助你了解 Rails 的原始碼。若不知道從何下手，從任何一個請求切入，運用下面教你的方法，一步一步深入 Rails 原始碼。</p><h4 id="使用-byebug-gem-來除錯-設定">3.1 設定</h4><p>使用 <code>byebug</code> gem 來下斷點，在正在執行的程式裡逐步執行。安裝 <code>byebug</code>：</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 $ gem install byebug
 
 </pre>
 </div>
-<p>Inside any Rails application you can then invoke the debugger by calling the
-<code>byebug</code> method.</p><p>Here's an example:</p><div class="code_container">
+<p>在 Rails 應用程式裡的任何地方，可以使用 <code>byebug</code> 方法來呼叫除錯器。</p><p>範例：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class PeopleController &lt; ApplicationController
   def new
@@ -452,11 +430,7 @@ end
 
 </pre>
 </div>
-<h4 id="the-shell">3.2 The Shell</h4><p>As soon as your application calls the <code>byebug</code> method, the debugger will be
-started in a debugger shell inside the terminal window where you launched your
-application server, and you will be placed at the debugger's prompt <code>(byebug)</code>.
-Before the prompt, the code around the line that is about to be run will be
-displayed and the current line will be marked by '=&gt;'. Like this:</p><div class="code_container">
+<h4 id="shell">3.2 Shell</h4><p>只要呼叫了 <code>byebug</code> 方法，除錯器便會啟動。啟動伺服器時，會在終端機裡開一個 Shell 起來，會停在呼叫 <code>byebug</code> 的地方。即將執行的程式碼左邊會有 <code>=&gt;</code> 提示符號：</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 [1, 10] in /PathTo/project/app/controllers/articles_controller.rb
     3:
@@ -474,9 +448,7 @@ displayed and the current line will be marked by '=&gt;'. Like this:</p><div cla
 
 </pre>
 </div>
-<p>If you got there by a browser request, the browser tab containing the request
-will be hung until the debugger has finished and the trace has finished
-processing the entire request.</p><p>For example:</p><div class="code_container">
+<p>若是從瀏覽器觸發，瀏覽器分頁會停住，直到除錯器與請求結束。</p><p>比如說：</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 =&gt; Booting WEBrick
 =&gt; Rails 4.2.0 application starting in development on http://0.0.0.0:3000
@@ -508,8 +480,7 @@ Processing by ArticlesController#index as HTML
 
 </pre>
 </div>
-<p>Now it's time to explore and dig into your application. A good place to start is
-by asking the debugger for help. Type: <code>help</code></p><div class="code_container">
+<p>現在是時候深入程式一探究竟了。一開始先看看有什麼可以用，輸入 <code>help</code>：</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 (byebug) help
 
@@ -526,10 +497,7 @@ continue   edit     frame   kill       pp      reload    skip     undisplay
 
 </pre>
 </div>
-<div class="info"><p>To view the help menu for any command use <code>help &lt;command-name&gt;</code> at the
-debugger prompt. For example: <em><code>help list</code></em>. You can abbreviate any debugging
-command by supplying just enough letters to distinguish them from other
-commands, so you can also use <code>l</code> for the <code>list</code> command, for example.</p></div><p>To see the previous ten lines you should type <code>list-</code> (or <code>l-</code>)</p><div class="code_container">
+<div class="info"><p>要查看任何命令，請使用 <code>help &lt;command-name&gt;</code>，譬如 <code>help list</code>。也可以使用縮寫，比如 <code>list</code> 可用 <code>l</code> 即可，例如：</p></div><p>要列出前十行程式，可以使用 <code>list-</code> 或 <code>l-</code>：</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 (byebug) l-
 
@@ -548,9 +516,7 @@ commands, so you can also use <code>l</code> for the <code>list</code> command, 
 
 </pre>
 </div>
-<p>This way you can move inside the file, being able to see the code above and over
-the line where you added the <code>byebug</code> call. Finally, to see where you are in
-the code again you can type <code>list=</code></p><div class="code_container">
+<p>這樣便可看 <code>byebug</code> 呼叫，上面與下面的程式碼。最後，要回到 <code>byebug</code> 停下來的地方，輸入 <code>list=</code>：</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 (byebug) list=
 
@@ -570,15 +536,7 @@ the code again you can type <code>list=</code></p><div class="code_container">
 
 </pre>
 </div>
-<h4 id="the-context">3.3 The Context</h4><p>When you start debugging your application, you will be placed in different
-contexts as you go through the different parts of the stack.</p><p>The debugger creates a context when a stopping point or an event is reached. The
-context has information about the suspended program which enables the debugger
-to inspect the frame stack, evaluate variables from the perspective of the
-debugged program, and contains information about the place where the debugged
-program is stopped.</p><p>At any time you can call the <code>backtrace</code> command (or its alias <code>where</code>) to print
-the backtrace of the application. This can be very helpful to know how you got
-where you are. If you ever wondered about how you got somewhere in your code,
-then <code>backtrace</code> will supply the answer.</p><div class="code_container">
+<h4 id="上下文">3.3 上下文</h4><p>開始除錯應用程式時，會在不同的上下文裡跳轉。</p><p>除錯器停在某個地方（或觸發事件時）建立一個上下文，上下文有當下暫停程式的資訊，讓除錯器可以檢查 Frame Stack、以當下程式的角度對變數求值，並具有程式暫停的位置資訊。</p><p>任何時候都可以使用 <code>backtrace</code>（別名 <code>where</code>）來印出應用程式的 Backtrace。這可以知道是怎麼到程式的這一點。若困惑程式是如何執行到這裡的，執行 <code>backtrace</code> 便有答案。</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 (byebug) where
 --&gt; #0  ArticlesController.index
@@ -593,10 +551,7 @@ then <code>backtrace</code> will supply the answer.</p><div class="code_containe
 
 </pre>
 </div>
-<p>The current frame is marked with <code>--&gt;</code>. You can move anywhere you want in this
-trace (thus changing the context) by using the <code>frame _n_</code> command, where <em>n</em> is
-the specified frame number. If you do that, <code>byebug</code> will display your new
-context.</p><div class="code_container">
+<p>當下的 Frame 會以 <code>--&gt;</code> 註記。可以使用 <code>frame n</code> 命令移動到 Frame 的任何地方，<code>n</code> 是 Frame 的號碼。移動時，<code>byebug</code> 會同時顯示新的上下文。</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 (byebug) frame 2
 
@@ -616,31 +571,20 @@ context.</p><div class="code_container">
 
 </pre>
 </div>
-<p>The available variables are the same as if you were running the code line by
-line. After all, that's what debugging is.</p><p>You can also use <code>up [n]</code> (<code>u</code> for abbreviated) and <code>down [n]</code> commands in order
-to change the context <em>n</em> frames up or down the stack respectively. <em>n</em> defaults
-to one. Up in this case is towards higher-numbered stack frames, and down is
-towards lower-numbered stack frames.</p><h4 id="threads">3.4 Threads</h4><p>The debugger can list, stop, resume and switch between running threads by using
-the <code>thread</code> command (or the abbreviated <code>th</code>). This command has a handful of
-options:</p>
+<p>也可以使用 <code>up [n]</code> 或 <code>down [n]</code> 來往上或下幾個 Frames。<code>n</code> 預設是 <code>1</code>。往上會往數字較高的 Frame 走；而下是往數字較低的 Frame。</p><h4 id="執行緒">3.4 執行緒</h4><p>除錯器可以列出執行緒（Thread）、停止執行緒、繼續執行緒、切換執行緒：<code>thread</code> 命令（或縮寫 <code>th</code>）。有以下選項可用：</p>
 <ul>
 <li>
-<code>thread</code> shows the current thread.</li>
+<code>thread</code>：顯示當前的執行緒。</li>
 <li>
-<code>thread list</code> is used to list all threads and their statuses. The plus +
-character and the number indicates the current thread of execution.</li>
+<code>thread list</code>：用來列出所有執行緒及執行緒的狀態。執行緒數字前有 <code>+</code> 號表示為當前的執行緒。</li>
 <li>
-<code>thread stop _n_</code> stop thread <em>n</em>.</li>
+<code>thread stop n</code>：停止執行緒 <code>n</code>。</li>
 <li>
-<code>thread resume _n_</code> resumes thread <em>n</em>.</li>
+<code>thread resume n</code>：繼續執行緒 <code>n</code>。</li>
 <li>
-<code>thread switch _n_</code> switches the current thread context to <em>n</em>.</li>
+<code>thread switch n</code>：切換當前的執行緒到執行緒 <code>n</code>。</li>
 </ul>
-<p>This command is very helpful, among other occasions, when you are debugging
-concurrent threads and need to verify that there are no race conditions in your
-code.</p><h4 id="inspecting-variables">3.5 Inspecting Variables</h4><p>Any expression can be evaluated in the current context. To evaluate an
-expression, just type it!</p><p>This example shows how you can print the instance variables defined within the
-current context:</p><div class="code_container">
+<p>這條命令相當有用，在需要除錯當前執行緒，需要檢查是否有競態條件時很有用。</p><h4 id="查看變數">3.5 查看變數</h4><p>當前的上下文裡可以執行任何表達式。要對表達式做求值，輸入即可！</p><p>下例示範如何在當下的上下文裡印出實體變數：</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 [3, 12] in /PathTo/project/app/controllers/articles_controller.rb
     3:
@@ -661,10 +605,7 @@ current context:</p><div class="code_container">
 
 </pre>
 </div>
-<p>As you may have figured out, all of the variables that you can access from a
-controller are displayed. This list is dynamically updated as you execute code.
-For example, run the next line using <code>next</code> (you'll learn more about this
-command later in this guide).</p><div class="code_container">
+<p>你可能看出來了，所有 Controller 可以存取的變數都印出來了。這個變數清單會隨著程式執行而改變。譬如使用 <code>next</code> 跳到下一行（之後會解釋 <code>next</code>）：</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 (byebug) next
 [5, 14] in /PathTo/project/app/controllers/articles_controller.rb
@@ -683,18 +624,14 @@ command later in this guide).</p><div class="code_container">
 
 </pre>
 </div>
-<p>And then ask again for the instance_variables:</p><div class="code_container">
+<p>接著再使用 <code>instance_variables</code>:</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 (byebug) instance_variables.include? "@articles"
 true
 
 </pre>
 </div>
-<p>Now <code>@articles</code> is included in the instance variables, because the line defining it
-was executed.</p><div class="info"><p>You can also step into <strong>irb</strong> mode with the command <code>irb</code> (of course!).
-This way an irb session will be started within the context you invoked it. But
-be warned: this is an experimental feature.</p></div><p>The <code>var</code> method is the most convenient way to show variables and their values.
-Let's let <code>byebug</code> to help us with it.</p><div class="code_container">
+<p>現在 <code>@articles</code> 被加到實體變數清單裡了，因為定義 <code>@articles</code> 的那一行已經被執行了。</p><div class="info"><p>也可以切換到 <code>irb</code> 模式，使用 <code>irb</code> 命令即可。會在當下的上下文裡，起一個新的 irb，但這個功能還在實驗階段。</p></div><p><code>var</code> 是用來顯示變數的方法，說明文件如下：</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 (byebug) help var
 v[ar] cl[ass]                   show class variables of self
@@ -705,15 +642,14 @@ v[ar] l[ocal]                   show local variables
 
 </pre>
 </div>
-<p>This is a great way to inspect the values of the current context variables. For
-example, to check that we have no local variables currently defined.</p><div class="code_container">
+<p>這是用來檢視當下上下文變數的好方法。舉個例子，看有沒有定義任何區域變數：</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 (byebug) var local
 (byebug)
 
 </pre>
 </div>
-<p>You can also inspect for an object method this way:</p><div class="code_container">
+<p>檢視物件的實體變數：</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 (byebug) var instance Article.new
 @_start_transaction_state = {}
@@ -726,24 +662,14 @@ example, to check that we have no local variables currently defined.</p><div cla
 
 </pre>
 </div>
-<div class="info"><p>The commands <code>p</code> (print) and <code>pp</code> (pretty print) can be used to evaluate
-Ruby expressions and display the value of variables to the console.</p></div><p>You can use also <code>display</code> to start watching variables. This is a good way of
-tracking the values of a variable while the execution goes on.</p><div class="code_container">
+<div class="info"><p><code>p</code>（print）和 <code>pp</code>（pretty print）可以用來對 Ruby 表達式求值，和顯示變數的值到終端。</p></div><p>也可用 <code>display</code> 來“關注”變數。這是執行時追蹤變數值的好方法。</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 (byebug) display @articles
 1: @articles = nil
 
 </pre>
 </div>
-<p>The variables inside the displaying list will be printed with their values after
-you move in the stack. To stop displaying a variable use <code>undisplay _n_</code> where
-<em>n</em> is the variable number (1 in the last example).</p><h4 id="step-by-step">3.6 Step by Step</h4><p>Now you should know where you are in the running trace and be able to print the
-available variables. But lets continue and move on with the application
-execution.</p><p>Use <code>step</code> (abbreviated <code>s</code>) to continue running your program until the next
-logical stopping point and return control to the debugger.</p><p>You may also use <code>next</code> which is similar to step, but function or method calls
-that appear within the line of code are executed without stopping.</p><div class="info"><p>You can also use <code>step n</code> or <code>next n</code> to move forwards <code>n</code> steps at once.</p></div><p>The difference between <code>next</code> and <code>step</code> is that <code>step</code> stops at the next line
-of code executed, doing just a single step, while <code>next</code> moves to the next line
-without descending inside methods.</p><p>For example, consider the following situation:</p><div class="code_container">
+<p>在 <code>display</code> 關注清單的變數會在上下文切換時印出來。要停止關注變數，<code>undisplay n</code>，<code>n</code> 是變數前的號碼（上例 <code>1</code>）。</p><h4 id="逐步執行">3.6 逐步執行</h4><p>現在應該了解如何知道自己在執行程式的位置，並能印出變數。接著看程式如何執行。</p><p>使用 <code>step</code>（縮寫 <code>s</code>）來繼續執行程式，直到下個斷點，控制權會轉移回除錯器。</p><p>也可以使用 <code>next</code>，跟 <code>step</code> 類似，但會略過該行內的程式。</p><div class="info"><p>可以用 <code>step n</code> 或 <code>next n</code> 來一次往前 <code>n</code> 步。</p></div><p><code>next</code> 與 <code>step</code> 的差別是 <code>step</code> 會跳到下一行程式碼“裡”；而 <code>next</code> 則會移到“下一行”程式，不會執行行內的程式碼。</p><p>看看下面這個例子：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 Started GET "/" for 127.0.0.1 at 2014-04-11 13:39:23 +0200
 Processing by ArticlesController#index as HTML
@@ -762,9 +688,7 @@ Processing by ArticlesController#index as HTML
 
 </pre>
 </div>
-<p>If we use <code>next</code>, we want go deep inside method calls. Instead, byebug will go
-to the next line within the same context. In this case, this is the last line of
-the method, so <code>byebug</code> will jump to next next line of the previous frame.</p><div class="code_container">
+<p>若使用 <code>next</code>，<code>next</code> 不會深入 <code>where(...)</code>，而是跳到下一行。上例剛好到了 <code>end</code>，則會跳到下一個 Frame。</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 (byebug) next
 Next went up a frame because previous frame finished
@@ -785,8 +709,7 @@ Next went up a frame because previous frame finished
 
 </pre>
 </div>
-<p>If we use <code>step</code> in the same situation, we will literally go the next ruby
-instruction to be executed. In this case, the activesupport's <code>week</code> method.</p><div class="code_container">
+<p>反之若使用的是 <code>step</code>，則會到“下一行”，這個例子會跳到 Active Support 的 <code>week</code> 方法。</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 (byebug) step
 
@@ -806,23 +729,16 @@ instruction to be executed. In this case, the activesupport's <code>week</code> 
 
 </pre>
 </div>
-<p>This is one of the best ways to find bugs in your code, or perhaps in Ruby on
-Rails.</p><h4 id="breakpoints">3.7 Breakpoints</h4><p>A breakpoint makes your application stop whenever a certain point in the program
-is reached. The debugger shell is invoked in that line.</p><p>You can add breakpoints dynamically with the command <code>break</code> (or just <code>b</code>).
-There are 3 possible ways of adding breakpoints manually:</p>
+<p>這是找出 Bug 最好的方法之一，或者說這是在 Ruby on Rails 框架裡最好的除錯方法。</p><h4 id="breakpoints">3.7 Breakpoints</h4><p>斷點可使程式在執行到某處時停下來，會在該處起一個 Shell。</p><p>可以動態加斷點，使用 <code>break</code> （或 <code>b</code> 就好）。有三種方式可以手動加斷點：</p>
 <ul>
 <li>
-<code>break line</code>: set breakpoint in the <em>line</em> in the current source file.</li>
+<code>break line</code>：在目前的檔案裡對 <code>line</code> 行下斷點。</li>
 <li>
-<code>break file:line [if expression]</code>: set breakpoint in the <em>line</em> number inside
-the <em>file</em>. If an <em>expression</em> is given it must evaluated to <em>true</em> to fire up
-the debugger.</li>
+<code>break file:line [if expression]</code>： 在 <code>file</code> 的 <code>line</code> 行下斷點。<code>if</code> 表達式求值為真時會啟動除錯器。</li>
 <li>
-<code>break class(.|\#)method [if expression]</code>: set breakpoint in <em>method</em> (. and
-# for class and instance method respectively) defined in <em>class</em>. The
-<em>expression</em> works the same way as with file:line.</li>
+<code>break class(.|\#)method [if expression]</code>： 在 <em><code>class</code></em> 的類別方法或實體方法裡下斷點。同樣在 <code>if</code> 表達式求值為真時會啟動除錯器。</li>
 </ul>
-<p>For example, in the previous situation</p><div class="code_container">
+<p>譬如在前例下斷點：</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 [4, 13] in /PathTo/project/app/controllers/articles_controller.rb
     4:   # GET /articles
@@ -842,8 +758,7 @@ Created breakpoint 1 at /PathTo/project/app/controllers/articles_controller.rb:1
 
 </pre>
 </div>
-<p>Use <code>info breakpoints _n_</code> or <code>info break _n_</code> to list breakpoints. If you
-supply a number, it lists that breakpoint. Otherwise it lists all breakpoints.</p><div class="code_container">
+<p>使用 <code>info breakpoints n</code> 或 <code>info break n</code> 來列出斷點。若有給 <code>n</code> 號碼，會只列出對應號碼的斷點，否則列出所有的斷點。</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 (byebug) info breakpoints
 Num Enb What
@@ -851,9 +766,7 @@ Num Enb What
 
 </pre>
 </div>
-<p>To delete breakpoints: use the command <code>delete _n_</code> to remove the breakpoint
-number <em>n</em>. If no number is specified, it deletes all breakpoints that are
-currently active.</p><div class="code_container">
+<p>要刪除斷點，使用 <code>delete n</code>，來移除 <code>n</code> 號斷點。若沒指定則會刪除所有使用中的斷點。</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 (byebug) delete 1
 (byebug) info breakpoints
@@ -861,103 +774,59 @@ No breakpoints.
 
 </pre>
 </div>
-<p>You can also enable or disable breakpoints:</p>
+<p>也可以啟用或停用某個斷點：</p>
 <ul>
 <li>
-<code>enable breakpoints</code>: allow a <em>breakpoints</em> list or all of them if no list is
-specified, to stop your program. This is the default state when you create a
-breakpoint.</li>
+<code>enable breakpoints</code>：接受一個斷點清單。沒給清單會啟用所有的斷點（預設）。</li>
 <li>
-<code>disable breakpoints</code>: the <em>breakpoints</em> will have no effect on your program.</li>
+<code>disable breakpoints</code>：指定的斷點不會對程式造成影響。</li>
 </ul>
-<h4 id="catching-exceptions">3.8 Catching Exceptions</h4><p>The command <code>catch exception-name</code> (or just <code>cat exception-name</code>) can be used to
-intercept an exception of type <em>exception-name</em> when there would otherwise be no
-handler for it.</p><p>To list all active catchpoints use <code>catch</code>.</p><h4 id="resuming-execution">3.9 Resuming Execution</h4><p>There are two ways to resume execution of an application that is stopped in the
-debugger:</p>
+<h4 id="補捉異常">3.8 補捉異常</h4><p><code>catch exception-name</code>（或 <code>cat exception-name</code>）命令可用來攔截沒有預設處理程序的異常（異常的類型為 <code>exception-name</code>）。</p><p>列出所有的攔截點請用 <code>catch</code>。</p><h4 id="繼續執行">3.9 繼續執行</h4><p>除錯器暫停程式，有兩種恢復程式執行的方法：</p>
 <ul>
 <li>
-<code>continue</code> [line-specification] (or <code>c</code>): resume program execution, at the
-address where your script last stopped; any breakpoints set at that address are
-bypassed. The optional argument line-specification allows you to specify a line
-number to set a one-time breakpoint which is deleted when that breakpoint is
-reached.</li>
+<code>continue [line-specification]</code>（或 <code>c</code>）：在上次停下來的地方繼續執行程式，該行的任何斷點會被忽略。接受一個選擇性參數 <code>line-specification</code>，允許指定行號。可以消掉指定行號的斷點。</li>
 <li>
-<code>finish</code> [frame-number] (or <code>fin</code>): execute until the selected stack frame
-returns. If no frame number is given, the application will run until the
-currently selected frame returns. The currently selected frame starts out the
-most-recent frame or 0 if no frame positioning (e.g up, down or frame) has been
-performed. If a frame number is given it will run until the specified frame
-returns.</li>
+<code>finish [frame-number]</code>（或 <code>fin</code>）：執行 Frame 裡的所有程式。沒指定要執行那個 Frame 時，程式會執行到當下的 Frame 結束為止。若有指定 Frame，則會執行到該 Frame 結束為止。</li>
 </ul>
-<h4 id="editing">3.10 Editing</h4><p>Two commands allow you to open code from the debugger into an editor:</p>
+<h4 id="編輯">3.10 編輯</h4><p>兩個命令可以從除錯器裡開啟編輯器來編輯：</p>
 <ul>
 <li>
-<code>edit [file:line]</code>: edit <em>file</em> using the editor specified by the EDITOR
-environment variable. A specific <em>line</em> can also be given.</li>
+<code>edit [file:line]</code>: 使用環境變數 <code>EDITOR</code> 指定的編輯器來編輯 <em><code>file</code></em>，可以選擇性指定要編輯的行號 <code>line</code>。</li>
 </ul>
-<h4 id="quitting">3.11 Quitting</h4><p>To exit the debugger, use the <code>quit</code> command (abbreviated <code>q</code>), or its alias
-<code>exit</code>.</p><p>A simple quit tries to terminate all threads in effect. Therefore your server
-will be stopped and you will have to start it again.</p><h4 id="settings">3.12 Settings</h4><p><code>byebug</code> has a few available options to tweak its behaviour:</p>
+<h4 id="離開">3.11 離開</h4><p>要離開除錯器，使用 <code>quit</code> 命令（縮寫 <code>q</code>），別名：<code>exit</code>。</p><p>離開實際上會終止所有的執行緒。因此伺服器會被停止，需要自己重新啟動。</p><h4 id="使用-byebug-gem-來除錯-設定">3.12 設定</h4><p><code>byebug</code> 有幾個可用的選項：</p>
 <ul>
 <li>
-<code>set autoreload</code>: Reload source code when changed (default: true).</li>
+<code>set autoreload</code>： 原始碼改變時自動重載（預設 <code>true</code>）。</li>
 <li>
-<code>set autolist</code>: Execute <code>list</code> command on every breakpoint (default: true).</li>
+<code>set autolist</code>：每個斷點自動執行 <code>list</code> 命令（預設 <code>true</code>）。</li>
 <li>
-<code>set listsize _n_</code>: Set number of source lines to list by default to <em>n</em>
-(default: 10)</li>
+<code>set listsize _n_</code>： 設定要列出的行數（預設 <code>10</code>）。</li>
 <li>
-<code>set forcestep</code>: Make sure the <code>next</code> and <code>step</code> commands always move to a new
-line.</li>
+<code>set forcestep</code>：確保 <code>next</code> 和 <code>step</code> 命令總是移到下一行。</li>
 </ul>
-<p>You can see the full list by using <code>help set</code>. Use <code>help set _subcommand_</code> to
-learn about a particular <code>set</code> command.</p><div class="info"><p>You can save these settings in an <code>.byebugrc</code> file in your home directory.
-The debugger reads these global settings when it starts. For example:</p></div><div class="code_container">
+<p>可以使用 <code>help set</code> 看完整的設定選項。使用 <code>help set subcommand</code> 來學習特定子命令的知識。</p><div class="info"><p>可以將這些設定直存在家目錄下的 <code>.byebugrc</code> 檔案裡。除錯器在啟動時會讀取這些全域設定。譬如：</p></div><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 set forcestep
 set listsize 25
 
 </pre>
 </div>
-<h3 id="debugging-memory-leaks">4 Debugging Memory Leaks</h3><p>A Ruby application (on Rails or not), can leak memory - either in the Ruby code
-or at the C code level.</p><p>In this section, you will learn how to find and fix such leaks by using tool
-such as Valgrind.</p><h4 id="valgrind">4.1 Valgrind</h4><p><a href="http://valgrind.org/">Valgrind</a> is a Linux-only application for detecting
-C-based memory leaks and race conditions.</p><p>There are Valgrind tools that can automatically detect many memory management
-and threading bugs, and profile your programs in detail. For example, if a C
-extension in the interpreter calls <code>malloc()</code> but doesn't properly call
-<code>free()</code>, this memory won't be available until the app terminates.</p><p>For further information on how to install Valgrind and use with Ruby, refer to
-<a href="http://blog.evanweaver.com/articles/2008/02/05/valgrind-and-ruby/">Valgrind and Ruby</a>
-by Evan Weaver.</p><h3 id="plugins-for-debugging">5 Plugins for Debugging</h3><p>There are some Rails plugins to help you to find errors and debug your
-application. Here is a list of useful plugins for debugging:</p>
+<h3 id="找出記憶體洩漏">4 找出記憶體洩漏</h3><p>Ruby 應用（不管是不是 Rails）都有可能會洩漏記憶體，可能是 Ruby 或是 C 程式洩漏記憶體。</p><p>本節介紹 Valgrind 工具，可以用來找出並修正記憶體洩漏的問題。</p><h4 id="valgrind">4.1 Valgrind</h4><p><a href="http://valgrind.org/">Valgrind</a> 只能在 Linux 上使用，用來找出 C 語言的記憶體洩漏或是競態條件。</p><p>有一些 Valgrind 工具可以自動偵測出記憶體洩漏、執行緒 Bugs 並可以對程式做詳細的分析。舉個例子，若有個用 C 寫的擴充程式，在直譯器呼叫了 <code>malloc()</code>，但沒有 <code>free()</code>，這些記憶體在應用程式結束時才會被釋放。</p><p>關於安裝 Valgrind 以及如何跟 Ruby 使用，請參考 Evan Weaver 所寫的文章：<a href="http://blog.evanweaver.com/articles/2008/02/05/valgrind-and-ruby/">Valgrind and Ruby</a>。</p><h3 id="除錯套件">5 除錯套件</h3><p>以下是幫助你找出錯誤與除錯程式的套件清單。</p>
 <ul>
 <li>
-<a href="https://github.com/josevalim/rails-footnotes">Footnotes</a> Every Rails page has
-footnotes that give request information and link back to your source via
-TextMate.</li>
+<a href="https://github.com/josevalim/rails-footnotes">Footnotes</a> 在每頁的頁腳印出請求的資訊、並連結到對應的程式碼（TextMate）。</li>
 <li>
-<a href="https://github.com/ntalbott/query_trace/tree/master">Query Trace</a> Adds query
-origin tracing to your logs.</li>
+<a href="https://github.com/ntalbott/query_trace/tree/master">Query Trace</a> 增加查詢記錄的源頭。</li>
 <li>
-<a href="https://github.com/nesquena/query_reviewer">Query Reviewer</a> This rails plugin
-not only runs "EXPLAIN" before each of your select queries in development, but
-provides a small DIV in the rendered output of each page with the summary of
-warnings for each query that it analyzed.</li>
+<a href="https://github.com/nesquena/query_reviewer">Query Reviewer</a> 這個 Rails 插件只會在開發模式的 <code>SELECT</code> 查詢前執行 <code>EXPLAIN</code>，並將分析過後的結果放在 <code>div</code> 裡，附在每一頁裡。</li>
 <li>
-<a href="https://github.com/smartinez87/exception_notification/tree/master">Exception Notifier</a>
-Provides a mailer object and a default set of templates for sending email
-notifications when errors occur in a Rails application.</li>
+<a href="https://github.com/smartinez87/exception_notification/tree/master">Exception Notifier</a> 提供一個 Mailer 物件以及一組模版。當 Rails 程式出錯時，寄送一封郵件通知。</li>
 <li>
-<a href="https://github.com/charliesome/better_errors">Better Errors</a> Replaces the
-standard Rails error page with a new one containing more contextual information,
-like source code and variable inspection.</li>
+<a href="https://github.com/charliesome/better_errors">Better Errors</a> 替換 Rails 標準的錯誤頁面，用有更多上下文資訊的頁面（像是出錯的程式、變量等）來取代。</li>
 <li>
-<a href="https://github.com/dejan/rails_panel">RailsPanel</a> Chrome extension for Rails
-development that will end your tailing of development.log. Have all information
-about your Rails app requests in the browser - in the Developer Tools panel.
-Provides insight to db/rendering/total times, parameter list, rendered views and
-more.</li>
+<a href="https://github.com/dejan/rails_panel">RailsPanel</a> Chrome 套件，在瀏覽器的開發工具顯示 <code>development.log</code> 的內容。提供像是資料庫查詢時間、算繪時間、總時間、參數列表、算繪的 View 等資訊。</li>
 </ul>
-<h3 id="references">6 References</h3>
+<h3 id="參考資料">6 參考資料</h3>
 <ul>
 <li><a href="http://bashdb.sourceforge.net/ruby-debug/home-page.html">ruby-debug Homepage</a></li>
 <li><a href="https://github.com/cldwalker/debugger">debugger Homepage</a></li>
