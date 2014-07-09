@@ -286,13 +286,19 @@ remove_foreign_key :accounts, column: :owner_id
 <ul>
 <li>
 <p>棄用路由的 <code>:to</code> 選項裡，<code>:to</code> 可以指向符號或不含井號的字串這兩個功能。</p>
-<p>  get '/posts', to: MyRackApp    =&gt; (No change necessary)
-  get '/posts', to: 'post#index' =&gt; (No change necessary)
-  get '/posts', to: 'posts'      =&gt; get '/posts', controller: :posts
-  get '/posts', to: :index       =&gt; get '/posts', action: :index</p>
+<div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+get '/posts', to: MyRackApp    =&gt; (No change necessary)
+get '/posts', to: 'post#index' =&gt; (No change necessary)
+get '/posts', to: 'posts'      =&gt; get '/posts', controller: :posts
+get '/posts', to: :index       =&gt; get '/posts', action: :index
+
+</pre>
+</div>
+<p>(<a href="https://github.com/rails/rails/commit/cc26b6b7bccf0eea2e2c1a9ebdcc9d30ca7390d9">Commit</a>)</p>
 </li>
 </ul>
-<p>  (<a href="https://github.com/rails/rails/commit/cc26b6b7bccf0eea2e2c1a9ebdcc9d30ca7390d9">Commit</a>)</p><h4 id="action-pack-值得一提的變化">4.2 值得一提的變化</h4>
+<h4 id="action-pack-值得一提的變化">4.2 值得一提的變化</h4>
 <ul>
 <li>
 <p><code>*_filter</code> 方法已經從文件中移除，已經不鼓勵使用。偏好使用 <code>*_action</code> 方法：</p>
@@ -314,13 +320,11 @@ skip_filter           =&gt; skip_action_callback
 
 </pre>
 </div>
+<p>若應用程式依賴這些 <code>*_filter</code> 方法，應該使用 <code>*_action</code> 方法替換。
+因為 <code>*_filter</code> 方法最終會從 Rails 裡拿掉。
+(Commit <a href="https://github.com/rails/rails/commit/6c5f43bab8206747a8591435b2aa0ff7051ad3de">1</a>,
+<a href="https://github.com/rails/rails/commit/489a8f2a44dc9cea09154ee1ee2557d1f037c7d4">2</a>)</p>
 </li>
-</ul>
-<p>  若應用程式依賴這些 <code>*_filter</code> 方法，應該使用 <code>*_action</code> 方法替換。
-  因為 <code>*_filter</code> 方法最終會從 Rails 裡拿掉。
-  (Commit <a href="https://github.com/rails/rails/commit/6c5f43bab8206747a8591435b2aa0ff7051ad3de">1</a>,
-  <a href="https://github.com/rails/rails/commit/489a8f2a44dc9cea09154ee1ee2557d1f037c7d4">2</a>)</p>
-<ul>
 <li><p>從 RFC-4791 新增 HTTP 方法 <code>MKCALENDAR</code>。
 (<a href="https://github.com/rails/rails/pull/15121">Pull Request</a>)</p></li>
 <li><p><code>*_fragment.action_controller</code> 通知訊息的 Payload 現在包含 Controller 與動作名稱。
@@ -366,13 +370,14 @@ Rails 5.0 將會回傳 Null Object。
 <li><p>棄用 <code>.find</code> 或 <code>.exists?</code> 可傳入 Active Record 物件。請先對物件呼叫 <code>#id</code>。
 (Commit <a href="https://github.com/rails/rails/commit/d92ae6ccca3bcfd73546d612efaea011270bd270">1</a>,
 <a href="https://github.com/rails/rails/commit/d35f0033c7dec2b8d8b52058fb8db495d49596f7">2</a>)</p></li>
-<li><p>棄用僅支持一半的 PostgreSQL 範圍數值（不包含起始值）。目前我們把 PostgreSQL 的範圍對應到 Ruby 的範圍。但由於 Ruby 的範圍不支援不包含起始值，所以無法完全轉換。</p></li>
-</ul>
-<p>  目前的解決方法是將起始數遞增，這是不對的，已經棄用了。關於不知如何遞增的子類型（比如沒有定義 <code>#succ</code>）會對不包含起始值的拋出 <code>ArgumentError</code>。</p><p>  (<a href="https://github.com/rails/rails/commit/91949e48cf41af9f3e4ffba3e5eecf9b0a08bfc3">Commit</a>)</p>
-<ul>
-<li>棄用對 <code>has_many :through</code> 自動偵測 counter cache 的支持。要自己對 <code>has_many</code> 與
+<li>
+<p>棄用僅支持一半的 PostgreSQL 範圍數值（不包含起始值）。目前我們把 PostgreSQL 的範圍對應到 Ruby 的範圍。但由於 Ruby 的範圍不支援不包含起始值，所以無法完全轉換。</p>
+<p>目前的解決方法是將起始數遞增，這是不對的，已經棄用了。關於不知如何遞增的子類型（比如沒有定義 <code>#succ</code>）會對不包含起始值的拋出 <code>ArgumentError</code>。</p>
+<p>(<a href="https://github.com/rails/rails/commit/91949e48cf41af9f3e4ffba3e5eecf9b0a08bfc3">Commit</a>)</p>
+</li>
+<li><p>棄用對 <code>has_many :through</code> 自動偵測 counter cache 的支持。要自己對 <code>has_many</code> 與
 <code>belongs_to</code> 關聯，給 <code>through</code> 的紀錄手動設定。
-(<a href="https://github.com/rails/rails/pull/15754">Pull Request</a>)</li>
+(<a href="https://github.com/rails/rails/pull/15754">Pull Request</a>)</p></li>
 </ul>
 <h4 id="active-record-值得一提的變化">7.3 值得一提的變化</h4>
 <ul>
