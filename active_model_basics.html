@@ -380,9 +380,7 @@ person.valid?                        # =&gt; raises ActiveModel::StrictValidatio
 
 </pre>
 </div>
-<h4 id="activemodel::naming">1.6 ActiveModel::Naming</h4><p>Naming adds a number of class methods which make the naming and routing
-easier to manage. The module defines the <code>model_name</code> class method which
-will define a number of accessors using some <code>ActiveSupport::Inflector</code> methods.</p><div class="code_container">
+<h4 id="activemodel::naming">1.6 ActiveModel::Naming</h4><p><code>Naming</code> 模組加入幾個幫助管理命名和路由的模組。這個模組定義了 <code>model_name</code> 類別方法，這個方法用 <code>ActiveSupport::Inflector</code> 定義了許多存取器（accessor）方法。</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Person
   extend ActiveModel::Naming
