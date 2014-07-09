@@ -214,7 +214,7 @@
         <p>PostgreSQL 的最低版本要求為 8.2。舊版不支援。</p><p>開始使用 PostgreSQL 之前，請先看看<a href="configuring.html#configuring-a-postgresql-database">如何為 Active Record 設定 PostgreSQL 資料庫</a>。</p><h3 id="資料類型">1 資料類型</h3><p>PostgreSQL 提供許多具體的資料類型。以下是 PostgreSQL 連接器所支援的類型列表。</p><h4 id="bytea-類型">1.1 Bytea 類型</h4>
 <ul>
 <li><a href="http://www.postgresql.org/docs/9.3/static/datatype-binary.html">類型定義</a></li>
-<li><a href="http://www.postgresql.org/docs/9.3/static/functions-binarystring.html">函數與運算元</a></li>
+<li><a href="http://www.postgresql.org/docs/9.3/static/functions-binarystring.html">函式與運算元</a></li>
 </ul>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
@@ -236,7 +236,7 @@ Document.create payload: data
 <h4 id="陣列類型">1.2 陣列類型</h4>
 <ul>
 <li><a href="http://www.postgresql.org/docs/9.3/static/arrays.html">類型定義</a></li>
-<li><a href="http://www.postgresql.org/docs/9.3/static/functions-array.html">函數與運算元</a></li>
+<li><a href="http://www.postgresql.org/docs/9.3/static/functions-array.html">函式與運算元</a></li>
 </ul>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
@@ -306,7 +306,7 @@ profile.save!
 <h4 id="json-類型">1.4 JSON 類型</h4>
 <ul>
 <li><a href="http://www.postgresql.org/docs/9.3/static/datatype-json.html">類型定義</a></li>
-<li><a href="http://www.postgresql.org/docs/9.3/static/functions-json.html">函數與運算元</a></li>
+<li><a href="http://www.postgresql.org/docs/9.3/static/functions-json.html">函式與運算元</a></li>
 </ul>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
@@ -333,7 +333,7 @@ Event.where("payload-&gt;'kind' = ?", "user_renamed")
 <h4 id="range-類型">1.5 Range 類型</h4>
 <ul>
 <li><a href="http://www.postgresql.org/docs/9.3/static/rangetypes.html">類型定義</a></li>
-<li><a href="http://www.postgresql.org/docs/9.3/static/functions-range.html">函數與運算元</a></li>
+<li><a href="http://www.postgresql.org/docs/9.3/static/functions-range.html">函式與運算元</a></li>
 </ul>
 <p>此類型映射到 Ruby 的 <a href="http://www.ruby-doc.org/core-2.1.1/Range.html"><code>Range</code></a> 物件</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
@@ -437,7 +437,7 @@ article.save!
 <h4 id="uuid-類型">1.8 UUID 類型</h4>
 <ul>
 <li><a href="http://www.postgresql.org/docs/9.3/static/datatype-uuid.html">類型定義</a></li>
-<li><a href="http://www.postgresql.org/docs/9.3/static/uuid-ossp.html">產生器函數</a></li>
+<li><a href="http://www.postgresql.org/docs/9.3/static/uuid-ossp.html">產生器函式</a></li>
 </ul>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
@@ -461,7 +461,7 @@ revision.identifier # =&gt; "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11"
 <h4 id="位元字串類型">1.9 位元字串類型</h4>
 <ul>
 <li><a href="http://www.postgresql.org/docs/9.3/static/datatype-bit.html">類型定義</a></li>
-<li><a href="http://www.postgresql.org/docs/9.3/static/functions-bitstring.html">函數與運算元</a></li>
+<li><a href="http://www.postgresql.org/docs/9.3/static/functions-bitstring.html">函式與運算元</a></li>
 </ul>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">

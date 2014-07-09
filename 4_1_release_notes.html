@@ -601,7 +601,7 @@ serialization。 <a href="https://github.com/rails/rails/pull/13911">PR#13911</a
 <li><p>提升 JSON gem 相容性。 <a href="https://github.com/rails/rails/pull/12862">PR#12862</a> 與<a href="http://edgeguides.rubyonrails.org/upgrading_ruby_on_rails.html#changes-in-json-handling">這裡</a></p></li>
 <li><p>新增 <code>ActiveSupport::Testing::TimeHelpers#travel</code> 與 <code>#travel_to</code>。這些方法透過 stubbing <code>Time.now</code> 與 <code>Date.today</code>，可設定任何時間，坐時光旅行。</p></li>
 <li><p>新增 <code>ActiveSupport::Testing::TimeHelpers#travel_back</code>。這個方法將當下時間回到原本的狀態。透過移除 <code>travel</code> 與 <code>travel_to</code> 加入的 stubs 辦到。 <a href="https://github.com/rails/rails/pull/13884">PR#13884</a></p></li>
-<li><p>新增 <code>Numeric#in_milliseconds</code>，像是 1 小時有幾毫秒：<code>1.hour.in_milliseconds</code>。可以將時間轉成毫秒，再餵給 JavaScript 的 <code>getTime()</code> 函數。<a href="https://github.com/rails/rails/commit/423249504a2b468d7a273cbe6accf4f21cb0e643">Commit</a></p></li>
+<li><p>新增 <code>Numeric#in_milliseconds</code>，像是 1 小時有幾毫秒：<code>1.hour.in_milliseconds</code>。可以將時間轉成毫秒，再餵給 JavaScript 的 <code>getTime()</code> 函式。<a href="https://github.com/rails/rails/commit/423249504a2b468d7a273cbe6accf4f21cb0e643">Commit</a></p></li>
 <li><p>新增了 <code>Date#middle_of_day</code>、<code>DateTime#middle_of_day</code> 與 <code>Time#middle_of_day</code>
 方法。同時添加了 <code>midday</code>、<code>noon</code>、<code>at_midday</code>、<code>at_noon</code>、<code>at_middle_of_day</code> 作為別名。<a href="https://github.com/rails/rails/pull/10879">PR#10879</a></p></li>
 <li><p>新增 <code>Date#all_week/month/quarter/year</code> 用來產生一組日期範圍。  <a href="https://github.com/rails/rails/pull/9685">PR#9685</a></p></li>
