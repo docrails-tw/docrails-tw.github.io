@@ -189,7 +189,6 @@
 
 <ul>
 <li><a href="#%E5%8F%96%E5%87%BA%E5%96%AE%E4%B8%80%E7%89%A9%E4%BB%B6">取出單一物件</a></li>
-<li><a href="#%E5%8F%96%E5%87%BA%E5%A4%9A%E5%80%8B%E7%89%A9%E4%BB%B6">取出多個物件</a></li>
 <li><a href="#%E6%89%B9%E6%AC%A1%E5%8F%96%E5%87%BA%E5%A4%9A%E7%AD%86%E8%A8%98%E9%8C%84">批次取出多筆記錄</a></li>
 </ul>
 </li>
@@ -376,7 +375,8 @@ end
 <li>將每個查詢結果，根據適當的 Model 實體化出 Ruby 物件。</li>
 <li>有 <code>after_find</code> 回呼的話，執行它們。</li>
 </ul>
-<h4 id="取出單一物件">1.1 取出單一物件</h4><p>Active Record 提供數種方式來取出一個物件。</p><h5 id="透過主鍵">1.1.1 透過主鍵</h5><p>使用 <code>Model.find(primary_key)</code> 來取出給定主鍵的物件，比如：</p><div class="code_container">
+<h4 id="取出單一物件">1.1 取出單一物件</h4><p>Active Record 提供數種方式來取出一個物件。</p><h5 id="find">1.1.1 <code>find</code>
+</h5><p>使用 <code>find</code> 來取出給定主鍵（primary key）的物件，比如：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 # Find the client with primary key (id) 10.
 client = Client.find(10)
@@ -390,8 +390,22 @@ SELECT * FROM clients WHERE (clients.id = 10) LIMIT 1
 
 </pre>
 </div>
-<p>如果 <code>Model.find(primary_key)</code> 沒找到符合條件的記錄，則會拋出 <code>ActiveRecord::RecordNotFound</code> 異常。</p><h5 id="取出單一物件-take">1.1.2 <code>take</code>
-</h5><p><code>Model.take</code> 從資料庫取出一筆記錄，不考慮順序，比如：</p><div class="code_container">
+<p>如果 <code>find</code> 沒找到符合條件的記錄，則會拋出 <code>ActiveRecord::RecordNotFound</code> 異常。</p><p>也可以用來查詢多個物件：傳給 <code>find</code> 一個主鍵陣列即可。會回傳陣列所有提供的主鍵所找到的紀錄，譬如：</p><div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+# Find the clients with primary keys 1 and 10.
+client = Client.find([1, 10]) # Or even Client.find(1, 10)
+# =&gt; [#&lt;Client id: 1, first_name: "Lifo"&gt;, #&lt;Client id: 10, first_name: "Ryan"&gt;]
+
+</pre>
+</div>
+<p>上例等效的 SQL：</p><div class="code_container">
+<pre class="brush: sql; gutter: false; toolbar: false">
+SELECT * FROM clients WHERE (clients.id IN (1,10))
+
+</pre>
+</div>
+<div class="warning"><p>若不是所有提供的主鍵都有找到匹配的物件，則 <code>find</code> 方法會拋出 <code>ActiveRecord::RecordNotFound</code> 異常。</p></div><h5 id="take">1.1.2 <code>take</code>
+</h5><p><code>take</code> 方法取出 <code>limit</code> 筆記錄，不特別排序，比如：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 client = Client.take
 # =&gt; #&lt;Client id: 1, first_name: "Lifo"&gt;
@@ -404,8 +418,24 @@ SELECT * FROM clients LIMIT 1
 
 </pre>
 </div>
-<p>如果沒找到記錄，<code>Model.take</code> 會回傳 <code>nil</code>，不會拋出異常。</p><div class="info"><p>取得的記錄根據使用的資料庫引擎會有不同結果。</p></div><h5 id="取出單一物件-first">1.1.3 <code>first</code>
-</h5><p><code>Model.first</code> 按主鍵排序，取出第一筆資料，比如：</p><div class="code_container">
+<p>若沒找到記錄會拋出異常，<code>take</code> 則回傳 <code>nil</code>。</p><p>可以傳一個數值參數給 <code>take</code>，會回傳多筆結果。比如：</p><div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+client = Client.take(2)
+# =&gt; [
+  #&lt;Client id: 1, first_name: "Lifo"&gt;,
+  #&lt;Client id: 220, first_name: "Sara"&gt;
+]
+
+</pre>
+</div>
+<p>對應的 SQL：</p><div class="code_container">
+<pre class="brush: sql; gutter: false; toolbar: false">
+SELECT * FROM clients LIMIT 2
+
+</pre>
+</div>
+<p><code>take!</code> 的行為同 <code>take</code>，但在沒找到記錄時會拋出 <code>ActiveRecord::RecordNotFound</code>。</p><div class="info"><p>取出記錄的結果可能隨資料庫引擎的不同而變化。</p></div><h5 id="取出單一物件-first">1.1.3 <code>first</code>
+</h5><p><code>first</code> 按主鍵排序，取出第一筆資料，比如：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 client = Client.first
 # =&gt; #&lt;Client id: 1, first_name: "Lifo"&gt;
@@ -414,12 +444,12 @@ client = Client.first
 </div>
 <p>對應的 SQL：</p><div class="code_container">
 <pre class="brush: sql; gutter: false; toolbar: false">
-SELECT * FROM clients ORDER BY clients.id ASC LIMIT 1
+SELECT * FROM clients LIMIT 1
 
 </pre>
 </div>
-<p>如果沒找到記錄，<code>Model.first</code> 會回傳 <code>nil</code>，不會拋出異常。</p><h5 id="取出單一物件-last">1.1.4 <code>last</code>
-</h5><p><code>Model.last</code> 按主鍵排序，取出最後一筆資料，比如：</p><div class="code_container">
+<p>如果沒找到記錄，<code>first</code> 會回傳 <code>nil</code>，不會拋出異常。</p><p><code>first!</code> 的行為同 <code>first</code>，但在沒找到記錄時會拋出 <code>ActiveRecord::RecordNotFound</code> 異常。</p><h5 id="取出單一物件-last">1.1.4 <code>last</code>
+</h5><p><code>last</code> 按主鍵排序，取出最後一筆資料，比如：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 client = Client.last
 # =&gt; #&lt;Client id: 221, first_name: "Russel"&gt;
@@ -432,8 +462,25 @@ SELECT * FROM clients ORDER BY clients.id DESC LIMIT 1
 
 </pre>
 </div>
-<p>如果沒找到記錄，<code>Model.last</code> 會回傳 <code>nil</code>，不會拋出異常。</p><h5 id="find_by">1.1.5 <code>find_by</code>
-</h5><p><code>Model.find_by</code> 找第一筆符合條件的記錄：</p><div class="code_container">
+<p>如果沒找到記錄，<code>last</code> 會回傳 <code>nil</code>，不會拋出異常。</p><p>可傳數值參數給 <code>last</code>，會回傳最後幾筆結果，譬如：</p><div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+client = Client.last(3)
+# =&gt; [
+  #&lt;Client id: 219, first_name: "James"&gt;,
+  #&lt;Client id: 220, first_name: "Sara"&gt;,
+  #&lt;Client id: 221, first_name: "Russel"&gt;
+]
+
+</pre>
+</div>
+<p>上例對應 SQL：</p><div class="code_container">
+<pre class="brush: sql; gutter: false; toolbar: false">
+SELECT * FROM clients ORDER BY clients.id DESC LIMIT 3
+
+</pre>
+</div>
+<p><code>last!</code> 行為同 <code>last</code>，但在沒找到記錄時會拋出 <code>ActiveRecord::RecordNotFound</code> 異常。</p><h5 id="find_by">1.1.5 <code>find_by</code>
+</h5><p><code>find_by</code> 找出第一筆符合條件的記錄，譬如：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 Client.find_by first_name: 'Lifo'
 # =&gt; #&lt;Client id: 1, first_name: "Lifo"&gt;
@@ -449,100 +496,24 @@ Client.where(first_name: 'Lifo').take
 
 </pre>
 </div>
-<h5 id="take-bang">1.1.6 <code>take!</code>
-</h5><p><code>Model.take!</code> 從資料庫取出一筆記錄，不考慮任何順序，比如：</p><div class="code_container">
+<p><code>find_by!</code> 行為同 <code>find_by</code>，只是在沒找到符合條件的紀錄時會拋出 <code>ActiveRecord::RecordNotFound</code>，譬如：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
-client = Client.take!
-# =&gt; #&lt;Client id: 1, first_name: "Lifo"&gt;
-
-</pre>
-</div>
-<p>對應的 SQL：</p><div class="code_container">
-<pre class="brush: sql; gutter: false; toolbar: false">
-SELECT * FROM clients LIMIT 1
-
-</pre>
-</div>
-<p>如果沒找到記錄，<code>Model.take!</code> 會拋出 <code>ActiveRecord::RecordNotFound</code>。</p><h5 id="first-bang">1.1.7 <code>first!</code>
-</h5><p><code>Model.first!</code> 按主鍵排序，取出第一筆資料，比如：</p><div class="code_container">
-<pre class="brush: ruby; gutter: false; toolbar: false">
-client = Client.first!
-# =&gt; #&lt;Client id: 1, first_name: "Lifo"&gt;
-
-</pre>
-</div>
-<p>對應的 SQL：</p><div class="code_container">
-<pre class="brush: sql; gutter: false; toolbar: false">
-SELECT * FROM clients ORDER BY clients.id ASC LIMIT 1
-
-</pre>
-</div>
-<p>如果沒找到記錄，<code>Model.first!</code> 會拋出 <code>ActiveRecord::RecordNotFound</code> 異常。</p><h5 id="last-bang">1.1.8 <code>last!</code>
-</h5><p><code>Model.last!</code> 按主鍵排序，取出最後一筆資料，比如：</p><div class="code_container">
-<pre class="brush: ruby; gutter: false; toolbar: false">
-client = Client.last!
-# =&gt; #&lt;Client id: 221, first_name: "Russel"&gt;
-
-</pre>
-</div>
-<p>對應的 SQL：</p><div class="code_container">
-<pre class="brush: sql; gutter: false; toolbar: false">
-SELECT * FROM clients ORDER BY clients.id DESC LIMIT 1
-
-</pre>
-</div>
-<p>如果沒找到記錄，<code>Model.last!</code> 會拋出 <code>ActiveRecord::RecordNotFound</code> 異常。</p><h5 id="find_by-bang">1.1.9 <code>find_by!</code>
-</h5><p><code>Model.find_by!</code> 找第一筆符合條件的紀錄。</p><div class="code_container">
-<pre class="brush: ruby; gutter: false; toolbar: false">
-Client.find_by! first_name: 'Lifo'
-# =&gt; #&lt;Client id: 1, first_name: "Lifo"&gt;
-
-Client.find_by! first_name: 'Jon'
+Client.find_by! first_name: 'does not exist'
 # =&gt; ActiveRecord::RecordNotFound
 
 </pre>
 </div>
 <p>等同於：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
-Client.where(first_name: 'Lifo').take!
+Client.where(first_name: 'does not exist').take!
 
 </pre>
 </div>
-<p>如果沒找到符合條件的記錄，<code>Model.find_by!</code> 會拋出 <code>ActiveRecord::RecordNotFound</code> 異常。</p><h4 id="取出多個物件">1.2 取出多個物件</h4><h5 id="使用多個主鍵">1.2.1 使用多個主鍵</h5><p><code>Model.find(array_of_primary_key)</code> 接受以主鍵組成的陣列，並以陣列形式返回所有匹配的結果，比如：</p><div class="code_container">
+<h5 id="取出單一物件-first">1.1.6 <code>first</code>
+</h5><p><code>first</code>取出 <code>limit</code> 筆記錄，按主鍵排序：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
-# Find the clients with primary keys 1 and 10.
-client = Client.find([1, 10]) # Or even Client.find(1, 10)
-# =&gt; [#&lt;Client id: 1, first_name: "Lifo"&gt;, #&lt;Client id: 10, first_name: "Ryan"&gt;]
-
-</pre>
-</div>
-<p>對應的 SQL：</p><div class="code_container">
-<pre class="brush: sql; gutter: false; toolbar: false">
-SELECT * FROM clients WHERE (clients.id IN (1,10))
-
-</pre>
-</div>
-<div class="warning"><p>只要有一個主鍵沒找到對應的紀錄，<code>Model.find(array_of_primary_key)</code> 會拋出 ActiveRecord::RecordNotFound` 異常。</p></div><h5 id="取出多個物件-take">1.2.2 <code>take</code>
-</h5><p><code>Model.take(limit)</code> 取出 <code>limit</code> 筆記錄，不考慮順序：</p><div class="code_container">
-<pre class="brush: ruby; gutter: false; toolbar: false">
-Client.take(2)
-# =&gt; [#&lt;Client id: 1, first_name: "Lifo"&gt;,
-      #&lt;Client id: 2, first_name: "Raf"&gt;]
-
-</pre>
-</div>
-<p>對應的 SQL：</p><div class="code_container">
-<pre class="brush: sql; gutter: false; toolbar: false">
-SELECT * FROM clients LIMIT 2
-
-</pre>
-</div>
-<h5 id="取出多個物件-first">1.2.3 <code>first</code>
-</h5><p><code>Model.first(limit)</code> 按主鍵排序，取出 <code>limit</code> 筆記錄：</p><div class="code_container">
-<pre class="brush: ruby; gutter: false; toolbar: false">
-Client.first(2)
-# =&gt; [#&lt;Client id: 1, first_name: "Lifo"&gt;,
-      #&lt;Client id: 2, first_name: "Raf"&gt;]
+client = Client.first
+# =&gt; #&lt;Client id: 1, first_name: "Lifo"&gt;
 
 </pre>
 </div>
@@ -552,7 +523,7 @@ SELECT * FROM clients ORDER BY id ASC LIMIT 2
 
 </pre>
 </div>
-<h5 id="取出多個物件-last">1.2.4 <code>last</code>
+<h5 id="取出單一物件-last">1.1.7 <code>last</code>
 </h5><p><code>Model.last(limit)</code> 按主鍵排序，從後取出 <code>limit</code> 筆記錄：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 Client.last(2)
@@ -567,7 +538,7 @@ SELECT * FROM clients ORDER BY id DESC LIMIT 2
 
 </pre>
 </div>
-<h4 id="批次取出多筆記錄">1.3 批次取出多筆記錄</h4><p>處理多筆記錄是常見的需求，比如寄信給使用者，轉出資料。</p><p>直覺可能會這麼做：</p><div class="code_container">
+<h4 id="批次取出多筆記錄">1.2 批次取出多筆記錄</h4><p>處理多筆記錄是常見的需求，比如寄信給使用者，轉出資料。</p><p>直覺可能會這麼做：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 # 如果有數千個使用者，效率非常差。
 User.all.each do |user|
@@ -576,16 +547,24 @@ end
 
 </pre>
 </div>
-<p>但在資料表很大的時候，這個方法便不實用了。由於 <code>User.all.each</code> 告訴 Active Record 一次去把整張表抓出來，再為表的每一列建出物件，最後將所有的物件放到記憶體裡。如果資料庫裡存了非常多筆記錄，可能會把記憶體用光。</p><p>Rails 提供了兩個方法來解決這個問題，將記錄針對記憶體來說有效率的大小，分批處理。第一個方法是 <code>find_each</code>，取出一批記錄，並將每筆記錄傳入至區塊裡，可取單一筆記錄。第二個方法是 <code>find_in_batches</code>，一次取一批記錄，整批放至區塊裡，整批記錄以陣列形式取用。</p><div class="info"><p><code>find_each</code> 與 <code>find_in_batches</code> 方法專門用來解決大量記錄，處理無法一次放至記憶體的大量記錄。如果只是一千筆資料，使用平常的查詢方法便足夠了。</p></div><h5 id="find_each">1.3.1 <code>find_each</code>
+<p>但在資料表很大的時候，這個方法便不實用了。由於 <code>User.all.each</code> 告訴 Active Record 一次去把整張表抓出來，再為表的每一列建出物件，最後將所有的物件放到記憶體裡。如果資料庫裡存了非常多筆記錄，可能會把記憶體用光。</p><p>Rails 提供了兩個方法來解決這個問題，將記錄針對記憶體來說有效率的大小，分批處理。第一個方法是 <code>find_each</code>，取出一批記錄，並將每筆記錄傳入至區塊裡，可取單一筆記錄。第二個方法是 <code>find_in_batches</code>，一次取一批記錄，整批放至區塊裡，整批記錄以陣列形式取用。</p><div class="info"><p><code>find_each</code> 與 <code>find_in_batches</code> 方法專門用來解決大量記錄，處理無法一次放至記憶體的大量記錄。如果只是一千筆資料，使用平常的查詢方法便足夠了。</p></div><h5 id="find_each">1.2.1 <code>find_each</code>
 </h5><p><code>find_each</code> 方法取出一批記錄，將每筆記錄傳入區塊裡。下面的例子，將以 <code>find_each</code> 來取出 1000 筆記錄（<code>find_each</code> 與 <code>find_in_batches</code> 的預設值），並傳至區塊。一次處理 1000 筆，直至記錄通通處理完畢為止：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 User.find_each do |user|
-  NewsLetter.weekly_deliver(user)
+  NewsMailer.weekly(user).deliver
 end
 
 </pre>
 </div>
-<h6 id="find_each-選項">1.3.1.1 <code>find_each</code> 選項</h6><p><code>find_each</code> 方法接受多數 <code>find</code> 所允許的選項，除了 <code>:order</code> 與 <code>:limit</code>，這兩個選項保留供 <code>find_each</code> 內部使用。</p><p>此外有兩個額外的選項，<code>:batch_size</code> 與 <code>:start</code>。</p><p><strong><code>:batch_size</code></strong></p><p><code>:batch_size</code> 選項允許你在將各筆記錄傳進區塊前，指定一批要取多少筆記錄。比如一次取 5000 筆：</p><div class="code_container">
+<p>要給 <code>find_each</code> 加上條件，可以像用 <code>where</code> 一樣連鎖使用：</p><div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+User.where(weekly_subscriber: true).find_each do |user|
+  NewsMailer.weekly(user).deliver
+end
+
+</pre>
+</div>
+<h6 id="find_each-選項">1.2.1.1 <code>find_each</code> 選項</h6><p><code>find_each</code> 方法接受多數 <code>find</code> 所允許的選項，除了 <code>:order</code> 與 <code>:limit</code>，這兩個選項保留供 <code>find_each</code> 內部使用。</p><p>此外有兩個額外的選項，<code>:batch_size</code> 與 <code>:start</code>。</p><p><strong><code>:batch_size</code></strong></p><p><code>:batch_size</code> 選項允許你在將各筆記錄傳進區塊前，指定一批要取多少筆記錄。比如一次取 5000 筆：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 User.find_each(batch_size: 5000) do |user|
   NewsLetter.weekly_deliver(user)
@@ -601,7 +580,7 @@ end
 
 </pre>
 </div>
-<p>另個例子是想要多個 worker 處理同個佇列時。可以使用 <code>:start</code> 讓每個 worker 分別處理 10000 筆記錄。</p><h5 id="find_in_batches">1.3.2 <code>find_in_batches</code>
+<p>另個例子是想要多個 worker 處理同個佇列時。可以使用 <code>:start</code> 讓每個 worker 分別處理 10000 筆記錄。</p><h5 id="find_in_batches">1.2.2 <code>find_in_batches</code>
 </h5><p><code>find_in_batches</code> 方法與 <code>find_each</code> 類似，皆用來取出記錄。差別在於 <code>find_in_batchs</code> 取出記錄放入陣列傳至區塊，而 <code>find_each</code> 是一筆一筆放入區塊。下例會一次將 1000 張發票拿到區塊裡處理：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 # Give add_invoices an array of 1000 invoices at a time
@@ -611,7 +590,7 @@ end
 
 </pre>
 </div>
-<div class="note"><p><code>:include</code> 選項可以指定需要跟 Model 一起載入的關聯。</p></div><h6 id="find_in_batches-接受的選項">1.3.2.1 <code>find_in_batches</code> 接受的選項</h6><p><code>find_in_batches</code> 方法接受和 <code>find_each</code> 一樣的選項： <code>:batch_size</code> 與 <code>:start</code>，以及多數 <code>find</code> 接受的參數，除了 <code>:order</code> 與 <code>:limit</code> 之外。</p><p><code>find_in_batches</code> 方法接受和 <code>find_each</code> 一樣的選項： <code>:batch_size</code> 與 <code>:start</code>，以及多數 <code>find</code> 接受的參數，除了 <code>:order</code> 與 <code>:limit</code> 之外。這兩個選項保留供 <code>find_in_batches</code> 內部使用。</p><h3 id="條件">2 條件</h3><p><code>where</code> 方法允許取出符合條件的記錄，<code>where</code> 即代表了 SQL 語句的 <code>WHERE</code> 部分。</p><p>條件可以是字串、陣列、或是 Hash。</p><h4 id="字串條件">2.1 字串條件</h4><p>直接將要使用的條件，以字串形式傳入 <code>where</code> 即可。如 <code>Client.where("orders_count = '2'")</code> 會回傳所有 <code>orders_count</code> 是 2 的 clients。</p><div class="warning"><p>條件是純字串可能有 SQL injection 的風險。舉例來說，<code>Client.where("first_name LIKE '%#{params[:first_name]}%'")</code> 是不安全的，參考下節如何將字串條件改用陣列來處理。</p></div><h4 id="陣列條件">2.2 陣列條件</h4><p>如果我們要找的 <code>orders_count</code>，不一定固定是 2，可能是不定的數字：</p><div class="code_container">
+<div class="note"><p><code>:include</code> 選項可以指定需要跟 Model 一起載入的關聯。</p></div><h6 id="find_in_batches-接受的選項">1.2.2.1 <code>find_in_batches</code> 接受的選項</h6><p><code>find_in_batches</code> 方法接受和 <code>find_each</code> 一樣的選項： <code>:batch_size</code> 與 <code>:start</code>，以及多數 <code>find</code> 接受的參數，除了 <code>:order</code> 與 <code>:limit</code> 之外。</p><p><code>find_in_batches</code> 方法接受和 <code>find_each</code> 一樣的選項： <code>:batch_size</code> 與 <code>:start</code>，以及多數 <code>find</code> 接受的參數，除了 <code>:order</code> 與 <code>:limit</code> 之外。這兩個選項保留供 <code>find_in_batches</code> 內部使用。</p><h3 id="條件">2 條件</h3><p><code>where</code> 方法允許取出符合條件的記錄，<code>where</code> 即代表了 SQL 語句的 <code>WHERE</code> 部分。</p><p>條件可以是字串、陣列、或是 Hash。</p><h4 id="字串條件">2.1 字串條件</h4><p>直接將要使用的條件，以字串形式傳入 <code>where</code> 即可。如 <code>Client.where("orders_count = '2'")</code> 會回傳所有 <code>orders_count</code> 是 2 的 clients。</p><div class="warning"><p>條件是純字串可能有 SQL injection 的風險。舉例來說，<code>Client.where("first_name LIKE '%#{params[:first_name]}%'")</code> 是不安全的，參考下節如何將字串條件改用陣列來處理。</p></div><h4 id="陣列條件">2.2 陣列條件</h4><p>如果我們要找的 <code>orders_count</code>，不一定固定是 2，可能是不定的數字：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 Client.where("orders_count = ?", params[:orders])
 
@@ -841,7 +820,7 @@ HAVING sum(price) &gt; 100
 <p>這會回傳每天總價大於 <code>100</code> 的訂單。</p><h3 id="覆蓋條件">8 覆蓋條件</h3><h4 id="unscope">8.1 <code>unscope</code>
 </h4><p>可以使用 <code>unscope</code> 來指定要移除的特定條件，譬如：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
-Article.where('id &gt; 10').limit(20).order('id asc').except(:order)
+Article.where('id &gt; 10').limit(20).order('id asc').unscope(:order)
 
 </pre>
 </div>
@@ -888,8 +867,6 @@ SELECT "articles".* FROM "articles" WHERE (id &gt; 10) ORDER BY id desc LIMIT 20
 </h4><p><code>reorder</code> 可以覆蓋掉預設 scope 的 <code>order</code> 條件：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Article &lt; ActiveRecord::Base
-  ..
-  ..
   has_many :comments, -&gt; { order('posted_at DESC') }
 end
 
@@ -1431,13 +1408,22 @@ nick.save
 Client.find_by_sql("SELECT * FROM clients
   INNER JOIN orders ON clients.id = orders.client_id
   ORDER clients.created_at desc")
+# =&gt;  [
+  #&lt;Client id: 1, first_name: "Lucas" &gt;,
+  #&lt;Client id: 2, first_name: "Jan" &gt;,
+  # ...
+]
 
 </pre>
 </div>
 <p><code>find_by_sql</code> 提供自定查詢的簡單方式，並會將取出的物件實體化。</p><h4 id="select_all">17.1 <code>select_all</code>
 </h4><p><code>find_by_sql</code> 有個類似的方法：<code>connection#select_all</code>。 <code>select_all</code> 會使用自定的 SQL 語句從資料庫取出物件，但不會實體化物件。會回傳一個 <code>ActiveRecord::Result</code> 物件，可以使用 <code>to_ary</code> 或 <code>to_hash</code> 將 <code>ActiveRecord::Result</code> 轉成陣列，每筆記錄皆是陣列裡的一個 Hash。</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
-Client.connection.select_all("SELECT * FROM clients WHERE id = '1'")
+Client.connection.select_all("SELECT first_name, created_at FROM clients WHERE id = '1'")
+# =&gt; [
+  {"first_name"=&gt;"Rafael", "created_at"=&gt;"2012-11-10 23:23:45.281189"},
+  {"first_name"=&gt;"Eileen", "created_at"=&gt;"2013-12-09 11:22:35.221282"}
+]
 
 </pre>
 </div>
