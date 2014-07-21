@@ -891,7 +891,7 @@ end
 
 </pre>
 </div>
-<p>會建出一個 <code>Person#addresses_attributes=</code> 方法，用來新建、更新與刪除地址。</p><h4 id="嵌套表單">9.2 嵌套表單</h4><p>下面的表單允許使用者建立 <code>Person</code> 的實體，以及相關的地址。</p><div class="code_container">
+<p>會建出一個 <code>Person#addresses_attributes=</code> 方法，用來新建、更新與刪除地址。</p><h4 id="嵌套表單">9.2 嵌套表單</h4><p>下面的表單允許使用者用 <code>Person</code> 的實體來建立地址。</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 &lt;%= form_for @person do |f| %&gt;
   Addresses:
