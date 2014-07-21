@@ -6,7 +6,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-<title>Action View Overview — Ruby on Rails 指南</title>
+<title>Action View 綜覽 — Ruby on Rails 指南</title>
 <link rel="stylesheet" type="text/css" href="stylesheets/style.css" />
 <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
 
@@ -169,13 +169,13 @@
 
   <div id="feature">
     <div class="wrapper">
-      <h2>Action View Overview</h2><p>讀完本篇，您將了解：</p>
+      <h2>Action View 綜覽</h2><p>讀完本篇，您將了解：</p>
 <ul>
-<li>什麼是 Action Views，及如何在 Rails 中使用它。</li>
+<li>什麼是 Action View、如何在 Rails 裡使用。</li>
 <li>如何善用模版，局部頁面與版型。</li>
-<li>Action View 提供了哪些輔助方法，以及如何製作自己的輔助方法。</li>
-<li>如何使用本地化的 views。</li>
-<li>如何在 Rails 以外的地方使用 Action View。</li>
+<li>Action View 提供的輔助方法、如何自己寫輔助方法。</li>
+<li>如何使用本地化的 View。</li>
+<li>如何在 Rails 之外使用 Action View。</li>
 </ul>
 
 
@@ -189,7 +189,7 @@
 
 <ul>
 <li><a href="#%E6%A8%A1%E7%89%88">模版</a></li>
-<li><a href="#partials">Partials</a></li>
+<li><a href="#%E5%B1%80%E9%83%A8%E9%A0%81%E9%9D%A2">局部頁面</a></li>
 <li><a href="#layouts">Layouts</a></li>
 </ul>
 </li>
@@ -227,7 +227,7 @@
   <div id="container">
     <div class="wrapper">
       <div id="mainCol">
-        <h3 id="什麼是-action-view？">1 什麼是 Action View？</h3><p>Action View 與 Action Controller 是 Action Pack 中的兩個主要元件。 在 Rails 裡，網路請求是由 Action Pack 負責處理的。此過程分成處理邏輯的controller 步驟，及算繪模版的 view 步驟。通常 Action Controller 是與資料庫溝通，根據需求來執行 CRUD 操作。而 Action View 則接著負責編譯出回應。</p><p>Action View 模版是由嵌入式 Ruby 標籤與 HTML 交織編排成的。為了避免模版中被混亂的程式碼片段堆滿，有很多輔助方法類別為表單、日期及字串提供了常用的功能。當你的應用程式成長時，加入你自訂的輔助方法也是相當容易的。</p><p>NOTD: 有部份 Action View 的功能與 Active Record 聯結。但這不代表 Action View 依賴 Action Record。Active View 是個獨立的套件，可以與任何其它的 Ruby 套件庫一起使用。</p><h3 id="在-rails-中使用-action-view">2 在 Rails 中使用 Action View</h3><p>每個 controller 在 <code>app/views</code> 中都會有一個對應的資料夾，裡面包含了組成 view 的模板檔案。這些檔案用來顯示該 controller 各個動作的結果頁面。</p><p>我們來看看 Rails 用 scaffold 命令建立一個新的資源時，預設會產生哪些檔案：</p><div class="code_container">
+        <h3 id="什麼是-action-view？">1 什麼是 Action View？</h3><p>Action View 與 Action Controller 是 Action Pack 中的兩個主要元件。 在 Rails 裡，網路請求是由 Action Pack 負責處理的。此過程分成處理邏輯的 controller 步驟，及算繪模版的 view 步驟。通常 Action Controller 是與資料庫溝通，根據需求來執行 CRUD 操作。而 Action View 則接著負責編譯出回應。</p><p>Action View 模版是由嵌入 HTML 的 Ruby 撰寫而成。為了避免模版充斥混亂的程式碼，Action View 提供了許多輔助方法，用來撰寫表單、日期及字串等。當應用程式成長時，加入自訂的輔助方法也很容易。</p><div class="note"><p>部份 Action View 的功能與 Active Record 綁在一起。但這不代表 Action View 依賴於 Action Record。Active View 是個獨立的函式庫，可以和其它的 Ruby 函式庫一起使用。</p></div><h3 id="在-rails-中使用-action-view">2 在 Rails 中使用 Action View</h3><p>每個 Controller 在 <code>app/views</code> 中都會有一個對應的資料夾，裡面包含了該 Controller 的模板檔案。這些檔案用來顯示 Controller 各個動作的結果頁面。</p><p>看看 Rails 用 <code>scaffold</code> 命令建立新資源時，預設會產生哪些檔案：</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 $ bin/rails generate scaffold article
       [...]
@@ -244,10 +244,7 @@ $ bin/rails generate scaffold article
 
 </pre>
 </div>
-<p>在 Rails 中 view 會遵循慣例來命名。通常 view 的檔名會對應到 controller 的動作名稱。正如你在上面看到的一樣。
-例如 <code>articles_controller.rb</code> 的 index controller 動作，會使用 <code>app/views/articles</code> 資料夾中的 <code>index.html.erb</code> 這個 view 檔案。
-回傳給客戶端的 HTML 是由這張 ERB 檔案，加上包裹它的版型模版，以及所有這張 view 會引用到的局部頁面所組成的。 在這份教學後面的章節中，會有這三個元件更詳細的說明文件。</p><h3 id="模版、局部頁面及版型">3 模版、局部頁面及版型</h3><p>上面有提到過，最終的 HTML 輸出是由三種 Rails 元素所組成的： <code>模版</code>(Templates)、<code>局部頁面</code>(Partials)以及<code>版型</code>(Layouts)。
-底下將簡單的介紹這三種元素。</p><h4 id="模版">3.1 模版</h4><p>Action View 的模版有數種不同的寫法。如果模版的副檔名是 <code>erb</code> 的話，那麼這個模版是由 ERB (Embedded Ruby) 及 HTML 寫成的。若模版的副檔名是 <code>.builder</code>，則這個模版使用了 <code>Builder::XmlMarkup</code> 函式庫。</p><p>Rails 支援多種模版系統，並使用副檔名來分辨它們。例如一個使用了 ERB 模版系統的 HTML 檔案，副檔名就會是 <code>.html.erb</code></p><h5 id="erb">3.1.1 ERB</h5><p>在一個 ERB 模版中，Ruby 程式碼會放在 <code>&lt;% %&gt;</code> 或是 <code>&lt;%= %&gt;</code> 標籤中。<code>&lt;% %&gt;</code> 標籤是用來執行不會回傳任何值的 Ruby 程式碼，例如條件判斷、迴圈或是區塊等等，而 <code>&lt;%= %&gt;</code> 標籤則是用來顯示執行結果的。</p><p>看一下這個顯示 names 的迴圈</p><div class="code_container">
+<p>Rails 的 View 有命名慣例。通常 View 的檔名和 Controller 的動作同名，如上所示。例如 <code>articles_controller.rb</code> 的 <code>index</code> 動作使用 <code>app/views/articles</code> 資料夾中的 <code>index.html.erb</code> 這個 View 檔案。回傳給用戶端的完整 HTML 是由這個 ERB 檔案、版型，以及其它引用的局部頁面組成。本篇之後會對這三種 View 做更詳細的介紹。</p><h3 id="模版、局部頁面及版型">3 模版、局部頁面及版型</h3><p>上面有提到過，最終輸出的 HTML 由三種 Rails 元素組成：模版、局部頁面以及版型。底下簡單介紹這三種元素。</p><h4 id="模版">3.1 模版</h4><p>Action View 的模版有數種不同的寫法。如果模版的副檔名是 <code>erb</code> 的話，那麼這個模版是混合 ERB （Ruby 內建）和 HTML。若模版的副檔名是 <code>.builder</code>，則是使用了 <code>Builder::XmlMarkup</code> 函式庫。</p><p>Rails 支援多種模版系統，使用副檔名來做區隔。例如使用 ERB 模版系統的 HTML 檔案，副檔名是 <code>.html.erb</code>。</p><h5 id="erb">3.1.1 ERB</h5><p>在 ERB 模版裡，Ruby 程式碼會放在 <code>&lt;% %&gt;</code> 或是 <code>&lt;%= %&gt;</code> 標籤裡。<code>&lt;% %&gt;</code> 標籤是用來執行不會回傳任何值的 Ruby 程式碼，例如條件判斷、迴圈或是區塊等等，而 <code>&lt;%= %&gt;</code> 標籤則是用來輸出結果。</p><p>考慮以下 <code>names</code> 迴圈：</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 &lt;h1&gt;Names of all the people&lt;/h1&gt;
 &lt;% @people.each do |person| %&gt;
@@ -256,14 +253,14 @@ $ bin/rails generate scaffold article
 
 </pre>
 </div>
-<p>迴圈的程式碼放在一般的標籤 <code>&lt;% %&gt;</code> 裡，而需要顯示的 name 則是放在顯示結果的標籤 (<code>&lt;%= %&gt;</code>) 中。要注意這不是單純的使用建議而己，一般的輸出函式如 <code>print</code> 或是 <code>puts</code> 無法將結果顯示在 ERB 模版中。例如底下這個範例是錯的：</p><div class="code_container">
+<p>迴圈放在普通嵌入標籤（<code>&lt;% %&gt;</code>）裡，而需要顯示的 <code>name</code> 則是放在會輸出結果的標籤（<code>&lt;%= %&gt;</code>）中。注意這不是建議的使用方法，Ruby 一般的輸出函式如 <code>print</code> 或是 <code>puts</code> 是無法將結果顯示在 ERB 模版裡。所以以下的範例是不正確的：</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 &lt;%# WRONG %&gt;
 Hi, Mr. &lt;% puts "Frodo" %&gt;
 
 </pre>
 </div>
-<p>要去掉開頭或是結尾的空白，你可以用 <code>&lt;%-</code> <code>-%&gt;</code> 來取代 <code>&lt;%</code> 及 <code>%&gt;</code></p><h5 id="builder">3.1.2 Builder</h5><p>Builder templates are a more programmatic alternative to ERB. They are especially useful for generating XML content. An XmlMarkup object named <code>xml</code> is automatically made available to templates with a <code>.builder</code> extension.</p><p>Here are some basic examples:</p><div class="code_container">
+<p>要去掉開頭或結尾的空白，可以用 <code>&lt;%-</code> <code>-%&gt;</code> 來取代 <code>&lt;%</code> 及 <code>%&gt;</code>。</p><h5 id="builder">3.1.2 Builder</h5><p>Builder 模版 ERB 的替代方案，比 ERB 需要更多程式設計。在產生 XML 時特別有用。在副檔名為 <code>.builder</code> 的模版裡，可以直接使用名為 <code>xml</code> 的 <code>XmlMarkup</code> 物件。</p><p>以下是一些簡單的範例：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 xml.em("emphasized")
 xml.em { xml.b("emph &amp; bold") }
@@ -272,7 +269,7 @@ xml.target("name" =&gt; "compile", "option" =&gt; "fast")
 
 </pre>
 </div>
-<p>which would produce:</p><div class="code_container">
+<p>會產生：</p><div class="code_container">
 <pre class="brush: xml; gutter: false; toolbar: false">
 &lt;em&gt;emphasized&lt;/em&gt;
 &lt;em&gt;&lt;b&gt;emph &amp;amp; bold&lt;/b&gt;&lt;/em&gt;
@@ -281,7 +278,7 @@ xml.target("name" =&gt; "compile", "option" =&gt; "fast")
 
 </pre>
 </div>
-<p>Any method with a block will be treated as an XML markup tag with nested markup in the block. For example, the following:</p><div class="code_container">
+<p>傳入區塊的方法會被當成一個巢狀 XML 標籤的外層，區塊內容則會嵌套成內層的標籤來處理。見下例：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 xml.div {
   xml.h1(@person.name)
@@ -290,7 +287,7 @@ xml.div {
 
 </pre>
 </div>
-<p>would produce something like:</p><div class="code_container">
+<p>會生成：</p><div class="code_container">
 <pre class="brush: xml; gutter: false; toolbar: false">
 &lt;div&gt;
   &lt;h1&gt;David Heinemeier Hansson&lt;/h1&gt;
@@ -299,7 +296,7 @@ xml.div {
 
 </pre>
 </div>
-<p>Below is a full-length RSS example actually used on Basecamp:</p><div class="code_container">
+<p>以下是一個 Basecamp 中實際用到的完整 RSS 範例：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 xml.rss("version" =&gt; "2.0", "xmlns:dc" =&gt; "http://purl.org/dc/elements/1.1/") do
   xml.channel do
@@ -324,19 +321,19 @@ end
 
 </pre>
 </div>
-<h5 id="template-caching">3.1.3 Template Caching</h5><p>By default, Rails will compile each template to a method in order to render it. When you alter a template, Rails will check the file's modification time and recompile it in development mode.</p><h4 id="partials">3.2 Partials</h4><p>Partial templates - usually just called "partials" - are another device for breaking the rendering process into more manageable chunks. With partials, you can extract pieces of code from your templates to separate files and also reuse them throughout your templates.</p><h5 id="naming-partials">3.2.1 Naming Partials</h5><p>To render a partial as part of a view, you use the <code>render</code> method within the view:</p><div class="code_container">
+<h5 id="模版快取">3.1.3 模版快取</h5><p>Rail 預設會編譯所有的模版來進行算繪。當你修改某個模板後，development 模式下的 Rails 會重新檢查及編譯它。</p><h4 id="局部頁面">3.2 局部頁面</h4><p>局部頁面模板 - 簡稱局部頁面 - 用來把算繪過程拆成更好管理的小片段的工具。有了局部頁面，可以把某些特定內容的算繪移到單獨的檔案。</p><h5 id="局部頁面命名">3.2.1 局部頁面命名</h5><p>在 view 檔案中，你要用 <code>render</code> 來算繪局部頁面</p><div class="code_container">
 <pre class="brush: ruby; html-script: true; gutter: false; toolbar: false">
 &lt;%= render "menu" %&gt;
 
 </pre>
 </div>
-<p>This will render a file named <code>_menu.html.erb</code> at that point within the view that is being rendered. Note the leading underscore character: partials are named with a leading underscore to distinguish them from regular views, even though they are referred to without the underscore. This holds true even when you're pulling in a partial from another folder:</p><div class="code_container">
+<p>這樣會在呼叫的地方，找到目前資料夾下的 <code>_meun.html.erb</code> 檔案來算繪。注意名字開頭的"底線" (_): 局部頁面的命名規則是由底線開頭。用來與一般的 view 區別。但在引用局部頁面時，呼叫的語法不用加上底線。如果要呼叫其它資料夾下的局部頁面也是一樣不加底線：</p><div class="code_container">
 <pre class="brush: ruby; html-script: true; gutter: false; toolbar: false">
 &lt;%= render "shared/menu" %&gt;
 
 </pre>
 </div>
-<p>That code will pull in the partial from <code>app/views/shared/_menu.html.erb</code>.</p><h5 id="using-partials-to-simplify-views">3.2.2 Using Partials to simplify Views</h5><p>One way to use partials is to treat them as the equivalent of subroutines; a way to move details out of a view so that you can grasp what's going on more easily. For example, you might have a view that looks like this:</p><div class="code_container">
+<p>這樣會去找到 <code>app/views/shared/_menu.html.erb</code> 檔案來引入。</p><h5 id="使用局部頁面來簡化-views">3.2.2 使用局部頁面來簡化 Views</h5><p>局部頁面的一個用途是把它拿來當副程式；把細節的部份拆出去，讓你更容易理解 view 的全局。舉例來說，你可能看過長這樣的 view：</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 &lt;%= render "shared/ad_banner" %&gt;
 
@@ -351,37 +348,37 @@ end
 
 </pre>
 </div>
-<p>Here, the <code>_ad_banner.html.erb</code> and <code>_footer.html.erb</code> partials could contain content that is shared among many pages in your application. You don't need to see the details of these sections when you're concentrating on a particular page.</p><h5 id="the-as-and-object-options">3.2.3 The <code>as</code> and <code>object</code> options</h5><p>By default <code>ActionView::Partials::PartialRenderer</code> has its object in a local variable with the same name as the template. So, given:</p><div class="code_container">
+<p>這裡的 <code>_ad_banner.html.erb</code> 及 <code>_footer.html.erb</code> 局部頁面可以包含你的應用程式裡其它頁面可以共用的內容。這樣一來在寫各個頁面時，就不需要去關注這些瑣碎的細節。</p><h5 id="as-及-object-選項">3.2.3 <code>as</code> 及 <code>object</code> 選項</h5><p><code>ActionView::Partials::PartialRenderer</code> 預設會有個物件，存在與模版名稱相同的變數中。例如：</p><div class="code_container">
 <pre class="brush: ruby; html-script: true; gutter: false; toolbar: false">
 &lt;%= render partial: "product" %&gt;
 
 </pre>
 </div>
-<p>within product we'll get <code>@product</code> in the local variable <code>product</code>, as if we had written:</p><div class="code_container">
+<p>在局部頁面中，我們會把 <code>@product</code> 存在區域變數 <code>product</code> 中。就如同我們寫了：</p><div class="code_container">
 <pre class="brush: ruby; html-script: true; gutter: false; toolbar: false">
 &lt;%= render partial: "product", locals: {product: @product} %&gt;
 
 </pre>
 </div>
-<p>With the <code>as</code> option we can specify a different name for the local variable. For example, if we wanted it to be <code>item</code> instead of <code>product</code> we would do:</p><div class="code_container">
+<p>用 <code>as</code> 選項，我們可以改用其它的區域變數名稱。例如當我們想用 <code>item</code> 取代 <code>product</code> 時，我們會這樣寫：</p><div class="code_container">
 <pre class="brush: ruby; html-script: true; gutter: false; toolbar: false">
 &lt;%= render partial: "product", as: "item" %&gt;
 
 </pre>
 </div>
-<p>The <code>object</code> option can be used to directly specify which object is rendered into the partial; useful when the template's object is elsewhere (eg. in a different instance variable or in a local variable).</p><p>For example, instead of:</p><div class="code_container">
+<p>而 <code>object</code> 選項讓我們可以直接指定要算繪到局部頁面中的物件。這會用於模版頁面的物件存在其它地方時。(例如： 要算繪的物件是另一個實例物件，或是存在某個區域變數裡。)</p><p>例如想用這種方法寫時：</p><div class="code_container">
 <pre class="brush: ruby; html-script: true; gutter: false; toolbar: false">
 &lt;%= render partial: "product", locals: {product: @item} %&gt;
 
 </pre>
 </div>
-<p>we would do:</p><div class="code_container">
+<p>我們會改成這樣：</p><div class="code_container">
 <pre class="brush: ruby; html-script: true; gutter: false; toolbar: false">
 &lt;%= render partial: "product", object: @item %&gt;
 
 </pre>
 </div>
-<p>The <code>object</code> and <code>as</code> options can also be used together:</p><div class="code_container">
+<p><code>object</code> 及 <code>as</code> 選項可以同時用：</p><div class="code_container">
 <pre class="brush: ruby; html-script: true; gutter: false; toolbar: false">
 &lt;%= render partial: "product", object: @item, as: "item" %&gt;
 
