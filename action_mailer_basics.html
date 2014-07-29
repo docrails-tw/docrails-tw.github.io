@@ -5,15 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Action Mailer 基礎 — Ruby on Rails 指南</title>
 
-  <link href="stylesheets/style.css" rel="stylesheet">
-  <link href="stylesheets/print.css" rel="stylesheet" media="print">
-  <link href="stylesheets/syntaxhighlighter/shCore.css" rel="stylesheet">
-  <link href="stylesheets/syntaxhighlighter/shThemeRailsGuides.css" rel="stylesheet">
-  <link href="stylesheets/fixes.css" rel="stylesheet">
+  <link rel="stylesheet" href="stylesheets/application.css">
 
-  <link href="http://fonts.googleapis.com/css?family=Noto+Sans:400,700" rel="stylesheet">
-  <link href="http://fonts.googleapis.com/css?family=Noto+Serif:700" rel="stylesheet">
-  <link href="http://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet">
+  <link href="http://fonts.googleapis.com/css?family=Noto+Sans:400,700|Noto+Serif:700|Source+Code+Pro" rel="stylesheet">
+
   <link href="images/favicon.ico" rel="shortcut icon" type="image/x-icon">
 </head>
 <body class="guide">
@@ -346,7 +341,7 @@ end
 <h5 id="新增附件">2.3.1 新增附件</h5><p>Action Mailer 把新增附件變得非常簡單。</p>
 <ul>
 <li>
-<p>傳入檔名與內容，Action Mailer 與 <a href="https://github.com/mikel/mail">Mail gem</a> 會自動推出 <code>mime_type</code>，設定編碼、建立附件。</p>
+<p>傳入檔名與內容，Action Mailer 與 <a href="https://github.com/mikel/mail">Mail gem</a> 會自動推論出 <code>mime_type</code>，設定編碼、建立附件。</p>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 attachments['filename.jpg'] = File.read('/path/to/filename.jpg')
