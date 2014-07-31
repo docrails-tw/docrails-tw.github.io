@@ -1120,7 +1120,7 @@ get '/:username', to: 'users#show'
 </div>
 <h4 id="基於請求的約束條件">3.9 基於請求的約束條件</h4><p>也可以使用 <a href="action_controller_overview.html#request-%E7%89%A9%E4%BB%B6"><code>request</code> 物件</a>裡，任何會回傳字串的方法，來宣告路由的約束條件。</p><p>基於 <code>request</code> 物件的約束條件的宣告方式與片段約束條件相同：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
-get 'photos', constraints: { subdomain: 'admin' }
+get 'photos', to: 'photos#index', constraints: { subdomain: 'admin' }
 
 </pre>
 </div>
