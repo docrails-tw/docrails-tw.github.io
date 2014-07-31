@@ -1093,7 +1093,7 @@ match 'photos', to: 'photos#show', via: :all
 
 </pre>
 </div>
-<div class="note"><p>將 <code>GET</code> 與 <code>POST</code> 請求路由到單一的動作有安全隱憂。除非有很好的理由，通常應該要避免將所有 HTTP 動詞對應到一個動作上。</p></div><h4 id="片段約束">3.8 片段約束</h4><p>使用 <code>:constraints</code> 選項限制動態片段的格式：</p><div class="code_container">
+<div class="note"><p>將 <code>GET</code> 與 <code>POST</code> 請求路由到單一的動作有安全隱憂。除非有很好的理由，通常應該要避免將所有 HTTP 動詞對應到一個動作上。</p></div><div class="note"><p>Rails 裡執行 <code>GET</code> 不會檢查 CSRF token。永遠不要讓 <code>GET</code> 請求可以執行資料庫寫入動作，更多資訊請參考<a href="security.html#csrf-countermeasures">《安全指南》</a> 關於 〈CSRF countermeasures〉 一節。</p></div><h4 id="片段約束">3.8 片段約束</h4><p>使用 <code>:constraints</code> 選項限制動態片段的格式：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 get 'photos/:id', to: 'photos#show', constraints: { id: /[A-Z]\d{5}/ }
 

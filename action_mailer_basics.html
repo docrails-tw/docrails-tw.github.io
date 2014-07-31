@@ -490,7 +490,19 @@ config.action_mailer.default_url_options = { host: 'example.com' }
 
 </pre>
 </div>
-<h5 id="使用-url_for-產生-url">2.6.1 使用 <code>url_for</code> 產生 URL</h5><p>使用 <code>url_for</code> 時，需要傳入 <code>only_path: false</code> 選項。確保產生的是絕對 URL，因為 <code>url_for</code> 輔助方法預設會產生相對 URL。</p><div class="code_container">
+<p>因為這個設定的關係，Email 裡不可以使用任何的 <code>*_path</code> 輔助方法，要用 <code>*_url</code>。譬如之前是：</p><div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+&lt;%= link_to 'welcome', welcome_path %&gt;
+
+</pre>
+</div>
+<p>會需要改為：</p><div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+&lt;%= link_to 'welcome', welcome_url %&gt;
+
+</pre>
+</div>
+<p>使用完整的 URL，Email 裡的連結才會正常工作。</p><h5 id="使用-url_for-產生-url">2.6.1 使用 <code>url_for</code> 產生 URL</h5><p>使用 <code>url_for</code> 時，需要傳入 <code>only_path: false</code> 選項。確保產生的是絕對 URL，因為 <code>url_for</code> 輔助方法預設會產生相對 URL。</p><div class="code_container">
 <pre class="brush: ruby; html-script: true; gutter: false; toolbar: false">
 &lt;%= url_for(controller: 'welcome',
             action: 'greeting',
