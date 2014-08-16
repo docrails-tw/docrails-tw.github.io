@@ -189,6 +189,7 @@
 <a href="#action-pack">Action Pack</a>
 
 <ul>
+<li><a href="#action-pack-%E7%A7%BB%E9%99%A4">移除</a></li>
 <li><a href="#action-pack-%E6%A3%84%E7%94%A8">棄用</a></li>
 <li><a href="#action-pack-%E5%80%BC%E5%BE%97%E4%B8%80%E6%8F%90%E7%9A%84%E8%AE%8A%E5%8C%96">值得一提的變化</a></li>
 </ul>
@@ -229,7 +230,7 @@
 <a href="#active-support">Active Support</a>
 
 <ul>
-<li><a href="#active-support-%E7%A7%BB%E9%99%A4">移除</a></li>
+<li><a href="#%E7%A7%BB%E9%99%A4">移除</a></li>
 <li><a href="#%E6%A3%84%E7%94%A8">棄用</a></li>
 <li><a href="#%E5%80%BC%E5%BE%97%E4%B8%80%E6%8F%90%E7%9A%84%E8%AE%8A%E5%8C%96">值得一提的變化</a></li>
 </ul>
@@ -283,8 +284,16 @@ remove_foreign_key :accounts, column: :owner_id
 (<a href="https://github.com/rails/rails/pull/14379">Pull Request</a>)</p></li>
 <li><p>導入 <code>Rails.gem_version</code> 作為回傳 <code>Gem::Version.new(Rails.version)</code> 的便捷方法。
 (<a href="https://github.com/rails/rails/pull/14101">Pull Request</a>)</p></li>
+<li><p>導入 <code>after_bundle</code> 回呼到 Rails 模版。
+(<a href="https://github.com/rails/rails/pull/16359">Pull Request</a>)</p></li>
 </ul>
-<h3 id="action-pack">4 Action Pack</h3><p>請參考 <a href="https://github.com/rails/rails/blob/4-2-stable/actionpack/CHANGELOG.md">CHANGELOG</a> 來了解更多細節。</p><h4 id="action-pack-棄用">4.1 棄用</h4>
+<h3 id="action-pack">4 Action Pack</h3><p>請參考 <a href="https://github.com/rails/rails/blob/4-2-stable/actionpack/CHANGELOG.md">CHANGELOG</a> 來了解更多細節。</p><h4 id="action-pack-移除">4.1 移除</h4>
+<ul>
+<li>  移除棄用的 <code>AbstractController::Helpers::ClassMethods::MissingHelperError</code>，
+改用 <code>AbstractController::Helpers::MissingHelperError</code> 取代。
+(<a href="https://github.com/rails/rails/commit/a1ddde15ae0d612ff2973de9cf768ed701b594e8">Commit</a>)</li>
+</ul>
+<h4 id="action-pack-棄用">4.2 棄用</h4>
 <ul>
 <li>
 <p>棄用路由的 <code>:to</code> 選項裡，<code>:to</code> 可以指向符號或不含井號的字串這兩個功能。</p>
@@ -300,7 +309,7 @@ get '/posts', to: :index       =&gt; get '/posts', action: :index
 <p>(<a href="https://github.com/rails/rails/commit/cc26b6b7bccf0eea2e2c1a9ebdcc9d30ca7390d9">Commit</a>)</p>
 </li>
 </ul>
-<h4 id="action-pack-值得一提的變化">4.2 值得一提的變化</h4>
+<h4 id="action-pack-值得一提的變化">4.3 值得一提的變化</h4>
 <ul>
 <li><p><code>render nothing: true</code> 或算繪 <code>nil</code> 不再加入一個空白到響應主體。
 (<a href="https://github.com/rails/rails/pull/14883">Pull Request</a>)</p></li>
@@ -445,7 +454,7 @@ meaning that it no longer retains the extra attributes from custom <code>select<
 <li><p>引入 <code>#validate</code> 作為 <code>#valid?</code> 的別名。
 (<a href="https://github.com/rails/rails/pull/14456">Pull Request</a>)</p></li>
 </ul>
-<h3 id="active-support">9 Active Support</h3><p>請參考 <a href="https://github.com/rails/rails/blob/4-2-stable/activesupport/CHANGELOG.md">CHANGELOG</a> 來了解更多細節。</p><h4 id="active-support-移除">9.1 移除</h4>
+<h3 id="active-support">9 Active Support</h3><p>請參考 <a href="https://github.com/rails/rails/blob/4-2-stable/activesupport/CHANGELOG.md">CHANGELOG</a> 來了解更多細節。</p><h4 id="移除">9.1 移除</h4>
 <ul>
 <li><p>移除棄用的 <code>Numeric#ago</code>、<code>Numeric#until</code>、<code>Numeric#since</code> 以及
 <code>Numeric#from_now</code>. (<a href="https://github.com/rails/rails/commit/f1eddea1e3f6faf93581c43651348f48b2b7d8bb">Commit</a>)</p></li>

@@ -500,13 +500,8 @@ $ BACKTRACE=1 bin/rake test test/models/article_test.rb
 
 </pre>
 </div>
-<h4 id="what-to-include-in-your-unit-tests">3.3 What to Include in Your Unit Tests</h4><p>Ideally, you would like to include a test for everything which could possibly break. It's a good practice to have at least one test for each of your validations and at least one test for every method in your model.</p><h4 id="available-assertions">3.4 Available Assertions</h4><p>By now you've caught a glimpse of some of the assertions that are available. Assertions are the worker bees of testing. They are the ones that actually perform the checks to ensure that things are going as planned.</p><p>There are a bunch of different types of assertions you can use.  Here's an
-extract of the
-<a href="http://docs.seattlerb.org/minitest/Minitest/Assertions.html">assertions</a> you
-can use with <a href="https://github.com/seattlerb/minitest">minitest</a>, the default
-testing library used by Rails. The <code>[msg]</code> parameter is an optional string
-message you can specify to make your test failure messages clearer. It's not
-required.</p>
+<h4 id="what-to-include-in-your-unit-tests">3.3 What to Include in Your Unit Tests</h4><p>Ideally, you would like to include a test for everything which could possibly break. It's a good practice to have at least one test for each of your validations and at least one test for every method in your model.</p><h4 id="available-assertions">3.4 Available Assertions</h4><p>By now you've caught a glimpse of some of the assertions that are available. Assertions are the worker bees of testing. They are the ones that actually perform the checks to ensure that things are going as planned.</p><p>There are a bunch of different types of assertions you can use.
+Here's an extract of the assertions you can use with <a href="https://github.com/seattlerb/minitest"><code>Minitest</code></a>, the default testing library used by Rails. The <code>[msg]</code> parameter is an optional string message you can specify to make your test failure messages clearer. It's not required.</p>
 <table>
 <thead>
 <tr>
@@ -643,7 +638,7 @@ required.</p>
 </tr>
 </tbody>
 </table>
-<p>Because of the modular nature of the testing framework, it is possible to create your own assertions. In fact, that's exactly what Rails does. It includes some specialized assertions to make your life easier.</p><div class="note"><p>Creating your own assertions is an advanced topic that we won't cover in this tutorial.</p></div><h4 id="rails-specific-assertions">3.5 Rails Specific Assertions</h4><p>Rails adds some custom assertions of its own to the <code>minitest</code> framework:</p>
+<p>The above are subset of assertions that minitest supports. For an exhaustive &amp; more up-to-date list, please check <a href="http://docs.seattlerb.org/minitest/">Minitest API documentation</a>, specifically <a href="http://docs.seattlerb.org/minitest/Minitest/Assertions.html"><code>Minitest::Assertions</code></a></p><p>Because of the modular nature of the testing framework, it is possible to create your own assertions. In fact, that's exactly what Rails does. It includes some specialized assertions to make your life easier.</p><div class="note"><p>Creating your own assertions is an advanced topic that we won't cover in this tutorial.</p></div><h4 id="rails-specific-assertions">3.5 Rails Specific Assertions</h4><p>Rails adds some custom assertions of its own to the <code>minitest</code> framework:</p>
 <table>
 <thead>
 <tr>
@@ -1264,17 +1259,7 @@ end
 </div>
 <h3 id="testing-helpers">11 Testing helpers</h3><p>In order to test helpers, all you need to do is check that the output of the
 helper method matches what you'd expect. Tests related to the helpers are
-located under the <code>test/helpers</code> directory. Rails provides a generator which
-generates both the helper and the test file:</p><div class="code_container">
-<pre class="brush: plain; gutter: false; toolbar: false">
-$ bin/rails generate helper User
-      create  app/helpers/user_helper.rb
-      invoke  test_unit
-      create    test/helpers/user_helper_test.rb
-
-</pre>
-</div>
-<p>The generated test file contains the following code:</p><div class="code_container">
+located under the <code>test/helpers</code> directory.</p><p>A helper test looks like so:</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 require 'test_helper'
 
@@ -1304,8 +1289,6 @@ access to Rails' helper methods such as <code>link_to</code> or <code>pluralize<
 <a href="http://avdi.org/projects/nulldb/">NullDB</a>, a way to speed up testing by avoiding database use.</li>
 <li>
 <a href="https://github.com/thoughtbot/factory_girl/tree/master">Factory Girl</a>, a replacement for fixtures.</li>
-<li>
-<a href="https://github.com/notahat/machinist/tree/master">Machinist</a>, another replacement for fixtures.</li>
 <li>
 <a href="https://github.com/rdy/fixture_builder">Fixture Builder</a>, a tool that compiles Ruby factories into fixtures before a test run.</li>
 <li>
