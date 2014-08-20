@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Active Job 基礎 — Ruby on Rails 指南</title>
+
+  <link rel="stylesheet" href="stylesheets/application.css">
+
+  <link href="http://fonts.googleapis.com/css?family=Noto+Sans:400,700|Noto+Serif:700|Source+Code+Pro" rel="stylesheet">
+
+  <link href="images/favicon.ico" rel="shortcut icon" type="image/x-icon">
+</head>
+<body class="guide">
+  <div id="topNav">
+    <div class="wrapper">
+      <strong class="more-info-label">更多內容 <a href="http://rubyonrails.org/">rubyonrails.org:</a> </strong>
+      <span class="red-button more-info-button">
+        更多內容
+      </span>
+      <ul class="more-info-links s-hidden">
+        <li class="more-info"><a href="http://rubyonrails.org/">綜覽</a></li>
+        <li class="more-info"><a href="http://rubyonrails.org/download">下載</a></li>
+        <li class="more-info"><a href="http://rubyonrails.org/deploy">部署</a></li>
+        <li class="more-info"><a href="https://github.com/rails/rails">原始碼</a></li>
+        <li class="more-info"><a href="http://rubyonrails.org/screencasts">影片</a></li>
+        <li class="more-info"><a href="http://rubyonrails.org/documentation">文件</a></li>
+        <li class="more-info"><a href="http://rubyonrails.org/community">社群</a></li>
+        <li class="more-info"><a href="http://weblog.rubyonrails.org/">Blog</a></li>
+      </ul>
+    </div>
+  </div>
+  <div id="header">
+    <div class="wrapper clearfix">
+      <h1><a href="index.html" title="回首頁">Guides.rubyonrails.org</a></h1>
+      <ul class="nav">
+        <li><a class="nav-item" href="index.html">首頁</a></li>
+        <li class="guides-index guides-index-large">
+          <a href="index.html" id="guidesMenu" class="guides-index-item nav-item">指南目錄</a>
+          <div id="guides" class="clearfix" style="display: none;">
+            <hr>
+              <dl class="L">
+                <dt>起步走</dt>
+                <dd><a href="getting_started.html">Rails 起步走</a></dd>
+                <dt>Models</dt>
+                <dd><a href="active_record_basics.html">Active Record 基礎</a></dd>
+                <dd><a href="active_record_migrations.html">Active Record 遷移</a></dd>
+                <dd><a href="active_record_validations.html">Active Record 驗證</a></dd>
+                <dd><a href="active_record_callbacks.html">Active Record 回呼</a></dd>
+                <dd><a href="association_basics.html">Active Record 關聯</a></dd>
+                <dd><a href="active_record_querying.html">Active Record 查詢</a></dd>
+                <dt>Views</dt>
+                <dd><a href="layouts_and_rendering.html">Rails 算繪與版型</a></dd>
+                <dd><a href="form_helpers.html">Action View 表單輔助方法</a></dd>
+                <dt>Controllers</dt>
+                <dd><a href="action_controller_overview.html">Action Controller 綜覽</a></dd>
+                <dd><a href="routing.html">Rails 路由：深入淺出</a></dd>
+              </dl>
+              <dl class="R">
+                <dt>深入了解</dt>
+                <dd><a href="active_support_core_extensions.html">Active Support 核心擴展</a></dd>
+                <dd><a href="i18n.html">Rails 國際化 API</a></dd>
+                <dd><a href="action_mailer_basics.html">Action Mailer 基礎</a></dd>
+                <dd><a href="active_job_basics.html">Active Job 基礎</a></dd>
+                <dd><a href="security.html">Rails 安全指南</a></dd>
+                <dd><a href="debugging_rails_applications.html">除錯 Rails 應用程式</a></dd>
+                <dd><a href="configuring.html">Rails 應用程式設定</a></dd>
+                <dd><a href="command_line.html">Rake 任務與 Rails 命令列工具</a></dd>
+                <dd><a href="asset_pipeline.html">Asset Pipeline</a></dd>
+                <dd><a href="working_with_javascript_in_rails.html">在 Rails 使用 JavaScript</a></dd>
+                <dt>擴充 Rails</dt>
+                <dd><a href="rails_on_rack.html">Rails on Rack</a></dd>
+                <dd><a href="generators.html">客製與新建 Rails 產生器</a></dd>
+                <dd><a href="rails_application_templates.html">Rails 應用程式模版</a></dd>
+                <dt>貢獻 Ruby on Rails</dt>
+                <dd><a href="contributing_to_ruby_on_rails.html">貢獻 Ruby on Rails</a></dd>
+                <dd><a href="api_documentation_guidelines.html">API 文件準則</a></dd>
+                <dd><a href="ruby_on_rails_guides_guidelines.html">Ruby on Rails 指南準則</a></dd>
+                <dt>維護方針</dt>
+                <dd><a href="maintenance_policy.html">維護方針</a></dd>
+                <dt>發佈記</dt>
+                <dd><a href="upgrading_ruby_on_rails.html">升級 Ruby on Rails</a></dd>
+                <dd><a href="4_1_release_notes.html">Ruby on Rails 4.1 發佈記</a></dd>
+                <dd><a href="4_0_release_notes.html">Ruby on Rails 4.0 發佈記</a></dd>
+                <dd><a href="3_2_release_notes.html">Ruby on Rails 3.2 發佈記</a></dd>
+                <dd><a href="3_1_release_notes.html">Ruby on Rails 3.1 發佈記</a></dd>
+                <dd><a href="3_0_release_notes.html">Ruby on Rails 3.0 發佈記</a></dd>
+                <dd><a href="2_3_release_notes.html">Ruby on Rails 2.3 發佈記</a></dd>
+                <dd><a href="2_2_release_notes.html">Ruby on Rails 2.2 發佈記</a></dd>
+                <dt>Rails 指南翻譯術語</dt>
+                <dd><a href="translation_terms.html">翻譯術語</a></dd>
+              </dl>
+          </div>
+        </li>
+        <!-- <li><a class="nav-item" href="//github.com/docrails-tw/wiki">參與翻譯</a></li> -->
+        <li><a class="nav-item" href="contributing_to_ruby_on_rails.html">貢獻</a></li>
+        <li><a class="nav-item" href="credits.html">致謝</a></li>
+        <li class="guides-index guides-index-small">
+          <select class="guides-index-item nav-item">
+            <option value="index.html">指南目錄</option>
+              <optgroup label="起步走">
+                  <option value="getting_started.html">Rails 起步走</option>
+              </optgroup>
+              <optgroup label="Models">
+                  <option value="active_record_basics.html">Active Record 基礎</option>
+                  <option value="active_record_migrations.html">Active Record 遷移</option>
+                  <option value="active_record_validations.html">Active Record 驗證</option>
+                  <option value="active_record_callbacks.html">Active Record 回呼</option>
+                  <option value="association_basics.html">Active Record 關聯</option>
+                  <option value="active_record_querying.html">Active Record 查詢</option>
+              </optgroup>
+              <optgroup label="Views">
+                  <option value="layouts_and_rendering.html">Rails 算繪與版型</option>
+                  <option value="form_helpers.html">Action View 表單輔助方法</option>
+              </optgroup>
+              <optgroup label="Controllers">
+                  <option value="action_controller_overview.html">Action Controller 綜覽</option>
+                  <option value="routing.html">Rails 路由：深入淺出</option>
+              </optgroup>
+              <optgroup label="深入了解">
+                  <option value="active_support_core_extensions.html">Active Support 核心擴展</option>
+                  <option value="i18n.html">Rails 國際化 API</option>
+                  <option value="action_mailer_basics.html">Action Mailer 基礎</option>
+                  <option value="active_job_basics.html">Active Job 基礎</option>
+                  <option value="security.html">Rails 安全指南</option>
+                  <option value="debugging_rails_applications.html">除錯 Rails 應用程式</option>
+                  <option value="configuring.html">Rails 應用程式設定</option>
+                  <option value="command_line.html">Rake 任務與 Rails 命令列工具</option>
+                  <option value="asset_pipeline.html">Asset Pipeline</option>
+                  <option value="working_with_javascript_in_rails.html">在 Rails 使用 JavaScript</option>
+              </optgroup>
+              <optgroup label="擴充 Rails">
+                  <option value="rails_on_rack.html">Rails on Rack</option>
+                  <option value="generators.html">客製與新建 Rails 產生器</option>
+                  <option value="rails_application_templates.html">Rails 應用程式模版</option>
+              </optgroup>
+              <optgroup label="貢獻 Ruby on Rails">
+                  <option value="contributing_to_ruby_on_rails.html">貢獻 Ruby on Rails</option>
+                  <option value="api_documentation_guidelines.html">API 文件準則</option>
+                  <option value="ruby_on_rails_guides_guidelines.html">Ruby on Rails 指南準則</option>
+              </optgroup>
+              <optgroup label="維護方針">
+                  <option value="maintenance_policy.html">維護方針</option>
+              </optgroup>
+              <optgroup label="發佈記">
+                  <option value="upgrading_ruby_on_rails.html">升級 Ruby on Rails</option>
+                  <option value="4_1_release_notes.html">Ruby on Rails 4.1 發佈記</option>
+                  <option value="4_0_release_notes.html">Ruby on Rails 4.0 發佈記</option>
+                  <option value="3_2_release_notes.html">Ruby on Rails 3.2 發佈記</option>
+                  <option value="3_1_release_notes.html">Ruby on Rails 3.1 發佈記</option>
+                  <option value="3_0_release_notes.html">Ruby on Rails 3.0 發佈記</option>
+                  <option value="2_3_release_notes.html">Ruby on Rails 2.3 發佈記</option>
+                  <option value="2_2_release_notes.html">Ruby on Rails 2.2 發佈記</option>
+              </optgroup>
+              <optgroup label="Rails 指南翻譯術語">
+                  <option value="translation_terms.html">翻譯術語</option>
+              </optgroup>
+          </select>
+        </li>
+      </ul>
+      </div>
+    </div>
+  </div>
+  <hr class="hide">
+
+  <div id="feature">
+    <div class="wrapper">
+      <h2>Active Job 基礎</h2><p>本篇提供所有建立任務、將任務加入排程，執行背景任務的所有知識。</p><p>讀完本篇，您將了解：</p>
+<ul>
+<li>如何新建任務。</li>
+<li>如何把任務加入排程。</li>
+<li>如何在背景執行任務。</li>
+<li>如何異步發送信件。</li>
+</ul>
+
+
+                <div id="subCol">
+            <h3 class="chapter"><img src="images/chapters_icon.gif" alt="" />Chapters</h3>
+            <ol class="chapters">
+<li><a href="#%E7%B0%A1%E4%BB%8B">簡介</a></li>
+<li><a href="#active-job-%E5%AD%98%E5%9C%A8%E7%9B%AE%E7%9A%84">Active Job 存在目的</a></li>
+<li>
+<a href="#%E6%96%B0%E5%BB%BA%E4%BB%BB%E5%8B%99">新建任務</a>
+
+<ul>
+<li><a href="#%E5%BB%BA%E7%AB%8B%E4%BB%BB%E5%8B%99">建立任務</a></li>
+<li><a href="#%E4%BB%BB%E5%8B%99%E6%8E%92%E7%A8%8B">任務排程</a></li>
+</ul>
+</li>
+<li>
+<a href="#%E5%9F%B7%E8%A1%8C%E4%BB%BB%E5%8B%99">執行任務</a>
+
+<ul>
+<li><a href="#%E5%BE%8C%E5%8F%B0">後台</a></li>
+<li><a href="#%E5%88%87%E6%8F%9B%E5%BE%8C%E5%8F%B0">切換後台</a></li>
+</ul>
+</li>
+<li><a href="#%E4%BD%87%E5%88%97">佇列</a></li>
+<li>
+<a href="#%E5%9B%9E%E5%91%BC">回呼</a>
+
+<ul>
+<li><a href="#%E5%8F%AF%E7%94%A8%E7%9A%84%E5%9B%9E%E5%91%BC">可用的回呼</a></li>
+<li><a href="#%E7%94%A8%E6%B3%95">用法</a></li>
+</ul>
+</li>
+<li><a href="#actionmailer">ActionMailer</a></li>
+<li><a href="#globalid">GlobalID</a></li>
+<li><a href="#exceptions">Exceptions</a></li>
+</ol>
+
+          </div>
+
+    </div>
+  </div>
+
+  <div id="container">
+    <div class="wrapper">
+      <div id="mainCol">
+        <h3 id="簡介">1 簡介</h3><p>Active Job 是用來宣告任務，並把任務放到多種佇列後台執行的框架。這些任務可以是平常的系統定時清理、收費方式改變通知、或是定時寄送郵件等任務。任何可以細分的工作與同步執行的事情都可以用 Active Job 來做。</p><h3 id="active-job-存在目的">2 Active Job 存在目的</h3><p>主要確保 Rails 應用程式有個一致的背景任務框架，不做背景任務，要即時執行也可以。接著便可以有基於 Active Job 打造的功能、Gem 誕生，而無需擔心各種佇列後台，像是 Delayed Job 和 Resque 之間的 API 差異。選擇佇列後台變成一種運維方面的考量，而切換後台也無需修改任務本身的實作。</p><h3 id="新建任務">3 新建任務</h3><p>本節提供建立任務，將任務加入排程的詳細教學。</p><h4 id="建立任務">3.1 建立任務</h4><p>Active Job 提供了 Rails 產生器來建立任務。以下會在 <code>app/jobs</code> 建立一件新任務：</p><div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+$ bin/rails generate job guests_cleanup
+create  app/jobs/guests_cleanup_job.rb
+
+</pre>
+</div>
+<p>也可以建立跑在特定佇列上的任務：</p><div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+$ bin/rails generate job guests_cleanup --queue urgent
+create  app/jobs/guests_cleanup_job.rb
+
+</pre>
+</div>
+<p>可以看出來，建立任務就和使用其他的 Rails 產生器一樣簡單。</p><p>若不想使用產生器，也可以自己在 <code>app/jobs</code> 下建立檔案，只要確保任務是繼承自 <code>ActiveJob::Base</code> 的類別即可。</p><p>以下是任務的程式範例：</p><div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+class GuestsCleanupJob &lt; ActiveJob::Base
+  queue_as :default
+
+  def perform
+    # Do something later
+  end
+end
+
+</pre>
+</div>
+<h4 id="任務排程">3.2 任務排程</h4><p>將任務加入排程：</p><div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+MyJob.enqueue record  # Enqueue a job to be performed as soon the queueing system is free.
+
+</pre>
+</div>
+<div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+MyJob.enqueue_at Date.tomorrow.noon, record  # Enqueue a job to be performed tomorrow at noon.
+
+</pre>
+</div>
+<div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+MyJob.enqueue_in 1.week, record # Enqueue a job to be performed 1 week from now.
+
+</pre>
+</div>
+<p>就這麼簡單！</p><h3 id="執行任務">4 執行任務</h3><p>若無設定連接器，任務會即刻執行。</p><h4 id="後台">4.1 後台</h4><p>Active Job 針對提供以下佇列後台的連接器：</p>
+<ul>
+<li><a href="https://github.com/nesquena/backburner">Backburner</a></li>
+<li><a href="https://github.com/collectiveidea/delayed_job">Delayed Job</a></li>
+<li><a href="https://github.com/bkeepers/qu">Qu</a></li>
+<li><a href="https://github.com/chanks/que">Que</a></li>
+<li><a href="https://github.com/ryandotsmith/queue_classic">QueueClassic</a></li>
+<li><a href="https://github.com/resque/resque">Resque 1.x</a></li>
+<li><a href="https://github.com/mperham/sidekiq">Sidekiq</a></li>
+<li><a href="https://github.com/jondot/sneakers">Sneakers</a></li>
+<li><a href="https://github.com/brandonhilkert/sucker_punch">Sucker Punch</a></li>
+</ul>
+<h5 id="各後台功能特色">4.1.1 各後台功能特色</h5>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Async</th>
+<th>Queues</th>
+<th>Delayed</th>
+<th>Priorities</th>
+<th>Timeout</th>
+<th>Retries</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Backburner</strong></td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Job</td>
+<td>Global</td>
+</tr>
+<tr>
+<td><strong>Delayed Job</strong></td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Job</td>
+<td>Global</td>
+<td>Global</td>
+</tr>
+<tr>
+<td><strong>Que</strong></td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Job</td>
+<td>No</td>
+<td>Job</td>
+</tr>
+<tr>
+<td><strong>Queue Classic</strong></td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Gem</td>
+<td>No</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>Resque</strong></td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Gem</td>
+<td>Queue</td>
+<td>Global</td>
+<td>?</td>
+</tr>
+<tr>
+<td><strong>Sidekiq</strong></td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Queue</td>
+<td>No</td>
+<td>Job</td>
+</tr>
+<tr>
+<td><strong>Sneakers</strong></td>
+<td>Yes</td>
+<td>Yes</td>
+<td>No</td>
+<td>Queue</td>
+<td>Queue</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>Sucker Punch</strong></td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>No</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>Active Job</strong></td>
+<td>Yes</td>
+<td>Yes</td>
+<td>WIP</td>
+<td>No</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>Active Job Inline</strong></td>
+<td>No</td>
+<td>Yes</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+</tr>
+</tbody>
+</table>
+<h4 id="切換後台">4.2 切換後台</h4><p>切換後台的連接器非常簡單：</p><div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+# be sure to have the adapter gem in your Gemfile and follow the adapter specific
+# installation and deployment instructions
+YourApp::Application.config.active_job.queue_adapter = :sidekiq
+
+</pre>
+</div>
+<h3 id="佇列">5 佇列</h3><p>多數的連接器都支持多種佇列。用 Active Job 可以將任務放到特定的佇列裡執行：</p><div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+class GuestsCleanupJob &lt; ActiveJob::Base
+  queue_as :low_priority
+  #....
+end
+
+</pre>
+</div>
+<div class="note"><p>確保後台程式知道佇列的名稱是什麼。某些後台可能需要明確指定佇列。</p></div><h3 id="回呼">6 回呼</h3><p>Active Job 在任務生命週期裡的每個階段都有提供 hooks。回呼允許在任務生命週期裡觸發事件來執行程式邏輯。</p><h4 id="可用的回呼">6.1 可用的回呼</h4>
+<ul>
+<li>before_enqueue</li>
+<li>around_enqueue</li>
+<li>after_enqueue</li>
+<li>before_perform</li>
+<li>around_perform</li>
+<li>after_perform</li>
+</ul>
+<h4 id="用法">6.2 用法</h4><div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+class GuestsCleanupJob &lt; ActiveJob::Base
+  queue_as :default
+
+  before_enqueue do |job|
+    # do somthing with the job instance
+  end
+
+  around_perform do |job, block|
+    # do something before perform
+    block.call
+    # do something after perform
+  end
+
+  def perform
+    # Do something later
+  end
+end
+
+</pre>
+</div>
+<h3 id="actionmailer">7 ActionMailer</h3><p>現代網路應用最常見的任務之一是在請求響應週期之外發送 Email，減去使用者等待的時間。Active Job
+已與 Action Mailer 整合，異步寄送信件只需使用 <code>deliver_later</code> 即可：</p><div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+# Instead of the classic
+UserMailer.welcome(@user).deliver
+
+# use #deliver later to send the email async
+UserMailer.welcome(@user).deliver_later
+
+</pre>
+</div>
+<h3 id="globalid">8 GlobalID</h3><p>Active Job 支持使用 GlobalID 作為參數。這使得任務可以傳入 Active Record 物件，而不只是需要額外處理的類別名稱或 ID。使用類別和 ID 的任務看起來會像是：</p><div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+class TrashableCleanupJob
+  def perform(trashable_class, trashable_id, depth)
+    trashable = trashable_class.constantize.find(trashable_id)
+    trashable.cleanup(depth)
+  end
+end
+
+</pre>
+</div>
+<p>可以傳入 Active Record 物件來簡化：</p><div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+class TrashableCleanupJob
+  def perform(trashable, depth)
+    trashable.cleanup(depth)
+  end
+end
+
+</pre>
+</div>
+<p>以上對任何混入 <code>ActiveModel::GlobalIdentification</code> 的類都有效，Active Model 的類別預設皆有混入 <code>ActiveModel::GlobalIdentification</code>。</p><h3 id="exceptions">9 Exceptions</h3><p>Active Job 提供捕捉任務執行期間發生異常的方法：</p><div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+
+class GuestsCleanupJob &lt; ActiveJob::Base
+  queue_as :default
+
+  rescue_from(ActiveRecord:NotFound) do |exception|
+   # do something with the exception
+  end
+
+  def perform
+    # Do something later
+  end
+end
+
+</pre>
+</div>
+
+
+        <h3>反饋</h3>
+        <p>
+          歡迎幫忙改善指南的品質。
+        </p>
+        <p>
+          如發現任何錯誤之處，歡迎修正。開始貢獻前，可以先閱讀<a href="http://edgeguides.rubyonrails.org/contributing_to_ruby_on_rails.html#contributing-to-the-rails-documentation">貢獻指南：文件</a>。
+        </p>
+        <p>翻譯如有錯誤，深感抱歉，歡迎 <a href="https://github.com/docrails-tw/guides/fork">Fork</a> 修正，或至此處<a href="https://github.com/docsrails-tw/guides/issues/new">回報</a>。</p>
+        <p>
+          文章可能有未完成或過時的內容。請先檢查 <a href="http://edgeguides.rubyonrails.org">Edge Guides</a> 來確定問題在 master 是否已經修掉了。再上 master 補上缺少的文件。內容參考 <a href="ruby_on_rails_guides_guidelines.html">Ruby on Rails 指南準則</a>來了解行文風格。
+        </p>
+        <p>最後，任何關於 Ruby on Rails 文件的討論，歡迎至 <a href="http://groups.google.com/group/rubyonrails-docs">rubyonrails-docs 郵件論壇</a>。
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <hr class="hide">
+  <div id="footer">
+    <div class="wrapper">
+      <p>本著作係採用<a href="https://creativecommons.org/licenses/by-sa/4.0/">創用 CC 姓名標示-相同方式分享 4.0 國際授權條款</a>授權。</p>
+<p>“Rails”、“Ruby on Rails”，以及 Rails logo 為 David Heinemeier Hansson 的商標。版權所有。</p>
+
+    </div>
+  </div>
+
+  <script src="javascripts/jquery.min.js"></script>
+  <script src="javascripts/responsive-tables.js"></script>
+  <script src="javascripts/guides.js"></script>
+  <script src="javascripts/syntaxhighlighter/shCore.js"></script>
+  <script src="javascripts/syntaxhighlighter/shBrushRuby.js"></script>
+  <script src="javascripts/syntaxhighlighter/shBrushXml.js"></script>
+  <script src="javascripts/syntaxhighlighter/shBrushSql.js"></script>
+  <script src="javascripts/syntaxhighlighter/shBrushPlain.js"></script>
+  <script type="text/javascript">
+    SyntaxHighlighter.all();
+    $(guidesIndex.bind);
+  </script>
+  <script>
+    (function(i,s,o,g,r,a,m){i["GoogleAnalyticsObject"]=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,"script","//www.google-analytics.com/analytics.js","ga");
+
+    ga("create", "UA-49903900-1", "docrails-tw.github.io");
+    ga("require", "displayfeatures");
+    ga("send", "pageview");
+
+  </script>
+</body>
+</html>
