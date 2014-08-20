@@ -92,7 +92,7 @@
               </dl>
           </div>
         </li>
-        <!-- <li><a class="nav-item" href="//github.com/docrails-tw/wiki">參與翻譯</a></li> -->
+        <li><a class="nav-item" href="//github.com/docrails-tw/guides">貢獻翻譯</a></li>
         <li><a class="nav-item" href="contributing_to_ruby_on_rails.html">貢獻</a></li>
         <li><a class="nav-item" href="credits.html">致謝</a></li>
         <li class="guides-index guides-index-small">
@@ -346,7 +346,7 @@ end
 
 </pre>
 </div>
-<h3 id="cache-stores">2 Cache Stores</h3><p>Rails provides different stores for the cached data created by <b>action</b> and <b>fragment</b> caches.</p><div class="info"><p>Page caches are always stored on disk.</p></div><h4 id="configuration">2.1 Configuration</h4><p>You can set up your application's default cache store by calling <code>config.cache_store=</code> in the Application definition inside your <code>config/application.rb</code> file or in an Application.configure block in an environment specific configuration file (i.e. <code>config/environments/*.rb</code>). The first argument will be the cache store to use and the rest of the argument will be passed as arguments to the cache store constructor.</p><div class="code_container">
+<h3 id="cache-stores">2 Cache Stores</h3><p>Rails provides different stores for the cached data created by <strong>action</strong> and <strong>fragment</strong> caches.</p><div class="info"><p>Page caches are always stored on disk.</p></div><h4 id="configuration">2.1 Configuration</h4><p>You can set up your application's default cache store by calling <code>config.cache_store=</code> in the Application definition inside your <code>config/application.rb</code> file or in an Application.configure block in an environment specific configuration file (i.e. <code>config/environments/*.rb</code>). The first argument will be the cache store to use and the rest of the argument will be passed as arguments to the cache store constructor.</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 config.cache_store = :memory_store
 
@@ -477,7 +477,12 @@ end
 class ProductsController &lt; ApplicationController
   def show
     @product = Product.find(params[:id])
-    respond_with(@product) if stale?(@product)
+
+    if stale?(@product)
+      respond_to do |wants|
+        # ... normal response processing
+      end
+    end
   end
 end
 

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Active Model Basics — Ruby on Rails 指南</title>
+  <title>Active Job 基礎 — Ruby on Rails 指南</title>
 
   <link rel="stylesheet" href="stylesheets/application.css">
 
@@ -165,31 +165,48 @@
 
   <div id="feature">
     <div class="wrapper">
-      <h2>Active Model Basics</h2><p>本篇教你如何開始使用 Model。 Active Model 允許 Action Pack 輔助方法與不是 Active Record 的 Model 類別來做互動。Active Model 也允許在 Rails 框架之外自己造 ORM。</p><p>讀完本篇，您將了解：</p>
+      <h2>Active Job 基礎</h2><p>本篇提供所有建立任務、將任務加入排程，執行背景任務的所有知識。</p><p>讀完本篇，您將了解：</p>
 <ul>
-<li><code>AttributeMethods</code> 模組</li>
-<li><code>Callbacks</code> 模組</li>
-<li><code>Conversion</code> 模組</li>
-<li><code>Dirty</code> 模組</li>
-<li><code>Validations</code> 模組</li>
+<li>如何新建任務。</li>
+<li>如何把任務加入排程。</li>
+<li>如何在背景執行任務。</li>
+<li>如何異步發送信件。</li>
 </ul>
 
 
                 <div id="subCol">
             <h3 class="chapter"><img src="images/chapters_icon.gif" alt="" />Chapters</h3>
             <ol class="chapters">
+<li><a href="#%E7%B0%A1%E4%BB%8B">簡介</a></li>
+<li><a href="#active-job-%E5%AD%98%E5%9C%A8%E7%9B%AE%E7%9A%84">Active Job 存在目的</a></li>
 <li>
-<a href="#active-model-%E7%B0%A1%E4%BB%8B">Active Model 簡介</a>
+<a href="#%E6%96%B0%E5%BB%BA%E4%BB%BB%E5%8B%99">新建任務</a>
 
 <ul>
-<li><a href="#attributemethods">AttributeMethods</a></li>
-<li><a href="#%E5%9B%9E%E5%91%BC">回呼</a></li>
-<li><a href="#conversion">Conversion</a></li>
-<li><a href="#dirty">Dirty</a></li>
-<li><a href="#%E9%A9%97%E8%AD%89">驗證</a></li>
-<li><a href="#activemodel-naming">ActiveModel::Naming</a></li>
+<li><a href="#%E5%BB%BA%E7%AB%8B%E4%BB%BB%E5%8B%99">建立任務</a></li>
+<li><a href="#%E4%BB%BB%E5%8B%99%E6%8E%92%E7%A8%8B">任務排程</a></li>
 </ul>
 </li>
+<li>
+<a href="#%E5%9F%B7%E8%A1%8C%E4%BB%BB%E5%8B%99">執行任務</a>
+
+<ul>
+<li><a href="#%E5%BE%8C%E5%8F%B0">後台</a></li>
+<li><a href="#%E5%88%87%E6%8F%9B%E5%BE%8C%E5%8F%B0">切換後台</a></li>
+</ul>
+</li>
+<li><a href="#%E4%BD%87%E5%88%97">佇列</a></li>
+<li>
+<a href="#%E5%9B%9E%E5%91%BC">回呼</a>
+
+<ul>
+<li><a href="#%E5%8F%AF%E7%94%A8%E7%9A%84%E5%9B%9E%E5%91%BC">可用的回呼</a></li>
+<li><a href="#%E7%94%A8%E6%B3%95">用法</a></li>
+</ul>
+</li>
+<li><a href="#actionmailer">ActionMailer</a></li>
+<li><a href="#globalid">GlobalID</a></li>
+<li><a href="#exceptions">Exceptions</a></li>
 </ol>
 
           </div>
@@ -200,198 +217,262 @@
   <div id="container">
     <div class="wrapper">
       <div id="mainCol">
-        <h3 id="active-model-簡介">1 Active Model 簡介</h3><p>Active Model 是一個函式庫，由許多用來與 Action Pack 互動的模組組成。以下簡單介紹幾個 Active Model 的模組。</p><h4 id="attributemethods">1.1 AttributeMethods</h4><p>用來給方法加上前綴或後綴。</p><div class="code_container">
-<pre class="brush: ruby; gutter: false; toolbar: false">
-class Person
-  include ActiveModel::AttributeMethods
-
-  attribute_method_prefix 'reset_'
-  attribute_method_suffix '_highest?'
-  define_attribute_methods 'age'
-
-  attr_accessor :age
-
-  private
-    def reset_attribute(attribute)
-      send("#{attribute}=", 0)
-    end
-
-    def attribute_highest?(attribute)
-      send(attribute) &gt; 100
-    end
-end
-
-person = Person.new
-person.age = 110
-person.age_highest?  # true
-person.reset_age     # 0
-person.age_highest?  # false
+        <h3 id="簡介">1 簡介</h3><p>Active Job 是用來宣告任務，並把任務放到多種佇列後台執行的框架。這些任務可以是平常的系統定時清理、收費方式改變通知、或是定時寄送郵件等任務。任何可以細分的工作與同步執行的事情都可以用 Active Job 來做。</p><h3 id="active-job-存在目的">2 Active Job 存在目的</h3><p>主要確保 Rails 應用程式有個一致的背景任務框架，不做背景任務，要即時執行也可以。接著便可以有基於 Active Job 打造的功能、Gem 誕生，而無需擔心各種佇列後台，像是 Delayed Job 和 Resque 之間的 API 差異。選擇佇列後台變成一種運維方面的考量，而切換後台也無需修改任務本身的實作。</p><h3 id="新建任務">3 新建任務</h3><p>本節提供建立任務，將任務加入排程的詳細教學。</p><h4 id="建立任務">3.1 建立任務</h4><p>Active Job 提供了 Rails 產生器來建立任務。以下會在 <code>app/jobs</code> 建立一件新任務：</p><div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+$ bin/rails generate job guests_cleanup
+create  app/jobs/guests_cleanup_job.rb
 
 </pre>
 </div>
-<h4 id="回呼">1.2 回呼</h4><p>Active Record 風格的回呼。讓我們可以在運行期定義回呼。定義回呼後便有 <code>before_*</code>、<code>after_*</code> 與 <code>around_*</code> 方法可用。</p><div class="code_container">
+<p>也可以建立跑在特定佇列上的任務：</p><div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+$ bin/rails generate job guests_cleanup --queue urgent
+create  app/jobs/guests_cleanup_job.rb
+
+</pre>
+</div>
+<p>可以看出來，建立任務就和使用其他的 Rails 產生器一樣簡單。</p><p>若不想使用產生器，也可以自己在 <code>app/jobs</code> 下建立檔案，只要確保任務是繼承自 <code>ActiveJob::Base</code> 的類別即可。</p><p>以下是任務的程式範例：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
-class Person
-  extend ActiveModel::Callbacks
+class GuestsCleanupJob &lt; ActiveJob::Base
+  queue_as :default
 
-  define_model_callbacks :update
-
-  before_update :reset_me
-
-  def update
-    run_callbacks(:update) do
-      # This method is called when update is called on an object.
-    end
-  end
-
-  def reset_me
-    # This method is called when update is called on an object as a before_update callback is defined.
+  def perform
+    # Do something later
   end
 end
 
 </pre>
 </div>
-<h4 id="conversion">1.3 Conversion</h4><p>如果一個類別有定義 <code>persisted?</code> 與 <code>id</code> 方法，則你可引入 <code>Conversion</code> 模組，並對此類別的物件呼叫 Rails 的 conversion 方法（<code>to_model</code>、<code>to_key</code>、<code>to_param</code>）。</p><div class="code_container">
+<h4 id="任務排程">3.2 任務排程</h4><p>將任務加入排程：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
-class Person
-  include ActiveModel::Conversion
+MyJob.enqueue record  # Enqueue a job to be performed as soon the queueing system is free.
 
-  def persisted?
-    false
+</pre>
+</div>
+<div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+MyJob.enqueue_at Date.tomorrow.noon, record  # Enqueue a job to be performed tomorrow at noon.
+
+</pre>
+</div>
+<div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+MyJob.enqueue_in 1.week, record # Enqueue a job to be performed 1 week from now.
+
+</pre>
+</div>
+<p>就這麼簡單！</p><h3 id="執行任務">4 執行任務</h3><p>若無設定連接器，任務會即刻執行。</p><h4 id="後台">4.1 後台</h4><p>Active Job 針對提供以下佇列後台的連接器：</p>
+<ul>
+<li><a href="https://github.com/nesquena/backburner">Backburner</a></li>
+<li><a href="https://github.com/collectiveidea/delayed_job">Delayed Job</a></li>
+<li><a href="https://github.com/bkeepers/qu">Qu</a></li>
+<li><a href="https://github.com/chanks/que">Que</a></li>
+<li><a href="https://github.com/ryandotsmith/queue_classic">QueueClassic</a></li>
+<li><a href="https://github.com/resque/resque">Resque 1.x</a></li>
+<li><a href="https://github.com/mperham/sidekiq">Sidekiq</a></li>
+<li><a href="https://github.com/jondot/sneakers">Sneakers</a></li>
+<li><a href="https://github.com/brandonhilkert/sucker_punch">Sucker Punch</a></li>
+</ul>
+<h5 id="各後台功能特色">4.1.1 各後台功能特色</h5>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Async</th>
+<th>Queues</th>
+<th>Delayed</th>
+<th>Priorities</th>
+<th>Timeout</th>
+<th>Retries</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Backburner</strong></td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Job</td>
+<td>Global</td>
+</tr>
+<tr>
+<td><strong>Delayed Job</strong></td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Job</td>
+<td>Global</td>
+<td>Global</td>
+</tr>
+<tr>
+<td><strong>Que</strong></td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Job</td>
+<td>No</td>
+<td>Job</td>
+</tr>
+<tr>
+<td><strong>Queue Classic</strong></td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Gem</td>
+<td>No</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>Resque</strong></td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Gem</td>
+<td>Queue</td>
+<td>Global</td>
+<td>?</td>
+</tr>
+<tr>
+<td><strong>Sidekiq</strong></td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Queue</td>
+<td>No</td>
+<td>Job</td>
+</tr>
+<tr>
+<td><strong>Sneakers</strong></td>
+<td>Yes</td>
+<td>Yes</td>
+<td>No</td>
+<td>Queue</td>
+<td>Queue</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>Sucker Punch</strong></td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>No</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>Active Job</strong></td>
+<td>Yes</td>
+<td>Yes</td>
+<td>WIP</td>
+<td>No</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>Active Job Inline</strong></td>
+<td>No</td>
+<td>Yes</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+</tr>
+</tbody>
+</table>
+<h4 id="切換後台">4.2 切換後台</h4><p>切換後台的連接器非常簡單：</p><div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+# be sure to have the adapter gem in your Gemfile and follow the adapter specific
+# installation and deployment instructions
+YourApp::Application.config.active_job.queue_adapter = :sidekiq
+
+</pre>
+</div>
+<h3 id="佇列">5 佇列</h3><p>多數的連接器都支持多種佇列。用 Active Job 可以將任務放到特定的佇列裡執行：</p><div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+class GuestsCleanupJob &lt; ActiveJob::Base
+  queue_as :low_priority
+  #....
+end
+
+</pre>
+</div>
+<div class="note"><p>確保後台程式知道佇列的名稱是什麼。某些後台可能需要明確指定佇列。</p></div><h3 id="回呼">6 回呼</h3><p>Active Job 在任務生命週期裡的每個階段都有提供 hooks。回呼允許在任務生命週期裡觸發事件來執行程式邏輯。</p><h4 id="可用的回呼">6.1 可用的回呼</h4>
+<ul>
+<li>before_enqueue</li>
+<li>around_enqueue</li>
+<li>after_enqueue</li>
+<li>before_perform</li>
+<li>around_perform</li>
+<li>after_perform</li>
+</ul>
+<h4 id="用法">6.2 用法</h4><div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+class GuestsCleanupJob &lt; ActiveJob::Base
+  queue_as :default
+
+  before_enqueue do |job|
+    # do somthing with the job instance
   end
 
-  def id
-    nil
+  around_perform do |job, block|
+    # do something before perform
+    block.call
+    # do something after perform
+  end
+
+  def perform
+    # Do something later
   end
 end
 
-person = Person.new
-person.to_model == person  # =&gt; true
-person.to_key              # =&gt; nil
-person.to_param            # =&gt; nil
+</pre>
+</div>
+<h3 id="actionmailer">7 ActionMailer</h3><p>現代網路應用最常見的任務之一是在請求響應週期之外發送 Email，減去使用者等待的時間。Active Job
+已與 Action Mailer 整合，異步寄送信件只需使用 <code>deliver_later</code> 即可：</p><div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+# Instead of the classic
+UserMailer.welcome(@user).deliver
+
+# use #deliver later to send the email async
+UserMailer.welcome(@user).deliver_later
 
 </pre>
 </div>
-<h4 id="dirty">1.4 Dirty</h4><p>物件有一個或多個改動，卻未儲存，則稱物件變“dirty”了。這讓我們可以檢查物件是否有變動。以下是 <code>Person</code> 類別，有 <code>first_name</code> 與 <code>last_name</code> 這兩個屬性：</p><div class="code_container">
+<h3 id="globalid">8 GlobalID</h3><p>Active Job 支持使用 GlobalID 作為參數。這使得任務可以傳入 Active Record 物件，而不只是需要額外處理的類別名稱或 ID。使用類別和 ID 的任務看起來會像是：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
-require 'active_model'
-
-class Person
-  include ActiveModel::Dirty
-  define_attribute_methods :first_name, :last_name
-
-  def first_name
-    @first_name
-  end
-
-  def first_name=(value)
-    first_name_will_change!
-    @first_name = value
-  end
-
-  def last_name
-    @last_name
-  end
-
-  def last_name=(value)
-    last_name_will_change!
-    @last_name = value
-  end
-
-  def save
-    # do save work...
-    changes_applied
+class TrashableCleanupJob
+  def perform(trashable_class, trashable_id, depth)
+    trashable = trashable_class.constantize.find(trashable_id)
+    trashable.cleanup(depth)
   end
 end
 
 </pre>
 </div>
-<h5 id="查詢物件修改過屬性的列表">1.4.1 查詢物件修改過屬性的列表</h5><div class="code_container">
+<p>可以傳入 Active Record 物件來簡化：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
-person = Person.new
-person.changed? # =&gt; false
-
-person.first_name = "First Name"
-person.first_name # =&gt; "First Name"
-
-# returns if any attribute has changed.
-person.changed? # =&gt; true
-
-# returns a list of attributes that have changed before saving.
-person.changed # =&gt; ["first_name"]
-
-# returns a hash of the attributes that have changed with their original values.
-person.changed_attributes # =&gt; {"first_name"=&gt;nil}
-
-# returns a hash of changes, with the attribute names as the keys, and the values will be an array of the old and new value for that field.
-person.changes # =&gt; {"first_name"=&gt;[nil, "First Name"]}
-
-</pre>
-</div>
-<h5 id="attribute-based-accessor-methods">1.4.2 Attribute based accessor methods</h5><p>檢查 <code>first_name</code> 這個屬性是否有變動，<code>first_name_changed?</code>：</p><p>Track whether the particular attribute has been changed or not.</p><div class="code_container">
-<pre class="brush: ruby; gutter: false; toolbar: false">
-# attr_name_changed?
-person.first_name # =&gt; "First Name"
-person.first_name_changed? # =&gt; true
-
-</pre>
-</div>
-<p>檢查屬性上一次的數值：
-Track what was the previous value of the attribute.</p><div class="code_container">
-<pre class="brush: ruby; gutter: false; toolbar: false">
-# attr_name_was accessor
-person.first_name_was # =&gt; "First Name"
-
-</pre>
-</div>
-<p>檢查屬性上次與當前的值，有變化回傳 Array，沒變化回傳 <code>nil</code>：</p><div class="code_container">
-<pre class="brush: ruby; gutter: false; toolbar: false">
-# attr_name_change
-person.first_name_change # =&gt; [nil, "First Name"]
-person.last_name_change # =&gt; nil
-
-</pre>
-</div>
-<h4 id="驗證">1.5 驗證</h4><p>給類別加入 Active Record 風格的驗證功能：</p><div class="code_container">
-<pre class="brush: ruby; gutter: false; toolbar: false">
-class Person
-  include ActiveModel::Validations
-
-  attr_accessor :name, :email, :token
-
-  validates :name, presence: true
-  validates_format_of :email, with: /\A([^\s]+)((?:[-a-z0-9]\.)[a-z]{2,})\z/i
-  validates! :token, presence: true
+class TrashableCleanupJob
+  def perform(trashable, depth)
+    trashable.cleanup(depth)
+  end
 end
 
-person = Person.new(token: "2b1f325")
-person.valid?                        # =&gt; false
-person.name = 'vishnu'
-person.email = 'me'
-person.valid?                        # =&gt; false
-person.email = 'me@vishnuatrai.com'
-person.valid?                        # =&gt; true
-person.token = nil
-person.valid?                        # =&gt; raises ActiveModel::StrictValidationFailed
-
 </pre>
 </div>
-<h4 id="activemodel-naming">1.6 ActiveModel::Naming</h4><p><code>Naming</code> 模組加入幾個幫助管理命名和路由的模組。這個模組定義了 <code>model_name</code> 類別方法，這個方法用 <code>ActiveSupport::Inflector</code> 定義了許多存取器（accessor）方法。</p><div class="code_container">
+<p>以上對任何混入 <code>ActiveModel::GlobalIdentification</code> 的類都有效，Active Model 的類別預設皆有混入 <code>ActiveModel::GlobalIdentification</code>。</p><h3 id="exceptions">9 Exceptions</h3><p>Active Job 提供捕捉任務執行期間發生異常的方法：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
-class Person
-  extend ActiveModel::Naming
-end
 
-Person.model_name.name                # =&gt; "Person"
-Person.model_name.singular            # =&gt; "person"
-Person.model_name.plural              # =&gt; "people"
-Person.model_name.element             # =&gt; "person"
-Person.model_name.human               # =&gt; "Person"
-Person.model_name.collection          # =&gt; "people"
-Person.model_name.param_key           # =&gt; "person"
-Person.model_name.i18n_key            # =&gt; :person
-Person.model_name.route_key           # =&gt; "people"
-Person.model_name.singular_route_key  # =&gt; "person"
+class GuestsCleanupJob &lt; ActiveJob::Base
+  queue_as :default
+
+  rescue_from(ActiveRecord:NotFound) do |exception|
+   # do something with the exception
+  end
+
+  def perform
+    # Do something later
+  end
+end
 
 </pre>
 </div>
