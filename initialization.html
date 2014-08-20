@@ -176,32 +176,32 @@
             <h3 class="chapter"><img src="images/chapters_icon.gif" alt="" />Chapters</h3>
             <ol class="chapters">
 <li>
-<a href="#%E5%95%9F%E5%8B%95%EF%BC%81">啟動！</a>
+<a href="#%E5%95%9F%E5%8B%95-">啟動！</a>
 
 <ul>
-<li><a href="#railties/bin/rails"><code>railties/bin/rails</code></a></li>
-<li><a href="#railties/lib/rails/app_rails_loader.rb"><code>railties/lib/rails/app_rails_loader.rb</code></a></li>
-<li><a href="#bin/rails"><code>bin/rails</code></a></li>
-<li><a href="#config/boot.rb"><code>config/boot.rb</code></a></li>
-<li><a href="#rails/commands.rb"><code>rails/commands.rb</code></a></li>
-<li><a href="#rails/commands/command_tasks.rb"><code>rails/commands/command_tasks.rb</code></a></li>
-<li><a href="#actionpack/lib/action_dispatch.rb"><code>actionpack/lib/action_dispatch.rb</code></a></li>
-<li><a href="#rails/commands/server.rb"><code>rails/commands/server.rb</code></a></li>
-<li><a href="#%E5%95%9F%E5%8B%95%EF%BC%81-rack:-lib/rack/server.rb">Rack: <code>lib/rack/server.rb</code></a></li>
-<li><a href="#%E5%95%9F%E5%8B%95%EF%BC%81-config/application.rb"><code>config/application.rb</code></a></li>
-<li><a href="#rails::server#start"><code>Rails::Server#start</code></a></li>
-<li><a href="#config/environment.rb"><code>config/environment.rb</code></a></li>
-<li><a href="#%E5%95%9F%E5%8B%95%EF%BC%81-config/application.rb"><code>config/application.rb</code></a></li>
+<li><a href="#railties-bin-rails"><code>railties/bin/rails</code></a></li>
+<li><a href="#railties-lib-rails-app-rails-loader-rb"><code>railties/lib/rails/app_rails_loader.rb</code></a></li>
+<li><a href="#bin-rails"><code>bin/rails</code></a></li>
+<li><a href="#config-boot-rb"><code>config/boot.rb</code></a></li>
+<li><a href="#rails-commands-rb"><code>rails/commands.rb</code></a></li>
+<li><a href="#rails-commands-command-tasks-rb"><code>rails/commands/command_tasks.rb</code></a></li>
+<li><a href="#actionpack-lib-action-dispatch-rb"><code>actionpack/lib/action_dispatch.rb</code></a></li>
+<li><a href="#rails-commands-server-rb"><code>rails/commands/server.rb</code></a></li>
+<li><a href="#%E5%95%9F%E5%8B%95--rack-lib-rack-server-rb">Rack: <code>lib/rack/server.rb</code></a></li>
+<li><a href="#%E5%95%9F%E5%8B%95--config-application-rb"><code>config/application.rb</code></a></li>
+<li><a href="#rails-server-start"><code>Rails::Server#start</code></a></li>
+<li><a href="#config-environment-rb"><code>config/environment.rb</code></a></li>
+<li><a href="#%E5%95%9F%E5%8B%95--config-application-rb"><code>config/application.rb</code></a></li>
 </ul>
 </li>
 <li>
 <a href="#%E8%BC%89%E5%85%A5-rails">載入 Rails</a>
 
 <ul>
-<li><a href="#railties/lib/rails/all.rb"><code>railties/lib/rails/all.rb</code></a></li>
-<li><a href="#%E5%9B%9E%E5%88%B0-config/environment.rb">回到 <code>config/environment.rb</code></a></li>
-<li><a href="#railties/lib/rails/application.rb"><code>railties/lib/rails/application.rb</code></a></li>
-<li><a href="#%E8%BC%89%E5%85%A5-rails-rack:-lib/rack/server.rb">Rack: lib/rack/server.rb</a></li>
+<li><a href="#railties-lib-rails-all-rb"><code>railties/lib/rails/all.rb</code></a></li>
+<li><a href="#%E5%9B%9E%E5%88%B0-config-environment-rb">回到 <code>config/environment.rb</code></a></li>
+<li><a href="#railties-lib-rails-application-rb"><code>railties/lib/rails/application.rb</code></a></li>
+<li><a href="#%E8%BC%89%E5%85%A5-rails-rack-lib-rack-server-rb">Rack: lib/rack/server.rb</a></li>
 </ul>
 </li>
 </ol>
@@ -214,7 +214,7 @@
   <div id="container">
     <div class="wrapper">
       <div id="mainCol">
-        <p>本篇針對 Rails 4，走一遍啟動 Rails 所需的每個方法呼叫。過程中詳細解釋每個步驟的用途，特別針對從 <code>rails server</code>， 到應用程式啟動起來之間的過程做解說。</p><div class="note"><p>除非特別聲明，本篇提及的路徑都是相對於 <a href="https://github.com/rails/rails">Rails 原始碼</a>的目錄，或相對於 Rails 應用程式的路徑。</p></div><div class="info"><p>若想跟著瀏覽 Rails 的<a href="https://github.com/rails/rails">原始碼</a>，推薦<a href="https://github.com/blog/793-introducing-the-file-finder">使用 GitHub 提供的檔案搜索</a>功能，來快速找到檔案，在 GitHub Repository 頁面按 <code>t</code> 即可使用。</p></div><h3 id="啟動！">1 啟動！</h3><p>從初始化（Initialize）與啟動（boot）應用程式開始。Rails 應用程式通常在執行 <code>rails server</code> 或 <code>rails console</code> 時會啟動。</p><h4 id="railties/bin/rails">1.1 <code>railties/bin/rails</code>
+        <p>本篇針對 Rails 4，走一遍啟動 Rails 所需的每個方法呼叫。過程中詳細解釋每個步驟的用途，特別針對從 <code>rails server</code>， 到應用程式啟動起來之間的過程做解說。</p><div class="note"><p>除非特別聲明，本篇提及的路徑都是相對於 <a href="https://github.com/rails/rails">Rails 原始碼</a>的目錄，或相對於 Rails 應用程式的路徑。</p></div><div class="info"><p>若想跟著瀏覽 Rails 的<a href="https://github.com/rails/rails">原始碼</a>，推薦<a href="https://github.com/blog/793-introducing-the-file-finder">使用 GitHub 提供的檔案搜索</a>功能，來快速找到檔案，在 GitHub Repository 頁面按 <code>t</code> 即可使用。</p></div><h3 id="啟動-">1 啟動！</h3><p>從初始化（Initialize）與啟動（boot）應用程式開始。Rails 應用程式通常在執行 <code>rails server</code> 或 <code>rails console</code> 時會啟動。</p><h4 id="railties-bin-rails">1.1 <code>railties/bin/rails</code>
 </h4><p><a href="https://github.com/rails/rails/blob/master/railties/bin/rails">View Source</a></p><p><code>rails server</code> 命令裡的 <code>rails</code>，是放在載入路徑（load path）下的 Ruby 執行檔。這個執行檔的內容如下：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 version = "&gt;= 0"
@@ -228,14 +228,14 @@ require "rails/cli"
 
 </pre>
 </div>
-<p><a href="https://github.com/rails/rails/blob/master/railties/lib/rails/cli.rb"><code>railties/lib/rails/cli</code></a> 接著呼叫 <code>Rails::AppRailsLoader.exec_app_rails</code>。</p><h4 id="railties/lib/rails/app_rails_loader.rb">1.2 <code>railties/lib/rails/app_rails_loader.rb</code>
+<p><a href="https://github.com/rails/rails/blob/master/railties/lib/rails/cli.rb"><code>railties/lib/rails/cli</code></a> 接著呼叫 <code>Rails::AppRailsLoader.exec_app_rails</code>。</p><h4 id="railties-lib-rails-app-rails-loader-rb">1.2 <code>railties/lib/rails/app_rails_loader.rb</code>
 </h4><p><a href="https://github.com/rails/rails/blob/master/railties/lib/rails/app_rails_loader.rb">View Source</a></p><p><code>exec_app_rails</code> 的主要目的是執行應用程式的 <code>bin/rails</code>，若當前目錄沒有 <code>bin/rails</code>，會往上搜索，看找不找的到 <code>bin/rails</code>。這也是為什麼可以在 rails 應用程式裡的任何目錄下使用 <code>rails</code> 命令。</p><p><code>rails server</code> 實際上等於下面這個命令：</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 $ exec ruby bin/rails server
 
 </pre>
 </div>
-<h4 id="bin/rails">1.3 <code>bin/rails</code>
+<h4 id="bin-rails">1.3 <code>bin/rails</code>
 </h4><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 #!/usr/bin/env ruby
@@ -245,7 +245,7 @@ require 'rails/commands'
 
 </pre>
 </div>
-<p><code>APP_PATH</code> 常數之後會被 <code>rails/commands</code> 使用。這裡引用的 <code>config/boot</code> 檔案是指 <code>config/boot.rb</code>，負責載入與設定 Bundler。</p><h4 id="config/boot.rb">1.4 <code>config/boot.rb</code>
+<p><code>APP_PATH</code> 常數之後會被 <code>rails/commands</code> 使用。這裡引用的 <code>config/boot</code> 檔案是指 <code>config/boot.rb</code>，負責載入與設定 Bundler。</p><h4 id="config-boot-rb">1.4 <code>config/boot.rb</code>
 </h4><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 # Set up gems listed in the Gemfile.
@@ -283,7 +283,7 @@ require 'bundler/setup' if File.exist?(ENV['BUNDLE_GEMFILE'])
 <li>treetop</li>
 <li>tzinfo</li>
 </ul>
-<h4 id="rails/commands.rb">1.5 <code>rails/commands.rb</code>
+<h4 id="rails-commands-rb">1.5 <code>rails/commands.rb</code>
 </h4><p><a href="https://github.com/rails/rails/blob/master/railties/lib/rails/commands.rb">View Source</a></p><p><code>config/boot.rb</code> 執行完畢後，下個 <code>require</code> 的檔案是 <code>rails/commands</code>，用來展開命令的別名（alias）。在 <code>rails server</code> 這個情況裡，<code>ARGV</code> 的內容是 <code>server</code>，無需展開：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 ARGV &lt;&lt; '--help' if ARGV.empty?
@@ -306,7 +306,7 @@ Rails::CommandsTasks.new(ARGV).run_command!(command)
 
 </pre>
 </div>
-<div class="info"><p>如上所見，<code>ARGV</code> 為空時，Rails 會印出幫助訊息。</p></div><p>若用了別名，如 <code>rails s</code>，便會用 <code>aliases</code> 展開成對應的命令：</p><h4 id="rails/commands/command_tasks.rb">1.6 <code>rails/commands/command_tasks.rb</code>
+<div class="info"><p>如上所見，<code>ARGV</code> 為空時，Rails 會印出幫助訊息。</p></div><p>若用了別名，如 <code>rails s</code>，便會用 <code>aliases</code> 展開成對應的命令：</p><h4 id="rails-commands-command-tasks-rb">1.6 <code>rails/commands/command_tasks.rb</code>
 </h4><p><a href="https://github.com/rails/rails/blob/master/railties/lib/rails/commands/commands_tasks.rb">View Source</a></p><p>當輸入錯的 Rails 命令時，<code>run_command!</code> 負責拋出錯誤訊息。若命令是有效的，則會呼叫與命令同名的方法。</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 COMMAND_WHITELIST = %(plugin generate destroy console server dbconsole application runner new version help)
@@ -361,8 +361,8 @@ module Rails
 
 </pre>
 </div>
-<p><code>fileutils</code> 和 <code>optparse</code> 是 Ruby 的標準函式庫，用來處理檔案與解析命令行參數。</p><h4 id="actionpack/lib/action_dispatch.rb">1.7 <code>actionpack/lib/action_dispatch.rb</code>
-</h4><p><a href="https://github.com/rails/rails/blob/master/actionpack/lib/action_dispatch.rb">View Source</a></p><p>Action Dispatch 是 Rails 框架負責處理路由的元件。為 Rails 加入像是路由、Session 以及常見的 Middlewares。</p><h4 id="rails/commands/server.rb">1.8 <code>rails/commands/server.rb</code>
+<p><code>fileutils</code> 和 <code>optparse</code> 是 Ruby 的標準函式庫，用來處理檔案與解析命令行參數。</p><h4 id="actionpack-lib-action-dispatch-rb">1.7 <code>actionpack/lib/action_dispatch.rb</code>
+</h4><p><a href="https://github.com/rails/rails/blob/master/actionpack/lib/action_dispatch.rb">View Source</a></p><p>Action Dispatch 是 Rails 框架負責處理路由的元件。為 Rails 加入像是路由、Session 以及常見的 Middlewares。</p><h4 id="rails-commands-server-rb">1.8 <code>rails/commands/server.rb</code>
 </h4><p><a href="https://github.com/rails/rails/blob/master/railties/lib/rails/commands/server.rb">View Source</a></p><p><code>Rails::Server</code> 在這個檔案裡定義，繼承自 <code>Rack::Server</code>。呼叫 <code>Rails::Server.new</code> 時，會呼叫 <a href="https://github.com/rails/rails/blob/master/railties/lib/rails/commands/server.rb"><code>rails/commands/server.rb</code></a> 裡的 <code>initialize</code> 方法：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 def initialize(*)
@@ -372,7 +372,7 @@ end
 
 </pre>
 </div>
-<p>首先呼叫 <code>super</code>，<code>super</code> 會呼叫 <code>Rack::Server</code> 的 <code>initialize</code>。</p><h4 id="啟動！-rack:-lib/rack/server.rb">1.9 Rack: <code>lib/rack/server.rb</code>
+<p>首先呼叫 <code>super</code>，<code>super</code> 會呼叫 <code>Rack::Server</code> 的 <code>initialize</code>。</p><h4 id="啟動--rack-lib-rack-server-rb">1.9 Rack: <code>lib/rack/server.rb</code>
 </h4><p><a href="https://github.com/rack/rack/blob/master/lib/rack/server.rb">View Source</a></p><p><code>Rack::Server</code> 負責給所有基於 Rack 的應用程式，提供通用的伺服器接口（interface），Rails 也是基於 Rack 的應用程式。</p><p><code>Rack::Server</code> 的 <code>initialize</code> 方法只是設定幾個變數而已：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 def initialize(options = nil)
@@ -473,14 +473,14 @@ end
 
 </pre>
 </div>
-<h4 id="啟動！-config/application.rb">1.10 <code>config/application.rb</code>
+<h4 id="啟動--config-application-rb">1.10 <code>config/application.rb</code>
 </h4><p>當 <code>require APP_PATH</code> 執行時，會載入 <code>config/application.rb</code>。回想一下，<code>APP_PATH</code> 在 Rails 應用程式下的 <code>bin/rails</code> 裡定義：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 APP_PATH = File.expand_path('../../config/application',  __FILE__)
 
 </pre>
 </div>
-<p><code>config/application.rb</code> 裡放的是任何要對應用程式修改的設定。</p><h4 id="rails::server#start">1.11 <code>Rails::Server#start</code>
+<p><code>config/application.rb</code> 裡放的是任何要對應用程式修改的設定。</p><h4 id="rails-server-start">1.11 <code>Rails::Server#start</code>
 </h4><p><a href="https://github.com/rails/rails/blob/master/railties/lib/rails/commands/server.rb#L70-L81">View Source</a></p><p><code>config/application.rb</code> 載入完畢後，呼叫了 <code>server.start</code>。<code>#start</code> 方法的定義是：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 def start
@@ -625,7 +625,7 @@ require ::File.expand_path('../config/environment', __FILE__)
 
 </pre>
 </div>
-<h4 id="config/environment.rb">1.12 <code>config/environment.rb</code>
+<h4 id="config-environment-rb">1.12 <code>config/environment.rb</code>
 </h4><p>這個檔案通常由 <code>config.ru</code>（即 <code>rails server</code>）與 Passenger <code>require</code> 進來。這也是兩種啟動伺服器方法首次相遇的地方。在這之前都只是在設定 Rack 與 Rails 而已。</p><p>這個檔案從 <code>require</code> <code>config/application.rb</code> 開始：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 # Load the Rails application.
@@ -633,7 +633,7 @@ require File.expand_path('../application', __FILE__)
 
 </pre>
 </div>
-<h4 id="啟動！-config/application.rb">1.13 <code>config/application.rb</code>
+<h4 id="啟動--config-application-rb">1.13 <code>config/application.rb</code>
 </h4><p>這個檔案 <code>require</code> <code>config/boot.rb</code>:</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 require File.expand_path('../boot', __FILE__)
@@ -646,7 +646,7 @@ require 'rails/all'
 
 </pre>
 </div>
-<h4 id="railties/lib/rails/all.rb">2.1 <code>railties/lib/rails/all.rb</code>
+<h4 id="railties-lib-rails-all-rb">2.1 <code>railties/lib/rails/all.rb</code>
 </h4><p><a href="https://github.com/rails/rails/blob/master/railties/lib/rails/all.rb">View Source</a></p><p>這個檔案負責 <code>require</code> Rails 框架的各個元件：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 require "rails"
@@ -667,8 +667,8 @@ end
 
 </pre>
 </div>
-<p>這是整個 Rails 框架載入的地方，讓每個元件在應用程式裡都可以使用。每個部分怎麼載入的不深入探究，但有興趣可以自己深入研究。</p><p>現在只要記得，共用的功能像是 Rails 引擎、I18n 以及 Rails 所有的設定都是在這裡定義完成。</p><h4 id="回到-config/environment.rb">2.2 回到 <code>config/environment.rb</code>
-</h4><p><code>config/application.rb</code> 的其他部分定義了 <code>Rails::Application</code> 的設定，這些設定在應用程式啟動完畢時會全部載入進來。當 <code>config/application.rb</code> 載入 Rails 完畢時，以及應用程式命名空間定義完畢時，會回到應用程式初始化的地方，也就是 <code>config/environment.rb</code>。舉個例子，若應用程式叫做 <code>Blog</code>，則會找到 <code>Rails.application.initialize!</code>，這個方法在 <code>rails/application.rb</code> 裡定義。</p><h4 id="railties/lib/rails/application.rb">2.3 <code>railties/lib/rails/application.rb</code>
+<p>這是整個 Rails 框架載入的地方，讓每個元件在應用程式裡都可以使用。每個部分怎麼載入的不深入探究，但有興趣可以自己深入研究。</p><p>現在只要記得，共用的功能像是 Rails 引擎、I18n 以及 Rails 所有的設定都是在這裡定義完成。</p><h4 id="回到-config-environment-rb">2.2 回到 <code>config/environment.rb</code>
+</h4><p><code>config/application.rb</code> 的其他部分定義了 <code>Rails::Application</code> 的設定，這些設定在應用程式啟動完畢時會全部載入進來。當 <code>config/application.rb</code> 載入 Rails 完畢時，以及應用程式命名空間定義完畢時，會回到應用程式初始化的地方，也就是 <code>config/environment.rb</code>。舉個例子，若應用程式叫做 <code>Blog</code>，則會找到 <code>Rails.application.initialize!</code>，這個方法在 <code>rails/application.rb</code> 裡定義。</p><h4 id="railties-lib-rails-application-rb">2.3 <code>railties/lib/rails/application.rb</code>
 </h4><p><a href="https://github.com/rails/rails/blob/master/railties/lib/rails/application.rb">View Source</a></p><p><code>initialize!</code> 方法：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 def initialize!(group=:default) #:nodoc:
@@ -692,7 +692,7 @@ end
 
 </pre>
 </div>
-<p><code>run_initializers</code> 很巧妙。在這裡會遍歷所有類別的祖先，找出有回應 <code>initializers</code> 方法的類別。接著按名稱將這些類別排序，再執行它們。舉例來說，<code>Engine</code> 類別透過給每個 Engine 提供 <code>initializers</code> 方法，讓這些 Engine 都可以引用進來。</p><p>Rails::Application 類別（在 <a href="https://github.com/rails/rails/blob/master/railties/lib/rails/application.rb"><code>railties/lib/rails/application.rb</code></a> 裡定義）定義了 bootstrap、railtie、finisher 這三個 Initializers。第一個執行的 Initializer 是 bootstrap，bootstrap 將應用程式準備好（像是初始化 logger），而 finisher initializer 則是最後執行（像是把 Middleware 都建好）。而 railtie initializers 則是在 <code>Rails::Application</code> 裡定義，在 bootstrap 與 finisher 之間執行。</p><p>Initializers 都執行完畢後，回到 <code>Rack::Server</code>。</p><h4 id="載入-rails-rack:-lib/rack/server.rb">2.4 Rack: lib/rack/server.rb</h4><p><a href="https://github.com/rack/rack/blob/master/lib/rack/server.rb">View Source</a></p><p>在 <a href="#%E5%95%9F%E5%8B%95%EF%BC%81-rack:-lib/rack/server.rb">1.9 小節</a> ，我們看過 <code>app</code> 是如何被定義的：</p><div class="code_container">
+<p><code>run_initializers</code> 很巧妙。在這裡會遍歷所有類別的祖先，找出有回應 <code>initializers</code> 方法的類別。接著按名稱將這些類別排序，再執行它們。舉例來說，<code>Engine</code> 類別透過給每個 Engine 提供 <code>initializers</code> 方法，讓這些 Engine 都可以引用進來。</p><p>Rails::Application 類別（在 <a href="https://github.com/rails/rails/blob/master/railties/lib/rails/application.rb"><code>railties/lib/rails/application.rb</code></a> 裡定義）定義了 bootstrap、railtie、finisher 這三個 Initializers。第一個執行的 Initializer 是 bootstrap，bootstrap 將應用程式準備好（像是初始化 logger），而 finisher initializer 則是最後執行（像是把 Middleware 都建好）。而 railtie initializers 則是在 <code>Rails::Application</code> 裡定義，在 bootstrap 與 finisher 之間執行。</p><p>Initializers 都執行完畢後，回到 <code>Rack::Server</code>。</p><h4 id="載入-rails-rack-lib-rack-server-rb">2.4 Rack: lib/rack/server.rb</h4><p><a href="https://github.com/rack/rack/blob/master/lib/rack/server.rb">View Source</a></p><p>在 <a href="#%E5%95%9F%E5%8B%95%EF%BC%81-rack:-lib/rack/server.rb">1.9 小節</a> ，我們看過 <code>app</code> 是如何被定義的：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 def app
   @app ||= options[:builder] ? build_app_from_string : build_app_and_options_from_config

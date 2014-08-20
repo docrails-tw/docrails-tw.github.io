@@ -193,7 +193,7 @@
 <li><a href="#configuring-a-database">Configuring a Database</a></li>
 <li><a href="#connection-preference">Connection Preference</a></li>
 <li><a href="#creating-rails-environments">Creating Rails Environments</a></li>
-<li><a href="#deploy-to-a-subdirectory-(relative-url-root)">Deploy to a subdirectory (relative url root)</a></li>
+<li><a href="#deploy-to-a-subdirectory-relative-url-root-">Deploy to a subdirectory (relative url root)</a></li>
 </ul>
 </li>
 <li><a href="#rails-environment-settings">Rails Environment Settings</a></li>
@@ -202,7 +202,7 @@
 <a href="#initialization-events">Initialization events</a>
 
 <ul>
-<li><a href="#rails::railtie#initializer"><code>Rails::Railtie#initializer</code></a></li>
+<li><a href="#rails-railtie-initializer"><code>Rails::Railtie#initializer</code></a></li>
 <li><a href="#initializers">Initializers</a></li>
 </ul>
 </li>
@@ -834,7 +834,7 @@ development:
 
 </pre>
 </div>
-<p>Change the username and password in the <code>development</code> section as appropriate.</p><h4 id="creating-rails-environments">3.14 Creating Rails Environments</h4><p>By default Rails ships with three environments: "development", "test", and "production". While these are sufficient for most use cases, there are circumstances when you want more environments.</p><p>Imagine you have a server which mirrors the production environment but is only used for testing. Such a server is commonly called a "staging server". To define an environment called "staging" for this server, just create a file called <code>config/environments/staging.rb</code>. Please use the contents of any existing file in <code>config/environments</code> as a starting point and make the necessary changes from there.</p><p>That environment is no different than the default ones, start a server with <code>rails server -e staging</code>, a console with <code>rails console staging</code>, <code>Rails.env.staging?</code> works, etc.</p><h4 id="deploy-to-a-subdirectory-(relative-url-root)">3.15 Deploy to a subdirectory (relative url root)</h4><p>By default Rails expects that your application is running at the root
+<p>Change the username and password in the <code>development</code> section as appropriate.</p><h4 id="creating-rails-environments">3.14 Creating Rails Environments</h4><p>By default Rails ships with three environments: "development", "test", and "production". While these are sufficient for most use cases, there are circumstances when you want more environments.</p><p>Imagine you have a server which mirrors the production environment but is only used for testing. Such a server is commonly called a "staging server". To define an environment called "staging" for this server, just create a file called <code>config/environments/staging.rb</code>. Please use the contents of any existing file in <code>config/environments</code> as a starting point and make the necessary changes from there.</p><p>That environment is no different than the default ones, start a server with <code>rails server -e staging</code>, a console with <code>rails console staging</code>, <code>Rails.env.staging?</code> works, etc.</p><h4 id="deploy-to-a-subdirectory-relative-url-root-">3.15 Deploy to a subdirectory (relative url root)</h4><p>By default Rails expects that your application is running at the root
 (eg. <code>/</code>). This section explains how to run your application inside a directory.</p><p>Let's assume we want to deploy our application to "/app1". Rails needs to know
 this directory to generate the appropriate routes:</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
@@ -911,7 +911,7 @@ end
 
 </pre>
 </div>
-<div class="warning"><p>Some parts of your application, notably routing, are not yet set up at the point where the <code>after_initialize</code> block is called.</p></div><h4 id="rails::railtie#initializer">6.1 <code>Rails::Railtie#initializer</code>
+<div class="warning"><p>Some parts of your application, notably routing, are not yet set up at the point where the <code>after_initialize</code> block is called.</p></div><h4 id="rails-railtie-initializer">6.1 <code>Rails::Railtie#initializer</code>
 </h4><p>Rails has several initializers that run on startup that are all defined by using the <code>initializer</code> method from <code>Rails::Railtie</code>. Here's an example of the <code>set_helpers_path</code> initializer from Action Controller:</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 initializer "action_controller.set_helpers_path" do |app|

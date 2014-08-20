@@ -200,7 +200,7 @@
 
 <ul>
 <li><a href="#configure-the-i18n-module">Configure the I18n Module</a></li>
-<li><a href="#optional:-custom-i18n-configuration-setup">Optional: Custom I18n Configuration Setup</a></li>
+<li><a href="#optional-custom-i18n-configuration-setup">Optional: Custom I18n Configuration Setup</a></li>
 <li><a href="#setting-and-passing-the-locale">Setting and Passing the Locale</a></li>
 <li><a href="#setting-the-locale-from-the-domain-name">Setting the Locale from the Domain Name</a></li>
 <li><a href="#setting-the-locale-from-the-url-params">Setting the Locale from the URL Params</a></li>
@@ -213,7 +213,7 @@
 <ul>
 <li><a href="#adding-translations">Adding Translations</a></li>
 <li><a href="#passing-variables-to-translations">Passing variables to translations</a></li>
-<li><a href="#adding-date/time-formats">Adding Date/Time Formats</a></li>
+<li><a href="#adding-date-time-formats">Adding Date/Time Formats</a></li>
 <li><a href="#inflection-rules-for-other-locales">Inflection Rules For Other Locales</a></li>
 <li><a href="#localized-views">Localized Views</a></li>
 <li><a href="#organization-of-locale-files">Organization of Locale Files</a></li>
@@ -306,7 +306,7 @@ en:
 
 </pre>
 </div>
-<h4 id="optional:-custom-i18n-configuration-setup">2.2 Optional: Custom I18n Configuration Setup</h4><p>For the sake of completeness, let's mention that if you do not want to use the <code>application.rb</code> file for some reason, you can always wire up things manually, too.</p><p>To tell the I18n library where it can find your custom translation files you can specify the load path anywhere in your application - just make sure it gets run before any translations are actually looked up. You might also want to change the default locale. The simplest thing possible is to put the following into an initializer:</p><div class="code_container">
+<h4 id="optional-custom-i18n-configuration-setup">2.2 Optional: Custom I18n Configuration Setup</h4><p>For the sake of completeness, let's mention that if you do not want to use the <code>application.rb</code> file for some reason, you can always wire up things manually, too.</p><p>To tell the I18n library where it can find your custom translation files you can specify the load path anywhere in your application - just make sure it gets run before any translations are actually looked up. You might also want to change the default locale. The simplest thing possible is to put the following into an initializer:</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 # in config/initializers/locale.rb
 
@@ -425,7 +425,7 @@ private
 
 </pre>
 </div>
-<p>Of course, in a production environment you would need much more robust code, and could use a plugin such as Iain Hecker's <a href="https://github.com/iain/http_accept_language/tree/master">http_accept_language</a> or even Rack middleware such as Ryan Tomayko's <a href="https://github.com/rack/rack-contrib/blob/master/lib/rack/contrib/locale.rb">locale</a>.</p><h5 id="using-geoip-(or-similar)-database">2.6.2 Using GeoIP (or Similar) Database</h5><p>Another way of choosing the locale from client information would be to use a database for mapping the client IP to the region, such as <a href="http://www.maxmind.com/app/geolitecountry">GeoIP Lite Country</a>. The mechanics of the code would be very similar to the code above - you would need to query the database for the user's IP, and look up your preferred locale for the country/region/city returned.</p><h5 id="user-profile">2.6.3 User Profile</h5><p>You can also provide users of your application with means to set (and possibly over-ride) the locale in your application interface, as well. Again, mechanics for this approach would be very similar to the code above - you'd probably let users choose a locale from a dropdown list and save it to their profile in the database. Then you'd set the locale to this value.</p><h3 id="internationalizing-your-application">3 Internationalizing your Application</h3><p>OK! Now you've initialized I18n support for your Ruby on Rails application and told it which locale to use and how to preserve it between requests. With that in place, you're now ready for the really interesting stuff.</p><p>Let's <em>internationalize</em> our application, i.e. abstract every locale-specific parts, and then <em>localize</em> it, i.e. provide necessary translations for these abstracts.</p><p>You most probably have something like this in one of your applications:</p><div class="code_container">
+<p>Of course, in a production environment you would need much more robust code, and could use a plugin such as Iain Hecker's <a href="https://github.com/iain/http_accept_language/tree/master">http_accept_language</a> or even Rack middleware such as Ryan Tomayko's <a href="https://github.com/rack/rack-contrib/blob/master/lib/rack/contrib/locale.rb">locale</a>.</p><h5 id="using-geoip-or-similar-database">2.6.2 Using GeoIP (or Similar) Database</h5><p>Another way of choosing the locale from client information would be to use a database for mapping the client IP to the region, such as <a href="http://www.maxmind.com/app/geolitecountry">GeoIP Lite Country</a>. The mechanics of the code would be very similar to the code above - you would need to query the database for the user's IP, and look up your preferred locale for the country/region/city returned.</p><h5 id="user-profile">2.6.3 User Profile</h5><p>You can also provide users of your application with means to set (and possibly over-ride) the locale in your application interface, as well. Again, mechanics for this approach would be very similar to the code above - you'd probably let users choose a locale from a dropdown list and save it to their profile in the database. Then you'd set the locale to this value.</p><h3 id="internationalizing-your-application">3 Internationalizing your Application</h3><p>OK! Now you've initialized I18n support for your Ruby on Rails application and told it which locale to use and how to preserve it between requests. With that in place, you're now ready for the really interesting stuff.</p><p>Let's <em>internationalize</em> our application, i.e. abstract every locale-specific parts, and then <em>localize</em> it, i.e. provide necessary translations for these abstracts.</p><p>You most probably have something like this in one of your applications:</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 # config/routes.rb
 Rails.application.routes.draw do
@@ -514,7 +514,7 @@ en:
 
 </pre>
 </div>
-<h4 id="adding-date/time-formats">3.3 Adding Date/Time Formats</h4><p>OK! Now let's add a timestamp to the view, so we can demo the <strong>date/time localization</strong> feature as well. To localize the time format you pass the Time object to <code>I18n.l</code> or (preferably) use Rails' <code>#l</code> helper. You can pick a format by passing the <code>:format</code> option - by default the <code>:default</code> format is used.</p><div class="code_container">
+<h4 id="adding-date-time-formats">3.3 Adding Date/Time Formats</h4><p>OK! Now let's add a timestamp to the view, so we can demo the <strong>date/time localization</strong> feature as well. To localize the time format you pass the Time object to <code>I18n.l</code> or (preferably) use Rails' <code>#l</code> helper. You can pick a format by passing the <code>:format</code> option - by default the <code>:default</code> format is used.</p><div class="code_container">
 <pre class="brush: ruby; html-script: true; gutter: false; toolbar: false">
 # app/views/home/index.html.erb
 &lt;h1&gt;&lt;%=t :hello_world %&gt;&lt;/h1&gt;
@@ -574,7 +574,7 @@ pirate:
 <li>using safe HTML translations (view helper method only)</li>
 <li>localizing dates, numbers, currency, etc.</li>
 </ul>
-<h4 id="looking-up-translations">4.1 Looking up Translations</h4><h5 id="basic-lookup,-scopes-and-nested-keys">4.1.1 Basic Lookup, Scopes and Nested Keys</h5><p>Translations are looked up by keys which can be both Symbols or Strings, so these calls are equivalent:</p><div class="code_container">
+<h4 id="looking-up-translations">4.1 Looking up Translations</h4><h5 id="basic-lookup-scopes-and-nested-keys">4.1.1 Basic Lookup, Scopes and Nested Keys</h5><p>Translations are looked up by keys which can be both Symbols or Strings, so these calls are equivalent:</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 I18n.t :message
 I18n.t 'message'
@@ -630,7 +630,7 @@ I18n.t 'activerecord.errors.messages'
 
 </pre>
 </div>
-<h5 id='"lazy"-lookup'>4.1.4 "Lazy" Lookup</h5><p>Rails implements a convenient way to look up the locale inside <em>views</em>. When you have the following dictionary:</p><div class="code_container">
+<h5 id="-lazy-lookup">4.1.4 "Lazy" Lookup</h5><p>Rails implements a convenient way to look up the locale inside <em>views</em>. When you have the following dictionary:</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 es:
   books:
@@ -954,7 +954,7 @@ errors.messages.blank
 </tr>
 </tbody>
 </table>
-<h5 id="translations-for-the-active-record-error_messages_for-helper">4.6.3 Translations for the Active Record <code>error_messages_for</code> Helper</h5><p>If you are using the Active Record <code>error_messages_for</code> helper, you will want to add
+<h5 id="translations-for-the-active-record-error-messages-for-helper">4.6.3 Translations for the Active Record <code>error_messages_for</code> Helper</h5><p>If you are using the Active Record <code>error_messages_for</code> helper, you will want to add
 translations for it.</p><p>Rails ships with the following translations:</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 en:

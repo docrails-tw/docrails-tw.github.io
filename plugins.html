@@ -191,13 +191,13 @@ goodness.</p>
 <a href="#setup">Setup</a>
 
 <ul>
-<li><a href="#generate-a-gemified-plugin.">Generate a gemified plugin.</a></li>
+<li><a href="#generate-a-gemified-plugin-">Generate a gemified plugin.</a></li>
 </ul>
 </li>
 <li><a href="#testing-your-newly-generated-plugin">Testing Your Newly Generated Plugin</a></li>
 <li><a href="#extending-core-classes">Extending Core Classes</a></li>
 <li>
-<a href="#add-an-%22acts_as%22-method-to-active-record">Add an "acts_as" Method to Active Record</a>
+<a href="#add-an-acts-as-method-to-active-record">Add an "acts_as" Method to Active Record</a>
 
 <ul>
 <li><a href="#add-a-class-method">Add a Class Method</a></li>
@@ -224,7 +224,7 @@ goodness.</p>
     <div class="wrapper">
       <div id="mainCol">
         <h3 id="setup">1 Setup</h3><p>Currently, Rails plugins are built as gems, <em>gemified plugins</em>. They can be shared across
-different rails applications using RubyGems and Bundler if desired.</p><h4 id="generate-a-gemified-plugin.">1.1 Generate a gemified plugin.</h4><p>Rails ships with a <code>rails plugin new</code> command which creates a
+different rails applications using RubyGems and Bundler if desired.</p><h4 id="generate-a-gemified-plugin-">1.1 Generate a gemified plugin.</h4><p>Rails ships with a <code>rails plugin new</code> command which creates a
 skeleton for developing any kind of Rails extension with the ability
 to run integration tests using a dummy Rails application. Create your
 plugin with the command:</p><div class="code_container">
@@ -306,7 +306,7 @@ $ bin/rails console
 
 </pre>
 </div>
-<h3 id='add-an-"acts_as"-method-to-active-record'>4 Add an "acts_as" Method to Active Record</h3><p>A common pattern in plugins is to add a method called <code>acts_as_something</code> to models. In this case, you
+<h3 id="add-an-acts-as-method-to-active-record">4 Add an "acts_as" Method to Active Record</h3><p>A common pattern in plugins is to add a method called <code>acts_as_something</code> to models. In this case, you
 want to write a method called <code>acts_as_yaffle</code> that adds a <code>squawk</code> method to your Active Record models.</p><p>To begin, set up your files so that you have:</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 # yaffle/test/acts_as_yaffle_test.rb

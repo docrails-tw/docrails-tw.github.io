@@ -177,7 +177,7 @@
 </ul>
 </li>
 <li><a href="#documentation">Documentation</a></li>
-<li><a href="#ruby-1.9.1-support">Ruby 1.9.1 Support</a></li>
+<li><a href="#ruby-1-9-1-support">Ruby 1.9.1 Support</a></li>
 <li>
 <a href="#active-record">Active Record</a>
 
@@ -203,7 +203,7 @@
 <li><a href="#more-efficient-routing">More Efficient Routing</a></li>
 <li><a href="#rack-based-lazy-loaded-sessions">Rack-based Lazy-loaded Sessions</a></li>
 <li><a href="#mime-type-handling-changes">MIME Type Handling Changes</a></li>
-<li><a href="#optimization-of-respond_to">Optimization of <code>respond_to</code></a></li>
+<li><a href="#optimization-of-respond-to">Optimization of <code>respond_to</code></a></li>
 <li><a href="#improved-caching-performance">Improved Caching Performance</a></li>
 <li><a href="#localized-views">Localized Views</a></li>
 <li><a href="#partial-scoping-for-translations">Partial Scoping for Translations</a></li>
@@ -219,7 +219,7 @@
 <li><a href="#prompts-for-date-select-helpers">Prompts for Date Select Helpers</a></li>
 <li><a href="#assettag-timestamp-caching">AssetTag Timestamp Caching</a></li>
 <li><a href="#asset-hosts-as-objects">Asset Hosts as Objects</a></li>
-<li><a href="#grouped_options_for_select-helper-method">grouped_options_for_select Helper Method</a></li>
+<li><a href="#grouped-options-for-select-helper-method">grouped_options_for_select Helper Method</a></li>
 <li><a href="#disabled-option-tags-for-form-select-helpers">Disabled Option Tags for Form Select Helpers</a></li>
 <li><a href="#a-note-about-template-loading">A Note About Template Loading</a></li>
 <li><a href="#other-action-view-changes">Other Action View Changes</a></li>
@@ -229,8 +229,8 @@
 <a href="#active-support">Active Support</a>
 
 <ul>
-<li><a href="#object#try">Object#try</a></li>
-<li><a href="#object#tap-backport">Object#tap Backport</a></li>
+<li><a href="#object-try">Object#try</a></li>
+<li><a href="#object-tap-backport">Object#tap Backport</a></li>
 <li><a href="#swappable-parsers-for-xmlmini">Swappable Parsers for XMLmini</a></li>
 <li><a href="#fractional-seconds-for-timewithzone">Fractional seconds for TimeWithZone</a></li>
 <li><a href="#json-key-quoting">JSON Key Quoting</a></li>
@@ -244,7 +244,7 @@
 <li><a href="#rails-metal">Rails Metal</a></li>
 <li><a href="#application-templates">Application Templates</a></li>
 <li><a href="#quieter-backtraces">Quieter Backtraces</a></li>
-<li><a href="#faster-boot-time-in-development-mode-with-lazy-loading/autoload">Faster Boot Time in Development Mode with Lazy Loading/Autoload</a></li>
+<li><a href="#faster-boot-time-in-development-mode-with-lazy-loading-autoload">Faster Boot Time in Development Mode with Lazy Loading/Autoload</a></li>
 <li><a href="#rake-gem-task-rewrite">rake gem Task Rewrite</a></li>
 <li><a href="#other-railties-changes">Other Railties Changes</a></li>
 </ul>
@@ -307,7 +307,7 @@
 <li>More Information: <a href="http://weblog.rubyonrails.org/2009/1/15/rails-documentation-projects.">Rails Documentation Projects</a>
 </li>
 </ul>
-<h3 id="ruby-1.9.1-support">3 Ruby 1.9.1 Support</h3><p>Rails 2.3 should pass all of its own tests whether you are running on Ruby 1.8 or the now-released Ruby 1.9.1. You should be aware, though, that moving to 1.9.1 entails checking all of the data adapters, plugins, and other code that you depend on for Ruby 1.9.1 compatibility, as well as Rails core.</p><h3 id="active-record">4 Active Record</h3><p>Active Record gets quite a number of new features and bug fixes in Rails 2.3. The highlights include nested attributes, nested transactions, dynamic and default scopes, and batch processing.</p><h4 id="nested-attributes">4.1 Nested Attributes</h4><p>Active Record can now update the attributes on nested models directly, provided you tell it to do so:</p><div class="code_container">
+<h3 id="ruby-1-9-1-support">3 Ruby 1.9.1 Support</h3><p>Rails 2.3 should pass all of its own tests whether you are running on Ruby 1.8 or the now-released Ruby 1.9.1. You should be aware, though, that moving to 1.9.1 entails checking all of the data adapters, plugins, and other code that you depend on for Ruby 1.9.1 compatibility, as well as Rails core.</p><h3 id="active-record">4 Active Record</h3><p>Active Record gets quite a number of new features and bug fixes in Rails 2.3. The highlights include nested attributes, nested transactions, dynamic and default scopes, and batch processing.</p><h4 id="nested-attributes">4.1 Nested Attributes</h4><p>Active Record can now update the attributes on nested models directly, provided you tell it to do so:</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Book &lt; ActiveRecord::Base
   has_one :author
@@ -528,7 +528,7 @@ Mime::JS =~ "application/javascript" =&gt; true
 <li>Lead Contributor: <a href="http://www.workingwithrails.com/person/5510-seth-fitzsimmons">Seth Fitzsimmons</a>
 </li>
 </ul>
-<h4 id="optimization-of-respond_to">5.7 Optimization of <code>respond_to</code>
+<h4 id="optimization-of-respond-to">5.7 Optimization of <code>respond_to</code>
 </h4><p>In some of the first fruits of the Rails-Merb team merger, Rails 2.3 includes some optimizations for the <code>respond_to</code> method, which is of course heavily used in many Rails applications to allow your controller to format results differently based on the MIME type of the incoming request. After eliminating a call to <code>method_missing</code> and some profiling and tweaking, we're seeing an 8% improvement in the number of requests per second served with a simple <code>respond_to</code> that switches between three formats. The best part? No change at all required to the code of your application to take advantage of this speedup.</p><h4 id="improved-caching-performance">5.8 Improved Caching Performance</h4><p>Rails now keeps a per-request local cache of read from the remote cache stores, cutting down on unnecessary reads and leading to better site performance. While this work was originally limited to <code>MemCacheStore</code>, it is available to any remote store than implements the required methods.</p>
 <ul>
 <li>Lead Contributor: <a href="http://www.motionstandingstill.com/">Nahum Wild</a>
@@ -646,7 +646,7 @@ select_datetime(DateTime.now, :prompt =&gt;
 <li>More Information: <a href="http://github.com/dhh/asset-hosting-with-minimum-ssl/tree/master">asset-hosting-with-minimum-ssl</a>
 </li>
 </ul>
-<h4 id="grouped_options_for_select-helper-method">6.6 grouped_options_for_select Helper Method</h4><p>Action View already had a bunch of helpers to aid in generating select controls, but now there's one more: <code>grouped_options_for_select</code>. This one accepts an array or hash of strings, and converts them into a string of <code>option</code> tags wrapped with <code>optgroup</code> tags. For example:</p><div class="code_container">
+<h4 id="grouped-options-for-select-helper-method">6.6 grouped_options_for_select Helper Method</h4><p>Action View already had a bunch of helpers to aid in generating select controls, but now there's one more: <code>grouped_options_for_select</code>. This one accepts an array or hash of strings, and converts them into a string of <code>option</code> tags wrapped with <code>optgroup</code> tags. For example:</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 grouped_options_for_select([["Hats", ["Baseball Cap","Cowboy Hat"]]],
   "Cowboy Hat", "Choose a product...")
@@ -708,12 +708,12 @@ config.action_view.cache_template_loading = true
 <li>
 <code>current_page?</code> now works properly even when there are multiple query parameters in the URL.</li>
 </ul>
-<h3 id="active-support">7 Active Support</h3><p>Active Support has a few interesting changes, including the introduction of <code>Object#try</code>.</p><h4 id="object#try">7.1 Object#try</h4><p>A lot of folks have adopted the notion of using try() to attempt operations on objects. It's especially helpful in views where you can avoid nil-checking by writing code like <code>&lt;%= @person.try(:name) %&gt;</code>. Well, now it's baked right into Rails. As implemented in Rails, it raises <code>NoMethodError</code> on private methods and always returns <code>nil</code> if the object is nil.</p>
+<h3 id="active-support">7 Active Support</h3><p>Active Support has a few interesting changes, including the introduction of <code>Object#try</code>.</p><h4 id="object-try">7.1 Object#try</h4><p>A lot of folks have adopted the notion of using try() to attempt operations on objects. It's especially helpful in views where you can avoid nil-checking by writing code like <code>&lt;%= @person.try(:name) %&gt;</code>. Well, now it's baked right into Rails. As implemented in Rails, it raises <code>NoMethodError</code> on private methods and always returns <code>nil</code> if the object is nil.</p>
 <ul>
 <li>More Information: <a href="http://ozmm.org/posts/try.html.">try()</a>
 </li>
 </ul>
-<h4 id="object#tap-backport">7.2 Object#tap Backport</h4><p><code>Object#tap</code> is an addition to <a href="http://www.ruby-doc.org/core-1.9/classes/Object.html#M000309">Ruby 1.9</a> and 1.8.7 that is similar to the <code>returning</code> method that Rails has had for a while: it yields to a block, and then returns the object that was yielded. Rails now includes code to make this available under older versions of Ruby as well.</p><h4 id="swappable-parsers-for-xmlmini">7.3 Swappable Parsers for XMLmini</h4><p>The support for XML parsing in Active Support has been made more flexible by allowing you to swap in different parsers. By default, it uses the standard REXML implementation, but you can easily specify the faster LibXML or Nokogiri implementations for your own applications, provided you have the appropriate gems installed:</p><div class="code_container">
+<h4 id="object-tap-backport">7.2 Object#tap Backport</h4><p><code>Object#tap</code> is an addition to <a href="http://www.ruby-doc.org/core-1.9/classes/Object.html#M000309">Ruby 1.9</a> and 1.8.7 that is similar to the <code>returning</code> method that Rails has had for a while: it yields to a block, and then returns the object that was yielded. Rails now includes code to make this available under older versions of Ruby as well.</p><h4 id="swappable-parsers-for-xmlmini">7.3 Swappable Parsers for XMLmini</h4><p>The support for XML parsing in Active Support has been made more flexible by allowing you to swap in different parsers. By default, it uses the standard REXML implementation, but you can easily specify the faster LibXML or Nokogiri implementations for your own applications, provided you have the appropriate gems installed:</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 XmlMini.backend = 'LibXML'
 
@@ -780,7 +780,7 @@ rake rails:template LOCATION=~/template.rb
 <li>More Info:<a href="http://m.onkey.org/2008/12/4/rails-templates">Rails templates</a>
 </li>
 </ul>
-<h4 id="quieter-backtraces">8.3 Quieter Backtraces</h4><p>Building on Thoughtbot's <a href="https://github.com/thoughtbot/quietbacktrace">Quiet Backtrace</a> plugin, which allows you to selectively remove lines from <code>Test::Unit</code> backtraces, Rails 2.3 implements <code>ActiveSupport::BacktraceCleaner</code> and <code>Rails::BacktraceCleaner</code> in core. This supports both filters (to perform regex-based substitutions on backtrace lines) and silencers (to remove backtrace lines entirely). Rails automatically adds silencers to get rid of the most common noise in a new application, and builds a <code>config/backtrace_silencers.rb</code> file to hold your own additions. This feature also enables prettier printing from any gem in the backtrace.</p><h4 id="faster-boot-time-in-development-mode-with-lazy-loading/autoload">8.4 Faster Boot Time in Development Mode with Lazy Loading/Autoload</h4><p>Quite a bit of work was done to make sure that bits of Rails (and its dependencies) are only brought into memory when they're actually needed. The core frameworks - Active Support, Active Record, Action Controller, Action Mailer and Action View - are now using <code>autoload</code> to lazy-load their individual classes. This work should help keep the memory footprint down and improve overall Rails performance.</p><p>You can also specify (by using the new <code>preload_frameworks</code> option) whether the core libraries should be autoloaded at startup. This defaults to <code>false</code> so that Rails autoloads itself piece-by-piece, but there are some circumstances where you still need to bring in everything at once - Passenger and JRuby both want to see all of Rails loaded together.</p><h4 id="rake-gem-task-rewrite">8.5 rake gem Task Rewrite</h4><p>The internals of the various <code>rake gem</code> tasks have been substantially revised, to make the system work better for a variety of cases. The gem system now knows the difference between development and runtime dependencies, has a more robust unpacking system, gives better information when querying for the status of gems, and is less prone to "chicken and egg" dependency issues when you're bringing things up from scratch. There are also fixes for using gem commands under JRuby and for dependencies that try to bring in external copies of gems that are already vendored.</p>
+<h4 id="quieter-backtraces">8.3 Quieter Backtraces</h4><p>Building on Thoughtbot's <a href="https://github.com/thoughtbot/quietbacktrace">Quiet Backtrace</a> plugin, which allows you to selectively remove lines from <code>Test::Unit</code> backtraces, Rails 2.3 implements <code>ActiveSupport::BacktraceCleaner</code> and <code>Rails::BacktraceCleaner</code> in core. This supports both filters (to perform regex-based substitutions on backtrace lines) and silencers (to remove backtrace lines entirely). Rails automatically adds silencers to get rid of the most common noise in a new application, and builds a <code>config/backtrace_silencers.rb</code> file to hold your own additions. This feature also enables prettier printing from any gem in the backtrace.</p><h4 id="faster-boot-time-in-development-mode-with-lazy-loading-autoload">8.4 Faster Boot Time in Development Mode with Lazy Loading/Autoload</h4><p>Quite a bit of work was done to make sure that bits of Rails (and its dependencies) are only brought into memory when they're actually needed. The core frameworks - Active Support, Active Record, Action Controller, Action Mailer and Action View - are now using <code>autoload</code> to lazy-load their individual classes. This work should help keep the memory footprint down and improve overall Rails performance.</p><p>You can also specify (by using the new <code>preload_frameworks</code> option) whether the core libraries should be autoloaded at startup. This defaults to <code>false</code> so that Rails autoloads itself piece-by-piece, but there are some circumstances where you still need to bring in everything at once - Passenger and JRuby both want to see all of Rails loaded together.</p><h4 id="rake-gem-task-rewrite">8.5 rake gem Task Rewrite</h4><p>The internals of the various <code>rake gem</code> tasks have been substantially revised, to make the system work better for a variety of cases. The gem system now knows the difference between development and runtime dependencies, has a more robust unpacking system, gives better information when querying for the status of gems, and is less prone to "chicken and egg" dependency issues when you're bringing things up from scratch. There are also fixes for using gem commands under JRuby and for dependencies that try to bring in external copies of gems that are already vendored.</p>
 <ul>
 <li>Lead Contributor: <a href="http://www.workingwithrails.com/person/12240-david-dollar">David Dollar</a>
 </li>

@@ -192,10 +192,10 @@
 
 <ul>
 <li><a href="#gem"><code>gem</code></a></li>
-<li><a href="#gem_group"><code>gem_group</code></a></li>
-<li><a href="#add_source"><code>add_source</code></a></li>
-<li><a href="#inject_into_file"><code>inject_into_file</code></a></li>
-<li><a href="#gsub_file"><code>gsub_file</code></a></li>
+<li><a href="#gem-group"><code>gem_group</code></a></li>
+<li><a href="#add-source"><code>add_source</code></a></li>
+<li><a href="#inject-into-file"><code>inject_into_file</code></a></li>
+<li><a href="#gsub-file"><code>gsub_file</code></a></li>
 <li><a href="#application"><code>application</code></a></li>
 <li><a href="#git"><code>git</code></a></li>
 <li><a href="#vendor"><code>vendor</code></a></li>
@@ -612,7 +612,7 @@ gem "devise", git: "git://github.com/plataformatec/devise", branch: "master"
 
 </pre>
 </div>
-<h4 id="gem_group">9.2 <code>gem_group</code>
+<h4 id="gem-group">9.2 <code>gem_group</code>
 </h4><p>把 Gem 放入群組裡：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 gem_group :development, :test do
@@ -621,14 +621,14 @@ end
 
 </pre>
 </div>
-<h4 id="add_source">9.3 <code>add_source</code>
+<h4 id="add-source">9.3 <code>add_source</code>
 </h4><p>指定 <code>Gemfile</code> 使用的來源：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 add_source "http://gems.github.com"
 
 </pre>
 </div>
-<h4 id="inject_into_file">9.4 <code>inject_into_file</code>
+<h4 id="inject-into-file">9.4 <code>inject_into_file</code>
 </h4><p>注入一塊程式碼到檔案指定位置：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 inject_into_file 'name_of_file.rb', after: "#The code goes below this line. Don't forget the Line break at the end\n" do &lt;&lt;-'RUBY'
@@ -638,7 +638,7 @@ end
 
 </pre>
 </div>
-<h4 id="gsub_file">9.5 <code>gsub_file</code>
+<h4 id="gsub-file">9.5 <code>gsub_file</code>
 </h4><p>替換檔案裡的文字。</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 gsub_file 'name_of_file.rb', 'method.to_be_replaced', 'method.the_replacing_code'

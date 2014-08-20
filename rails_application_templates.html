@@ -178,20 +178,20 @@
 <a href="#%E6%A8%A1%E7%89%88-api">模版 API</a>
 
 <ul>
-<li><a href="#gem(*args)">gem(*args)</a></li>
-<li><a href="#gem_group(*names,-&amp;block)">gem_group(*names, &amp;block)</a></li>
-<li><a href="#add_source(source,-options-=-%7B%7D)">add_source(source, options = {})</a></li>
-<li><a href="#environment/application(data=nil,-options=%7B%7D,-&amp;block)">environment/application(data=nil, options={}, &amp;block)</a></li>
-<li><a href="#vendor/lib/file/initializer(filename,-data-=-nil,-&amp;block)">vendor/lib/file/initializer(filename, data = nil, &amp;block)</a></li>
-<li><a href="#rakefile(filename,-data-=-nil,-&amp;block)">rakefile(filename, data = nil, &amp;block)</a></li>
-<li><a href="#generate(what,-*args)">generate(what, *args)</a></li>
-<li><a href="#run(command)">run(command)</a></li>
-<li><a href="#rake(command,-options-=-%7B%7D)">rake(command, options = {})</a></li>
-<li><a href="#route(routing_code)">route(routing_code)</a></li>
-<li><a href="#inside(dir)">inside(dir)</a></li>
-<li><a href="#ask(question)">ask(question)</a></li>
-<li><a href="#yes-questionmark(question)-or-no-questionmark(question)">yes?(question) or no?(question)</a></li>
-<li><a href="#git(:command)">git(:command)</a></li>
+<li><a href="#gem-args-">gem(*args)</a></li>
+<li><a href="#gem-group-names-block-">gem_group(*names, &amp;block)</a></li>
+<li><a href="#add-source-source-options-">add_source(source, options = {})</a></li>
+<li><a href="#environment-application-data-nil-options-block-">environment/application(data=nil, options={}, &amp;block)</a></li>
+<li><a href="#vendor-lib-file-initializer-filename-data-nil-block-">vendor/lib/file/initializer(filename, data = nil, &amp;block)</a></li>
+<li><a href="#rakefile-filename-data-nil-block-">rakefile(filename, data = nil, &amp;block)</a></li>
+<li><a href="#generate-what-args-">generate(what, *args)</a></li>
+<li><a href="#run-command-">run(command)</a></li>
+<li><a href="#rake-command-options-">rake(command, options = {})</a></li>
+<li><a href="#route-routing-code-">route(routing_code)</a></li>
+<li><a href="#inside-dir-">inside(dir)</a></li>
+<li><a href="#ask-question-">ask(question)</a></li>
+<li><a href="#yes-questionmark-question-or-no-questionmark-question-">yes?(question) or no?(question)</a></li>
+<li><a href="#git-command-">git(:command)</a></li>
 </ul>
 </li>
 <li><a href="#%E9%80%B2%E9%9A%8E%E7%94%A8%E9%80%94">進階用途</a></li>
@@ -234,7 +234,7 @@ end
 
 </pre>
 </div>
-<p>下節概述模版 API 主要提供的方法：</p><h4 id="gem(*args)">2.1 gem(*args)</h4><p>新增 <code>gem</code> 到應用程式的 <code>Gemfile</code>。</p><p>舉個例子，加入 <code>bj</code> 與 <code>nokogiri</code> 到 <code>Gemfile</code>：</p><div class="code_container">
+<p>下節概述模版 API 主要提供的方法：</p><h4 id="gem-args-">2.1 gem(*args)</h4><p>新增 <code>gem</code> 到應用程式的 <code>Gemfile</code>。</p><p>舉個例子，加入 <code>bj</code> 與 <code>nokogiri</code> 到 <code>Gemfile</code>：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 gem "bj"
 gem "nokogiri"
@@ -247,7 +247,7 @@ bundle install
 
 </pre>
 </div>
-<h4 id="gem_group(*names,-&amp;block)">2.2 gem_group(*names, &amp;block)</h4><p>將 Gem 分組。</p><p>譬如只想要在開發與測試環境下載入 <code>rspec-rails</code>：</p><div class="code_container">
+<h4 id="gem-group-names-block-">2.2 gem_group(*names, &amp;block)</h4><p>將 Gem 分組。</p><p>譬如只想要在開發與測試環境下載入 <code>rspec-rails</code>：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 gem_group :development, :test do
   gem "rspec-rails"
@@ -255,19 +255,19 @@ end
 
 </pre>
 </div>
-<h4 id="add_source(source,-options-=-{})">2.3 add_source(source, options = {})</h4><p>新增 RubyGems 來源網站到 <code>Gemfile</code>。</p><div class="code_container">
+<h4 id="add-source-source-options-">2.3 add_source(source, options = {})</h4><p>新增 RubyGems 來源網站到 <code>Gemfile</code>。</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 add_source "http://code.whytheluckystiff.net"
 
 </pre>
 </div>
-<h4 id="environment/application(data=nil,-options={},-&amp;block)">2.4 environment/application(data=nil, options={}, &amp;block)</h4><p>新增程式到 <code>config/application.rb</code>。</p><p>若有指定環境 <code>options[:env]</code>，則程式會加到 <code>config/environments</code> 下對應的環境設定檔裡。</p><div class="code_container">
+<h4 id="environment-application-data-nil-options-block-">2.4 environment/application(data=nil, options={}, &amp;block)</h4><p>新增程式到 <code>config/application.rb</code>。</p><p>若有指定環境 <code>options[:env]</code>，則程式會加到 <code>config/environments</code> 下對應的環境設定檔裡。</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 environment 'config.action_mailer.default_url_options = {host: "http://yourwebsite.example.com"}', env: 'production'
 
 </pre>
 </div>
-<p><code>data</code> 參數可以是區塊。</p><h4 id="vendor/lib/file/initializer(filename,-data-=-nil,-&amp;block)">2.5 vendor/lib/file/initializer(filename, data = nil, &amp;block)</h4><p>新增 initializer 到 <code>config/initializers</code> 目錄下。</p><p>假設想使用 <code>Object#not_nil?</code> 與 <code>Object#not_blank?</code>：</p><div class="code_container">
+<p><code>data</code> 參數可以是區塊。</p><h4 id="vendor-lib-file-initializer-filename-data-nil-block-">2.5 vendor/lib/file/initializer(filename, data = nil, &amp;block)</h4><p>新增 initializer 到 <code>config/initializers</code> 目錄下。</p><p>假設想使用 <code>Object#not_nil?</code> 與 <code>Object#not_blank?</code>：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 initializer 'bloatlol.rb', &lt;&lt;-CODE
   class Object
@@ -292,7 +292,7 @@ CODE
 
 </pre>
 </div>
-<p>這會建立出 <code>app/components</code> 目錄，並新增 <code>foo.rb</code>。</p><h4 id="rakefile(filename,-data-=-nil,-&amp;block)">2.6 rakefile(filename, data = nil, &amp;block)</h4><p>在 <code>lib/tasks</code> 建立 Rake 檔案：</p><div class="code_container">
+<p>這會建立出 <code>app/components</code> 目錄，並新增 <code>foo.rb</code>。</p><h4 id="rakefile-filename-data-nil-block-">2.6 rakefile(filename, data = nil, &amp;block)</h4><p>在 <code>lib/tasks</code> 建立 Rake 檔案：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 rakefile("bootstrap.rake") do
   &lt;&lt;-TASK
@@ -306,19 +306,19 @@ end
 
 </pre>
 </div>
-<h4 id="generate(what,-*args)">2.7 generate(what, *args)</h4><p>使用給入的參數執行 Rails 的產生器：</p><div class="code_container">
+<h4 id="generate-what-args-">2.7 generate(what, *args)</h4><p>使用給入的參數執行 Rails 的產生器：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 generate(:scaffold, "person", "name:string", "address:text", "age:number")
 
 </pre>
 </div>
-<h4 id="run(command)">2.8 run(command)</h4><p>執行任何命令，即反引號（<code>`</code>）。譬如想移除 <code>README.rdoc</code> 檔案：</p><div class="code_container">
+<h4 id="run-command-">2.8 run(command)</h4><p>執行任何命令，即反引號（<code>`</code>）。譬如想移除 <code>README.rdoc</code> 檔案：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 run "rm README.rdoc"
 
 </pre>
 </div>
-<h4 id="rake(command,-options-=-{})">2.9 rake(command, options = {})</h4><p>執行指定的 Rake 任務。</p><div class="code_container">
+<h4 id="rake-command-options-">2.9 rake(command, options = {})</h4><p>執行指定的 Rake 任務。</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 rake "db:migrate"
 
@@ -330,13 +330,13 @@ rake "db:migrate", env: 'production'
 
 </pre>
 </div>
-<h4 id="route(routing_code)">2.10 route(routing_code)</h4><p>新增一筆路由到 <code>config/routes.rb</code>。譬如加一筆 <code>root</code> 路由：</p><div class="code_container">
+<h4 id="route-routing-code-">2.10 route(routing_code)</h4><p>新增一筆路由到 <code>config/routes.rb</code>。譬如加一筆 <code>root</code> 路由：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 route "root to: 'person#index'"
 
 </pre>
 </div>
-<h4 id="inside(dir)">2.11 inside(dir)</h4><p>在特定目錄下執行命令：</p><div class="code_container">
+<h4 id="inside-dir-">2.11 inside(dir)</h4><p>在特定目錄下執行命令：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 inside('vendor') do
   run "ln -s ~/commit-rails/rails rails"
@@ -344,7 +344,7 @@ end
 
 </pre>
 </div>
-<h4 id="ask(question)">2.12 ask(question)</h4><p><code>ask()</code> 可以詢問使用者問題，並獲得使用者的輸入。比如詢問即將新增的函式庫名稱：</p><div class="code_container">
+<h4 id="ask-question-">2.12 ask(question)</h4><p><code>ask()</code> 可以詢問使用者問題，並獲得使用者的輸入。比如詢問即將新增的函式庫名稱：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 lib_name = ask("What do you want to call the shiny library ?")
 lib_name &lt;&lt; ".rb" unless lib_name.index(".rb")
@@ -356,14 +356,14 @@ CODE
 
 </pre>
 </div>
-<h4 id="yes-questionmark(question)-or-no-questionmark(question)">2.13 yes?(question) or no?(question)</h4><p>這兩個方法可以問問題，根據使用者的答案來決定執行流程。譬如根據使用者的回答，決定是否執行 <code>bundle package</code>：</p><div class="code_container">
+<h4 id="yes-questionmark-question-or-no-questionmark-question-">2.13 yes?(question) or no?(question)</h4><p>這兩個方法可以問問題，根據使用者的答案來決定執行流程。譬如根據使用者的回答，決定是否執行 <code>bundle package</code>：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 system("bundle package") if yes?("Package all gems?")
 # no?(question) acts just the opposite.
 
 </pre>
 </div>
-<h4 id="git(:command)">2.14 git(:command)</h4><p>Rails 模版可執行任何 git 命令：</p><div class="code_container">
+<h4 id="git-command-">2.14 git(:command)</h4><p>Rails 模版可執行任何 git 命令：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 git :init
 git add: "."

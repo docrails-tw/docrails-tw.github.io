@@ -176,15 +176,15 @@
             <h3 class="chapter"><img src="images/chapters_icon.gif" alt="" />Chapters</h3>
             <ol class="chapters">
 <li>
-<a href="#upgrading-to-rails-3.1">Upgrading to Rails 3.1</a>
+<a href="#upgrading-to-rails-3-1">Upgrading to Rails 3.1</a>
 
 <ul>
-<li><a href="#rails-3.1-requires-at-least-ruby-1.8.7">Rails 3.1 requires at least Ruby 1.8.7</a></li>
+<li><a href="#rails-3-1-requires-at-least-ruby-1-8-7">Rails 3.1 requires at least Ruby 1.8.7</a></li>
 <li><a href="#what-to-update-in-your-apps">What to update in your apps</a></li>
 </ul>
 </li>
 <li>
-<a href="#creating-a-rails-3.1-application">Creating a Rails 3.1 application</a>
+<a href="#creating-a-rails-3-1-application">Creating a Rails 3.1 application</a>
 
 <ul>
 <li><a href="#vendoring-gems">Vendoring Gems</a></li>
@@ -226,7 +226,7 @@
   <div id="container">
     <div class="wrapper">
       <div id="mainCol">
-        <h3 id="upgrading-to-rails-3.1">1 Upgrading to Rails 3.1</h3><p>If you're upgrading an existing application, it's a great idea to have good test coverage before going in. You should also first upgrade to Rails 3 in case you haven't and make sure your application still runs as expected before attempting to update to Rails 3.1. Then take heed of the following changes:</p><h4 id="rails-3.1-requires-at-least-ruby-1.8.7">1.1 Rails 3.1 requires at least Ruby 1.8.7</h4><p>Rails 3.1 requires Ruby 1.8.7 or higher. Support for all of the previous Ruby versions has been dropped officially and you should upgrade as early as possible. Rails 3.1 is also compatible with Ruby 1.9.2.</p><div class="info"><p>Note that Ruby 1.8.7 p248 and p249 have marshaling bugs that crash Rails. Ruby Enterprise Edition have these fixed since release 1.8.7-2010.02 though. On the 1.9 front, Ruby 1.9.1 is not usable because it outright segfaults, so if you want to use 1.9.x jump on 1.9.2 for smooth sailing.</p></div><h4 id="what-to-update-in-your-apps">1.2 What to update in your apps</h4><p>The following changes are meant for upgrading your application to Rails 3.1.3, the latest 3.1.x version of Rails.</p><h5 id="gemfile">1.2.1 Gemfile</h5><p>Make the following changes to your <code>Gemfile</code>.</p><div class="code_container">
+        <h3 id="upgrading-to-rails-3-1">1 Upgrading to Rails 3.1</h3><p>If you're upgrading an existing application, it's a great idea to have good test coverage before going in. You should also first upgrade to Rails 3 in case you haven't and make sure your application still runs as expected before attempting to update to Rails 3.1. Then take heed of the following changes:</p><h4 id="rails-3-1-requires-at-least-ruby-1-8-7">1.1 Rails 3.1 requires at least Ruby 1.8.7</h4><p>Rails 3.1 requires Ruby 1.8.7 or higher. Support for all of the previous Ruby versions has been dropped officially and you should upgrade as early as possible. Rails 3.1 is also compatible with Ruby 1.9.2.</p><div class="info"><p>Note that Ruby 1.8.7 p248 and p249 have marshaling bugs that crash Rails. Ruby Enterprise Edition have these fixed since release 1.8.7-2010.02 though. On the 1.9 front, Ruby 1.9.1 is not usable because it outright segfaults, so if you want to use 1.9.x jump on 1.9.2 for smooth sailing.</p></div><h4 id="what-to-update-in-your-apps">1.2 What to update in your apps</h4><p>The following changes are meant for upgrading your application to Rails 3.1.3, the latest 3.1.x version of Rails.</p><h5 id="gemfile">1.2.1 Gemfile</h5><p>Make the following changes to your <code>Gemfile</code>.</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 gem 'rails', '= 3.1.3'
 gem 'mysql2'
@@ -243,7 +243,7 @@ gem 'jquery-rails'
 
 </pre>
 </div>
-<h5 id="config/application.rb">1.2.2 config/application.rb</h5>
+<h5 id="config-application-rb">1.2.2 config/application.rb</h5>
 <ul>
 <li>
 <p>The asset pipeline requires the following additions:</p>
@@ -266,7 +266,7 @@ config.assets.prefix = '/asset-files'
 </div>
 </li>
 </ul>
-<h5 id="config/environments/development.rb">1.2.3 config/environments/development.rb</h5>
+<h5 id="config-environments-development-rb">1.2.3 config/environments/development.rb</h5>
 <ul>
 <li><p>Remove the RJS setting <code>config.action_view.debug_rjs = true</code>.</p></li>
 <li>
@@ -283,7 +283,7 @@ config.assets.debug = true
 </div>
 </li>
 </ul>
-<h5 id="config/environments/production.rb">1.2.4 config/environments/production.rb</h5>
+<h5 id="config-environments-production-rb">1.2.4 config/environments/production.rb</h5>
 <ul>
 <li>
 <p>Again, most of the changes below are for the asset pipeline. You can read more about these in the <a href="asset_pipeline.html">Asset Pipeline</a> guide.</p>
@@ -311,7 +311,7 @@ config.assets.digest = true
 </div>
 </li>
 </ul>
-<h5 id="config/environments/test.rb">1.2.5 config/environments/test.rb</h5><div class="code_container">
+<h5 id="config-environments-test-rb">1.2.5 config/environments/test.rb</h5><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 # Configure static asset server for tests with Cache-Control for performance
 config.serve_static_assets = true
@@ -319,7 +319,7 @@ config.static_cache_control = "public, max-age=3600"
 
 </pre>
 </div>
-<h5 id="config/initializers/wrap_parameters.rb">1.2.6 config/initializers/wrap_parameters.rb</h5>
+<h5 id="config-initializers-wrap-parameters-rb">1.2.6 config/initializers/wrap_parameters.rb</h5>
 <ul>
 <li>
 <p>Add this file with the following contents, if you wish to wrap parameters into a nested hash. This is on by default in new applications.</p>
@@ -343,11 +343,11 @@ end
 </div>
 </li>
 </ul>
-<h5 id="remove-:cache-and-:concat-options-in-asset-helpers-references-in-views">1.2.7 Remove :cache and :concat options in asset helpers references in views</h5>
+<h5 id="remove-cache-and-concat-options-in-asset-helpers-references-in-views">1.2.7 Remove :cache and :concat options in asset helpers references in views</h5>
 <ul>
 <li>With the Asset Pipeline the :cache and :concat options aren't used anymore, delete these options from your views.</li>
 </ul>
-<h3 id="creating-a-rails-3.1-application">2 Creating a Rails 3.1 application</h3><div class="code_container">
+<h3 id="creating-a-rails-3-1-application">2 Creating a Rails 3.1 application</h3><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 # You should have the 'rails' RubyGem installed
 $ rails new myapp

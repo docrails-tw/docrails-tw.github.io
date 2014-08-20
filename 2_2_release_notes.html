@@ -173,11 +173,11 @@
 
 <ul>
 <li><a href="#internationalization">Internationalization</a></li>
-<li><a href="#compatibility-with-ruby-1.9-and-jruby">Compatibility with Ruby 1.9 and JRuby</a></li>
+<li><a href="#compatibility-with-ruby-1-9-and-jruby">Compatibility with Ruby 1.9 and JRuby</a></li>
 </ul>
 </li>
 <li><a href="#documentation">Documentation</a></li>
-<li><a href="#better-integration-with-http-:-out-of-the-box-etag-support">Better integration with HTTP : Out of the box ETag support</a></li>
+<li><a href="#better-integration-with-http-out-of-the-box-etag-support">Better integration with HTTP : Out of the box ETag support</a></li>
 <li><a href="#thread-safety">Thread Safety</a></li>
 <li>
 <a href="#active-record">Active Record</a>
@@ -187,7 +187,7 @@
 <li><a href="#connection-pooling">Connection Pooling</a></li>
 <li><a href="#hashes-for-join-table-conditions">Hashes for Join Table Conditions</a></li>
 <li><a href="#new-dynamic-finders">New Dynamic Finders</a></li>
-<li><a href="#associations-respect-private/protected-scope">Associations Respect Private/Protected Scope</a></li>
+<li><a href="#associations-respect-private-protected-scope">Associations Respect Private/Protected Scope</a></li>
 <li><a href="#other-active-record-changes">Other Active Record Changes</a></li>
 </ul>
 </li>
@@ -208,7 +208,7 @@
 
 <ul>
 <li><a href="#memoization">Memoization</a></li>
-<li><a href="#each_with_object">each_with_object</a></li>
+<li><a href="#each-with-object">each_with_object</a></li>
 <li><a href="#delegates-with-prefixes">Delegates With Prefixes</a></li>
 <li><a href="#other-active-support-changes">Other Active Support Changes</a></li>
 </ul>
@@ -217,7 +217,7 @@
 <a href="#railties">Railties</a>
 
 <ul>
-<li><a href="#config.gems">config.gems</a></li>
+<li><a href="#config-gems">config.gems</a></li>
 <li><a href="#other-railties-changes">Other Railties Changes</a></li>
 </ul>
 </li>
@@ -245,7 +245,7 @@
 </ul>
 </li>
 </ul>
-<h4 id="compatibility-with-ruby-1.9-and-jruby">1.2 Compatibility with Ruby 1.9 and JRuby</h4><p>Along with thread safety, a lot of work has been done to make Rails work well with JRuby and the upcoming Ruby 1.9. With Ruby 1.9 being a moving target, running edge Rails on edge Ruby is still a hit-or-miss proposition, but Rails is ready to make the transition to Ruby 1.9 when the latter is released.</p><h3 id="documentation">2 Documentation</h3><p>The internal documentation of Rails, in the form of code comments, has been improved in numerous places. In addition, the <a href="http://guides.rubyonrails.org/">Ruby on Rails Guides</a> project is the definitive source for information on major Rails components. In its first official release, the Guides page includes:</p>
+<h4 id="compatibility-with-ruby-1-9-and-jruby">1.2 Compatibility with Ruby 1.9 and JRuby</h4><p>Along with thread safety, a lot of work has been done to make Rails work well with JRuby and the upcoming Ruby 1.9. With Ruby 1.9 being a moving target, running edge Rails on edge Ruby is still a hit-or-miss proposition, but Rails is ready to make the transition to Ruby 1.9 when the latter is released.</p><h3 id="documentation">2 Documentation</h3><p>The internal documentation of Rails, in the form of code comments, has been improved in numerous places. In addition, the <a href="http://guides.rubyonrails.org/">Ruby on Rails Guides</a> project is the definitive source for information on major Rails components. In its first official release, the Guides page includes:</p>
 <ul>
 <li><a href="getting_started.html">Getting Started with Rails</a></li>
 <li><a href="migrations.html">Rails Database Migrations</a></li>
@@ -282,7 +282,7 @@ rake doc:guides
 </ul>
 </li>
 </ul>
-<h3 id="better-integration-with-http-:-out-of-the-box-etag-support">3 Better integration with HTTP : Out of the box ETag support</h3><p>Supporting the etag and last modified timestamp in HTTP headers means that Rails can now send back an empty response if it gets a request for a resource that hasn't been modified lately. This allows you to check whether a response needs to be sent at all.</p><div class="code_container">
+<h3 id="better-integration-with-http-out-of-the-box-etag-support">3 Better integration with HTTP : Out of the box ETag support</h3><p>Supporting the etag and last modified timestamp in HTTP headers means that Rails can now send back an empty response if it gets a request for a resource that hasn't been modified lately. This allows you to check whether a response needs to be sent at all.</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class ArticlesController &lt; ApplicationController
   def show_with_respond_to_block
@@ -391,7 +391,7 @@ Product.all(:joins =&gt; :photos, :conditions =&gt; { :photos =&gt; { :copyright
 </ul>
 </li>
 </ul>
-<h4 id="new-dynamic-finders">5.4 New Dynamic Finders</h4><p>Two new sets of methods have been added to Active Record's dynamic finders family.</p><h5 id="find_last_by_attribute">5.4.1 <code>find_last_by_attribute</code>
+<h4 id="new-dynamic-finders">5.4 New Dynamic Finders</h4><p>Two new sets of methods have been added to Active Record's dynamic finders family.</p><h5 id="find-last-by-attribute">5.4.1 <code>find_last_by_attribute</code>
 </h5><p>The <code>find_last_by_attribute</code> method is equivalent to <code>Model.last(:conditions =&gt; {:attribute =&gt; value})</code></p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 # Get the last user who signed up from London
@@ -404,7 +404,7 @@ User.find_last_by_city('London')
 <li>Lead Contributor: <a href="http://www.workingwithrails.com/person/9147-emilio-tagua">Emilio Tagua</a>
 </li>
 </ul>
-<h5 id="find_by_attribute-bang">5.4.2 <code>find_by_attribute!</code>
+<h5 id="find-by-attribute-bang">5.4.2 <code>find_by_attribute!</code>
 </h5><p>The new bang! version of <code>find_by_attribute!</code> is equivalent to <code>Model.first(:conditions =&gt; {:attribute =&gt; value}) || raise ActiveRecord::RecordNotFound</code> Instead of returning <code>nil</code> if it can't find a matching record, this method will raise an exception if it cannot find a match.</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 # Raise ActiveRecord::RecordNotFound exception if 'Moby' hasn't signed up yet!
@@ -417,7 +417,7 @@ User.find_by_name!('Moby')
 <li>Lead Contributor: <a href="http://blog.hasmanythrough.com">Josh Susser</a>
 </li>
 </ul>
-<h4 id="associations-respect-private/protected-scope">5.5 Associations Respect Private/Protected Scope</h4><p>Active Record association proxies now respect the scope of methods on the proxied object. Previously (given User has_one :account) <code>@user.account.private_method</code> would call the private method on the associated Account object. That fails in Rails 2.2; if you need this functionality, you should use <code>@user.account.send(:private_method)</code> (or make the method public instead of private or protected). Please note that if you're overriding <code>method_missing</code>, you should also override <code>respond_to</code> to match the behavior in order for associations to function normally.</p>
+<h4 id="associations-respect-private-protected-scope">5.5 Associations Respect Private/Protected Scope</h4><p>Active Record association proxies now respect the scope of methods on the proxied object. Previously (given User has_one :account) <code>@user.account.private_method</code> would call the private method on the associated Account object. That fails in Rails 2.2; if you need this functionality, you should use <code>@user.account.send(:private_method)</code> (or make the method public instead of private or protected). Please note that if you're overriding <code>method_missing</code>, you should also override <code>respond_to</code> to match the behavior in order for associations to function normally.</p>
 <ul>
 <li>Lead Contributor: Adam Milligan</li>
 <li>More information:
@@ -553,7 +553,7 @@ memoize :full_name
 </ul>
 </li>
 </ul>
-<h4 id="each_with_object">9.2 each_with_object</h4><p>The <code>each_with_object</code> method provides an alternative to <code>inject</code>, using a method backported from Ruby 1.9. It iterates over a collection, passing the current element and the memo into the block.</p><div class="code_container">
+<h4 id="each-with-object">9.2 each_with_object</h4><p>The <code>each_with_object</code> method provides an alternative to <code>inject</code>, using a method backported from Ruby 1.9. It iterates over a collection, passing the current element and the memo into the block.</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 %w(foo bar).each_with_object({}) { |str, hsh| hsh[str] = str.upcase } # =&gt; {'foo' =&gt; 'FOO', 'bar' =&gt; 'BAR'}
 
@@ -598,7 +598,7 @@ end
 <code>ActiveSupport::StringInquirer</code> gives you a pretty way to test for equality in strings: <code>ActiveSupport::StringInquirer.new("abc").abc? =&gt; true</code>
 </li>
 </ul>
-<h3 id="railties">10 Railties</h3><p>In Railties (the core code of Rails itself) the biggest changes are in the <code>config.gems</code> mechanism.</p><h4 id="config.gems">10.1 config.gems</h4><p>To avoid deployment issues and make Rails applications more self-contained, it's possible to place copies of all of the gems that your Rails application requires in <code>/vendor/gems</code>. This capability first appeared in Rails 2.1, but it's much more flexible and robust in Rails 2.2, handling complicated dependencies between gems. Gem management in Rails includes these commands:</p>
+<h3 id="railties">10 Railties</h3><p>In Railties (the core code of Rails itself) the biggest changes are in the <code>config.gems</code> mechanism.</p><h4 id="config-gems">10.1 config.gems</h4><p>To avoid deployment issues and make Rails applications more self-contained, it's possible to place copies of all of the gems that your Rails application requires in <code>/vendor/gems</code>. This capability first appeared in Rails 2.1, but it's much more flexible and robust in Rails 2.2, handling complicated dependencies between gems. Gem management in Rails includes these commands:</p>
 <ul>
 <li>
 <code>config.gem _gem_name_</code> in your <code>config/environment.rb</code> file</li>

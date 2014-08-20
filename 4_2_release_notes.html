@@ -168,7 +168,7 @@
                 <div id="subCol">
             <h3 class="chapter"><img src="images/chapters_icon.gif" alt="" />Chapters</h3>
             <ol class="chapters">
-<li><a href="#%E5%8D%87%E7%B4%9A%E8%87%B3-rails-4.2">升級至 Rails 4.2</a></li>
+<li><a href="#%E5%8D%87%E7%B4%9A%E8%87%B3-rails-4-2">升級至 Rails 4.2</a></li>
 <li>
 <a href="#%E6%96%B0%E5%8A%9F%E8%83%BD">新功能</a>
 
@@ -246,7 +246,7 @@
   <div id="container">
     <div class="wrapper">
       <div id="mainCol">
-        <h3 id="升級至-rails-4.2">1 升級至 Rails 4.2</h3><p>如果您正試著升級現有的應用程式，最好有廣的測試覆蓋度。首先應先升級至 4.1，確保應用程式仍正常工作，接著再升上 4.2。升級需要注意的事項在 <a href="upgrading_ruby_on_rails.html#upgrading-from-rails-4-1-to-rails-4-2">Ruby on Rails 升級指南</a>可以找到。</p><h3 id="新功能">2 新功能</h3><h4 id="外鍵支援">2.1 外鍵支援</h4><p>遷移 DSL 現在支援新增、移除外鍵，也會導出到 <code>schema.rb</code>。目前只有 <code>mysql</code>、<code>mysql2</code> 以及 <code>postgresql</code> 的連接器支援外鍵。</p><div class="code_container">
+        <h3 id="升級至-rails-4-2">1 升級至 Rails 4.2</h3><p>如果您正試著升級現有的應用程式，最好有廣的測試覆蓋度。首先應先升級至 4.1，確保應用程式仍正常工作，接著再升上 4.2。升級需要注意的事項在 <a href="upgrading_ruby_on_rails.html#upgrading-from-rails-4-1-to-rails-4-2">Ruby on Rails 升級指南</a>可以找到。</p><h3 id="新功能">2 新功能</h3><h4 id="外鍵支援">2.1 外鍵支援</h4><p>遷移 DSL 現在支援新增、移除外鍵，也會導出到 <code>schema.rb</code>。目前只有 <code>mysql</code>、<code>mysql2</code> 以及 <code>postgresql</code> 的連接器支援外鍵。</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 # add a foreign key to `articles.author_id` referencing `authors.id`
 add_foreign_key :articles, :authors

@@ -219,7 +219,7 @@ easy-to-use interface.</p><p>After reading this guide, you will know:</p>
 <li><a href="#overriding-views">Overriding Views</a></li>
 <li><a href="#routes">Routes</a></li>
 <li><a href="#assets">Assets</a></li>
-<li><a href="#separate-assets-&amp;-precompiling">Separate Assets &amp; Precompiling</a></li>
+<li><a href="#separate-assets-precompiling">Separate Assets &amp; Precompiling</a></li>
 <li><a href="#other-gem-dependencies">Other Gem Dependencies</a></li>
 </ul>
 </li>
@@ -1129,7 +1129,7 @@ end
 </pre>
 </div>
 <p>This doesn't apply to just Decorators, but anything that you add in an engine
-that isn't referenced by your main application.</p><h5 id="implementing-decorator-pattern-using-class#class_eval">6.1.2 Implementing Decorator Pattern Using Class#class_eval</h5><p><strong>Adding</strong> <code>Article#time_since_created</code>:</p><div class="code_container">
+that isn't referenced by your main application.</p><h5 id="implementing-decorator-pattern-using-class-class-eval">6.1.2 Implementing Decorator Pattern Using Class#class_eval</h5><p><strong>Adding</strong> <code>Article#time_since_created</code>:</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 # MyApp/app/decorators/models/blorgh/article_decorator.rb
 
@@ -1176,7 +1176,7 @@ end
 
 </pre>
 </div>
-<h5 id="implementing-decorator-pattern-using-activesupport::concern">6.1.3 Implementing Decorator Pattern Using ActiveSupport::Concern</h5><p>Using <code>Class#class_eval</code> is great for simple adjustments, but for more complex
+<h5 id="implementing-decorator-pattern-using-activesupport-concern">6.1.3 Implementing Decorator Pattern Using ActiveSupport::Concern</h5><p>Using <code>Class#class_eval</code> is great for simple adjustments, but for more complex
 class modifications, you might want to consider using <a href="http://edgeapi.rubyonrails.org/classes/ActiveSupport/Concern.html"><code>ActiveSupport::Concern</code></a>.
 ActiveSupport::Concern manages load order of interlinked dependent modules and
 classes at run time allowing you to significantly modularize your code.</p><p><strong>Adding</strong> <code>Article#time_since_created</code> and <strong>Overriding</strong> <code>Article#summary</code>:</p><div class="code_container">
@@ -1336,7 +1336,7 @@ Pipeline require statements in processed files:</p><div class="code_container">
 </pre>
 </div>
 <div class="info"><p>Remember that in order to use languages like Sass or CoffeeScript, you
-should add the relevant library to your engine's <code>.gemspec</code>.</p></div><h4 id="separate-assets-&amp;-precompiling">6.5 Separate Assets &amp; Precompiling</h4><p>There are some situations where your engine's assets are not required by the
+should add the relevant library to your engine's <code>.gemspec</code>.</p></div><h4 id="separate-assets-precompiling">6.5 Separate Assets &amp; Precompiling</h4><p>There are some situations where your engine's assets are not required by the
 host application. For example, say that you've created an admin functionality
 that only exists for your engine. In this case, the host application doesn't
 need to require <code>admin.css</code> or <code>admin.js</code>. Only the gem's admin layout needs

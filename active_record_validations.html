@@ -178,11 +178,11 @@
 <a href="#%E9%A9%97%E8%AD%89%E7%B6%9C%E8%A6%BD">驗證綜覽</a>
 
 <ul>
-<li><a href="#%E7%82%BA%E4%BB%80%E9%BA%BC%E8%A6%81%E9%A9%97%E8%AD%89%EF%BC%9F">為什麼要驗證？</a></li>
-<li><a href="#%E9%A9%97%E8%AD%89%E4%BD%95%E6%99%82%E7%99%BC%E7%94%9F%EF%BC%9F">驗證何時發生？</a></li>
+<li><a href="#%E7%82%BA%E4%BB%80%E9%BA%BC%E8%A6%81%E9%A9%97%E8%AD%89-">為什麼要驗證？</a></li>
+<li><a href="#%E9%A9%97%E8%AD%89%E4%BD%95%E6%99%82%E7%99%BC%E7%94%9F-">驗證何時發生？</a></li>
 <li><a href="#%E7%95%A5%E9%81%8E%E9%A9%97%E8%AD%89">略過驗證</a></li>
 <li><a href="#valid-questionmark-%E8%88%87-invalid-questionmark"><code>valid?</code> 與 <code>invalid?</code></a></li>
-<li><a href="#%E9%A9%97%E8%AD%89%E7%B6%9C%E8%A6%BD-errors%5B%5D"><code>errors[]</code></a></li>
+<li><a href="#%E9%A9%97%E8%AD%89%E7%B6%9C%E8%A6%BD-errors-"><code>errors[]</code></a></li>
 </ul>
 </li>
 <li>
@@ -190,7 +190,7 @@
 
 <ul>
 <li><a href="#acceptance"><code>acceptance</code></a></li>
-<li><a href="#validates_associated"><code>validates_associated</code></a></li>
+<li><a href="#validates-associated"><code>validates_associated</code></a></li>
 <li><a href="#confirmation"><code>confirmation</code></a></li>
 <li><a href="#exclusion"><code>exclusion</code></a></li>
 <li><a href="#format"><code>format</code></a></li>
@@ -200,18 +200,18 @@
 <li><a href="#presence"><code>presence</code></a></li>
 <li><a href="#absence"><code>absence</code></a></li>
 <li><a href="#uniqueness"><code>uniqueness</code></a></li>
-<li><a href="#validates_with"><code>validates_with</code></a></li>
-<li><a href="#validates_each"><code>validates_each</code></a></li>
+<li><a href="#validates-with"><code>validates_with</code></a></li>
+<li><a href="#validates-each"><code>validates_each</code></a></li>
 </ul>
 </li>
 <li>
 <a href="#%E5%B8%B8%E8%A6%8B%E9%A9%97%E8%AD%89%E9%81%B8%E9%A0%85">常見驗證選項</a>
 
 <ul>
-<li><a href="#:allow_nil"><code>:allow_nil</code></a></li>
-<li><a href="#:allow_blank"><code>:allow_blank</code></a></li>
-<li><a href="#:message"><code>:message</code></a></li>
-<li><a href="#:on"><code>:on</code></a></li>
+<li><a href="#-allow-nil"><code>:allow_nil</code></a></li>
+<li><a href="#-allow-blank"><code>:allow_blank</code></a></li>
+<li><a href="#-message"><code>:message</code></a></li>
+<li><a href="#-on"><code>:on</code></a></li>
 </ul>
 </li>
 <li><a href="#%E5%9A%B4%E6%A0%BC%E9%A9%97%E8%AD%89">嚴格驗證</a></li>
@@ -219,9 +219,9 @@
 <a href="#%E6%A2%9D%E4%BB%B6%E5%BC%8F%E9%A9%97%E8%AD%89">條件式驗證</a>
 
 <ul>
-<li><a href="#:if-%E8%88%87-:unless%EF%BC%9A%E4%BD%BF%E7%94%A8-symbol"><code>:if</code> 與 <code>:unless</code>：使用 Symbol</a></li>
-<li><a href="#:if-%E8%88%87-:unless%EF%BC%9A%E4%BD%BF%E7%94%A8-string"><code>:if</code> 與 <code>:unless</code>：使用 String</a></li>
-<li><a href="#:if-%E8%88%87-:unless%EF%BC%9A%E4%BD%BF%E7%94%A8-proc"><code>:if</code> 與 <code>:unless</code>：使用 <code>Proc</code></a></li>
+<li><a href="#-if-%E8%88%87-unless-%E4%BD%BF%E7%94%A8-symbol"><code>:if</code> 與 <code>:unless</code>：使用 Symbol</a></li>
+<li><a href="#-if-%E8%88%87-unless-%E4%BD%BF%E7%94%A8-string"><code>:if</code> 與 <code>:unless</code>：使用 String</a></li>
+<li><a href="#-if-%E8%88%87-unless-%E4%BD%BF%E7%94%A8-proc"><code>:if</code> 與 <code>:unless</code>：使用 <code>Proc</code></a></li>
 <li><a href="#%E7%B5%84%E5%90%88%E6%A2%9D%E4%BB%B6%E5%BC%8F%E9%A9%97%E8%AD%89">組合條件式驗證</a></li>
 <li><a href="#%E7%B5%90%E5%90%88%E9%A9%97%E8%AD%89%E6%A2%9D%E4%BB%B6">結合驗證條件</a></li>
 </ul>
@@ -239,11 +239,11 @@
 
 <ul>
 <li><a href="#errors"><code>errors</code></a></li>
-<li><a href="#%E8%99%95%E7%90%86%E9%A9%97%E8%AD%89%E9%8C%AF%E8%AA%A4-errors%5B%5D"><code>errors[]</code></a></li>
-<li><a href="#errors.add"><code>errors.add</code></a></li>
-<li><a href="#errors%5B:base%5D"><code>errors[:base]</code></a></li>
-<li><a href="#errors.clear"><code>errors.clear</code></a></li>
-<li><a href="#errors.size"><code>errors.size</code></a></li>
+<li><a href="#%E8%99%95%E7%90%86%E9%A9%97%E8%AD%89%E9%8C%AF%E8%AA%A4-errors-"><code>errors[]</code></a></li>
+<li><a href="#errors-add"><code>errors.add</code></a></li>
+<li><a href="#errors-base-"><code>errors[:base]</code></a></li>
+<li><a href="#errors-clear"><code>errors.clear</code></a></li>
+<li><a href="#errors-size"><code>errors.size</code></a></li>
 </ul>
 </li>
 <li><a href="#%E5%9C%A8-view-%E9%A1%AF%E7%A4%BA%E9%A9%97%E8%AD%89%E5%A4%B1%E6%95%97%E8%A8%8A%E6%81%AF">在 View 顯示驗證失敗訊息</a></li>
@@ -268,13 +268,13 @@ Person.create(name: nil).valid? # =&gt; false
 
 </pre>
 </div>
-<p>如您所見，透過驗證，我們知道 <code>Person</code> 必須要有 <code>name</code> 屬性才算有效。上例第二個建立的 <code>Person</code>，因為缺少了 <code>name</code>，則不會存至資料庫。</p><p>在深入了解之前，先談談驗證在應用程式裡所扮演的角色。</p><h4 id="為什麼要驗證？">1.1 為什麼要驗證？</h4><p>驗證用來確保只有有效的資料才能存入資料庫。譬如每個使用者需要填寫有效的 E-mail 與郵寄地址。在 Model 層級驗證資料是最好的，只有通過驗證的資料方可存入資料庫。因為在 Model 層面驗證，不需要考慮資料庫的種類、無法在用戶端（瀏覽器）跳過驗證、且更容易測試與維護。Rails 使得資料驗證用起來非常簡單，提供了各種內建輔助方法，來滿足常見的需求，也可以新建自定的驗證方法。</p><p>在存入資料庫前有好幾種驗證方法，包含了原生的資料庫約束（constraint）、用戶端驗證、Controller 層級驗證。以下是各種方法的優缺點：</p>
+<p>如您所見，透過驗證，我們知道 <code>Person</code> 必須要有 <code>name</code> 屬性才算有效。上例第二個建立的 <code>Person</code>，因為缺少了 <code>name</code>，則不會存至資料庫。</p><p>在深入了解之前，先談談驗證在應用程式裡所扮演的角色。</p><h4 id="為什麼要驗證-">1.1 為什麼要驗證？</h4><p>驗證用來確保只有有效的資料才能存入資料庫。譬如每個使用者需要填寫有效的 E-mail 與郵寄地址。在 Model 層級驗證資料是最好的，只有通過驗證的資料方可存入資料庫。因為在 Model 層面驗證，不需要考慮資料庫的種類、無法在用戶端（瀏覽器）跳過驗證、且更容易測試與維護。Rails 使得資料驗證用起來非常簡單，提供了各種內建輔助方法，來滿足常見的需求，也可以新建自定的驗證方法。</p><p>在存入資料庫前有好幾種驗證方法，包含了原生的資料庫約束（constraint）、用戶端驗證、Controller 層級驗證。以下是各種方法的優缺點：</p>
 <ul>
 <li>資料庫約束和 stored procedure 驗證機制只適用單一資料庫，不好測試，也更難維護。但若是其它應用程式也使用您的資料庫，加上資料庫層級的約束可能比較好。除此之外，資料庫層級的驗證可以安全地處理某些問題（像是在使用頻繁的資料表裡檢查唯一性），這倘若不在資料庫層級做，其它層級做起來可能很困難。</li>
 <li>用戶端驗證很有用，但單獨使用時可靠性不高。若是用 JavaScript 實作，關掉 JavaScript 便可跳過驗證。但結合其它種驗證方式，用戶端驗證可提供使用者即時的反饋。</li>
 <li>Controller 層級驗證聽起來很誘人，但用起來很笨重，也很難測試與維護。不管怎麼說，盡量保持 Controller 輕巧短小，長遠下來看，應用程式會更好維護。</li>
 </ul>
-<p>根據不同場合選擇不同驗證方式。Rails 團隊的觀點是 Model 層級的驗證，最符合多數應用場景。</p><h4 id="驗證何時發生？">1.2 驗證何時發生？</h4><p>Active Record 物件有兩種：一種對應到資料庫的列、另一種沒有。當新建一個新的物件時，比如使用 <code>new</code> 方法，物件此時並不屬於資料庫。一旦對物件呼叫 <code>save</code>，則物件會存入對應的資料表裡。Active Record 使用 <code>new_record?</code> 這個實體方法來決定物件是否已存在資料庫。看看下面這個簡單的 Active Record 類別：</p><div class="code_container">
+<p>根據不同場合選擇不同驗證方式。Rails 團隊的觀點是 Model 層級的驗證，最符合多數應用場景。</p><h4 id="驗證何時發生-">1.2 驗證何時發生？</h4><p>Active Record 物件有兩種：一種對應到資料庫的列、另一種沒有。當新建一個新的物件時，比如使用 <code>new</code> 方法，物件此時並不屬於資料庫。一旦對物件呼叫 <code>save</code>，則物件會存入對應的資料表裡。Active Record 使用 <code>new_record?</code> 這個實體方法來決定物件是否已存在資料庫。看看下面這個簡單的 Active Record 類別：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Person &lt; ActiveRecord::Base
 end
@@ -366,7 +366,7 @@ end
 
 </pre>
 </div>
-<p><code>invalid?</code> 是 <code>valid?</code> 的反相。物件找到任何錯誤回傳 <code>true</code>，反之回傳 <code>false</code>。</p><h4 id="驗證綜覽-errors[]">1.5 <code>errors[]</code>
+<p><code>invalid?</code> 是 <code>valid?</code> 的反相。物件找到任何錯誤回傳 <code>true</code>，反之回傳 <code>false</code>。</p><h4 id="驗證綜覽-errors-">1.5 <code>errors[]</code>
 </h4><p>要檢查物件的特定屬性是否有效，可以使用 <code>errors[:attribute]</code>，會以陣列形式返回該屬性的所有錯誤，沒有錯誤則返回空陣列。</p><p>這個方法只有在驗證後呼叫才有用，因為它只是檢查 <code>errors</code> 集合，而不會觸發驗證。<code>errors[:attribute]</code> 與 <code>ActiveRecord::Base#invalid?</code> 方法不同，因為它不是檢查整個物件的有效性，只是檢查物件單一屬性是否有錯誤。</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Person &lt; ActiveRecord::Base
@@ -395,7 +395,7 @@ end
 
 </pre>
 </div>
-<h4 id="validates_associated">2.2 <code>validates_associated</code>
+<h4 id="validates-associated">2.2 <code>validates_associated</code>
 </h4><p>當 Model 與其它 Model 有關聯，且與之關聯的 Model 也需要驗證時，用這個方法來處理。在儲存物件時，會對相關聯的物件呼叫 <code>valid?</code>。</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Library &lt; ActiveRecord::Base
@@ -618,7 +618,7 @@ end
 
 </pre>
 </div>
-<div class="warning"><p>注意某些資料庫預設搜尋是不分大小寫的。</p></div><p>預設錯誤訊息是 <em>"has already been taken"</em>。</p><h4 id="validates_with">2.12 <code>validates_with</code>
+<div class="warning"><p>注意某些資料庫預設搜尋是不分大小寫的。</p></div><p>預設錯誤訊息是 <em>"has already been taken"</em>。</p><h4 id="validates-with">2.12 <code>validates_with</code>
 </h4><p>這個方法將記錄傳入，另開一類別來驗證。</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class GoodnessValidator &lt; ActiveModel::Validator
@@ -675,7 +675,7 @@ end
 
 </pre>
 </div>
-<p><code>validates_with</code> 沒有預設錯誤訊息。</p><h4 id="validates_each">2.13 <code>validates_each</code>
+<p><code>validates_with</code> 沒有預設錯誤訊息。</p><h4 id="validates-each">2.13 <code>validates_each</code>
 </h4><p>這個方法採用區塊（block）來驗證屬性。沒有預先定義的驗證功能。可以在程式碼區塊裡寫要驗證的行為，<code>validates_each</code> 指定的每個屬性，會傳入區塊做驗證。比如下例檢查名與姓是否以小寫字母開頭：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Person &lt; ActiveRecord::Base
@@ -686,7 +686,7 @@ end
 
 </pre>
 </div>
-<p>這個區塊接受記錄、屬性名稱、屬性值。在區塊裡可以寫任何驗證行為。驗證失敗時應給 Model 新增錯誤訊息，才能把記錄標記成非法的。</p><p><code>validates_each</code> 沒有預設錯誤訊息。</p><h3 id="常見驗證選項">3 常見驗證選項</h3><p>以下是常見的驗證選項：</p><h4 id=":allow_nil">3.1 <code>:allow_nil</code>
+<p>這個區塊接受記錄、屬性名稱、屬性值。在區塊裡可以寫任何驗證行為。驗證失敗時應給 Model 新增錯誤訊息，才能把記錄標記成非法的。</p><p><code>validates_each</code> 沒有預設錯誤訊息。</p><h3 id="常見驗證選項">3 常見驗證選項</h3><p>以下是常見的驗證選項：</p><h4 id="-allow-nil">3.1 <code>:allow_nil</code>
 </h4><p><code>:allow_nil</code> 選項當驗證的值為 <code>nil</code> 時略過驗證。</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Coffee &lt; ActiveRecord::Base
@@ -696,7 +696,7 @@ end
 
 </pre>
 </div>
-<h4 id=":allow_blank">3.2 <code>:allow_blank</code>
+<h4 id="-allow-blank">3.2 <code>:allow_blank</code>
 </h4><p><code>:allow_nil</code> 選項當驗證的值為 <code>blank?</code> 時，即 <code>blank?</code> 回傳 <code>true</code> 時，略過驗證。</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Topic &lt; ActiveRecord::Base
@@ -708,8 +708,8 @@ Topic.create(title: nil).valid? # =&gt; true
 
 </pre>
 </div>
-<h4 id=":message">3.3 <code>:message</code>
-</h4><p>如上已經介紹過，<code>message</code> 選項可在驗證失敗時，加上錯誤訊息至 <code>errors</code> 集合。沒給入此選項時，Active Record 會使用預設的錯誤訊息。</p><h4 id=":on">3.4 <code>:on</code>
+<h4 id="-message">3.3 <code>:message</code>
+</h4><p>如上已經介紹過，<code>message</code> 選項可在驗證失敗時，加上錯誤訊息至 <code>errors</code> 集合。沒給入此選項時，Active Record 會使用預設的錯誤訊息。</p><h4 id="-on">3.4 <code>:on</code>
 </h4><p><code>:on</code> 選項可指定驗證發生時機。所有驗證方法預設在 <code>save</code> 時會觸發驗證（也就是新建與更新時）。也可以指定只在新建時做驗證 <code>on: :create</code>，或是只在更新時做驗證  <code>on: :update</code>。</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Person &lt; ActiveRecord::Base
@@ -745,7 +745,7 @@ Person.new.valid?  # =&gt; TokenGenerationException: Token can't be blank
 
 </pre>
 </div>
-<h3 id="條件式驗證">5 條件式驗證</h3><p>某些時候只有在物件滿足了給定條件時，再進行驗證比較合理。可以透過 <code>:if</code> 與 <code>:unless</code> 選項來辦到此事。它們接受符號、字串、<code>Proc</code> 或 <code>Array</code>。<code>:if</code> 可以指定驗證發生時機，而 <code>:unless</code> 則是指定驗證略過時機。</p><h4 id=":if-與-:unless：使用-symbol">5.1 <code>:if</code> 與 <code>:unless</code>：使用 Symbol</h4><p><code>:if</code> 與 <code>:uinless</code> 接受符號，這個符號代表了驗證執行之前所需呼叫的方法。這是最常見的用途。</p><div class="code_container">
+<h3 id="條件式驗證">5 條件式驗證</h3><p>某些時候只有在物件滿足了給定條件時，再進行驗證比較合理。可以透過 <code>:if</code> 與 <code>:unless</code> 選項來辦到此事。它們接受符號、字串、<code>Proc</code> 或 <code>Array</code>。<code>:if</code> 可以指定驗證發生時機，而 <code>:unless</code> 則是指定驗證略過時機。</p><h4 id="-if-與-unless-使用-symbol">5.1 <code>:if</code> 與 <code>:unless</code>：使用 Symbol</h4><p><code>:if</code> 與 <code>:uinless</code> 接受符號，這個符號代表了驗證執行之前所需呼叫的方法。這是最常見的用途。</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Order &lt; ActiveRecord::Base
   validates :card_number, presence: true, if: :paid_with_card?
@@ -757,7 +757,7 @@ end
 
 </pre>
 </div>
-<h4 id=":if-與-:unless：使用-string">5.2 <code>:if</code> 與 <code>:unless</code>：使用 String</h4><p><code>:if</code> 與 <code>:unless</code> 也接受字串，字串需要是有效的 Ruby 程式碼，會使用 <code>eval</code> 來對字串求值。極短的條件式可以使用字串：</p><div class="code_container">
+<h4 id="-if-與-unless-使用-string">5.2 <code>:if</code> 與 <code>:unless</code>：使用 String</h4><p><code>:if</code> 與 <code>:unless</code> 也接受字串，字串需要是有效的 Ruby 程式碼，會使用 <code>eval</code> 來對字串求值。極短的條件式可以使用字串：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Person &lt; ActiveRecord::Base
   validates :surname, presence: true, if: "name.nil?"
@@ -765,7 +765,7 @@ end
 
 </pre>
 </div>
-<h4 id=":if-與-:unless：使用-proc">5.3 <code>:if</code> 與 <code>:unless</code>：使用 <code>Proc</code>
+<h4 id="-if-與-unless-使用-proc">5.3 <code>:if</code> 與 <code>:unless</code>：使用 <code>Proc</code>
 </h4><p>最後，<code>:if</code> 與 <code>:unless</code> 也可以接受 <code>Proc</code> 物件。使用 <code>Proc</code> 可以寫把一行的條件式寫在區塊裡，而不用另外寫在方法裡。一行的條件式最適合用 <code>Proc</code>：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Account &lt; ActiveRecord::Base
@@ -880,7 +880,7 @@ person.errors.messages # =&gt; {}
 
 </pre>
 </div>
-<h4 id="處理驗證錯誤-errors[]">7.2 <code>errors[]</code>
+<h4 id="處理驗證錯誤-errors-">7.2 <code>errors[]</code>
 </h4><p><code>errors[]</code> 用來檢查特定屬性的錯誤訊息。會回傳給定屬性的錯誤訊息字串陣列，每個字串都是一個錯誤訊息。如果該屬性沒有錯誤，則返回空陣列。</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Person &lt; ActiveRecord::Base
@@ -902,7 +902,7 @@ person.errors[:name]
 
 </pre>
 </div>
-<h4 id="errors.add">7.3 <code>errors.add</code>
+<h4 id="errors-add">7.3 <code>errors.add</code>
 </h4><p><code>errors.add</code> 方法讓你手動加上特定屬性的錯誤訊息。可以使用 <code>errors.full_messages</code> 或是 <code>errors.to_a</code> 方法來檢視最終將呈現給使用者的錯誤訊息。這些特定的錯誤訊息前面會附上屬性名稱（大寫形式）。<code>errors.add</code> 接受的參數為：要加上錯誤訊息的屬性、錯誤訊息內容。</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Person &lt; ActiveRecord::Base
@@ -939,7 +939,7 @@ person.errors.full_messages
 
 </pre>
 </div>
-<h4 id="errors[:base]">7.4 <code>errors[:base]</code>
+<h4 id="errors-base-">7.4 <code>errors[:base]</code>
 </h4><p>可以針對整個物件本身新增錯誤訊息，而不是針對某個特定的屬性。不論是那個值所導致的錯誤，想要把物件標記為無效的時候，可以使用這個方法。由於 <code>errors[:base]</code> 是個陣列，可以加入字串進去，字串會被當成錯誤訊息使用。</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Person &lt; ActiveRecord::Base
@@ -950,7 +950,7 @@ end
 
 </pre>
 </div>
-<h4 id="errors.clear">7.5 <code>errors.clear</code>
+<h4 id="errors-clear">7.5 <code>errors.clear</code>
 </h4><p><code>errors.clear</code> 方法可以清除 <code>errors</code> 集合裡的所有錯誤。當然了，對無效物件呼叫 <code>errors.clear</code> 不會使其有效，只是清除了錯誤訊息。下次再呼叫 <code>valid?</code>，或是其它會呼叫 <code>save</code> 的方法時，驗證再次觸發，失敗的錯誤訊息仍會將錯誤填入 <code>errors</code> 集合。</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Person &lt; ActiveRecord::Base
@@ -972,7 +972,7 @@ p.errors[:name]
 
 </pre>
 </div>
-<h4 id="errors.size">7.6 <code>errors.size</code>
+<h4 id="errors-size">7.6 <code>errors.size</code>
 </h4><p><code>size</code> 方法回傳物件錯誤訊息的總數。</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Person &lt; ActiveRecord::Base

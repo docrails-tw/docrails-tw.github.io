@@ -176,7 +176,7 @@
 <a href="#%E8%A8%AD%E5%AE%9A-model">設定 Model</a>
 
 <ul>
-<li><a href="#activerecord::base-model">ActiveRecord::Base model</a></li>
+<li><a href="#activerecord-base-model">ActiveRecord::Base model</a></li>
 <li><a href="#custom-model">Custom model</a></li>
 </ul>
 </li>
@@ -198,7 +198,7 @@
   <div id="container">
     <div class="wrapper">
       <div id="mainCol">
-        <div class="note"><p>This guide assumes the user knows how to use the <a href="form_helpers.html">Action View form helpers</a> in general. Also, it's <strong>not</strong> an API reference. For a complete reference please visit <a href="http://api.rubyonrails.org/">Rails API documentation</a>.</p></div><h3 id="設定-model">1 設定 Model</h3><p>To be able to use the nested model functionality in your forms, the model will need to support some basic operations.</p><p>First of all, it needs to define a writer method for the attribute that corresponds to the association you are building a nested model form for. The <code>fields_for</code> form helper will look for this method to decide whether or not a nested model form should be build.</p><p>If the associated object is an array a form builder will be yielded for each object, else only a single form builder will be yielded.</p><p>Consider a Person model with an associated Address. When asked to yield a nested FormBuilder for the <code>:address</code> attribute, the <code>fields_for</code> form helper will look for a method on the Person instance named <code>address_attributes=</code>.</p><h4 id="activerecord::base-model">1.1 ActiveRecord::Base model</h4><p>For an ActiveRecord::Base model and association this writer method is commonly defined with the <code>accepts_nested_attributes_for</code> class method:</p><h5 id="has_one">1.1.1 has_one</h5><div class="code_container">
+        <div class="note"><p>This guide assumes the user knows how to use the <a href="form_helpers.html">Action View form helpers</a> in general. Also, it's <strong>not</strong> an API reference. For a complete reference please visit <a href="http://api.rubyonrails.org/">Rails API documentation</a>.</p></div><h3 id="設定-model">1 設定 Model</h3><p>To be able to use the nested model functionality in your forms, the model will need to support some basic operations.</p><p>First of all, it needs to define a writer method for the attribute that corresponds to the association you are building a nested model form for. The <code>fields_for</code> form helper will look for this method to decide whether or not a nested model form should be build.</p><p>If the associated object is an array a form builder will be yielded for each object, else only a single form builder will be yielded.</p><p>Consider a Person model with an associated Address. When asked to yield a nested FormBuilder for the <code>:address</code> attribute, the <code>fields_for</code> form helper will look for a method on the Person instance named <code>address_attributes=</code>.</p><h4 id="activerecord-base-model">1.1 ActiveRecord::Base model</h4><p>For an ActiveRecord::Base model and association this writer method is commonly defined with the <code>accepts_nested_attributes_for</code> class method:</p><h5 id="has-one">1.1.1 has_one</h5><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Person &lt; ActiveRecord::Base
   has_one :address
@@ -207,7 +207,7 @@ end
 
 </pre>
 </div>
-<h5 id="belongs_to">1.1.2 belongs_to</h5><div class="code_container">
+<h5 id="belongs-to">1.1.2 belongs_to</h5><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Person &lt; ActiveRecord::Base
   belongs_to :firm
@@ -216,7 +216,7 @@ end
 
 </pre>
 </div>
-<h5 id="has_many-/-has_and_belongs_to_many">1.1.3 has_many / has_and_belongs_to_many</h5><div class="code_container">
+<h5 id="has-many-has-and-belongs-to-many">1.1.3 has_many / has_and_belongs_to_many</h5><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Person &lt; ActiveRecord::Base
   has_many :projects

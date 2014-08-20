@@ -181,75 +181,75 @@
 <a href="#action-controller">Action Controller</a>
 
 <ul>
-<li><a href="#write_fragment.action_controller">write_fragment.action_controller</a></li>
-<li><a href="#read_fragment.action_controller">read_fragment.action_controller</a></li>
-<li><a href="#expire_fragment.action_controller">expire_fragment.action_controller</a></li>
-<li><a href="#exist_fragment-questionmark.action_controller">exist_fragment?.action_controller</a></li>
-<li><a href="#write_page.action_controller">write_page.action_controller</a></li>
-<li><a href="#expire_page.action_controller">expire_page.action_controller</a></li>
-<li><a href="#start_processing.action_controller">start_processing.action_controller</a></li>
-<li><a href="#process_action.action_controller">process_action.action_controller</a></li>
-<li><a href="#send_file.action_controller">send_file.action_controller</a></li>
-<li><a href="#send_data.action_controller">send_data.action_controller</a></li>
-<li><a href="#redirect_to.action_controller">redirect_to.action_controller</a></li>
-<li><a href="#halted_callback.action_controller">halted_callback.action_controller</a></li>
+<li><a href="#write-fragment-action-controller">write_fragment.action_controller</a></li>
+<li><a href="#read-fragment-action-controller">read_fragment.action_controller</a></li>
+<li><a href="#expire-fragment-action-controller">expire_fragment.action_controller</a></li>
+<li><a href="#exist-fragment-questionmark-action-controller">exist_fragment?.action_controller</a></li>
+<li><a href="#write-page-action-controller">write_page.action_controller</a></li>
+<li><a href="#expire-page-action-controller">expire_page.action_controller</a></li>
+<li><a href="#start-processing-action-controller">start_processing.action_controller</a></li>
+<li><a href="#process-action-action-controller">process_action.action_controller</a></li>
+<li><a href="#send-file-action-controller">send_file.action_controller</a></li>
+<li><a href="#send-data-action-controller">send_data.action_controller</a></li>
+<li><a href="#redirect-to-action-controller">redirect_to.action_controller</a></li>
+<li><a href="#halted-callback-action-controller">halted_callback.action_controller</a></li>
 </ul>
 </li>
 <li>
 <a href="#action-view">Action View</a>
 
 <ul>
-<li><a href="#render_template.action_view">render_template.action_view</a></li>
-<li><a href="#render_partial.action_view">render_partial.action_view</a></li>
+<li><a href="#render-template-action-view">render_template.action_view</a></li>
+<li><a href="#render-partial-action-view">render_partial.action_view</a></li>
 </ul>
 </li>
 <li>
 <a href="#active-record">Active Record</a>
 
 <ul>
-<li><a href="#sql.active_record">sql.active_record</a></li>
-<li><a href="#identity.active_record">identity.active_record</a></li>
+<li><a href="#sql-active-record">sql.active_record</a></li>
+<li><a href="#identity-active-record">identity.active_record</a></li>
 </ul>
 </li>
 <li>
 <a href="#action-mailer">Action Mailer</a>
 
 <ul>
-<li><a href="#receive.action_mailer">receive.action_mailer</a></li>
-<li><a href="#deliver.action_mailer">deliver.action_mailer</a></li>
+<li><a href="#receive-action-mailer">receive.action_mailer</a></li>
+<li><a href="#deliver-action-mailer">deliver.action_mailer</a></li>
 </ul>
 </li>
 <li>
 <a href="#activeresource">ActiveResource</a>
 
 <ul>
-<li><a href="#request.active_resource">request.active_resource</a></li>
+<li><a href="#request-active-resource">request.active_resource</a></li>
 </ul>
 </li>
 <li>
 <a href="#active-support">Active Support</a>
 
 <ul>
-<li><a href="#cache_read.active_support">cache_read.active_support</a></li>
-<li><a href="#cache_generate.active_support">cache_generate.active_support</a></li>
-<li><a href="#cache_fetch_hit.active_support">cache_fetch_hit.active_support</a></li>
-<li><a href="#cache_write.active_support">cache_write.active_support</a></li>
-<li><a href="#cache_delete.active_support">cache_delete.active_support</a></li>
-<li><a href="#cache_exist-questionmark.active_support">cache_exist?.active_support</a></li>
+<li><a href="#cache-read-active-support">cache_read.active_support</a></li>
+<li><a href="#cache-generate-active-support">cache_generate.active_support</a></li>
+<li><a href="#cache-fetch-hit-active-support">cache_fetch_hit.active_support</a></li>
+<li><a href="#cache-write-active-support">cache_write.active_support</a></li>
+<li><a href="#cache-delete-active-support">cache_delete.active_support</a></li>
+<li><a href="#cache-exist-questionmark-active-support">cache_exist?.active_support</a></li>
 </ul>
 </li>
 <li>
 <a href="#railties">Railties</a>
 
 <ul>
-<li><a href="#load_config_initializer.railties">load_config_initializer.railties</a></li>
+<li><a href="#load-config-initializer-railties">load_config_initializer.railties</a></li>
 </ul>
 </li>
 <li>
 <a href="#rails">Rails</a>
 
 <ul>
-<li><a href="#deprecation.rails">deprecation.rails</a></li>
+<li><a href="#deprecation-rails">deprecation.rails</a></li>
 </ul>
 </li>
 <li><a href="#subscribing-to-an-event">Subscribing to an event</a></li>
@@ -264,7 +264,7 @@
   <div id="container">
     <div class="wrapper">
       <div id="mainCol">
-        <h3 id="introduction-to-instrumentation">1 Introduction to instrumentation</h3><p>The instrumentation API provided by Active Support allows developers to provide hooks which other developers may hook into. There are several of these within the Rails framework, as described below in (TODO: link to section detailing each hook point). With this API, developers can choose to be notified when certain events occur inside their application or another piece of Ruby code.</p><p>For example, there is a hook provided within Active Record that is called every time Active Record uses an SQL query on a database. This hook could be <strong>subscribed</strong> to, and used to track the number of queries during a certain action. There's another hook around the processing of an action of a controller. This could be used, for instance, to track how long a specific action has taken.</p><p>You are even able to create your own events inside your application which you can later subscribe to.</p><h3 id="rails-framework-hooks">2 Rails framework hooks</h3><p>Within the Ruby on Rails framework, there are a number of hooks provided for common events. These are detailed below.</p><h3 id="action-controller">3 Action Controller</h3><h4 id="write_fragment.action_controller">3.1 write_fragment.action_controller</h4>
+        <h3 id="introduction-to-instrumentation">1 Introduction to instrumentation</h3><p>The instrumentation API provided by Active Support allows developers to provide hooks which other developers may hook into. There are several of these within the Rails framework, as described below in (TODO: link to section detailing each hook point). With this API, developers can choose to be notified when certain events occur inside their application or another piece of Ruby code.</p><p>For example, there is a hook provided within Active Record that is called every time Active Record uses an SQL query on a database. This hook could be <strong>subscribed</strong> to, and used to track the number of queries during a certain action. There's another hook around the processing of an action of a controller. This could be used, for instance, to track how long a specific action has taken.</p><p>You are even able to create your own events inside your application which you can later subscribe to.</p><h3 id="rails-framework-hooks">2 Rails framework hooks</h3><p>Within the Ruby on Rails framework, there are a number of hooks provided for common events. These are detailed below.</p><h3 id="action-controller">3 Action Controller</h3><h4 id="write-fragment-action-controller">3.1 write_fragment.action_controller</h4>
 <table>
 <thead>
 <tr>
@@ -287,7 +287,7 @@
 
 </pre>
 </div>
-<h4 id="read_fragment.action_controller">3.2 read_fragment.action_controller</h4>
+<h4 id="read-fragment-action-controller">3.2 read_fragment.action_controller</h4>
 <table>
 <thead>
 <tr>
@@ -310,7 +310,7 @@
 
 </pre>
 </div>
-<h4 id="expire_fragment.action_controller">3.3 expire_fragment.action_controller</h4>
+<h4 id="expire-fragment-action-controller">3.3 expire_fragment.action_controller</h4>
 <table>
 <thead>
 <tr>
@@ -333,7 +333,7 @@
 
 </pre>
 </div>
-<h4 id="exist_fragment-questionmark.action_controller">3.4 exist_fragment?.action_controller</h4>
+<h4 id="exist-fragment-questionmark-action-controller">3.4 exist_fragment?.action_controller</h4>
 <table>
 <thead>
 <tr>
@@ -356,7 +356,7 @@
 
 </pre>
 </div>
-<h4 id="write_page.action_controller">3.5 write_page.action_controller</h4>
+<h4 id="write-page-action-controller">3.5 write_page.action_controller</h4>
 <table>
 <thead>
 <tr>
@@ -379,7 +379,7 @@
 
 </pre>
 </div>
-<h4 id="expire_page.action_controller">3.6 expire_page.action_controller</h4>
+<h4 id="expire-page-action-controller">3.6 expire_page.action_controller</h4>
 <table>
 <thead>
 <tr>
@@ -402,7 +402,7 @@
 
 </pre>
 </div>
-<h4 id="start_processing.action_controller">3.7 start_processing.action_controller</h4>
+<h4 id="start-processing-action-controller">3.7 start_processing.action_controller</h4>
 <table>
 <thead>
 <tr>
@@ -450,7 +450,7 @@
 
 </pre>
 </div>
-<h4 id="process_action.action_controller">3.8 process_action.action_controller</h4>
+<h4 id="process-action-action-controller">3.8 process_action.action_controller</h4>
 <table>
 <thead>
 <tr>
@@ -505,7 +505,7 @@
 
 </pre>
 </div>
-<h4 id="send_file.action_controller">3.9 send_file.action_controller</h4>
+<h4 id="send-file-action-controller">3.9 send_file.action_controller</h4>
 <table>
 <thead>
 <tr>
@@ -520,7 +520,7 @@
 </tr>
 </tbody>
 </table>
-<div class="info"><p>Additional keys may be added by the caller.</p></div><h4 id="send_data.action_controller">3.10 send_data.action_controller</h4><p><code>ActionController</code> does not had any specific information to the payload. All options are passed through to the payload.</p><h4 id="redirect_to.action_controller">3.11 redirect_to.action_controller</h4>
+<div class="info"><p>Additional keys may be added by the caller.</p></div><h4 id="send-data-action-controller">3.10 send_data.action_controller</h4><p><code>ActionController</code> does not had any specific information to the payload. All options are passed through to the payload.</p><h4 id="redirect-to-action-controller">3.11 redirect_to.action_controller</h4>
 <table>
 <thead>
 <tr>
@@ -548,7 +548,7 @@
 
 </pre>
 </div>
-<h4 id="halted_callback.action_controller">3.12 halted_callback.action_controller</h4>
+<h4 id="halted-callback-action-controller">3.12 halted_callback.action_controller</h4>
 <table>
 <thead>
 <tr>
@@ -571,7 +571,7 @@
 
 </pre>
 </div>
-<h3 id="action-view">4 Action View</h3><h4 id="render_template.action_view">4.1 render_template.action_view</h4>
+<h3 id="action-view">4 Action View</h3><h4 id="render-template-action-view">4.1 render_template.action_view</h4>
 <table>
 <thead>
 <tr>
@@ -599,7 +599,7 @@
 
 </pre>
 </div>
-<h4 id="render_partial.action_view">4.2 render_partial.action_view</h4>
+<h4 id="render-partial-action-view">4.2 render_partial.action_view</h4>
 <table>
 <thead>
 <tr>
@@ -622,7 +622,7 @@
 
 </pre>
 </div>
-<h3 id="active-record">5 Active Record</h3><h4 id="sql.active_record">5.1 sql.active_record</h4>
+<h3 id="active-record">5 Active Record</h3><h4 id="sql-active-record">5.1 sql.active_record</h4>
 <table>
 <thead>
 <tr>
@@ -656,7 +656,7 @@
 
 </pre>
 </div>
-<h4 id="identity.active_record">5.2 identity.active_record</h4>
+<h4 id="identity-active-record">5.2 identity.active_record</h4>
 <table>
 <thead>
 <tr>
@@ -679,7 +679,7 @@
 </tr>
 </tbody>
 </table>
-<h3 id="action-mailer">6 Action Mailer</h3><h4 id="receive.action_mailer">6.1 receive.action_mailer</h4>
+<h3 id="action-mailer">6 Action Mailer</h3><h4 id="receive-action-mailer">6.1 receive.action_mailer</h4>
 <table>
 <thead>
 <tr>
@@ -740,7 +740,7 @@
 
 </pre>
 </div>
-<h4 id="deliver.action_mailer">6.2 deliver.action_mailer</h4>
+<h4 id="deliver-action-mailer">6.2 deliver.action_mailer</h4>
 <table>
 <thead>
 <tr>
@@ -801,7 +801,7 @@
 
 </pre>
 </div>
-<h3 id="activeresource">7 ActiveResource</h3><h4 id="request.active_resource">7.1 request.active_resource</h4>
+<h3 id="activeresource">7 ActiveResource</h3><h4 id="request-active-resource">7.1 request.active_resource</h4>
 <table>
 <thead>
 <tr>
@@ -824,7 +824,7 @@
 </tr>
 </tbody>
 </table>
-<h3 id="active-support">8 Active Support</h3><h4 id="cache_read.active_support">8.1 cache_read.active_support</h4>
+<h3 id="active-support">8 Active Support</h3><h4 id="cache-read-active-support">8.1 cache_read.active_support</h4>
 <table>
 <thead>
 <tr>
@@ -848,7 +848,7 @@
 </tr>
 </tbody>
 </table>
-<h4 id="cache_generate.active_support">8.2 cache_generate.active_support</h4><p>This event is only used when <code>#fetch</code> is called with a block.</p>
+<h4 id="cache-generate-active-support">8.2 cache_generate.active_support</h4><p>This event is only used when <code>#fetch</code> is called with a block.</p>
 <table>
 <thead>
 <tr>
@@ -871,7 +871,7 @@
 
 </pre>
 </div>
-<h4 id="cache_fetch_hit.active_support">8.3 cache_fetch_hit.active_support</h4><p>This event is only used when <code>#fetch</code> is called with a block.</p>
+<h4 id="cache-fetch-hit-active-support">8.3 cache_fetch_hit.active_support</h4><p>This event is only used when <code>#fetch</code> is called with a block.</p>
 <table>
 <thead>
 <tr>
@@ -894,7 +894,7 @@
 
 </pre>
 </div>
-<h4 id="cache_write.active_support">8.4 cache_write.active_support</h4>
+<h4 id="cache-write-active-support">8.4 cache_write.active_support</h4>
 <table>
 <thead>
 <tr>
@@ -917,7 +917,7 @@
 
 </pre>
 </div>
-<h4 id="cache_delete.active_support">8.5 cache_delete.active_support</h4>
+<h4 id="cache-delete-active-support">8.5 cache_delete.active_support</h4>
 <table>
 <thead>
 <tr>
@@ -940,7 +940,7 @@
 
 </pre>
 </div>
-<h4 id="cache_exist-questionmark.active_support">8.6 cache_exist?.active_support</h4>
+<h4 id="cache-exist-questionmark-active-support">8.6 cache_exist?.active_support</h4>
 <table>
 <thead>
 <tr>
@@ -963,7 +963,7 @@
 
 </pre>
 </div>
-<h3 id="railties">9 Railties</h3><h4 id="load_config_initializer.railties">9.1 load_config_initializer.railties</h4>
+<h3 id="railties">9 Railties</h3><h4 id="load-config-initializer-railties">9.1 load_config_initializer.railties</h4>
 <table>
 <thead>
 <tr>
@@ -979,7 +979,7 @@
 </tr>
 </tbody>
 </table>
-<h3 id="rails">10 Rails</h3><h4 id="deprecation.rails">10.1 deprecation.rails</h4>
+<h3 id="rails">10 Rails</h3><h4 id="deprecation-rails">10.1 deprecation.rails</h4>
 <table>
 <thead>
 <tr>

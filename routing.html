@@ -185,11 +185,11 @@
 </ul>
 </li>
 <li>
-<a href="#%E8%B3%87%E6%BA%90%E5%BC%8F%E8%B7%AF%E7%94%B1%EF%BC%9Arails-%E7%9A%84%E9%A0%90%E8%A8%AD%E8%B7%AF%E7%94%B1">資源式路由：Rails 的預設路由</a>
+<a href="#%E8%B3%87%E6%BA%90%E5%BC%8F%E8%B7%AF%E7%94%B1-rails-%E7%9A%84%E9%A0%90%E8%A8%AD%E8%B7%AF%E7%94%B1">資源式路由：Rails 的預設路由</a>
 
 <ul>
 <li><a href="#web-%E4%B8%96%E7%95%8C%E8%A3%A1%E7%9A%84%E8%B3%87%E6%BA%90">Web 世界裡的資源</a></li>
-<li><a href="#crud%E3%80%81http-%E5%8B%95%E8%A9%9E%E4%BB%A5%E5%8F%8A%E5%8B%95%E4%BD%9C">CRUD、HTTP 動詞以及動作</a></li>
+<li><a href="#crud-http-%E5%8B%95%E8%A9%9E%E4%BB%A5%E5%8F%8A%E5%8B%95%E4%BD%9C">CRUD、HTTP 動詞以及動作</a></li>
 <li><a href="#%E8%B7%AF%E5%BE%91%E8%88%87-url-%E7%9A%84%E8%BC%94%E5%8A%A9%E6%96%B9%E6%B3%95">路徑與 URL 的輔助方法</a></li>
 <li><a href="#%E5%90%8C%E6%99%82%E5%AE%9A%E7%BE%A9%E5%A4%9A%E7%AD%86%E8%B3%87%E6%BA%90">同時定義多筆資源</a></li>
 <li><a href="#%E5%96%AE%E6%95%B8%E8%B3%87%E6%BA%90">單數資源</a></li>
@@ -233,7 +233,7 @@
 <li><a href="#%E9%99%90%E5%88%B6%E5%BB%BA%E7%AB%8B%E5%87%BA%E4%BE%86%E7%9A%84%E8%B7%AF%E7%94%B1">限制建立出來的路由</a></li>
 <li><a href="#%E7%BF%BB%E8%AD%AF%E8%B7%AF%E5%BE%91">翻譯路徑</a></li>
 <li><a href="#%E8%A6%86%E5%AF%AB%E5%96%AE%E6%95%B8%E5%BD%A2%E5%BC%8F">覆寫單數形式</a></li>
-<li><a href="#%E5%9C%A8%E5%B5%8C%E5%A5%97%E8%B3%87%E6%BA%90%E4%B8%AD%E4%BD%BF%E7%94%A8-:as-%E9%81%B8%E9%A0%85">在嵌套資源中使用 <code>:as</code> 選項</a></li>
+<li><a href="#%E5%9C%A8%E5%B5%8C%E5%A5%97%E8%B3%87%E6%BA%90%E4%B8%AD%E4%BD%BF%E7%94%A8-as-%E9%81%B8%E9%A0%85">在嵌套資源中使用 <code>:as</code> 選項</a></li>
 <li><a href="#%E8%A6%86%E5%AF%AB%E5%85%B7%E5%90%8D%E8%B7%AF%E7%94%B1%E5%8F%83%E6%95%B8">覆寫具名路由參數</a></li>
 </ul>
 </li>
@@ -285,7 +285,7 @@ get '/patients/:id', to: 'patients#show', as: 'patient'
 
 </pre>
 </div>
-<p>則路由器便會給 <code>patient_path(@patient)</code> 產生路徑 <code>/patients/17</code>。這使得程式碼更容易了解。注意，使用路由輔助方法（<code>patient_path</code>）時，無需指定 ID。</p><h3 id="資源式路由：rails-的預設路由">2 資源式路由：Rails 的預設路由</h3><p>資源式路由可替資源式 Controller 快速宣告出所有常見的路由。與其挨個替每個動作（ <code>index</code>、<code>show</code>、<code>new</code>、<code>edit</code>、<code>create</code>、<code>update</code> 以及 <code>destroy</code>）宣告路由，資源式路由宣告一行解決。</p><h4 id="web-世界裡的資源">2.1 Web 世界裡的資源</h4><p>瀏覽器向 Rails 請求頁面時，透過使用具體的 HTTP 動詞，如 <code>GET</code>、<code>POST</code>、<code>PATCH</code>、<code>PUT</code> 以及 <code>DELETE</code>，往 URL 發出請求。每個動詞都是對資源的一種操作。資源式路由將請求對應到 Controller 的動作。</p><p>當 Rails 應用程式收到下面這個請求時：</p><div class="code_container">
+<p>則路由器便會給 <code>patient_path(@patient)</code> 產生路徑 <code>/patients/17</code>。這使得程式碼更容易了解。注意，使用路由輔助方法（<code>patient_path</code>）時，無需指定 ID。</p><h3 id="資源式路由-rails-的預設路由">2 資源式路由：Rails 的預設路由</h3><p>資源式路由可替資源式 Controller 快速宣告出所有常見的路由。與其挨個替每個動作（ <code>index</code>、<code>show</code>、<code>new</code>、<code>edit</code>、<code>create</code>、<code>update</code> 以及 <code>destroy</code>）宣告路由，資源式路由宣告一行解決。</p><h4 id="web-世界裡的資源">2.1 Web 世界裡的資源</h4><p>瀏覽器向 Rails 請求頁面時，透過使用具體的 HTTP 動詞，如 <code>GET</code>、<code>POST</code>、<code>PATCH</code>、<code>PUT</code> 以及 <code>DELETE</code>，往 URL 發出請求。每個動詞都是對資源的一種操作。資源式路由將請求對應到 Controller 的動作。</p><p>當 Rails 應用程式收到下面這個請求時：</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 DELETE /photos/17
 
@@ -297,7 +297,7 @@ resources :photos
 
 </pre>
 </div>
-<p>Rails 會將請求分派給 <code>PhotosController</code> 的 <code>destroy</code> 方法，且 <code>params</code> 裡有 <code>{ id: '17' }</code> 參數。</p><h4 id="crud、http-動詞以及動作">2.2 CRUD、HTTP 動詞以及動作</h4><p>在 Rails 裡，資源式路由提供 HTTP 動詞、URL、Controller 動作，這三者的對應關係。按照慣例，每個動作會對應到資料庫特定的 CRUD 操作。假設路由檔案裡有一條路由宣告為：</p><div class="code_container">
+<p>Rails 會將請求分派給 <code>PhotosController</code> 的 <code>destroy</code> 方法，且 <code>params</code> 裡有 <code>{ id: '17' }</code> 參數。</p><h4 id="crud-http-動詞以及動作">2.2 CRUD、HTTP 動詞以及動作</h4><p>在 Rails 裡，資源式路由提供 HTTP 動詞、URL、Controller 動作，這三者的對應關係。按照慣例，每個動作會對應到資料庫特定的 CRUD 操作。假設路由檔案裡有一條路由宣告為：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 resources :photos
 
@@ -1516,7 +1516,7 @@ end
 
 </pre>
 </div>
-<h4 id="在嵌套資源中使用-:as-選項">4.9 在嵌套資源中使用 <code>:as</code> 選項</h4><p><code>:as</code> 選項覆寫在嵌套資源裡，自動產生的路由輔助方法，例如：</p><div class="code_container">
+<h4 id="在嵌套資源中使用-as-選項">4.9 在嵌套資源中使用 <code>:as</code> 選項</h4><p><code>:as</code> 選項覆寫在嵌套資源裡，自動產生的路由輔助方法，例如：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 resources :magazines do
   resources :ads, as: 'periodical_ads'
@@ -1573,14 +1573,14 @@ $ CONTROLLER=users rake routes
 <li><code>assert_recognizes</code></li>
 <li><code>assert_routing</code></li>
 </ul>
-<h5 id="assert_generates-斷言">5.2.1 <code>assert_generates</code> 斷言</h5><p><code>assert_generates</code> 檢測給定選項產生出來的預設路由或自訂路由是否正確：</p><div class="code_container">
+<h5 id="assert-generates-斷言">5.2.1 <code>assert_generates</code> 斷言</h5><p><code>assert_generates</code> 檢測給定選項產生出來的預設路由或自訂路由是否正確：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 assert_generates '/photos/1', { controller: 'photos', action: 'show', id: '1' }
 assert_generates '/about', controller: 'pages', action: 'about'
 
 </pre>
 </div>
-<h5 id="assert_recognizes-斷言">5.2.2 <code>assert_recognizes</code> 斷言</h5><p><code>assert_recognizes</code> 與 <code>assert_generates</code> 相反。檢測給定的路徑是否能識別出來，並路由到正確的位置。比如：</p><div class="code_container">
+<h5 id="assert-recognizes-斷言">5.2.2 <code>assert_recognizes</code> 斷言</h5><p><code>assert_recognizes</code> 與 <code>assert_generates</code> 相反。檢測給定的路徑是否能識別出來，並路由到正確的位置。比如：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 assert_recognizes({ controller: 'photos', action: 'show', id: '1' }, '/photos/1')
 
@@ -1592,7 +1592,7 @@ assert_recognizes({ controller: 'photos', action: 'create' }, { path: 'photos', 
 
 </pre>
 </div>
-<h5 id="assert_routing-斷言">5.2.3 <code>assert_routing</code> 斷言</h5><p><code>assert_routing</code> 斷言雙向檢查路由：測試路徑產生的選項對不對，以及選項產生出來的路徑是否正確。因此，結合了 <code>assert_generates</code> 與 <code>assert_recognizes</code> 的功能：</p><div class="code_container">
+<h5 id="assert-routing-斷言">5.2.3 <code>assert_routing</code> 斷言</h5><p><code>assert_routing</code> 斷言雙向檢查路由：測試路徑產生的選項對不對，以及選項產生出來的路徑是否正確。因此，結合了 <code>assert_generates</code> 與 <code>assert_recognizes</code> 的功能：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 assert_routing({ path: 'photos', method: :post }, { controller: 'photos', action: 'create' })
 
