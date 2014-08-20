@@ -398,12 +398,12 @@ end
 </div>
 <div class="note"><p>確保後台程式知道佇列的名稱是什麼。某些後台可能需要明確指定佇列。</p></div><h3 id="回呼">6 回呼</h3><p>Active Job 在任務生命週期裡的每個階段都有提供 hooks。回呼允許在任務生命週期裡觸發事件來執行程式邏輯。</p><h4 id="可用的回呼">6.1 可用的回呼</h4>
 <ul>
-<li>before_enqueue</li>
-<li>around_enqueue</li>
-<li>after_enqueue</li>
-<li>before_perform</li>
-<li>around_perform</li>
-<li>after_perform</li>
+<li><code>before_enqueue</code></li>
+<li><code>around_enqueue</code></li>
+<li><code>after_enqueue</code></li>
+<li><code>before_perform</code></li>
+<li><code>around_perform</code></li>
+<li><code>after_perform</code></li>
 </ul>
 <h4 id="用法">6.2 用法</h4><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
