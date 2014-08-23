@@ -184,7 +184,7 @@
 <ul>
 <li><a href="#%E9%A0%90%E8%A8%AD%E7%AE%97%E7%B9%AA-%E6%85%A3%E4%BE%8B%E5%8B%9D%E6%96%BC%E8%A8%AD%E5%AE%9A%E7%9A%84%E5%AF%A6%E8%B8%90">預設算繪：慣例勝於設定的實踐</a></li>
 <li><a href="#%E4%BD%BF%E7%94%A8-render">使用 <code>render</code></a></li>
-<li><a href="#%E4%BD%BF%E7%94%A8-redirect-to">使用 <code>redirect_to</code></a></li>
+<li><a href="#%E4%BD%BF%E7%94%A8-redirect_to">使用 <code>redirect_to</code></a></li>
 <li><a href="#%E4%BD%BF%E7%94%A8-head-%E4%BE%86%E5%BB%BA%E7%AB%8B%E5%8F%AA%E5%90%AB%E6%A8%99%E9%A0%AD%E7%9A%84%E9%9F%BF%E6%87%89">使用 <code>head</code> 來建立只含標頭的響應</a></li>
 </ul>
 </li>
@@ -194,7 +194,7 @@
 <ul>
 <li><a href="#asset-tag-%E8%BC%94%E5%8A%A9%E6%96%B9%E6%B3%95">Asset Tag 輔助方法</a></li>
 <li><a href="#%E7%90%86%E8%A7%A3-yield">理解 <code>yield</code></a></li>
-<li><a href="#%E4%BD%BF%E7%94%A8-content-for-%E6%96%B9%E6%B3%95">使用 <code>content_for</code> 方法</a></li>
+<li><a href="#%E4%BD%BF%E7%94%A8-content_for-%E6%96%B9%E6%B3%95">使用 <code>content_for</code> 方法</a></li>
 <li><a href="#%E4%BD%BF%E7%94%A8%E5%B1%80%E9%83%A8%E9%A0%81%E9%9D%A2">使用局部頁面</a></li>
 <li><a href="#using-nested-layouts">Using Nested Layouts</a></li>
 </ul>
@@ -421,7 +421,7 @@ render body: "raw"
 <li><code>:location</code></li>
 <li><code>:status</code></li>
 </ul>
-<h6 id="-content-type-選項">2.2.13.1 <code>:content_type</code> 選項</h6><p>Rails 算繪操作預設的 MIME Content-Type 為 <code>text/html</code>（若用了 <code>:json</code> 選項，則為 <code>application/json</code>；<code>:xml</code> 選項為 <code>application/xml</code>）。有時候會想要修改 Content-Type，可以使用 <code>:content_type</code> 選項來設定：</p><div class="code_container">
+<h6 id="-content_type-選項">2.2.13.1 <code>:content_type</code> 選項</h6><p>Rails 算繪操作預設的 MIME Content-Type 為 <code>text/html</code>（若用了 <code>:json</code> 選項，則為 <code>application/json</code>；<code>:xml</code> 選項為 <code>application/xml</code>）。有時候會想要修改 Content-Type，可以使用 <code>:content_type</code> 選項來設定：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 render file: filename, content_type: "application/rss"
 
@@ -909,7 +909,7 @@ end
 
 </pre>
 </div>
-<p>特殊的書會算繪 <code>special_view</code> 模版，而一般的書則會算繪預設的 <code>show</code> 模版。</p><h4 id="使用-redirect-to">2.3 使用 <code>redirect_to</code>
+<p>特殊的書會算繪 <code>special_view</code> 模版，而一般的書則會算繪預設的 <code>show</code> 模版。</p><h4 id="使用-redirect_to">2.3 使用 <code>redirect_to</code>
 </h4><p>另一種回傳響應給 HTTP 請求的方式是使用 <code>redirect_to</code>。<code>render</code> 告訴 Rails 要用那個 View （或是其他 Asset）來打造響應。而 <code>redirect_to</code> 方法則完全不同，告訴瀏覽器對不同的 URL 發一個新請求。舉例來說，可以在程式碼任何一個地方做轉址，比如轉到 <code>photos</code> 的 <code>index</code>：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 redirect_to photos_url
@@ -928,7 +928,7 @@ redirect_to photos_path, status: 301
 
 </pre>
 </div>
-<p>和 <code>render</code> 方法的 <code>:status</code> 選項一樣，<code>redirect_to</code> 的 <code>:status</code> 接受數字與符號來指定狀態碼。</p><h5 id="render-和-redirect-to-的差異">2.3.2 <code>render</code> 和 <code>redirect_to</code> 的差異</h5><p>有時候經驗不足的開發者會認為 <code>redirect_to</code> 是某種 <code>goto</code> 命令，在 Rails 程式裡從一處跳至另一處。<strong>這是不正確的</strong>。<code>redirect_to</code> 方法會讓程式停止執行，等待瀏覽器發起新請求。你需要用 HTTP 302 狀態碼，告訴瀏覽器下個請求是什麼才是。</p><p>考量下面這幾個動作來看出差異：</p><div class="code_container">
+<p>和 <code>render</code> 方法的 <code>:status</code> 選項一樣，<code>redirect_to</code> 的 <code>:status</code> 接受數字與符號來指定狀態碼。</p><h5 id="render-和-redirect_to-的差異">2.3.2 <code>render</code> 和 <code>redirect_to</code> 的差異</h5><p>有時候經驗不足的開發者會認為 <code>redirect_to</code> 是某種 <code>goto</code> 命令，在 Rails 程式裡從一處跳至另一處。<strong>這是不正確的</strong>。<code>redirect_to</code> 方法會讓程式停止執行，等待瀏覽器發起新請求。你需要用 HTTP 302 狀態碼，告訴瀏覽器下個請求是什麼才是。</p><p>考量下面這幾個動作來看出差異：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 def index
   @books = Book.all
@@ -1031,7 +1031,7 @@ Cache-Control: no-cache
 <li><code>video_tag</code></li>
 <li><code>audio_tag</code></li>
 </ul>
-<p>這些方法可以在版型、或其他的 View 裡使用，雖然 <code>auto_discovery_link_tag</code>、<code>javascript_include_tag</code> 和 <code>stylesheet_link_tag</code> 這三個方法一般是在 HTML 裡的 <code>&lt;head&gt;</code> 裡使用。</p><div class="warning"><p>Asset Tag 輔助方法不會檢查 Assets 是否存在，這些方法是假設你知道自己在幹什麼，純粹幫你產生連結出來。</p></div><h5 id="用-auto-discovery-link-tag-來連結到-feeds">3.1.1 用 <code>auto_discovery_link_tag</code> 來連結到 Feeds</h5><p><code>auto_discovery_link_tag</code> 輔助方法所產生的 HTML，多數瀏覽器與 Feed 閱讀器都會識別成 RSS 或是 Atom Feeds。這個方法接受的參數有：連結的類型（<code>:rss</code> 或 <code>:atom</code>），給 <code>url_for</code> 的選項（Hash）以及給 <code>auto_discovery_link_tag</code> 本身的選項（Hash）：</p><div class="code_container">
+<p>這些方法可以在版型、或其他的 View 裡使用，雖然 <code>auto_discovery_link_tag</code>、<code>javascript_include_tag</code> 和 <code>stylesheet_link_tag</code> 這三個方法一般是在 HTML 裡的 <code>&lt;head&gt;</code> 裡使用。</p><div class="warning"><p>Asset Tag 輔助方法不會檢查 Assets 是否存在，這些方法是假設你知道自己在幹什麼，純粹幫你產生連結出來。</p></div><h5 id="用-auto_discovery_link_tag-來連結到-feeds">3.1.1 用 <code>auto_discovery_link_tag</code> 來連結到 Feeds</h5><p><code>auto_discovery_link_tag</code> 輔助方法所產生的 HTML，多數瀏覽器與 Feed 閱讀器都會識別成 RSS 或是 Atom Feeds。這個方法接受的參數有：連結的類型（<code>:rss</code> 或 <code>:atom</code>），給 <code>url_for</code> 的選項（Hash）以及給 <code>auto_discovery_link_tag</code> 本身的選項（Hash）：</p><div class="code_container">
 <pre class="brush: ruby; html-script: true; gutter: false; toolbar: false">
 &lt;%= auto_discovery_link_tag(:rss, {action: "feed"},
   {title: "RSS Feed"}) %&gt;
@@ -1047,7 +1047,7 @@ Cache-Control: no-cache
 <li>
 <code>:title</code> 指定連結的 <code>title</code>。預設值是 <code>:type</code> 的值轉大寫，譬如 <code>"ATOM"</code> 或 <code>"RSS"</code>。</li>
 </ul>
-<h5 id="使用-javascript-include-tag-來引入-javascript">3.1.2 使用 <code>javascript_include_tag</code> 來引入 JavaScript</h5><p><code>javascript_include_tag</code> 輔助方法根據提供的來源，回傳 HTML 的 <code>&lt;script&gt;</code> 標籤。</p><p>若有啟用 Rails 的 <a href="asset_pipeline.html">Asset Pipeline</a>，連結會由 Asset Pipeline 來供應。這個方法產生的連結會連到 <code>/assets/javascripts</code>，而不是 <code>public/javascripts</code>（舊版 Rails，JavaScript 都放在這個目錄下）。</p><p>Rails 應用程式或 Rails Engine 裡的 JavaScript，通常放在三個地方：<code>app/assets</code>、<code>lib/assets</code> 或 <code>vendor/assets</code>。這些擺放的位置在《Asset Pipeline》一文的<a href="asset_pipeline.html#asset-organization">〈組織 Asset〉</a> 一節裡有更深入的介紹。</p><p>可以指定相對於根目錄的完整路徑，或是 URL 也可以。舉例來說，要連結到放在 <code>javascripts</code> 目錄（<code>app/assets</code>、<code>lib/assets</code> 或是 <code>vendor/assets</code>）下的 JavaScript 檔案，可以這麼寫：</p><div class="code_container">
+<h5 id="使用-javascript_include_tag-來引入-javascript">3.1.2 使用 <code>javascript_include_tag</code> 來引入 JavaScript</h5><p><code>javascript_include_tag</code> 輔助方法根據提供的來源，回傳 HTML 的 <code>&lt;script&gt;</code> 標籤。</p><p>若有啟用 Rails 的 <a href="asset_pipeline.html">Asset Pipeline</a>，連結會由 Asset Pipeline 來供應。這個方法產生的連結會連到 <code>/assets/javascripts</code>，而不是 <code>public/javascripts</code>（舊版 Rails，JavaScript 都放在這個目錄下）。</p><p>Rails 應用程式或 Rails Engine 裡的 JavaScript，通常放在三個地方：<code>app/assets</code>、<code>lib/assets</code> 或 <code>vendor/assets</code>。這些擺放的位置在《Asset Pipeline》一文的<a href="asset_pipeline.html#asset-organization">〈組織 Asset〉</a> 一節裡有更深入的介紹。</p><p>可以指定相對於根目錄的完整路徑，或是 URL 也可以。舉例來說，要連結到放在 <code>javascripts</code> 目錄（<code>app/assets</code>、<code>lib/assets</code> 或是 <code>vendor/assets</code>）下的 JavaScript 檔案，可以這麼寫：</p><div class="code_container">
 <pre class="brush: ruby; html-script: true; gutter: false; toolbar: false">
 &lt;%= javascript_include_tag "main" %&gt;
 
@@ -1077,7 +1077,7 @@ Cache-Control: no-cache
 
 </pre>
 </div>
-<h5 id="使用-stylesheet-link-tag-來引入樣式表檔案">3.1.3 使用 <code>stylesheet_link_tag</code> 來引入樣式表檔案</h5><p><code>stylesheet_link_tag</code> 輔助方法根據提供的來源，回傳 HTML 的 <code>&lt;link&gt;</code> 標籤。</p><p>若有啟用 Rails 的 <a href="asset_pipeline.html">Asset Pipeline</a>，這個輔助方法會產生指向 <code>assets/stylesheets</code> 的連結。接著交給 Sprockets Gem 來處理。樣式表檔案可以存在這三個地方：<code>app/assets</code>、<code>lib/assets</code> 或 <code>vendor/assets</code>。</p><p>可以指定相對於根目錄的完整路徑，或是 URL 也可以。舉例來說，要連結到放在 <code>stylesheets</code> 目錄（<code>app/assets</code>、<code>lib/assets</code> 或是 <code>vendor/assets</code>）下的樣式表檔案，可以這麼寫：</p><div class="code_container">
+<h5 id="使用-stylesheet_link_tag-來引入樣式表檔案">3.1.3 使用 <code>stylesheet_link_tag</code> 來引入樣式表檔案</h5><p><code>stylesheet_link_tag</code> 輔助方法根據提供的來源，回傳 HTML 的 <code>&lt;link&gt;</code> 標籤。</p><p>若有啟用 Rails 的 <a href="asset_pipeline.html">Asset Pipeline</a>，這個輔助方法會產生指向 <code>assets/stylesheets</code> 的連結。接著交給 Sprockets Gem 來處理。樣式表檔案可以存在這三個地方：<code>app/assets</code>、<code>lib/assets</code> 或 <code>vendor/assets</code>。</p><p>可以指定相對於根目錄的完整路徑，或是 URL 也可以。舉例來說，要連結到放在 <code>stylesheets</code> 目錄（<code>app/assets</code>、<code>lib/assets</code> 或是 <code>vendor/assets</code>）下的樣式表檔案，可以這麼寫：</p><div class="code_container">
 <pre class="brush: ruby; html-script: true; gutter: false; toolbar: false">
 &lt;%= stylesheet_link_tag "main" %&gt;
 
@@ -1107,7 +1107,7 @@ Cache-Control: no-cache
 
 </pre>
 </div>
-<h5 id="使用-image-tag-來連結圖片">3.1.4 使用 <code>image_tag</code> 來連結圖片</h5><p><code>image_tag</code> 輔助方法根據指定的檔案建立出 <code>&lt;img /&gt;</code> 標籤。預設情況會載入 <code>public/images</code> 目錄下的檔案。</p><div class="warning"><p>必須指定圖片的副檔名。</p></div><div class="code_container">
+<h5 id="使用-image_tag-來連結圖片">3.1.4 使用 <code>image_tag</code> 來連結圖片</h5><p><code>image_tag</code> 輔助方法根據指定的檔案建立出 <code>&lt;img /&gt;</code> 標籤。預設情況會載入 <code>public/images</code> 目錄下的檔案。</p><div class="warning"><p>必須指定圖片的副檔名。</p></div><div class="code_container">
 <pre class="brush: ruby; html-script: true; gutter: false; toolbar: false">
 &lt;%= image_tag "header.png" %&gt;
 
@@ -1146,7 +1146,7 @@ Cache-Control: no-cache
 
 </pre>
 </div>
-<h5 id="使用-video-tag-連結到視訊檔案">3.1.5 使用 <code>video_tag</code> 連結到視訊檔案</h5><p><code>video_tag</code> 輔助方法根據指定的檔案建立 HTML 5 的 <code>&lt;video&gt;</code> 標籤。預設從 <code>public/videos</code> 載入檔案。</p><div class="code_container">
+<h5 id="使用-video_tag-連結到視訊檔案">3.1.5 使用 <code>video_tag</code> 連結到視訊檔案</h5><p><code>video_tag</code> 輔助方法根據指定的檔案建立 HTML 5 的 <code>&lt;video&gt;</code> 標籤。預設從 <code>public/videos</code> 載入檔案。</p><div class="code_container">
 <pre class="brush: ruby; html-script: true; gutter: false; toolbar: false">
 &lt;%= video_tag "movie.ogg" %&gt;
 
@@ -1183,7 +1183,7 @@ Cache-Control: no-cache
 
 </pre>
 </div>
-<h5 id="使用-audio-tag-連結到音訊檔案">3.1.6 使用 <code>audio_tag</code> 連結到音訊檔案</h5><p><code>audio_tag</code> 輔助方法根據指定的檔案建立 HTML 5 的 <code>&lt;audio&gt;</code> 標籤。預設從 <code>public/audios</code> 載入檔案。</p><div class="code_container">
+<h5 id="使用-audio_tag-連結到音訊檔案">3.1.6 使用 <code>audio_tag</code> 連結到音訊檔案</h5><p><code>audio_tag</code> 輔助方法根據指定的檔案建立 HTML 5 的 <code>&lt;audio&gt;</code> 標籤。預設從 <code>public/audios</code> 載入檔案。</p><div class="code_container">
 <pre class="brush: ruby; html-script: true; gutter: false; toolbar: false">
 &lt;%= audio_tag "music.mp3" %&gt;
 
@@ -1230,7 +1230,7 @@ Cache-Control: no-cache
 
 </pre>
 </div>
-<p>View 的主要內容總是會插入到無名的 <code>yield</code>。要把算繪內容到具名的 <code>yield</code> 區域，可以使用 <code>content_for</code> 方法。</p><h4 id="使用-content-for-方法">3.3 使用 <code>content_for</code> 方法</h4><p><code>content_for</code> 方法允許在版型裡插入內容到 <code>yield</code> 具名的區塊。舉例來說，上例有 <code>&lt;%= yield :head %&gt;</code> 的版型，要結合下面的 <code>content_for</code> 使用：</p><div class="code_container">
+<p>View 的主要內容總是會插入到無名的 <code>yield</code>。要把算繪內容到具名的 <code>yield</code> 區域，可以使用 <code>content_for</code> 方法。</p><h4 id="使用-content_for-方法">3.3 使用 <code>content_for</code> 方法</h4><p><code>content_for</code> 方法允許在版型裡插入內容到 <code>yield</code> 具名的區塊。舉例來說，上例有 <code>&lt;%= yield :head %&gt;</code> 的版型，要結合下面的 <code>content_for</code> 使用：</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 &lt;% content_for :head do %&gt;
   &lt;title&gt;A simple page&lt;/title&gt;

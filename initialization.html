@@ -182,12 +182,12 @@
 
 <ul>
 <li><a href="#railties-bin-rails"><code>railties/bin/rails</code></a></li>
-<li><a href="#railties-lib-rails-app-rails-loader-rb"><code>railties/lib/rails/app_rails_loader.rb</code></a></li>
+<li><a href="#railties-lib-rails-app_rails_loader-rb"><code>railties/lib/rails/app_rails_loader.rb</code></a></li>
 <li><a href="#bin-rails"><code>bin/rails</code></a></li>
 <li><a href="#config-boot-rb"><code>config/boot.rb</code></a></li>
 <li><a href="#rails-commands-rb"><code>rails/commands.rb</code></a></li>
-<li><a href="#rails-commands-command-tasks-rb"><code>rails/commands/command_tasks.rb</code></a></li>
-<li><a href="#actionpack-lib-action-dispatch-rb"><code>actionpack/lib/action_dispatch.rb</code></a></li>
+<li><a href="#rails-commands-command_tasks-rb"><code>rails/commands/command_tasks.rb</code></a></li>
+<li><a href="#actionpack-lib-action_dispatch-rb"><code>actionpack/lib/action_dispatch.rb</code></a></li>
 <li><a href="#rails-commands-server-rb"><code>rails/commands/server.rb</code></a></li>
 <li><a href="#%E5%95%9F%E5%8B%95--rack-lib-rack-server-rb">Rack: <code>lib/rack/server.rb</code></a></li>
 <li><a href="#%E5%95%9F%E5%8B%95--config-application-rb"><code>config/application.rb</code></a></li>
@@ -230,7 +230,7 @@ require "rails/cli"
 
 </pre>
 </div>
-<p><a href="https://github.com/rails/rails/blob/master/railties/lib/rails/cli.rb"><code>railties/lib/rails/cli</code></a> 接著呼叫 <code>Rails::AppRailsLoader.exec_app_rails</code>。</p><h4 id="railties-lib-rails-app-rails-loader-rb">1.2 <code>railties/lib/rails/app_rails_loader.rb</code>
+<p><a href="https://github.com/rails/rails/blob/master/railties/lib/rails/cli.rb"><code>railties/lib/rails/cli</code></a> 接著呼叫 <code>Rails::AppRailsLoader.exec_app_rails</code>。</p><h4 id="railties-lib-rails-app_rails_loader-rb">1.2 <code>railties/lib/rails/app_rails_loader.rb</code>
 </h4><p><a href="https://github.com/rails/rails/blob/master/railties/lib/rails/app_rails_loader.rb">View Source</a></p><p><code>exec_app_rails</code> 的主要目的是執行應用程式的 <code>bin/rails</code>，若當前目錄沒有 <code>bin/rails</code>，會往上搜索，看找不找的到 <code>bin/rails</code>。這也是為什麼可以在 rails 應用程式裡的任何目錄下使用 <code>rails</code> 命令。</p><p><code>rails server</code> 實際上等於下面這個命令：</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 $ exec ruby bin/rails server
@@ -308,7 +308,7 @@ Rails::CommandsTasks.new(ARGV).run_command!(command)
 
 </pre>
 </div>
-<div class="info"><p>如上所見，<code>ARGV</code> 為空時，Rails 會印出幫助訊息。</p></div><p>若用了別名，如 <code>rails s</code>，便會用 <code>aliases</code> 展開成對應的命令：</p><h4 id="rails-commands-command-tasks-rb">1.6 <code>rails/commands/command_tasks.rb</code>
+<div class="info"><p>如上所見，<code>ARGV</code> 為空時，Rails 會印出幫助訊息。</p></div><p>若用了別名，如 <code>rails s</code>，便會用 <code>aliases</code> 展開成對應的命令：</p><h4 id="rails-commands-command_tasks-rb">1.6 <code>rails/commands/command_tasks.rb</code>
 </h4><p><a href="https://github.com/rails/rails/blob/master/railties/lib/rails/commands/commands_tasks.rb">View Source</a></p><p>當輸入錯的 Rails 命令時，<code>run_command!</code> 負責拋出錯誤訊息。若命令是有效的，則會呼叫與命令同名的方法。</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 COMMAND_WHITELIST = %(plugin generate destroy console server dbconsole application runner new version help)
@@ -363,7 +363,7 @@ module Rails
 
 </pre>
 </div>
-<p><code>fileutils</code> 和 <code>optparse</code> 是 Ruby 的標準函式庫，用來處理檔案與解析命令行參數。</p><h4 id="actionpack-lib-action-dispatch-rb">1.7 <code>actionpack/lib/action_dispatch.rb</code>
+<p><code>fileutils</code> 和 <code>optparse</code> 是 Ruby 的標準函式庫，用來處理檔案與解析命令行參數。</p><h4 id="actionpack-lib-action_dispatch-rb">1.7 <code>actionpack/lib/action_dispatch.rb</code>
 </h4><p><a href="https://github.com/rails/rails/blob/master/actionpack/lib/action_dispatch.rb">View Source</a></p><p>Action Dispatch 是 Rails 框架負責處理路由的元件。為 Rails 加入像是路由、Session 以及常見的 Middlewares。</p><h4 id="rails-commands-server-rb">1.8 <code>rails/commands/server.rb</code>
 </h4><p><a href="https://github.com/rails/rails/blob/master/railties/lib/rails/commands/server.rb">View Source</a></p><p><code>Rails::Server</code> 在這個檔案裡定義，繼承自 <code>Rack::Server</code>。呼叫 <code>Rails::Server.new</code> 時，會呼叫 <a href="https://github.com/rails/rails/blob/master/railties/lib/rails/commands/server.rb"><code>rails/commands/server.rb</code></a> 裡的 <code>initialize</code> 方法：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">

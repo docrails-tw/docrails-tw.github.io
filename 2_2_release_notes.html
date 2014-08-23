@@ -210,7 +210,7 @@
 
 <ul>
 <li><a href="#memoization">Memoization</a></li>
-<li><a href="#each-with-object">each_with_object</a></li>
+<li><a href="#each_with_object">each_with_object</a></li>
 <li><a href="#delegates-with-prefixes">Delegates With Prefixes</a></li>
 <li><a href="#other-active-support-changes">Other Active Support Changes</a></li>
 </ul>
@@ -393,7 +393,7 @@ Product.all(:joins =&gt; :photos, :conditions =&gt; { :photos =&gt; { :copyright
 </ul>
 </li>
 </ul>
-<h4 id="new-dynamic-finders">5.4 New Dynamic Finders</h4><p>Two new sets of methods have been added to Active Record's dynamic finders family.</p><h5 id="find-last-by-attribute">5.4.1 <code>find_last_by_attribute</code>
+<h4 id="new-dynamic-finders">5.4 New Dynamic Finders</h4><p>Two new sets of methods have been added to Active Record's dynamic finders family.</p><h5 id="find_last_by_attribute">5.4.1 <code>find_last_by_attribute</code>
 </h5><p>The <code>find_last_by_attribute</code> method is equivalent to <code>Model.last(:conditions =&gt; {:attribute =&gt; value})</code></p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 # Get the last user who signed up from London
@@ -406,7 +406,7 @@ User.find_last_by_city('London')
 <li>Lead Contributor: <a href="http://www.workingwithrails.com/person/9147-emilio-tagua">Emilio Tagua</a>
 </li>
 </ul>
-<h5 id="find-by-attribute-bang">5.4.2 <code>find_by_attribute!</code>
+<h5 id="find_by_attribute-bang">5.4.2 <code>find_by_attribute!</code>
 </h5><p>The new bang! version of <code>find_by_attribute!</code> is equivalent to <code>Model.first(:conditions =&gt; {:attribute =&gt; value}) || raise ActiveRecord::RecordNotFound</code> Instead of returning <code>nil</code> if it can't find a matching record, this method will raise an exception if it cannot find a match.</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 # Raise ActiveRecord::RecordNotFound exception if 'Moby' hasn't signed up yet!
@@ -555,7 +555,7 @@ memoize :full_name
 </ul>
 </li>
 </ul>
-<h4 id="each-with-object">9.2 each_with_object</h4><p>The <code>each_with_object</code> method provides an alternative to <code>inject</code>, using a method backported from Ruby 1.9. It iterates over a collection, passing the current element and the memo into the block.</p><div class="code_container">
+<h4 id="each_with_object">9.2 each_with_object</h4><p>The <code>each_with_object</code> method provides an alternative to <code>inject</code>, using a method backported from Ruby 1.9. It iterates over a collection, passing the current element and the memo into the block.</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 %w(foo bar).each_with_object({}) { |str, hsh| hsh[str] = str.upcase } # =&gt; {'foo' =&gt; 'FOO', 'bar' =&gt; 'BAR'}
 

@@ -192,7 +192,7 @@
 
 <ul>
 <li><a href="#acceptance"><code>acceptance</code></a></li>
-<li><a href="#validates-associated"><code>validates_associated</code></a></li>
+<li><a href="#validates_associated"><code>validates_associated</code></a></li>
 <li><a href="#confirmation"><code>confirmation</code></a></li>
 <li><a href="#exclusion"><code>exclusion</code></a></li>
 <li><a href="#format"><code>format</code></a></li>
@@ -202,16 +202,16 @@
 <li><a href="#presence"><code>presence</code></a></li>
 <li><a href="#absence"><code>absence</code></a></li>
 <li><a href="#uniqueness"><code>uniqueness</code></a></li>
-<li><a href="#validates-with"><code>validates_with</code></a></li>
-<li><a href="#validates-each"><code>validates_each</code></a></li>
+<li><a href="#validates_with"><code>validates_with</code></a></li>
+<li><a href="#validates_each"><code>validates_each</code></a></li>
 </ul>
 </li>
 <li>
 <a href="#%E5%B8%B8%E8%A6%8B%E9%A9%97%E8%AD%89%E9%81%B8%E9%A0%85">常見驗證選項</a>
 
 <ul>
-<li><a href="#-allow-nil"><code>:allow_nil</code></a></li>
-<li><a href="#-allow-blank"><code>:allow_blank</code></a></li>
+<li><a href="#-allow_nil"><code>:allow_nil</code></a></li>
+<li><a href="#-allow_blank"><code>:allow_blank</code></a></li>
 <li><a href="#-message"><code>:message</code></a></li>
 <li><a href="#-on"><code>:on</code></a></li>
 </ul>
@@ -397,7 +397,7 @@ end
 
 </pre>
 </div>
-<h4 id="validates-associated">2.2 <code>validates_associated</code>
+<h4 id="validates_associated">2.2 <code>validates_associated</code>
 </h4><p>當 Model 與其它 Model 有關聯，且與之關聯的 Model 也需要驗證時，用這個方法來處理。在儲存物件時，會對相關聯的物件呼叫 <code>valid?</code>。</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Library &lt; ActiveRecord::Base
@@ -620,7 +620,7 @@ end
 
 </pre>
 </div>
-<div class="warning"><p>注意某些資料庫預設搜尋是不分大小寫的。</p></div><p>預設錯誤訊息是 <em>"has already been taken"</em>。</p><h4 id="validates-with">2.12 <code>validates_with</code>
+<div class="warning"><p>注意某些資料庫預設搜尋是不分大小寫的。</p></div><p>預設錯誤訊息是 <em>"has already been taken"</em>。</p><h4 id="validates_with">2.12 <code>validates_with</code>
 </h4><p>這個方法將記錄傳入，另開一類別來驗證。</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class GoodnessValidator &lt; ActiveModel::Validator
@@ -677,7 +677,7 @@ end
 
 </pre>
 </div>
-<p><code>validates_with</code> 沒有預設錯誤訊息。</p><h4 id="validates-each">2.13 <code>validates_each</code>
+<p><code>validates_with</code> 沒有預設錯誤訊息。</p><h4 id="validates_each">2.13 <code>validates_each</code>
 </h4><p>這個方法採用區塊（block）來驗證屬性。沒有預先定義的驗證功能。可以在程式碼區塊裡寫要驗證的行為，<code>validates_each</code> 指定的每個屬性，會傳入區塊做驗證。比如下例檢查名與姓是否以小寫字母開頭：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Person &lt; ActiveRecord::Base
@@ -688,7 +688,7 @@ end
 
 </pre>
 </div>
-<p>這個區塊接受記錄、屬性名稱、屬性值。在區塊裡可以寫任何驗證行為。驗證失敗時應給 Model 新增錯誤訊息，才能把記錄標記成非法的。</p><p><code>validates_each</code> 沒有預設錯誤訊息。</p><h3 id="常見驗證選項">3 常見驗證選項</h3><p>以下是常見的驗證選項：</p><h4 id="-allow-nil">3.1 <code>:allow_nil</code>
+<p>這個區塊接受記錄、屬性名稱、屬性值。在區塊裡可以寫任何驗證行為。驗證失敗時應給 Model 新增錯誤訊息，才能把記錄標記成非法的。</p><p><code>validates_each</code> 沒有預設錯誤訊息。</p><h3 id="常見驗證選項">3 常見驗證選項</h3><p>以下是常見的驗證選項：</p><h4 id="-allow_nil">3.1 <code>:allow_nil</code>
 </h4><p><code>:allow_nil</code> 選項當驗證的值為 <code>nil</code> 時略過驗證。</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Coffee &lt; ActiveRecord::Base
@@ -698,7 +698,7 @@ end
 
 </pre>
 </div>
-<h4 id="-allow-blank">3.2 <code>:allow_blank</code>
+<h4 id="-allow_blank">3.2 <code>:allow_blank</code>
 </h4><p><code>:allow_nil</code> 選項當驗證的值為 <code>blank?</code> 時，即 <code>blank?</code> 回傳 <code>true</code> 時，略過驗證。</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Topic &lt; ActiveRecord::Base

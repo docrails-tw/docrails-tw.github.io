@@ -191,8 +191,8 @@
 <li><a href="#%E6%96%B0%E5%BB%BA%E7%89%A9%E4%BB%B6">新建物件</a></li>
 <li><a href="#%E6%9B%B4%E6%96%B0%E7%89%A9%E4%BB%B6">更新物件</a></li>
 <li><a href="#%E5%88%AA%E9%99%A4%E7%89%A9%E4%BB%B6">刪除物件</a></li>
-<li><a href="#after-initialize-%E8%88%87-after-find"><code>after_initialize</code> 與 <code>after_find</code></a></li>
-<li><a href="#after-touch"><code>after_touch</code></a></li>
+<li><a href="#after_initialize-%E8%88%87-after_find"><code>after_initialize</code> 與 <code>after_find</code></a></li>
+<li><a href="#after_touch"><code>after_touch</code></a></li>
 </ul>
 </li>
 <li><a href="#%E5%9F%B7%E8%A1%8C%E5%9B%9E%E5%91%BC">執行回呼</a></li>
@@ -301,7 +301,7 @@ end
 <li><code>after_destroy</code></li>
 <li><code>after_commit/after_rollback</code></li>
 </ul>
-<div class="warning"><p><code>after_save</code> 在 <code>create</code> 與 <code>update</code> 都會執行。但不論回呼註冊的順序為何，<code>after_save</code> 總是在更為具體的 <code>after_create</code> 與 <code>after_update</code> 之後執行。</p></div><h4 id="after-initialize-與-after-find">3.4 <code>after_initialize</code> 與 <code>after_find</code>
+<div class="warning"><p><code>after_save</code> 在 <code>create</code> 與 <code>update</code> 都會執行。但不論回呼註冊的順序為何，<code>after_save</code> 總是在更為具體的 <code>after_create</code> 與 <code>after_update</code> 之後執行。</p></div><h4 id="after_initialize-與-after_find">3.4 <code>after_initialize</code> 與 <code>after_find</code>
 </h4><p>不管是實體化 Active Record 物件，還是從資料庫裡讀出記錄時，都會呼叫 <code>after_initialize</code>。使用 <code>after_initialize</code> 比覆蓋 Active Record 的 <code>initialize</code> 方法好多了。</p><p>無論何時從資料庫取出 Active Record 物件時，如果同時使用了 <code>after_find</code> 與 <code>after_initialize</code>，會先呼叫 <code>after_find</code>。</p><p><code>after_initialize</code> 與 <code>after_find</code> 沒有對應的 <code>before_*</code>。<code>after_initialize</code> 與 <code>after_find</code> 註冊的方法與一般回呼相同。</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class User &lt; ActiveRecord::Base
@@ -325,7 +325,7 @@ You have initialized an object!
 
 </pre>
 </div>
-<h4 id="after-touch">3.5 <code>after_touch</code>
+<h4 id="after_touch">3.5 <code>after_touch</code>
 </h4><p><code>after_touch</code> 回呼會在 Active Record 執行完 <code>touch</code> 之後呼叫。</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class User &lt; ActiveRecord::Base

@@ -192,13 +192,13 @@
 <li><a href="#blank-questionmark-and-present-questionmark"><code>blank?</code> and <code>present?</code></a></li>
 <li><a href="#presence"><code>presence</code></a></li>
 <li><a href="#duplicable-questionmark"><code>duplicable?</code></a></li>
-<li><a href="#deep-dup"><code>deep_dup</code></a></li>
+<li><a href="#deep_dup"><code>deep_dup</code></a></li>
 <li><a href="#try"><code>try</code></a></li>
-<li><a href="#class-eval-args-block-"><code>class_eval(*args, &amp;block)</code></a></li>
-<li><a href="#acts-like-questionmark-duck-"><code>acts_like?(duck)</code></a></li>
-<li><a href="#to-param"><code>to_param</code></a></li>
-<li><a href="#to-query"><code>to_query</code></a></li>
-<li><a href="#with-options"><code>with_options</code></a></li>
+<li><a href="#class_eval-args-block-"><code>class_eval(*args, &amp;block)</code></a></li>
+<li><a href="#acts_like-questionmark-duck-"><code>acts_like?(duck)</code></a></li>
+<li><a href="#to_param"><code>to_param</code></a></li>
+<li><a href="#to_query"><code>to_query</code></a></li>
+<li><a href="#with_options"><code>with_options</code></a></li>
 <li><a href="#json-support">JSON support</a></li>
 <li><a href="#instance-variables">Instance Variables</a></li>
 <li><a href="#silencing-warnings-streams-and-exceptions">Silencing Warnings, Streams, and Exceptions</a></li>
@@ -209,7 +209,7 @@
 <a href="#extensions-to-module">Extensions to <code>Module</code></a>
 
 <ul>
-<li><a href="#alias-method-chain"><code>alias_method_chain</code></a></li>
+<li><a href="#alias_method_chain"><code>alias_method_chain</code></a></li>
 <li><a href="#attributes">Attributes</a></li>
 <li><a href="#extensions-to-module-parents">Parents</a></li>
 <li><a href="#constants">Constants</a></li>
@@ -236,8 +236,8 @@
 <li><a href="#squish"><code>squish</code></a></li>
 <li><a href="#truncate"><code>truncate</code></a></li>
 <li><a href="#inquiry"><code>inquiry</code></a></li>
-<li><a href="#starts-with-questionmark-and-ends-with-questionmark"><code>starts_with?</code> and <code>ends_with?</code></a></li>
-<li><a href="#strip-heredoc"><code>strip_heredoc</code></a></li>
+<li><a href="#starts_with-questionmark-and-ends_with-questionmark"><code>starts_with?</code> and <code>ends_with?</code></a></li>
+<li><a href="#strip_heredoc"><code>strip_heredoc</code></a></li>
 <li><a href="#indent"><code>indent</code></a></li>
 <li><a href="#access">Access</a></li>
 <li><a href="#inflections">Inflections</a></li>
@@ -257,7 +257,7 @@
 <a href="#extensions-to-integer">Extensions to <code>Integer</code></a>
 
 <ul>
-<li><a href="#multiple-of-questionmark"><code>multiple_of?</code></a></li>
+<li><a href="#multiple_of-questionmark"><code>multiple_of?</code></a></li>
 <li><a href="#ordinal"><code>ordinal</code></a></li>
 <li><a href="#ordinalize"><code>ordinalize</code></a></li>
 </ul>
@@ -266,8 +266,8 @@
 <a href="#extensions-to-bigdecimal">Extensions to <code>BigDecimal</code></a>
 
 <ul>
-<li><a href="#extensions-to-bigdecimal-to-s"><code>to_s</code></a></li>
-<li><a href="#extensions-to-bigdecimal-to-formatted-s"><code>to_formatted_s</code></a></li>
+<li><a href="#extensions-to-bigdecimal-to_s"><code>to_s</code></a></li>
+<li><a href="#extensions-to-bigdecimal-to_formatted_s"><code>to_formatted_s</code></a></li>
 </ul>
 </li>
 <li>
@@ -275,7 +275,7 @@
 
 <ul>
 <li><a href="#sum"><code>sum</code></a></li>
-<li><a href="#index-by"><code>index_by</code></a></li>
+<li><a href="#index_by"><code>index_by</code></a></li>
 <li><a href="#many-questionmark"><code>many?</code></a></li>
 <li><a href="#exclude-questionmark"><code>exclude?</code></a></li>
 </ul>
@@ -318,7 +318,7 @@
 <a href="#extensions-to-range">Extensions to <code>Range</code></a>
 
 <ul>
-<li><a href="#extensions-to-range-to-s"><code>to_s</code></a></li>
+<li><a href="#extensions-to-range-to_s"><code>to_s</code></a></li>
 <li><a href="#include-questionmark"><code>include?</code></a></li>
 <li><a href="#overlaps-questionmark"><code>overlaps?</code></a></li>
 </ul>
@@ -357,7 +357,7 @@
 <a href="#extensions-to-file">Extensions to <code>File</code></a>
 
 <ul>
-<li><a href="#atomic-write"><code>atomic_write</code></a></li>
+<li><a href="#atomic_write"><code>atomic_write</code></a></li>
 </ul>
 </li>
 <li>
@@ -371,9 +371,9 @@
 <a href="#extensions-to-logger">Extensions to <code>Logger</code></a>
 
 <ul>
-<li><a href="#around-level-"><code>around_[level]</code></a></li>
+<li><a href="#around_-level-"><code>around_[level]</code></a></li>
 <li><a href="#silence"><code>silence</code></a></li>
-<li><a href="#datetime-format-"><code>datetime_format=</code></a></li>
+<li><a href="#datetime_format-"><code>datetime_format=</code></a></li>
 </ul>
 </li>
 <li><a href="#extensions-to-nameerror">Extensions to <code>NameError</code></a></li>
@@ -486,7 +486,7 @@ false.duplicable? # =&gt; false
 
 </pre>
 </div>
-<p>By definition all objects are <code>duplicable?</code> except <code>nil</code>, <code>false</code>, <code>true</code>, symbols, numbers, class, and module objects.</p><div class="warning"><p>Any class can disallow duplication by removing <code>dup</code> and <code>clone</code> or raising exceptions from them. Thus only <code>rescue</code> can tell whether a given arbitrary object is duplicable. <code>duplicable?</code> depends on the hard-coded list above, but it is much faster than <code>rescue</code>. Use it only if you know the hard-coded list is enough in your use case.</p></div><div class="note"><p>Defined in <code>active_support/core_ext/object/duplicable.rb</code>.</p></div><h4 id="deep-dup">2.4 <code>deep_dup</code>
+<p>By definition all objects are <code>duplicable?</code> except <code>nil</code>, <code>false</code>, <code>true</code>, symbols, numbers, class, and module objects.</p><div class="warning"><p>Any class can disallow duplication by removing <code>dup</code> and <code>clone</code> or raising exceptions from them. Thus only <code>rescue</code> can tell whether a given arbitrary object is duplicable. <code>duplicable?</code> depends on the hard-coded list above, but it is much faster than <code>rescue</code>. Use it only if you know the hard-coded list is enough in your use case.</p></div><div class="note"><p>Defined in <code>active_support/core_ext/object/duplicable.rb</code>.</p></div><h4 id="deep_dup">2.4 <code>deep_dup</code>
 </h4><p>The <code>deep_dup</code> method returns deep copy of a given object. Normally, when you <code>dup</code> an object that contains other objects, Ruby does not <code>dup</code> them, so it creates a shallow copy of the object. If you have an array with a string, for example, it will look like this:</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 array     = ['string']
@@ -556,7 +556,7 @@ end
 
 </pre>
 </div>
-<div class="note"><p>Defined in <code>active_support/core_ext/object/try.rb</code>.</p></div><h4 id="class-eval-args-block-">2.6 <code>class_eval(*args, &amp;block)</code>
+<div class="note"><p>Defined in <code>active_support/core_ext/object/try.rb</code>.</p></div><h4 id="class_eval-args-block-">2.6 <code>class_eval(*args, &amp;block)</code>
 </h4><p>You can evaluate code in the context of any object's singleton class using <code>class_eval</code>:</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Proc
@@ -574,7 +574,7 @@ end
 
 </pre>
 </div>
-<div class="note"><p>Defined in <code>active_support/core_ext/kernel/singleton_class.rb</code>.</p></div><h4 id="acts-like-questionmark-duck-">2.7 <code>acts_like?(duck)</code>
+<div class="note"><p>Defined in <code>active_support/core_ext/kernel/singleton_class.rb</code>.</p></div><h4 id="acts_like-questionmark-duck-">2.7 <code>acts_like?(duck)</code>
 </h4><p>The method <code>acts_like?</code> provides a way to check whether some class acts like some other class based on a simple convention: a class that provides the same interface as <code>String</code> defines</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 def acts_like_string?
@@ -588,7 +588,7 @@ some_klass.acts_like?(:string)
 
 </pre>
 </div>
-<p>Rails has classes that act like <code>Date</code> or <code>Time</code> and follow this contract.</p><div class="note"><p>Defined in <code>active_support/core_ext/object/acts_like.rb</code>.</p></div><h4 id="to-param">2.8 <code>to_param</code>
+<p>Rails has classes that act like <code>Date</code> or <code>Time</code> and follow this contract.</p><div class="note"><p>Defined in <code>active_support/core_ext/object/acts_like.rb</code>.</p></div><h4 id="to_param">2.8 <code>to_param</code>
 </h4><p>All objects in Rails respond to the method <code>to_param</code>, which is meant to return something that represents them as values in a query string, or as URL fragments.</p><p>By default <code>to_param</code> just calls <code>to_s</code>:</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 7.to_param # =&gt; "7"
@@ -623,7 +623,7 @@ user_path(@user) # =&gt; "/users/357-john-smith"
 
 </pre>
 </div>
-<div class="warning"><p>Controllers need to be aware of any redefinition of <code>to_param</code> because when a request like that comes in "357-john-smith" is the value of <code>params[:id]</code>.</p></div><div class="note"><p>Defined in <code>active_support/core_ext/object/to_param.rb</code>.</p></div><h4 id="to-query">2.9 <code>to_query</code>
+<div class="warning"><p>Controllers need to be aware of any redefinition of <code>to_param</code> because when a request like that comes in "357-john-smith" is the value of <code>params[:id]</code>.</p></div><div class="note"><p>Defined in <code>active_support/core_ext/object/to_param.rb</code>.</p></div><h4 id="to_query">2.9 <code>to_query</code>
 </h4><p>Except for hashes, given an unescaped <code>key</code> this method constructs the part of a query string that would map such key to what <code>to_param</code> returns. For example, given</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class User
@@ -667,7 +667,7 @@ account.to_query('company[name]')
 
 </pre>
 </div>
-<div class="note"><p>Defined in <code>active_support/core_ext/object/to_query.rb</code>.</p></div><h4 id="with-options">2.10 <code>with_options</code>
+<div class="note"><p>Defined in <code>active_support/core_ext/object/to_query.rb</code>.</p></div><h4 id="with_options">2.10 <code>with_options</code>
 </h4><p>The method <code>with_options</code> provides a way to factor out common options in a series of method calls.</p><p>Given a default options hash, <code>with_options</code> yields a proxy object to a block. Within the block, methods called on the proxy are forwarded to the receiver with their options merged. For example, you get rid of the duplication in:</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Account &lt; ActiveRecord::Base
@@ -701,7 +701,7 @@ end
 
 </pre>
 </div>
-<div class="info"><p>Since <code>with_options</code> forwards calls to its receiver they can be nested. Each nesting level will merge inherited defaults in addition to their own.</p></div><div class="note"><p>Defined in <code>active_support/core_ext/object/with_options.rb</code>.</p></div><h4 id="json-support">2.11 JSON support</h4><p>Active Support provides a better implementation of <code>to_json</code> than the <code>json</code> gem ordinarily provides for Ruby objects. This is because some classes, like <code>Hash</code>, <code>OrderedHash</code> and <code>Process::Status</code> need special handling in order to provide a proper JSON representation.</p><div class="note"><p>Defined in <code>active_support/core_ext/object/json.rb</code>.</p></div><h4 id="instance-variables">2.12 Instance Variables</h4><p>Active Support provides several methods to ease access to instance variables.</p><h5 id="instance-values">2.12.1 <code>instance_values</code>
+<div class="info"><p>Since <code>with_options</code> forwards calls to its receiver they can be nested. Each nesting level will merge inherited defaults in addition to their own.</p></div><div class="note"><p>Defined in <code>active_support/core_ext/object/with_options.rb</code>.</p></div><h4 id="json-support">2.11 JSON support</h4><p>Active Support provides a better implementation of <code>to_json</code> than the <code>json</code> gem ordinarily provides for Ruby objects. This is because some classes, like <code>Hash</code>, <code>OrderedHash</code> and <code>Process::Status</code> need special handling in order to provide a proper JSON representation.</p><div class="note"><p>Defined in <code>active_support/core_ext/object/json.rb</code>.</p></div><h4 id="instance-variables">2.12 Instance Variables</h4><p>Active Support provides several methods to ease access to instance variables.</p><h5 id="instance_values">2.12.1 <code>instance_values</code>
 </h5><p>The method <code>instance_values</code> returns a hash that maps instance variable names without "@" to their
 corresponding values. Keys are strings:</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
@@ -715,7 +715,7 @@ C.new(0, 1).instance_values # =&gt; {"x" =&gt; 0, "y" =&gt; 1}
 
 </pre>
 </div>
-<div class="note"><p>Defined in <code>active_support/core_ext/object/instance_variables.rb</code>.</p></div><h5 id="instance-variable-names">2.12.2 <code>instance_variable_names</code>
+<div class="note"><p>Defined in <code>active_support/core_ext/object/instance_variables.rb</code>.</p></div><h5 id="instance_variable_names">2.12.2 <code>instance_variable_names</code>
 </h5><p>The method <code>instance_variable_names</code> returns an array.  Each name includes the "@" sign.</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class C
@@ -768,7 +768,7 @@ end
 </pre>
 </div>
 <div class="note"><p>Defined in <code>active_support/core_ext/object/inclusion.rb</code>.</p></div><h3 id="extensions-to-module">3 Extensions to <code>Module</code>
-</h3><h4 id="alias-method-chain">3.1 <code>alias_method_chain</code>
+</h3><h4 id="alias_method_chain">3.1 <code>alias_method_chain</code>
 </h4><p>Using plain Ruby you can wrap methods with other methods, that's called <em>alias chaining</em>.</p><p>For example, let's say you'd like params to be strings in functional tests, as they are in real requests, but still want the convenience of assigning integers and other kind of values. To accomplish that you could wrap <code>ActionController::TestCase#process</code> this way in <code>test/test_helper.rb</code>:</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 ActionController::TestCase.class_eval do
@@ -809,7 +809,7 @@ end
 
 </pre>
 </div>
-<p>Rails uses <code>alias_method_chain</code> all over the code base. For example validations are added to <code>ActiveRecord::Base#save</code> by wrapping the method that way in a separate module specialized in validations.</p><div class="note"><p>Defined in <code>active_support/core_ext/module/aliasing.rb</code>.</p></div><h4 id="attributes">3.2 Attributes</h4><h5 id="alias-attribute">3.2.1 <code>alias_attribute</code>
+<p>Rails uses <code>alias_method_chain</code> all over the code base. For example validations are added to <code>ActiveRecord::Base#save</code> by wrapping the method that way in a separate module specialized in validations.</p><div class="note"><p>Defined in <code>active_support/core_ext/module/aliasing.rb</code>.</p></div><h4 id="attributes">3.2 Attributes</h4><h5 id="alias_attribute">3.2.1 <code>alias_attribute</code>
 </h5><p>Model attributes have a reader, a writer, and a predicate. You can alias a model attribute having the corresponding three methods defined for you in one shot. As in other aliasing methods, the new name is the first argument, and the old name is the second (one mnemonic is that they go in the same order as if you did an assignment):</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class User &lt; ActiveRecord::Base
@@ -883,7 +883,7 @@ M.parent       # =&gt; X::Y
 
 </pre>
 </div>
-<p>If the module is anonymous or belongs to the top-level, <code>parent</code> returns <code>Object</code>.</p><div class="warning"><p>Note that in that case <code>parent_name</code> returns <code>nil</code>.</p></div><div class="note"><p>Defined in <code>active_support/core_ext/module/introspection.rb</code>.</p></div><h5 id="parent-name">3.3.2 <code>parent_name</code>
+<p>If the module is anonymous or belongs to the top-level, <code>parent</code> returns <code>Object</code>.</p><div class="warning"><p>Note that in that case <code>parent_name</code> returns <code>nil</code>.</p></div><div class="note"><p>Defined in <code>active_support/core_ext/module/introspection.rb</code>.</p></div><h5 id="parent_name">3.3.2 <code>parent_name</code>
 </h5><p>The <code>parent_name</code> method on a nested named module returns the fully-qualified name of the module that contains its corresponding constant:</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 module X
@@ -1110,7 +1110,7 @@ delegate :size, to: :attachment, prefix: :avatar
 </pre>
 </div>
 <p>In the previous example the macro generates <code>avatar_size</code> rather than <code>size</code>.</p><div class="note"><p>Defined in <code>active_support/core_ext/module/delegation.rb</code></p></div><h4 id="redefining-methods">3.8 Redefining Methods</h4><p>There are cases where you need to define a method with <code>define_method</code>, but don't know whether a method with that name already exists. If it does, a warning is issued if they are enabled. No big deal, but not clean either.</p><p>The method <code>redefine_method</code> prevents such a potential warning, removing the existing method before if needed.</p><div class="note"><p>Defined in <code>active_support/core_ext/module/remove_method.rb</code></p></div><h3 id="extensions-to-class">4 Extensions to <code>Class</code>
-</h3><h4 id="class-attributes">4.1 Class Attributes</h4><h5 id="class-attribute">4.1.1 <code>class_attribute</code>
+</h3><h4 id="class-attributes">4.1 Class Attributes</h4><h5 id="class_attribute">4.1.1 <code>class_attribute</code>
 </h5><p>The method <code>class_attribute</code> declares one or more inheritable class attributes that can be overridden at any level down the hierarchy.</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class A
@@ -1181,7 +1181,7 @@ A.new.x = 1 # NoMethodError
 
 </pre>
 </div>
-<p>For convenience <code>class_attribute</code> also defines an instance predicate which is the double negation of what the instance reader returns. In the examples above it would be called <code>x?</code>.</p><p>When <code>:instance_reader</code> is <code>false</code>, the instance predicate returns a <code>NoMethodError</code> just like the reader method.</p><p>If you do not want the instance predicate, pass <code>instance_predicate: false</code> and it will not be defined.</p><div class="note"><p>Defined in <code>active_support/core_ext/class/attribute.rb</code></p></div><h5 id="cattr-reader-cattr-writer-and-cattr-accessor">4.1.2 <code>cattr_reader</code>, <code>cattr_writer</code>, and <code>cattr_accessor</code>
+<p>For convenience <code>class_attribute</code> also defines an instance predicate which is the double negation of what the instance reader returns. In the examples above it would be called <code>x?</code>.</p><p>When <code>:instance_reader</code> is <code>false</code>, the instance predicate returns a <code>NoMethodError</code> just like the reader method.</p><p>If you do not want the instance predicate, pass <code>instance_predicate: false</code> and it will not be defined.</p><div class="note"><p>Defined in <code>active_support/core_ext/class/attribute.rb</code></p></div><h5 id="cattr_reader-cattr_writer-and-cattr_accessor">4.1.2 <code>cattr_reader</code>, <code>cattr_writer</code>, and <code>cattr_accessor</code>
 </h5><p>The macros <code>cattr_reader</code>, <code>cattr_writer</code>, and <code>cattr_accessor</code> are analogous to their <code>attr_*</code> counterparts but for classes. They initialize a class variable to <code>nil</code> unless it already exists, and generate the corresponding class methods to access it:</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class MysqlAdapter &lt; AbstractAdapter
@@ -1374,7 +1374,7 @@ end
 
 </pre>
 </div>
-<h4 id="starts-with-questionmark-and-ends-with-questionmark">5.6 <code>starts_with?</code> and <code>ends_with?</code>
+<h4 id="starts_with-questionmark-and-ends_with-questionmark">5.6 <code>starts_with?</code> and <code>ends_with?</code>
 </h4><p>Active Support defines 3rd person aliases of <code>String#start_with?</code> and <code>String#end_with?</code>:</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 "foo".starts_with?("f") # =&gt; true
@@ -1382,7 +1382,7 @@ end
 
 </pre>
 </div>
-<div class="note"><p>Defined in <code>active_support/core_ext/string/starts_ends_with.rb</code>.</p></div><h4 id="strip-heredoc">5.7 <code>strip_heredoc</code>
+<div class="note"><p>Defined in <code>active_support/core_ext/string/starts_ends_with.rb</code>.</p></div><h4 id="strip_heredoc">5.7 <code>strip_heredoc</code>
 </h4><p>The method <code>strip_heredoc</code> strips indentation in heredocs.</p><p>For example in</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 if options[:usage]
@@ -1766,7 +1766,7 @@ end
 
 </pre>
 </div>
-<div class="note"><p>Defined in <code>active_support/core_ext/string/inflections.rb</code>.</p></div><h5 id="foreign-key">5.10.14 <code>foreign_key</code>
+<div class="note"><p>Defined in <code>active_support/core_ext/string/inflections.rb</code>.</p></div><h5 id="foreign_key">5.10.14 <code>foreign_key</code>
 </h5><p>The method <code>foreign_key</code> gives a foreign key column name from a class name. To do so it demodulizes, underscores, and adds "_id":</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 "User".foreign_key           # =&gt; "user_id"
@@ -1788,7 +1788,7 @@ foreign_key = options[:foreign_key] || reflection.active_record.name.foreign_key
 
 </pre>
 </div>
-<div class="note"><p>Defined in <code>active_support/core_ext/string/inflections.rb</code>.</p></div><h4 id="extensions-to-string-conversions">5.11 Conversions</h4><h5 id="to-date-to-time-to-datetime">5.11.1 <code>to_date</code>, <code>to_time</code>, <code>to_datetime</code>
+<div class="note"><p>Defined in <code>active_support/core_ext/string/inflections.rb</code>.</p></div><h4 id="extensions-to-string-conversions">5.11 Conversions</h4><h5 id="to_date-to_time-to_datetime">5.11.1 <code>to_date</code>, <code>to_time</code>, <code>to_datetime</code>
 </h5><p>The methods <code>to_date</code>, <code>to_time</code>, and <code>to_datetime</code> are basically convenience wrappers around <code>Date._parse</code>:</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 "2010-07-27".to_date              # =&gt; Tue, 27 Jul 2010
@@ -1942,7 +1942,7 @@ date and time arithmetic.</p><div class="note"><p>Defined in <code>active_suppor
 </pre>
 </div>
 <div class="note"><p>Defined in <code>active_support/core_ext/numeric/conversions.rb</code>.</p></div><h3 id="extensions-to-integer">7 Extensions to <code>Integer</code>
-</h3><h4 id="multiple-of-questionmark">7.1 <code>multiple_of?</code>
+</h3><h4 id="multiple_of-questionmark">7.1 <code>multiple_of?</code>
 </h4><p>The method <code>multiple_of?</code> tests whether an integer is multiple of the argument:</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 2.multiple_of?(1) # =&gt; true
@@ -1975,14 +1975,14 @@ date and time arithmetic.</p><div class="note"><p>Defined in <code>active_suppor
 </pre>
 </div>
 <div class="note"><p>Defined in <code>active_support/core_ext/integer/inflections.rb</code>.</p></div><h3 id="extensions-to-bigdecimal">8 Extensions to <code>BigDecimal</code>
-</h3><h4 id="extensions-to-bigdecimal-to-s">8.1 <code>to_s</code>
+</h3><h4 id="extensions-to-bigdecimal-to_s">8.1 <code>to_s</code>
 </h4><p>The method <code>to_s</code> is aliased to <code>to_formatted_s</code>. This provides a convenient way to display a BigDecimal value in floating-point notation:</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 BigDecimal.new(5.00, 6).to_s  # =&gt; "5.0"
 
 </pre>
 </div>
-<h4 id="extensions-to-bigdecimal-to-formatted-s">8.2 <code>to_formatted_s</code>
+<h4 id="extensions-to-bigdecimal-to_formatted_s">8.2 <code>to_formatted_s</code>
 </h4><p>Te method <code>to_formatted_s</code> provides a default specifier of "F".  This means that a simple call to <code>to_formatted_s</code> or <code>to_s</code> will result in floating point representation instead of engineering notation:</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 BigDecimal.new(5.00, 6).to_formatted_s  # =&gt; "5.0"
@@ -2038,7 +2038,7 @@ BigDecimal.new(5.00, 6).to_formatted_s("e")  # =&gt; "0.5E1"
 
 </pre>
 </div>
-<div class="note"><p>Defined in <code>active_support/core_ext/enumerable.rb</code>.</p></div><h4 id="index-by">9.2 <code>index_by</code>
+<div class="note"><p>Defined in <code>active_support/core_ext/enumerable.rb</code>.</p></div><h4 id="index_by">9.2 <code>index_by</code>
 </h4><p>The method <code>index_by</code> generates a hash with the elements of an enumerable indexed by some key.</p><p>It iterates through the collection and passes each element to a block. The element will be keyed by the value returned by the block:</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 invoices.index_by(&amp;:number)
@@ -2123,7 +2123,7 @@ end
 
 </pre>
 </div>
-<p>This method receives an arbitrary number of action names, and an optional hash of options as last argument. With the call to <code>extract_options!</code> you obtain the options hash and remove it from <code>actions</code> in a simple and explicit way.</p><div class="note"><p>Defined in <code>active_support/core_ext/array/extract_options.rb</code>.</p></div><h4 id="extensions-to-array-conversions">10.4 Conversions</h4><h5 id="to-sentence">10.4.1 <code>to_sentence</code>
+<p>This method receives an arbitrary number of action names, and an optional hash of options as last argument. With the call to <code>extract_options!</code> you obtain the options hash and remove it from <code>actions</code> in a simple and explicit way.</p><div class="note"><p>Defined in <code>active_support/core_ext/array/extract_options.rb</code>.</p></div><h4 id="extensions-to-array-conversions">10.4 Conversions</h4><h5 id="to_sentence">10.4.1 <code>to_sentence</code>
 </h5><p>The method <code>to_sentence</code> turns an array into a string containing a sentence that enumerates its items:</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 %w().to_sentence                # =&gt; ""
@@ -2165,7 +2165,7 @@ end
 </tr>
 </tbody>
 </table>
-<div class="note"><p>Defined in <code>active_support/core_ext/array/conversions.rb</code>.</p></div><h5 id="extensions-to-array-conversions-to-formatted-s">10.4.2 <code>to_formatted_s</code>
+<div class="note"><p>Defined in <code>active_support/core_ext/array/conversions.rb</code>.</p></div><h5 id="extensions-to-array-conversions-to_formatted_s">10.4.2 <code>to_formatted_s</code>
 </h5><p>The method <code>to_formatted_s</code> acts like <code>to_s</code> by default.</p><p>If the array contains items that respond to <code>id</code>, however, the symbol
 <code>:db</code> may be passed as argument. That's typically used with
 collections of Active Record objects. Returned strings are:</p><div class="code_container">
@@ -2176,7 +2176,7 @@ invoice.lines.to_formatted_s(:db) # =&gt; "23,567,556,12"
 
 </pre>
 </div>
-<p>Integers in the example above are supposed to come from the respective calls to <code>id</code>.</p><div class="note"><p>Defined in <code>active_support/core_ext/array/conversions.rb</code>.</p></div><h5 id="extensions-to-array-conversions-to-xml">10.4.3 <code>to_xml</code>
+<p>Integers in the example above are supposed to come from the respective calls to <code>id</code>.</p><div class="note"><p>Defined in <code>active_support/core_ext/array/conversions.rb</code>.</p></div><h5 id="extensions-to-array-conversions-to_xml">10.4.3 <code>to_xml</code>
 </h5><p>The method <code>to_xml</code> returns a string containing an XML representation of its receiver:</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 Contributor.limit(2).order(:rank).to_xml
@@ -2309,7 +2309,7 @@ array[1][2] == nil   # =&gt; true
 
 </pre>
 </div>
-<div class="note"><p>Defined in <code>active_support/core_ext/object/deep_dup.rb</code>.</p></div><h4 id="grouping">10.7 Grouping</h4><h5 id="in-groups-of-number-fill-with-nil-">10.7.1 <code>in_groups_of(number, fill_with = nil)</code>
+<div class="note"><p>Defined in <code>active_support/core_ext/object/deep_dup.rb</code>.</p></div><h4 id="grouping">10.7 Grouping</h4><h5 id="in_groups_of-number-fill_with-nil-">10.7.1 <code>in_groups_of(number, fill_with = nil)</code>
 </h5><p>The method <code>in_groups_of</code> splits an array into consecutive groups of a certain size. It returns an array with the groups:</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 [1, 2, 3].in_groups_of(2) # =&gt; [[1, 2], [3, nil]]
@@ -2340,7 +2340,7 @@ array[1][2] == nil   # =&gt; true
 
 </pre>
 </div>
-<p>As a consequence <code>false</code> can't be a used as a padding value.</p><div class="note"><p>Defined in <code>active_support/core_ext/array/grouping.rb</code>.</p></div><h5 id="in-groups-number-fill-with-nil-">10.7.2 <code>in_groups(number, fill_with = nil)</code>
+<p>As a consequence <code>false</code> can't be a used as a padding value.</p><div class="note"><p>Defined in <code>active_support/core_ext/array/grouping.rb</code>.</p></div><h5 id="in_groups-number-fill_with-nil-">10.7.2 <code>in_groups(number, fill_with = nil)</code>
 </h5><p>The method <code>in_groups</code> splits an array into a certain number of groups. The method returns an array with the groups:</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 %w(1 2 3 4 5 6 7).in_groups(3)
@@ -2387,7 +2387,7 @@ array[1][2] == nil   # =&gt; true
 </pre>
 </div>
 <div class="info"><p>Observe in the previous example that consecutive separators result in empty arrays.</p></div><div class="note"><p>Defined in <code>active_support/core_ext/array/grouping.rb</code>.</p></div><h3 id="extensions-to-hash">11 Extensions to <code>Hash</code>
-</h3><h4 id="extensions-to-hash-conversions">11.1 Conversions</h4><h5 id="conversions-to-xml">11.1.1 <code>to_xml</code>
+</h3><h4 id="extensions-to-hash-conversions">11.1 Conversions</h4><h5 id="conversions-to_xml">11.1.1 <code>to_xml</code>
 </h5><p>The method <code>to_xml</code> returns a string containing an XML representation of its receiver:</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 {"foo" =&gt; 1, "bar" =&gt; 2}.to_xml
@@ -2432,7 +2432,7 @@ XML_TYPE_NAMES = {
 
 </pre>
 </div>
-<p>Active Support defines a few more ways of merging hashes that may be convenient.</p><h5 id="reverse-merge-and-reverse-merge-bang">11.2.1 <code>reverse_merge</code> and <code>reverse_merge!</code>
+<p>Active Support defines a few more ways of merging hashes that may be convenient.</p><h5 id="reverse_merge-and-reverse_merge-bang">11.2.1 <code>reverse_merge</code> and <code>reverse_merge!</code>
 </h5><p>In case of collision the key in the hash of the argument wins in <code>merge</code>. You can support option hashes with default values in a compact way with this idiom:</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 options = {length: 30, omission: "..."}.merge(options)
@@ -2451,8 +2451,8 @@ options.reverse_merge!(length: 30, omission: "...")
 
 </pre>
 </div>
-<div class="warning"><p>Take into account that <code>reverse_merge!</code> may change the hash in the caller, which may or may not be a good idea.</p></div><div class="note"><p>Defined in <code>active_support/core_ext/hash/reverse_merge.rb</code>.</p></div><h5 id="reverse-update">11.2.2 <code>reverse_update</code>
-</h5><p>The method <code>reverse_update</code> is an alias for <code>reverse_merge!</code>, explained above.</p><div class="warning"><p>Note that <code>reverse_update</code> has no bang.</p></div><div class="note"><p>Defined in <code>active_support/core_ext/hash/reverse_merge.rb</code>.</p></div><h5 id="deep-merge-and-deep-merge-bang">11.2.3 <code>deep_merge</code> and <code>deep_merge!</code>
+<div class="warning"><p>Take into account that <code>reverse_merge!</code> may change the hash in the caller, which may or may not be a good idea.</p></div><div class="note"><p>Defined in <code>active_support/core_ext/hash/reverse_merge.rb</code>.</p></div><h5 id="reverse_update">11.2.2 <code>reverse_update</code>
+</h5><p>The method <code>reverse_update</code> is an alias for <code>reverse_merge!</code>, explained above.</p><div class="warning"><p>Note that <code>reverse_update</code> has no bang.</p></div><div class="note"><p>Defined in <code>active_support/core_ext/hash/reverse_merge.rb</code>.</p></div><h5 id="deep_merge-and-deep_merge-bang">11.2.3 <code>deep_merge</code> and <code>deep_merge!</code>
 </h5><p>As you can see in the previous example if a key is found in both hashes the value in the one in the argument wins.</p><p>Active Support defines <code>Hash#deep_merge</code>. In a deep merge, if a key is found in both hashes and their values are hashes in turn, then their <em>merge</em> becomes the value in the resulting hash:</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 {a: {b: 1}}.deep_merge(a: {c: 2})
@@ -2488,7 +2488,7 @@ hash[:b][:d] == [3, 4]   # =&gt; true
 
 </pre>
 </div>
-<p>There's also the bang variant <code>except!</code> that removes keys in the very receiver.</p><div class="note"><p>Defined in <code>active_support/core_ext/hash/except.rb</code>.</p></div><h5 id="transform-keys-and-transform-keys-bang">11.4.2 <code>transform_keys</code> and <code>transform_keys!</code>
+<p>There's also the bang variant <code>except!</code> that removes keys in the very receiver.</p><div class="note"><p>Defined in <code>active_support/core_ext/hash/except.rb</code>.</p></div><h5 id="transform_keys-and-transform_keys-bang">11.4.2 <code>transform_keys</code> and <code>transform_keys!</code>
 </h5><p>The method <code>transform_keys</code> accepts a block and returns a hash that has applied the block operations to each of the keys in the receiver:</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 {nil =&gt; nil, 1 =&gt; 1, a: :a}.transform_keys { |key| key.to_s.upcase }
@@ -2525,7 +2525,7 @@ end
 
 </pre>
 </div>
-<div class="note"><p>Defined in <code>active_support/core_ext/hash/keys.rb</code>.</p></div><h5 id="stringify-keys-and-stringify-keys-bang">11.4.3 <code>stringify_keys</code> and <code>stringify_keys!</code>
+<div class="note"><p>Defined in <code>active_support/core_ext/hash/keys.rb</code>.</p></div><h5 id="stringify_keys-and-stringify_keys-bang">11.4.3 <code>stringify_keys</code> and <code>stringify_keys!</code>
 </h5><p>The method <code>stringify_keys</code> returns a hash that has a stringified version of the keys in the receiver. It does so by sending <code>to_s</code> to them:</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 {nil =&gt; nil, 1 =&gt; 1, a: :a}.stringify_keys
@@ -2560,7 +2560,7 @@ end
 
 </pre>
 </div>
-<div class="note"><p>Defined in <code>active_support/core_ext/hash/keys.rb</code>.</p></div><h5 id="symbolize-keys-and-symbolize-keys-bang">11.4.4 <code>symbolize_keys</code> and <code>symbolize_keys!</code>
+<div class="note"><p>Defined in <code>active_support/core_ext/hash/keys.rb</code>.</p></div><h5 id="symbolize_keys-and-symbolize_keys-bang">11.4.4 <code>symbolize_keys</code> and <code>symbolize_keys!</code>
 </h5><p>The method <code>symbolize_keys</code> returns a hash that has a symbolized version of the keys in the receiver, where possible. It does so by sending <code>to_sym</code> to them:</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 {nil =&gt; nil, 1 =&gt; 1, "a" =&gt; "a"}.symbolize_keys
@@ -2595,8 +2595,8 @@ end
 
 </pre>
 </div>
-<div class="note"><p>Defined in <code>active_support/core_ext/hash/keys.rb</code>.</p></div><h5 id="to-options-and-to-options-bang">11.4.5 <code>to_options</code> and <code>to_options!</code>
-</h5><p>The methods <code>to_options</code> and <code>to_options!</code> are respectively aliases of <code>symbolize_keys</code> and <code>symbolize_keys!</code>.</p><div class="note"><p>Defined in <code>active_support/core_ext/hash/keys.rb</code>.</p></div><h5 id="assert-valid-keys">11.4.6 <code>assert_valid_keys</code>
+<div class="note"><p>Defined in <code>active_support/core_ext/hash/keys.rb</code>.</p></div><h5 id="to_options-and-to_options-bang">11.4.5 <code>to_options</code> and <code>to_options!</code>
+</h5><p>The methods <code>to_options</code> and <code>to_options!</code> are respectively aliases of <code>symbolize_keys</code> and <code>symbolize_keys!</code>.</p><div class="note"><p>Defined in <code>active_support/core_ext/hash/keys.rb</code>.</p></div><h5 id="assert_valid_keys">11.4.6 <code>assert_valid_keys</code>
 </h5><p>The method <code>assert_valid_keys</code> receives an arbitrary number of arguments, and checks whether the receiver has any key outside that white list. If it does <code>ArgumentError</code> is raised.</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 {a: 1}.assert_valid_keys(:a)  # passes
@@ -2682,7 +2682,7 @@ end
 </pre>
 </div>
 <div class="note"><p>Defined in <code>active_support/core_ext/regexp.rb</code>.</p></div><h3 id="extensions-to-range">13 Extensions to <code>Range</code>
-</h3><h4 id="extensions-to-range-to-s">13.1 <code>to_s</code>
+</h3><h4 id="extensions-to-range-to_s">13.1 <code>to_s</code>
 </h4><p>Active Support extends the method <code>Range#to_s</code> so that it understands an optional format argument. As of this writing the only supported non-default format is <code>:db</code>:</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 (Date.today..Date.tomorrow).to_s
@@ -2763,7 +2763,7 @@ end
 </div>
 <div class="note"><p>Defined in <code>active_support/core_ext/proc.rb</code>.</p></div><h3 id="extensions-to-date">15 Extensions to <code>Date</code>
 </h3><h4 id="extensions-to-date-calculations">15.1 Calculations</h4><div class="note"><p>All the following methods are defined in <code>active_support/core_ext/date/calculations.rb</code>.</p></div><div class="info"><p>The following calculation methods have edge cases in October 1582, since days 5..14 just do not exist. This guide does not document their behavior around those days for brevity, but it is enough to say that they do what you would expect. That is, <code>Date.new(1582, 10, 4).tomorrow</code> returns <code>Date.new(1582, 10, 15)</code> and so on. Please check <code>test/core_ext/date_ext_test.rb</code> in the Active Support test suite for expected behavior.</p></div><h5 id="date-current">15.1.1 <code>Date.current</code>
-</h5><p>Active Support defines <code>Date.current</code> to be today in the current time zone. That's like <code>Date.today</code>, except that it honors the user time zone, if defined. It also defines <code>Date.yesterday</code> and <code>Date.tomorrow</code>, and the instance predicates <code>past?</code>, <code>today?</code>, and <code>future?</code>, all of them relative to <code>Date.current</code>.</p><p>When making Date comparisons using methods which honor the user time zone, make sure to use <code>Date.current</code> and not <code>Date.today</code>. There are cases where the user time zone might be in the future compared to the system time zone, which <code>Date.today</code> uses by default. This means <code>Date.today</code> may equal <code>Date.yesterday</code>.</p><h5 id="named-dates">15.1.2 Named dates</h5><h6 id="prev-year-next-year">15.1.2.1 <code>prev_year</code>, <code>next_year</code>
+</h5><p>Active Support defines <code>Date.current</code> to be today in the current time zone. That's like <code>Date.today</code>, except that it honors the user time zone, if defined. It also defines <code>Date.yesterday</code> and <code>Date.tomorrow</code>, and the instance predicates <code>past?</code>, <code>today?</code>, and <code>future?</code>, all of them relative to <code>Date.current</code>.</p><p>When making Date comparisons using methods which honor the user time zone, make sure to use <code>Date.current</code> and not <code>Date.today</code>. There are cases where the user time zone might be in the future compared to the system time zone, which <code>Date.today</code> uses by default. This means <code>Date.today</code> may equal <code>Date.yesterday</code>.</p><h5 id="named-dates">15.1.2 Named dates</h5><h6 id="prev_year-next_year">15.1.2.1 <code>prev_year</code>, <code>next_year</code>
 </h6><p>In Ruby 1.9 <code>prev_year</code> and <code>next_year</code> return a date with the same day/month in the last or next year:</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 d = Date.new(2010, 5, 8) # =&gt; Sat, 08 May 2010
@@ -2780,7 +2780,7 @@ d.next_year               # =&gt; Wed, 28 Feb 2001
 
 </pre>
 </div>
-<p><code>prev_year</code> is aliased to <code>last_year</code>.</p><h6 id="prev-month-next-month">15.1.2.2 <code>prev_month</code>, <code>next_month</code>
+<p><code>prev_year</code> is aliased to <code>last_year</code>.</p><h6 id="prev_month-next_month">15.1.2.2 <code>prev_month</code>, <code>next_month</code>
 </h6><p>In Ruby 1.9 <code>prev_month</code> and <code>next_month</code> return the date with the same day in the last or next month:</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 d = Date.new(2010, 5, 8) # =&gt; Sat, 08 May 2010
@@ -2798,7 +2798,7 @@ Date.new(2000, 1, 31).next_month # =&gt; Tue, 29 Feb 2000
 
 </pre>
 </div>
-<p><code>prev_month</code> is aliased to <code>last_month</code>.</p><h6 id="prev-quarter-next-quarter">15.1.2.3 <code>prev_quarter</code>, <code>next_quarter</code>
+<p><code>prev_month</code> is aliased to <code>last_month</code>.</p><h6 id="prev_quarter-next_quarter">15.1.2.3 <code>prev_quarter</code>, <code>next_quarter</code>
 </h6><p>Same as <code>prev_month</code> and <code>next_month</code>. It returns the date with the same day in the previous or next quarter:</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 t = Time.local(2010, 5, 8) # =&gt; Sat, 08 May 2010
@@ -2816,7 +2816,7 @@ Time.local(2000, 11, 31).next_quarter # =&gt; Wed, 28 Feb 2001
 
 </pre>
 </div>
-<p><code>prev_quarter</code> is aliased to <code>last_quarter</code>.</p><h6 id="beginning-of-week-end-of-week">15.1.2.4 <code>beginning_of_week</code>, <code>end_of_week</code>
+<p><code>prev_quarter</code> is aliased to <code>last_quarter</code>.</p><h6 id="beginning_of_week-end_of_week">15.1.2.4 <code>beginning_of_week</code>, <code>end_of_week</code>
 </h6><p>The methods <code>beginning_of_week</code> and <code>end_of_week</code> return the dates for the
 beginning and end of the week, respectively. Weeks are assumed to start on
 Monday, but that can be changed passing an argument, setting thread local
@@ -2846,7 +2846,7 @@ d.sunday                     # =&gt; Sun, 16 Sep 2012
 
 </pre>
 </div>
-<h6 id="prev-week-next-week">15.1.2.6 <code>prev_week</code>, <code>next_week</code>
+<h6 id="prev_week-next_week">15.1.2.6 <code>prev_week</code>, <code>next_week</code>
 </h6><p>The method <code>next_week</code> receives a symbol with a day name in English (default is the thread local <code>Date.beginning_of_week</code>, or <code>config.beginning_of_week</code>, or <code>:monday</code>) and it returns the date corresponding to that day.</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 d = Date.new(2010, 5, 9) # =&gt; Sun, 09 May 2010
@@ -2863,7 +2863,7 @@ d.prev_week(:friday)     # =&gt; Fri, 30 Apr 2010
 
 </pre>
 </div>
-<p><code>prev_week</code> is aliased to <code>last_week</code>.</p><p>Both <code>next_week</code> and <code>prev_week</code> work as expected when <code>Date.beginning_of_week</code> or <code>config.beginning_of_week</code> are set.</p><h6 id="beginning-of-month-end-of-month">15.1.2.7 <code>beginning_of_month</code>, <code>end_of_month</code>
+<p><code>prev_week</code> is aliased to <code>last_week</code>.</p><p>Both <code>next_week</code> and <code>prev_week</code> work as expected when <code>Date.beginning_of_week</code> or <code>config.beginning_of_week</code> are set.</p><h6 id="beginning_of_month-end_of_month">15.1.2.7 <code>beginning_of_month</code>, <code>end_of_month</code>
 </h6><p>The methods <code>beginning_of_month</code> and <code>end_of_month</code> return the dates for the beginning and end of the month:</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 d = Date.new(2010, 5, 9) # =&gt; Sun, 09 May 2010
@@ -2872,7 +2872,7 @@ d.end_of_month           # =&gt; Mon, 31 May 2010
 
 </pre>
 </div>
-<p><code>beginning_of_month</code> is aliased to <code>at_beginning_of_month</code>, and <code>end_of_month</code> is aliased to <code>at_end_of_month</code>.</p><h6 id="beginning-of-quarter-end-of-quarter">15.1.2.8 <code>beginning_of_quarter</code>, <code>end_of_quarter</code>
+<p><code>beginning_of_month</code> is aliased to <code>at_beginning_of_month</code>, and <code>end_of_month</code> is aliased to <code>at_end_of_month</code>.</p><h6 id="beginning_of_quarter-end_of_quarter">15.1.2.8 <code>beginning_of_quarter</code>, <code>end_of_quarter</code>
 </h6><p>The methods <code>beginning_of_quarter</code> and <code>end_of_quarter</code> return the dates for the beginning and end of the quarter of the receiver's calendar year:</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 d = Date.new(2010, 5, 9) # =&gt; Sun, 09 May 2010
@@ -2881,7 +2881,7 @@ d.end_of_quarter         # =&gt; Wed, 30 Jun 2010
 
 </pre>
 </div>
-<p><code>beginning_of_quarter</code> is aliased to <code>at_beginning_of_quarter</code>, and <code>end_of_quarter</code> is aliased to <code>at_end_of_quarter</code>.</p><h6 id="beginning-of-year-end-of-year">15.1.2.9 <code>beginning_of_year</code>, <code>end_of_year</code>
+<p><code>beginning_of_quarter</code> is aliased to <code>at_beginning_of_quarter</code>, and <code>end_of_quarter</code> is aliased to <code>at_end_of_quarter</code>.</p><h6 id="beginning_of_year-end_of_year">15.1.2.9 <code>beginning_of_year</code>, <code>end_of_year</code>
 </h6><p>The methods <code>beginning_of_year</code> and <code>end_of_year</code> return the dates for the beginning and end of the year:</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 d = Date.new(2010, 5, 9) # =&gt; Sun, 09 May 2010
@@ -2890,7 +2890,7 @@ d.end_of_year            # =&gt; Fri, 31 Dec 2010
 
 </pre>
 </div>
-<p><code>beginning_of_year</code> is aliased to <code>at_beginning_of_year</code>, and <code>end_of_year</code> is aliased to <code>at_end_of_year</code>.</p><h5 id="other-date-computations">15.1.3 Other Date Computations</h5><h6 id="years-ago-years-since">15.1.3.1 <code>years_ago</code>, <code>years_since</code>
+<p><code>beginning_of_year</code> is aliased to <code>at_beginning_of_year</code>, and <code>end_of_year</code> is aliased to <code>at_end_of_year</code>.</p><h5 id="other-date-computations">15.1.3 Other Date Computations</h5><h6 id="years_ago-years_since">15.1.3.1 <code>years_ago</code>, <code>years_since</code>
 </h6><p>The method <code>years_ago</code> receives a number of years and returns the same date those many years ago:</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 date = Date.new(2010, 6, 7)
@@ -2912,7 +2912,7 @@ Date.new(2012, 2, 29).years_since(3)   # =&gt; Sat, 28 Feb 2015
 
 </pre>
 </div>
-<h6 id="months-ago-months-since">15.1.3.2 <code>months_ago</code>, <code>months_since</code>
+<h6 id="months_ago-months_since">15.1.3.2 <code>months_ago</code>, <code>months_since</code>
 </h6><p>The methods <code>months_ago</code> and <code>months_since</code> work analogously for months:</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 Date.new(2010, 4, 30).months_ago(2)   # =&gt; Sun, 28 Feb 2010
@@ -2927,7 +2927,7 @@ Date.new(2009, 12, 31).months_since(2) # =&gt; Sun, 28 Feb 2010
 
 </pre>
 </div>
-<h6 id="weeks-ago">15.1.3.3 <code>weeks_ago</code>
+<h6 id="weeks_ago">15.1.3.3 <code>weeks_ago</code>
 </h6><p>The method <code>weeks_ago</code> works analogously for weeks:</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 Date.new(2010, 5, 24).weeks_ago(1)    # =&gt; Mon, 17 May 2010
@@ -2990,7 +2990,7 @@ Date.new(1582, 10, 4) + 1.day
 
 </pre>
 </div>
-<h5 id="timestamps">15.1.6 Timestamps</h5><div class="info"><p>The following methods return a <code>Time</code> object if possible, otherwise a <code>DateTime</code>. If set, they honor the user time zone.</p></div><h6 id="beginning-of-day-end-of-day">15.1.6.1 <code>beginning_of_day</code>, <code>end_of_day</code>
+<h5 id="timestamps">15.1.6 Timestamps</h5><div class="info"><p>The following methods return a <code>Time</code> object if possible, otherwise a <code>DateTime</code>. If set, they honor the user time zone.</p></div><h6 id="beginning_of_day-end_of_day">15.1.6.1 <code>beginning_of_day</code>, <code>end_of_day</code>
 </h6><p>The method <code>beginning_of_day</code> returns a timestamp at the beginning of the day (00:00:00):</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 date = Date.new(2010, 6, 7)
@@ -3005,7 +3005,7 @@ date.end_of_day # =&gt; Mon Jun 07 23:59:59 +0200 2010
 
 </pre>
 </div>
-<p><code>beginning_of_day</code> is aliased to <code>at_beginning_of_day</code>, <code>midnight</code>, <code>at_midnight</code>.</p><h6 id="beginning-of-hour-end-of-hour">15.1.6.2 <code>beginning_of_hour</code>, <code>end_of_hour</code>
+<p><code>beginning_of_day</code> is aliased to <code>at_beginning_of_day</code>, <code>midnight</code>, <code>at_midnight</code>.</p><h6 id="beginning_of_hour-end_of_hour">15.1.6.2 <code>beginning_of_hour</code>, <code>end_of_hour</code>
 </h6><p>The method <code>beginning_of_hour</code> returns a timestamp at the beginning of the hour (hh:00:00):</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 date = DateTime.new(2010, 6, 7, 19, 55, 25)
@@ -3020,7 +3020,7 @@ date.end_of_hour # =&gt; Mon Jun 07 19:59:59 +0200 2010
 
 </pre>
 </div>
-<p><code>beginning_of_hour</code> is aliased to <code>at_beginning_of_hour</code>.</p><h6 id="beginning-of-minute-end-of-minute">15.1.6.3 <code>beginning_of_minute</code>, <code>end_of_minute</code>
+<p><code>beginning_of_hour</code> is aliased to <code>at_beginning_of_hour</code>.</p><h6 id="beginning_of_minute-end_of_minute">15.1.6.3 <code>beginning_of_minute</code>, <code>end_of_minute</code>
 </h6><p>The method <code>beginning_of_minute</code> returns a timestamp at the beginning of the minute (hh:mm:00):</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 date = DateTime.new(2010, 6, 7, 19, 55, 25)
@@ -3096,7 +3096,7 @@ end_of_hour
 </pre>
 </div>
 <h5 id="named-datetimes">16.1.1 Named Datetimes</h5><h6 id="datetime-current">16.1.1.1 <code>DateTime.current</code>
-</h6><p>Active Support defines <code>DateTime.current</code> to be like <code>Time.now.to_datetime</code>, except that it honors the user time zone, if defined. It also defines <code>DateTime.yesterday</code> and <code>DateTime.tomorrow</code>, and the instance predicates <code>past?</code>, and <code>future?</code> relative to <code>DateTime.current</code>.</p><h5 id="other-extensions">16.1.2 Other Extensions</h5><h6 id="seconds-since-midnight">16.1.2.1 <code>seconds_since_midnight</code>
+</h6><p>Active Support defines <code>DateTime.current</code> to be like <code>Time.now.to_datetime</code>, except that it honors the user time zone, if defined. It also defines <code>DateTime.yesterday</code> and <code>DateTime.tomorrow</code>, and the instance predicates <code>past?</code>, and <code>future?</code> relative to <code>DateTime.current</code>.</p><h5 id="other-extensions">16.1.2 Other Extensions</h5><h6 id="seconds_since_midnight">16.1.2.1 <code>seconds_since_midnight</code>
 </h6><p>The method <code>seconds_since_midnight</code> returns the number of seconds since midnight:</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 now = DateTime.current     # =&gt; Mon, 07 Jun 2010 20:26:36 +0000
@@ -3261,7 +3261,7 @@ t.advance(seconds: 1)
 <li>If <code>since</code> or <code>ago</code> jump to a time that can't be expressed with <code>Time</code> a <code>DateTime</code> object is returned instead.</li>
 </ul>
 <h5 id="time-current">17.1.1 <code>Time.current</code>
-</h5><p>Active Support defines <code>Time.current</code> to be today in the current time zone. That's like <code>Time.now</code>, except that it honors the user time zone, if defined. It also defines the instance predicates <code>past?</code>, <code>today?</code>, and <code>future?</code>, all of them relative to <code>Time.current</code>.</p><p>When making Time comparisons using methods which honor the user time zone, make sure to use <code>Time.current</code> instead of <code>Time.now</code>. There are cases where the user time zone might be in the future compared to the system time zone, which <code>Time.now</code> uses by default. This means <code>Time.now.to_date</code> may equal <code>Date.yesterday</code>.</p><h5 id="all-day-all-week-all-month-all-quarter-and-all-year">17.1.2 <code>all_day</code>, <code>all_week</code>, <code>all_month</code>, <code>all_quarter</code> and <code>all_year</code>
+</h5><p>Active Support defines <code>Time.current</code> to be today in the current time zone. That's like <code>Time.now</code>, except that it honors the user time zone, if defined. It also defines the instance predicates <code>past?</code>, <code>today?</code>, and <code>future?</code>, all of them relative to <code>Time.current</code>.</p><p>When making Time comparisons using methods which honor the user time zone, make sure to use <code>Time.current</code> instead of <code>Time.now</code>. There are cases where the user time zone might be in the future compared to the system time zone, which <code>Time.now</code> uses by default. This means <code>Time.now.to_date</code> may equal <code>Date.yesterday</code>.</p><h5 id="all_day-all_week-all_month-all_quarter-and-all_year">17.1.2 <code>all_day</code>, <code>all_week</code>, <code>all_month</code>, <code>all_quarter</code> and <code>all_year</code>
 </h5><p>The method <code>all_day</code> returns a range representing the whole day of the current time.</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 now = Time.current
@@ -3316,7 +3316,7 @@ Time.utc(1582, 10, 3) + 5.days
 </pre>
 </div>
 <h3 id="extensions-to-file">18 Extensions to <code>File</code>
-</h3><h4 id="atomic-write">18.1 <code>atomic_write</code>
+</h3><h4 id="atomic_write">18.1 <code>atomic_write</code>
 </h4><p>With the class method <code>File.atomic_write</code> you can write to a file in a way that will prevent any reader from seeing half-written content.</p><p>The name of the file is passed as an argument, and the method yields a file handle opened for writing. Once the block is done <code>atomic_write</code> closes the file handle and completes its job.</p><p>For example, Action Pack uses this method to write asset cache files like <code>all.css</code>:</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 File.atomic_write(joined_asset_path) do |cache|
@@ -3334,7 +3334,7 @@ File.open(file_name) { |f| Marshal.load(f) }
 </pre>
 </div>
 <p>If the cached data refers to a constant that is unknown at that point, the autoloading mechanism is triggered and if it succeeds the deserialization is retried transparently.</p><div class="warning"><p>If the argument is an <code>IO</code> it needs to respond to <code>rewind</code> to be able to retry. Regular files respond to <code>rewind</code>.</p></div><div class="note"><p>Defined in <code>active_support/core_ext/marshal.rb</code>.</p></div><h3 id="extensions-to-logger">20 Extensions to <code>Logger</code>
-</h3><h4 id="around-level-">20.1 <code>around_[level]</code>
+</h3><h4 id="around_-level-">20.1 <code>around_[level]</code>
 </h4><p>Takes two arguments, a <code>before_message</code> and <code>after_message</code> and calls the current level method on the <code>Logger</code> instance, passing in the <code>before_message</code>, then the specified message, then the <code>after_message</code>:</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 logger = Logger.new("log/development.log")
@@ -3353,7 +3353,7 @@ end
 
 </pre>
 </div>
-<h4 id="datetime-format-">20.3 <code>datetime_format=</code>
+<h4 id="datetime_format-">20.3 <code>datetime_format=</code>
 </h4><p>Modifies the datetime format output by the formatter class associated with this logger. If the formatter class does not have a <code>datetime_format</code> method then this is ignored.</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Logger::FormatWithTime &lt; Logger::Formatter

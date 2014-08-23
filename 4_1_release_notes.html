@@ -252,7 +252,7 @@
   <div id="container">
     <div class="wrapper">
       <div id="mainCol">
-        <h3 id="升級至-rails-4-1">1 升級至 Rails 4.1</h3><p>如果您正試著升級現有的應用程式，最好有廣的測試覆蓋度。首先應先升級至 4.0，確保應用程式仍正常工作，接著再升上 4.1。升級需要注意的事項在 <a href="upgrading_ruby_on_rails.html#upgrading-from-rails-4-0-to-rails-4-1">Ruby on Rails 升級指南</a>可以找到。</p><h3 id="主要新功能">2 主要新功能</h3><h4 id="應用程式預加載器-spring">2.1 應用程式預加載器：Spring</h4><p>Spring 會預加載你的 Rails 應用程式。保持應用程式在背景執行，如此一來在執行 Rails 命令時：如跑測試、<code>rake</code>、<code>migrate</code> 時，不用每次都重啟 Rails 應用程式，加速你的開發流程。</p><p>新版 Rails 4.1 應用程式出廠內建 “Spring 化” 的 binstubs（aka，執行檔，如 <code>rails</code>、<code>rake</code>）。這表示 <code>bin/rails</code>、<code>bin/rake</code> 會自動採用 Spring 預載的那一份 Rails。</p><p><strong>執行 rake task：</strong></p><div class="code_container">
+        <h3 id="升級至-rails-4-1">1 升級至 Rails 4.1</h3><p>如果您正試著升級現有的應用程式，最好有廣的測試覆蓋度。首先應先升級至 4.0，確保應用程式仍正常工作，接著再升上 4.1。升級需要注意的事項在 <a href="upgrading_ruby_on_rails.html#upgrading-from-rails-4-0-to-rails-4-1">Ruby on Rails 升級指南</a>可以找到。</p><h3 id="主要新功能">2 主要新功能</h3><h4 id="應用程式預加載器-spring">2.1 應用程式預加載器：Spring</h4><p>Spring 會預加載你的 Rails 應用程式。保持應用程式在背景執行，如此一來在執行 Rails 命令時：如跑測試、<code>rake</code>、<code>migrate</code> 時，不用每次都重啟 Rails 應用程式，加速你的開發流程。</p><p>新版 Rails 4.1 應用程式出廠內建“Spring 加持”的 binstubs（aka，執行檔，如 <code>rails</code>、<code>rake</code>）。這表示 <code>bin/rails</code>、<code>bin/rake</code> 會自動採用 Spring 預載的那一份 Rails。</p><p><strong>執行 rake task：</strong></p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 bin/rake test:models
 
@@ -284,12 +284,12 @@ development:
 
 </pre>
 </div>
-<p>如何讀：</p><div class="code_container">
+<p>如何讀出來：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 &gt; Rails.application.secrets
 =&gt; "3b7cd727ee24e8444053437c36cc66c3"
 &gt; Rails.application.secrets.some_api_key
-=&gt; "SOMEKEY"
+=&gt; "b2c299a4a7b2fe41b6b7ddf517604a1c34"
 
 </pre>
 </div>

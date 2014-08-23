@@ -191,7 +191,7 @@
 <li><a href="#session-storage">Session Storage</a></li>
 <li><a href="#replay-attacks-for-cookiestore-sessions">Replay Attacks for CookieStore Sessions</a></li>
 <li><a href="#session-fixation">Session Fixation</a></li>
-<li><a href="#session-fixation-countermeasures">Session Fixation - Countermeasures</a></li>
+<li><a href="#session-fixation---countermeasures">Session Fixation - Countermeasures</a></li>
 <li><a href="#session-expiry">Session Expiry</a></li>
 </ul>
 </li>
@@ -324,7 +324,7 @@ production:
 <li>As the new trap session is unused, the web application will require the user to authenticate.</li>
 <li>From now on, the victim and the attacker will co-use the web application with the same session: The session became valid and the victim didn't notice the attack.</li>
 </ul>
-<h4 id="session-fixation-countermeasures">2.8 Session Fixation - Countermeasures</h4><div class="info"><p><em>One line of code will protect you from session fixation.</em></p></div><p>The most effective countermeasure is to <em>issue a new session identifier</em> and declare the old one invalid after a successful login. That way, an attacker cannot use the fixed session identifier. This is a good countermeasure against session hijacking, as well. Here is how to create a new session in Rails:</p><div class="code_container">
+<h4 id="session-fixation---countermeasures">2.8 Session Fixation - Countermeasures</h4><div class="info"><p><em>One line of code will protect you from session fixation.</em></p></div><p>The most effective countermeasure is to <em>issue a new session identifier</em> and declare the old one invalid after a successful login. That way, an attacker cannot use the fixed session identifier. This is a good countermeasure against session hijacking, as well. Here is how to create a new session in Rails:</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 reset_session
 

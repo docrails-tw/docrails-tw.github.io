@@ -454,7 +454,7 @@ Article.create(body: 'Partial Layouts are cool!')
 
 </pre>
 </div>
-<p>Supposing we use the same <code>_box</code> partial from above, this would produce the same output as the previous example.</p><h3 id="view-paths">5 View Paths</h3><div class="todo"><p>..</p></div><h3 id="overview-of-helpers-provided-by-action-view">6 Overview of helpers provided by Action View</h3><p>WIP: Not all the helpers are listed here. For a full list see the <a href="http://api.rubyonrails.org/classes/ActionView/Helpers.html">API documentation</a></p><p>The following is only a brief overview summary of the helpers available in Action View. It's recommended that you review the <a href="http://api.rubyonrails.org/classes/ActionView/Helpers.html">API Documentation</a>, which covers all of the helpers in more detail, but this should serve as a good starting point.</p><h4 id="recordtaghelper">6.1 RecordTagHelper</h4><p>This module provides methods for generating container tags, such as <code>div</code>, for your record. This is the recommended way of creating a container for render your Active Record object, as it adds an appropriate class and id attributes to that container. You can then refer to those containers easily by following the convention, instead of having to think about which class or id attribute you should use.</p><h5 id="content-tag-for">6.1.1 content_tag_for</h5><p>Renders a container tag that relates to your Active Record Object.</p><p>For example, given <code>@article</code> is the object of <code>Article</code> class, you can do:</p><div class="code_container">
+<p>Supposing we use the same <code>_box</code> partial from above, this would produce the same output as the previous example.</p><h3 id="view-paths">5 View Paths</h3><div class="todo"><p>..</p></div><h3 id="overview-of-helpers-provided-by-action-view">6 Overview of helpers provided by Action View</h3><p>WIP: Not all the helpers are listed here. For a full list see the <a href="http://api.rubyonrails.org/classes/ActionView/Helpers.html">API documentation</a></p><p>The following is only a brief overview summary of the helpers available in Action View. It's recommended that you review the <a href="http://api.rubyonrails.org/classes/ActionView/Helpers.html">API Documentation</a>, which covers all of the helpers in more detail, but this should serve as a good starting point.</p><h4 id="recordtaghelper">6.1 RecordTagHelper</h4><p>This module provides methods for generating container tags, such as <code>div</code>, for your record. This is the recommended way of creating a container for render your Active Record object, as it adds an appropriate class and id attributes to that container. You can then refer to those containers easily by following the convention, instead of having to think about which class or id attribute you should use.</p><h5 id="content_tag_for">6.1.1 content_tag_for</h5><p>Renders a container tag that relates to your Active Record Object.</p><p>For example, given <code>@article</code> is the object of <code>Article</code> class, you can do:</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 &lt;%= content_tag_for(:tr, @article) do %&gt;
   &lt;td&gt;&lt;%= @article.title %&gt;&lt;/td&gt;
@@ -505,7 +505,7 @@ Article.create(body: 'Partial Layouts are cool!')
 
 </pre>
 </div>
-<h5 id="div-for">6.1.2 div_for</h5><p>This is actually a convenient method which calls <code>content_tag_for</code> internally with <code>:div</code> as the tag name. You can pass either an Active Record object or a collection of objects. For example:</p><div class="code_container">
+<h5 id="div_for">6.1.2 div_for</h5><p>This is actually a convenient method which calls <code>content_tag_for</code> internally with <code>:div</code> as the tag name. You can pass either an Active Record object or a collection of objects. For example:</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 &lt;%= div_for(@article, class: "frontpage") do %&gt;
   &lt;td&gt;&lt;%= @article.title %&gt;&lt;/td&gt;
@@ -528,7 +528,7 @@ image_tag("rails.png") # =&gt; &lt;img src="http://assets.example.com/images/rai
 
 </pre>
 </div>
-<h5 id="register-javascript-expansion">6.2.1 register_javascript_expansion</h5><p>Register one or more JavaScript files to be included when symbol is passed to javascript_include_tag. This method is typically intended to be called from plugin initialization to register JavaScript files that the plugin installed in <code>vendor/assets/javascripts</code>.</p><div class="code_container">
+<h5 id="register_javascript_expansion">6.2.1 register_javascript_expansion</h5><p>Register one or more JavaScript files to be included when symbol is passed to javascript_include_tag. This method is typically intended to be called from plugin initialization to register JavaScript files that the plugin installed in <code>vendor/assets/javascripts</code>.</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 ActionView::Helpers::AssetTagHelper.register_javascript_expansion monkey: ["head", "body", "tail"]
 
@@ -539,7 +539,7 @@ javascript_include_tag :monkey # =&gt;
 
 </pre>
 </div>
-<h5 id="register-stylesheet-expansion">6.2.2 register_stylesheet_expansion</h5><p>Register one or more stylesheet files to be included when symbol is passed to <code>stylesheet_link_tag</code>. This method is typically intended to be called from plugin initialization to register stylesheet files that the plugin installed in <code>vendor/assets/stylesheets</code>.</p><div class="code_container">
+<h5 id="register_stylesheet_expansion">6.2.2 register_stylesheet_expansion</h5><p>Register one or more stylesheet files to be included when symbol is passed to <code>stylesheet_link_tag</code>. This method is typically intended to be called from plugin initialization to register stylesheet files that the plugin installed in <code>vendor/assets/stylesheets</code>.</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 ActionView::Helpers::AssetTagHelper.register_stylesheet_expansion monkey: ["head", "body", "tail"]
 
@@ -550,14 +550,14 @@ stylesheet_link_tag :monkey # =&gt;
 
 </pre>
 </div>
-<h5 id="auto-discovery-link-tag">6.2.3 auto_discovery_link_tag</h5><p>Returns a link tag that browsers and feed readers can use to auto-detect an RSS or Atom feed.</p><div class="code_container">
+<h5 id="auto_discovery_link_tag">6.2.3 auto_discovery_link_tag</h5><p>Returns a link tag that browsers and feed readers can use to auto-detect an RSS or Atom feed.</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 auto_discovery_link_tag(:rss, "http://www.example.com/feed.rss", {title: "RSS Feed"}) # =&gt;
   &lt;link rel="alternate" type="application/rss+xml" title="RSS Feed" href="http://www.example.com/feed" /&gt;
 
 </pre>
 </div>
-<h5 id="image-path">6.2.4 image_path</h5><p>Computes the path to an image asset in the <code>app/assets/images</code> directory. Full paths from the document root will be passed through. Used internally by <code>image_tag</code> to build the image path.</p><div class="code_container">
+<h5 id="image_path">6.2.4 image_path</h5><p>Computes the path to an image asset in the <code>app/assets/images</code> directory. Full paths from the document root will be passed through. Used internally by <code>image_tag</code> to build the image path.</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 image_path("edit.png") # =&gt; /assets/edit.png
 
@@ -569,19 +569,19 @@ image_path("edit.png") # =&gt; /assets/edit-2d1a2db63fc738690021fedb5a65b68e.png
 
 </pre>
 </div>
-<h5 id="image-url">6.2.5 image_url</h5><p>Computes the url to an image asset in the <code>app/assets/images</code> directory. This will call <code>image_path</code> internally and merge with your current host or your asset host.</p><div class="code_container">
+<h5 id="image_url">6.2.5 image_url</h5><p>Computes the url to an image asset in the <code>app/assets/images</code> directory. This will call <code>image_path</code> internally and merge with your current host or your asset host.</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 image_url("edit.png") # =&gt; http://www.example.com/assets/edit.png
 
 </pre>
 </div>
-<h5 id="image-tag">6.2.6 image_tag</h5><p>Returns an html image tag for the source. The source can be a full path or a file that exists in your <code>app/assets/images</code> directory.</p><div class="code_container">
+<h5 id="image_tag">6.2.6 image_tag</h5><p>Returns an html image tag for the source. The source can be a full path or a file that exists in your <code>app/assets/images</code> directory.</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 image_tag("icon.png") # =&gt; &lt;img src="/assets/icon.png" alt="Icon" /&gt;
 
 </pre>
 </div>
-<h5 id="javascript-include-tag">6.2.7 javascript_include_tag</h5><p>Returns an html script tag for each of the sources provided. You can pass in the filename (<code>.js</code> extension is optional) of JavaScript files that exist in your <code>app/assets/javascripts</code> directory for inclusion into the current page or you can pass the full path relative to your document root.</p><div class="code_container">
+<h5 id="javascript_include_tag">6.2.7 javascript_include_tag</h5><p>Returns an html script tag for each of the sources provided. You can pass in the filename (<code>.js</code> extension is optional) of JavaScript files that exist in your <code>app/assets/javascripts</code> directory for inclusion into the current page or you can pass the full path relative to your document root.</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 javascript_include_tag "common" # =&gt; &lt;script src="/assets/common.js"&gt;&lt;/script&gt;
 
@@ -606,19 +606,19 @@ javascript_include_tag :all, cache: true # =&gt;
 
 </pre>
 </div>
-<h5 id="javascript-path">6.2.8 javascript_path</h5><p>Computes the path to a JavaScript asset in the <code>app/assets/javascripts</code> directory. If the source filename has no extension, <code>.js</code> will be appended. Full paths from the document root will be passed through. Used internally by <code>javascript_include_tag</code> to build the script path.</p><div class="code_container">
+<h5 id="javascript_path">6.2.8 javascript_path</h5><p>Computes the path to a JavaScript asset in the <code>app/assets/javascripts</code> directory. If the source filename has no extension, <code>.js</code> will be appended. Full paths from the document root will be passed through. Used internally by <code>javascript_include_tag</code> to build the script path.</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 javascript_path "common" # =&gt; /assets/common.js
 
 </pre>
 </div>
-<h5 id="javascript-url">6.2.9 javascript_url</h5><p>Computes the url to a JavaScript asset in the <code>app/assets/javascripts</code> directory. This will call <code>javascript_path</code> internally and merge with your current host or your asset host.</p><div class="code_container">
+<h5 id="javascript_url">6.2.9 javascript_url</h5><p>Computes the url to a JavaScript asset in the <code>app/assets/javascripts</code> directory. This will call <code>javascript_path</code> internally and merge with your current host or your asset host.</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 javascript_url "common" # =&gt; http://www.example.com/assets/common.js
 
 </pre>
 </div>
-<h5 id="stylesheet-link-tag">6.2.10 stylesheet_link_tag</h5><p>Returns a stylesheet link tag for the sources specified as arguments. If you don't specify an extension, <code>.css</code> will be appended automatically.</p><div class="code_container">
+<h5 id="stylesheet_link_tag">6.2.10 stylesheet_link_tag</h5><p>Returns a stylesheet link tag for the sources specified as arguments. If you don't specify an extension, <code>.css</code> will be appended automatically.</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 stylesheet_link_tag "application" # =&gt; &lt;link href="/assets/application.css" media="screen" rel="stylesheet" /&gt;
 
@@ -637,19 +637,19 @@ stylesheet_link_tag :all, cache: true
 
 </pre>
 </div>
-<h5 id="stylesheet-path">6.2.11 stylesheet_path</h5><p>Computes the path to a stylesheet asset in the <code>app/assets/stylesheets</code> directory. If the source filename has no extension, .css will be appended. Full paths from the document root will be passed through. Used internally by stylesheet_link_tag to build the stylesheet path.</p><div class="code_container">
+<h5 id="stylesheet_path">6.2.11 stylesheet_path</h5><p>Computes the path to a stylesheet asset in the <code>app/assets/stylesheets</code> directory. If the source filename has no extension, .css will be appended. Full paths from the document root will be passed through. Used internally by stylesheet_link_tag to build the stylesheet path.</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 stylesheet_path "application" # =&gt; /assets/application.css
 
 </pre>
 </div>
-<h5 id="stylesheet-url">6.2.12 stylesheet_url</h5><p>Computes the url to a stylesheet asset in the <code>app/assets/stylesheets</code> directory. This will call <code>stylesheet_path</code> internally and merge with your current host or your asset host.</p><div class="code_container">
+<h5 id="stylesheet_url">6.2.12 stylesheet_url</h5><p>Computes the url to a stylesheet asset in the <code>app/assets/stylesheets</code> directory. This will call <code>stylesheet_path</code> internally and merge with your current host or your asset host.</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 stylesheet_url "application" # =&gt; http://www.example.com/assets/application.css
 
 </pre>
 </div>
-<h4 id="atomfeedhelper">6.3 AtomFeedHelper</h4><h5 id="atom-feed">6.3.1 atom_feed</h5><p>This helper makes building an Atom feed easy. Here's a full usage example:</p><p><strong>config/routes.rb</strong></p><div class="code_container">
+<h4 id="atomfeedhelper">6.3 AtomFeedHelper</h4><h5 id="atom_feed">6.3.1 atom_feed</h5><p>This helper makes building an Atom feed easy. Here's a full usage example:</p><p><strong>config/routes.rb</strong></p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 resources :articles
 
@@ -725,7 +725,7 @@ end
 
 </pre>
 </div>
-<h5 id="content-for">6.6.2 content_for</h5><p>Calling <code>content_for</code> stores a block of markup in an identifier for later use. You can make subsequent calls to the stored content in other templates or the layout by passing the identifier as an argument to <code>yield</code>.</p><p>For example, let's say we have a standard application layout, but also a special page that requires certain JavaScript that the rest of the site doesn't need. We can use <code>content_for</code> to include this JavaScript on our special page without fattening up the rest of the site.</p><p><strong>app/views/layouts/application.html.erb</strong></p><div class="code_container">
+<h5 id="content_for">6.6.2 content_for</h5><p>Calling <code>content_for</code> stores a block of markup in an identifier for later use. You can make subsequent calls to the stored content in other templates or the layout by passing the identifier as an argument to <code>yield</code>.</p><p>For example, let's say we have a standard application layout, but also a special page that requires certain JavaScript that the rest of the site doesn't need. We can use <code>content_for</code> to include this JavaScript on our special page without fattening up the rest of the site.</p><p><strong>app/views/layouts/application.html.erb</strong></p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 &lt;html&gt;
   &lt;head&gt;
@@ -749,26 +749,26 @@ end
 
 </pre>
 </div>
-<h4 id="datehelper">6.7 DateHelper</h4><h5 id="date-select">6.7.1 date_select</h5><p>Returns a set of select tags (one for year, month, and day) pre-selected for accessing a specified date-based attribute.</p><div class="code_container">
+<h4 id="datehelper">6.7 DateHelper</h4><h5 id="date_select">6.7.1 date_select</h5><p>Returns a set of select tags (one for year, month, and day) pre-selected for accessing a specified date-based attribute.</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 date_select("article", "published_on")
 
 </pre>
 </div>
-<h5 id="datetime-select">6.7.2 datetime_select</h5><p>Returns a set of select tags (one for year, month, day, hour, and minute) pre-selected for accessing a specified datetime-based attribute.</p><div class="code_container">
+<h5 id="datetime_select">6.7.2 datetime_select</h5><p>Returns a set of select tags (one for year, month, day, hour, and minute) pre-selected for accessing a specified datetime-based attribute.</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 datetime_select("article", "published_on")
 
 </pre>
 </div>
-<h5 id="distance-of-time-in-words">6.7.3 distance_of_time_in_words</h5><p>Reports the approximate distance in time between two Time or Date objects or integers as seconds. Set <code>include_seconds</code> to true if you want more detailed approximations.</p><div class="code_container">
+<h5 id="distance_of_time_in_words">6.7.3 distance_of_time_in_words</h5><p>Reports the approximate distance in time between two Time or Date objects or integers as seconds. Set <code>include_seconds</code> to true if you want more detailed approximations.</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 distance_of_time_in_words(Time.now, Time.now + 15.seconds)        # =&gt; less than a minute
 distance_of_time_in_words(Time.now, Time.now + 15.seconds, include_seconds: true)  # =&gt; less than 20 seconds
 
 </pre>
 </div>
-<h5 id="select-date">6.7.4 select_date</h5><p>Returns a set of html select-tags (one for year, month, and day) pre-selected with the <code>date</code> provided.</p><div class="code_container">
+<h5 id="select_date">6.7.4 select_date</h5><p>Returns a set of html select-tags (one for year, month, and day) pre-selected with the <code>date</code> provided.</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 # Generates a date select that defaults to the date provided (six days after today)
 select_date(Time.today + 6.days)
@@ -778,7 +778,7 @@ select_date()
 
 </pre>
 </div>
-<h5 id="select-datetime">6.7.5 select_datetime</h5><p>Returns a set of html select-tags (one for year, month, day, hour, and minute) pre-selected with the <code>datetime</code> provided.</p><div class="code_container">
+<h5 id="select_datetime">6.7.5 select_datetime</h5><p>Returns a set of html select-tags (one for year, month, day, hour, and minute) pre-selected with the <code>datetime</code> provided.</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 # Generates a datetime select that defaults to the datetime provided (four days after today)
 select_datetime(Time.now + 4.days)
@@ -788,7 +788,7 @@ select_datetime()
 
 </pre>
 </div>
-<h5 id="select-day">6.7.6 select_day</h5><p>Returns a select tag with options for each of the days 1 through 31 with the current day selected.</p><div class="code_container">
+<h5 id="select_day">6.7.6 select_day</h5><p>Returns a select tag with options for each of the days 1 through 31 with the current day selected.</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 # Generates a select field for days that defaults to the day for the date provided
 select_day(Time.today + 2.days)
@@ -798,42 +798,42 @@ select_day(5)
 
 </pre>
 </div>
-<h5 id="select-hour">6.7.7 select_hour</h5><p>Returns a select tag with options for each of the hours 0 through 23 with the current hour selected.</p><div class="code_container">
+<h5 id="select_hour">6.7.7 select_hour</h5><p>Returns a select tag with options for each of the hours 0 through 23 with the current hour selected.</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 # Generates a select field for hours that defaults to the hours for the time provided
 select_hour(Time.now + 6.hours)
 
 </pre>
 </div>
-<h5 id="select-minute">6.7.8 select_minute</h5><p>Returns a select tag with options for each of the minutes 0 through 59 with the current minute selected.</p><div class="code_container">
+<h5 id="select_minute">6.7.8 select_minute</h5><p>Returns a select tag with options for each of the minutes 0 through 59 with the current minute selected.</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 # Generates a select field for minutes that defaults to the minutes for the time provided.
 select_minute(Time.now + 6.hours)
 
 </pre>
 </div>
-<h5 id="select-month">6.7.9 select_month</h5><p>Returns a select tag with options for each of the months January through December with the current month selected.</p><div class="code_container">
+<h5 id="select_month">6.7.9 select_month</h5><p>Returns a select tag with options for each of the months January through December with the current month selected.</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 # Generates a select field for months that defaults to the current month
 select_month(Date.today)
 
 </pre>
 </div>
-<h5 id="select-second">6.7.10 select_second</h5><p>Returns a select tag with options for each of the seconds 0 through 59 with the current second selected.</p><div class="code_container">
+<h5 id="select_second">6.7.10 select_second</h5><p>Returns a select tag with options for each of the seconds 0 through 59 with the current second selected.</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 # Generates a select field for seconds that defaults to the seconds for the time provided
 select_second(Time.now + 16.minutes)
 
 </pre>
 </div>
-<h5 id="select-time">6.7.11 select_time</h5><p>Returns a set of html select-tags (one for hour and minute).</p><div class="code_container">
+<h5 id="select_time">6.7.11 select_time</h5><p>Returns a set of html select-tags (one for hour and minute).</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 # Generates a time select that defaults to the time provided
 select_time(Time.now)
 
 </pre>
 </div>
-<h5 id="select-year">6.7.12 select_year</h5><p>Returns a select tag with options for each of the five years on each side of the current, which is selected. The five year radius can be changed using the <code>:start_year</code> and <code>:end_year</code> keys in the <code>options</code>.</p><div class="code_container">
+<h5 id="select_year">6.7.12 select_year</h5><p>Returns a select tag with options for each of the five years on each side of the current, which is selected. The five year radius can be changed using the <code>:start_year</code> and <code>:end_year</code> keys in the <code>options</code>.</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 # Generates a select field for five years on either side of Date.today that defaults to the current year
 select_year(Date.today)
@@ -843,13 +843,13 @@ select_year(Date.today, start_year: 1900, end_year: 2009)
 
 </pre>
 </div>
-<h5 id="time-ago-in-words">6.7.13 time_ago_in_words</h5><p>Like <code>distance_of_time_in_words</code>, but where <code>to_time</code> is fixed to <code>Time.now</code>.</p><div class="code_container">
+<h5 id="time_ago_in_words">6.7.13 time_ago_in_words</h5><p>Like <code>distance_of_time_in_words</code>, but where <code>to_time</code> is fixed to <code>Time.now</code>.</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 time_ago_in_words(3.minutes.from_now)  # =&gt; 3 minutes
 
 </pre>
 </div>
-<h5 id="time-select">6.7.14 time_select</h5><p>Returns a set of select tags (one for hour, minute and optionally second) pre-selected for accessing a specified time-based attribute. The selects are prepared for multi-parameter assignment to an Active Record object.</p><div class="code_container">
+<h5 id="time_select">6.7.14 time_select</h5><p>Returns a set of select tags (one for hour, minute and optionally second) pre-selected for accessing a specified time-based attribute. The selects are prepared for multi-parameter assignment to an Active Record object.</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 # Creates a time select tag that, when POSTed, will be stored in the order variable in the submitted attribute
 time_select("order", "submitted")
@@ -903,7 +903,7 @@ third:
 
 </pre>
 </div>
-<p>The params hash has a nested person value, which can therefore be accessed with params[:person] in the controller.</p><h5 id="check-box">6.9.1 check_box</h5><p>Returns a checkbox tag tailored for accessing a specified attribute.</p><div class="code_container">
+<p>The params hash has a nested person value, which can therefore be accessed with params[:person] in the controller.</p><h5 id="check_box">6.9.1 check_box</h5><p>Returns a checkbox tag tailored for accessing a specified attribute.</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 # Let's say that @article.validated? is 1:
 check_box("article", "validated")
@@ -912,7 +912,7 @@ check_box("article", "validated")
 
 </pre>
 </div>
-<h5 id="fields-for">6.9.2 fields_for</h5><p>Creates a scope around a specific model object like form_for, but doesn't create the form tags themselves. This makes fields_for suitable for specifying additional model objects in the same form:</p><div class="code_container">
+<h5 id="fields_for">6.9.2 fields_for</h5><p>Creates a scope around a specific model object like form_for, but doesn't create the form tags themselves. This makes fields_for suitable for specifying additional model objects in the same form:</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 &lt;%= form_for @person, url: {action: "update"} do |person_form| %&gt;
   First name: &lt;%= person_form.text_field :first_name %&gt;
@@ -925,14 +925,14 @@ check_box("article", "validated")
 
 </pre>
 </div>
-<h5 id="file-field">6.9.3 file_field</h5><p>Returns a file upload input tag tailored for accessing a specified attribute.</p><div class="code_container">
+<h5 id="file_field">6.9.3 file_field</h5><p>Returns a file upload input tag tailored for accessing a specified attribute.</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 file_field(:user, :avatar)
 # =&gt; &lt;input type="file" id="user_avatar" name="user[avatar]" /&gt;
 
 </pre>
 </div>
-<h5 id="form-for">6.9.4 form_for</h5><p>Creates a form and a scope around a specific model object that is used as a base for questioning about values for the fields.</p><div class="code_container">
+<h5 id="form_for">6.9.4 form_for</h5><p>Creates a form and a scope around a specific model object that is used as a base for questioning about values for the fields.</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 &lt;%= form_for @article do |f| %&gt;
   &lt;%= f.label :title, 'Title' %&gt;:
@@ -943,7 +943,7 @@ file_field(:user, :avatar)
 
 </pre>
 </div>
-<h5 id="hidden-field">6.9.5 hidden_field</h5><p>Returns a hidden input tag tailored for accessing a specified attribute.</p><div class="code_container">
+<h5 id="hidden_field">6.9.5 hidden_field</h5><p>Returns a hidden input tag tailored for accessing a specified attribute.</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 hidden_field(:user, :token)
 # =&gt; &lt;input type="hidden" id="user_token" name="user[token]" value="#{@user.token}" /&gt;
@@ -957,14 +957,14 @@ label(:article, :title)
 
 </pre>
 </div>
-<h5 id="password-field">6.9.7 password_field</h5><p>Returns an input tag of the "password" type tailored for accessing a specified attribute.</p><div class="code_container">
+<h5 id="password_field">6.9.7 password_field</h5><p>Returns an input tag of the "password" type tailored for accessing a specified attribute.</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 password_field(:login, :pass)
 # =&gt; &lt;input type="text" id="login_pass" name="login[pass]" value="#{@login.pass}" /&gt;
 
 </pre>
 </div>
-<h5 id="radio-button">6.9.8 radio_button</h5><p>Returns a radio button tag for accessing a specified attribute.</p><div class="code_container">
+<h5 id="radio_button">6.9.8 radio_button</h5><p>Returns a radio button tag for accessing a specified attribute.</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 # Let's say that @article.category returns "rails":
 radio_button("article", "category", "rails")
@@ -974,7 +974,7 @@ radio_button("article", "category", "java")
 
 </pre>
 </div>
-<h5 id="text-area">6.9.9 text_area</h5><p>Returns a textarea opening and closing tag set tailored for accessing a specified attribute.</p><div class="code_container">
+<h5 id="text_area">6.9.9 text_area</h5><p>Returns a textarea opening and closing tag set tailored for accessing a specified attribute.</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 text_area(:comment, :text, size: "20x30")
 # =&gt; &lt;textarea cols="20" rows="30" id="comment_text" name="comment[text]"&gt;
@@ -983,28 +983,28 @@ text_area(:comment, :text, size: "20x30")
 
 </pre>
 </div>
-<h5 id="text-field">6.9.10 text_field</h5><p>Returns an input tag of the "text" type tailored for accessing a specified attribute.</p><div class="code_container">
+<h5 id="text_field">6.9.10 text_field</h5><p>Returns an input tag of the "text" type tailored for accessing a specified attribute.</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 text_field(:article, :title)
 # =&gt; &lt;input type="text" id="article_title" name="article[title]" value="#{@article.title}" /&gt;
 
 </pre>
 </div>
-<h5 id="email-field">6.9.11 email_field</h5><p>Returns an input tag of the "email" type tailored for accessing a specified attribute.</p><div class="code_container">
+<h5 id="email_field">6.9.11 email_field</h5><p>Returns an input tag of the "email" type tailored for accessing a specified attribute.</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 email_field(:user, :email)
 # =&gt; &lt;input type="email" id="user_email" name="user[email]" value="#{@user.email}" /&gt;
 
 </pre>
 </div>
-<h5 id="url-field">6.9.12 url_field</h5><p>Returns an input tag of the "url" type tailored for accessing a specified attribute.</p><div class="code_container">
+<h5 id="url_field">6.9.12 url_field</h5><p>Returns an input tag of the "url" type tailored for accessing a specified attribute.</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 url_field(:user, :url)
 # =&gt; &lt;input type="url" id="user_url" name="user[url]" value="#{@user.url}" /&gt;
 
 </pre>
 </div>
-<h4 id="formoptionshelper">6.10 FormOptionsHelper</h4><p>Provides a number of methods for turning different kinds of containers into a set of option tags.</p><h5 id="collection-select">6.10.1 collection_select</h5><p>Returns <code>select</code> and <code>option</code> tags for the collection of existing return values of <code>method</code> for <code>object</code>'s class.</p><p>Example object structure for use with this method:</p><div class="code_container">
+<h4 id="formoptionshelper">6.10 FormOptionsHelper</h4><p>Provides a number of methods for turning different kinds of containers into a set of option tags.</p><h5 id="collection_select">6.10.1 collection_select</h5><p>Returns <code>select</code> and <code>option</code> tags for the collection of existing return values of <code>method</code> for <code>object</code>'s class.</p><p>Example object structure for use with this method:</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Article &lt; ActiveRecord::Base
   belongs_to :author
@@ -1036,7 +1036,7 @@ collection_select(:article, :author_id, Author.all, :id, :name_with_initial, {pr
 
 </pre>
 </div>
-<h5 id="collection-radio-buttons">6.10.2 collection_radio_buttons</h5><p>Returns <code>radio_button</code> tags for the collection of existing return values of <code>method</code> for <code>object</code>'s class.</p><p>Example object structure for use with this method:</p><div class="code_container">
+<h5 id="collection_radio_buttons">6.10.2 collection_radio_buttons</h5><p>Returns <code>radio_button</code> tags for the collection of existing return values of <code>method</code> for <code>object</code>'s class.</p><p>Example object structure for use with this method:</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Article &lt; ActiveRecord::Base
   belongs_to :author
@@ -1068,7 +1068,7 @@ collection_radio_buttons(:article, :author_id, Author.all, :id, :name_with_initi
 
 </pre>
 </div>
-<h5 id="collection-check-boxes">6.10.3 collection_check_boxes</h5><p>Returns <code>check_box</code> tags for the collection of existing return values of <code>method</code> for <code>object</code>'s class.</p><p>Example object structure for use with this method:</p><div class="code_container">
+<h5 id="collection_check_boxes">6.10.3 collection_check_boxes</h5><p>Returns <code>check_box</code> tags for the collection of existing return values of <code>method</code> for <code>object</code>'s class.</p><p>Example object structure for use with this method:</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Article &lt; ActiveRecord::Base
   has_and_belongs_to_many :authors
@@ -1101,7 +1101,7 @@ collection_check_boxes(:article, :author_ids, Author.all, :id, :name_with_initia
 
 </pre>
 </div>
-<h5 id="country-options-for-select">6.10.4 country_options_for_select</h5><p>Returns a string of option tags for pretty much any country in the world.</p><h5 id="country-select">6.10.5 country_select</h5><p>Returns select and option tags for the given object and method, using country_options_for_select to generate the list of option tags.</p><h5 id="option-groups-from-collection-for-select">6.10.6 option_groups_from_collection_for_select</h5><p>Returns a string of <code>option</code> tags, like <code>options_from_collection_for_select</code>, but groups them by <code>optgroup</code> tags based on the object relationships of the arguments.</p><p>Example object structure for use with this method:</p><div class="code_container">
+<h5 id="country_options_for_select">6.10.4 country_options_for_select</h5><p>Returns a string of option tags for pretty much any country in the world.</p><h5 id="country_select">6.10.5 country_select</h5><p>Returns select and option tags for the given object and method, using country_options_for_select to generate the list of option tags.</p><h5 id="option_groups_from_collection_for_select">6.10.6 option_groups_from_collection_for_select</h5><p>Returns a string of <code>option</code> tags, like <code>options_from_collection_for_select</code>, but groups them by <code>optgroup</code> tags based on the object relationships of the arguments.</p><p>Example object structure for use with this method:</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Continent &lt; ActiveRecord::Base
   has_many :countries
@@ -1137,14 +1137,14 @@ option_groups_from_collection_for_select(@continents, :countries, :name, :id, :n
 
 </pre>
 </div>
-<p>Note: Only the <code>optgroup</code> and <code>option</code> tags are returned, so you still have to wrap the output in an appropriate <code>select</code> tag.</p><h5 id="options-for-select">6.10.7 options_for_select</h5><p>Accepts a container (hash, array, enumerable, your type) and returns a string of option tags.</p><div class="code_container">
+<p>Note: Only the <code>optgroup</code> and <code>option</code> tags are returned, so you still have to wrap the output in an appropriate <code>select</code> tag.</p><h5 id="options_for_select">6.10.7 options_for_select</h5><p>Accepts a container (hash, array, enumerable, your type) and returns a string of option tags.</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 options_for_select([ "VISA", "MasterCard" ])
 # =&gt; &lt;option&gt;VISA&lt;/option&gt; &lt;option&gt;MasterCard&lt;/option&gt;
 
 </pre>
 </div>
-<p>Note: Only the <code>option</code> tags are returned, you have to wrap this call in a regular HTML <code>select</code> tag.</p><h5 id="options-from-collection-for-select">6.10.8 options_from_collection_for_select</h5><p>Returns a string of option tags that have been compiled by iterating over the <code>collection</code> and assigning the result of a call to the <code>value_method</code> as the option value and the <code>text_method</code> as the option text.</p><div class="code_container">
+<p>Note: Only the <code>option</code> tags are returned, you have to wrap this call in a regular HTML <code>select</code> tag.</p><h5 id="options_from_collection_for_select">6.10.8 options_from_collection_for_select</h5><p>Returns a string of option tags that have been compiled by iterating over the <code>collection</code> and assigning the result of a call to the <code>value_method</code> as the option value and the <code>text_method</code> as the option text.</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 # options_from_collection_for_select(collection, value_method, text_method, selected = nil)
 
@@ -1174,26 +1174,26 @@ select("article", "person_id", Person.all.collect {|p| [ p.name, p.id ] }, {incl
 
 </pre>
 </div>
-<h5 id="time-zone-options-for-select">6.10.10 time_zone_options_for_select</h5><p>Returns a string of option tags for pretty much any time zone in the world.</p><h5 id="time-zone-select">6.10.11 time_zone_select</h5><p>Returns select and option tags for the given object and method, using <code>time_zone_options_for_select</code> to generate the list of option tags.</p><div class="code_container">
+<h5 id="time_zone_options_for_select">6.10.10 time_zone_options_for_select</h5><p>Returns a string of option tags for pretty much any time zone in the world.</p><h5 id="time_zone_select">6.10.11 time_zone_select</h5><p>Returns select and option tags for the given object and method, using <code>time_zone_options_for_select</code> to generate the list of option tags.</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 time_zone_select( "user", "time_zone")
 
 </pre>
 </div>
-<h5 id="date-field">6.10.12 date_field</h5><p>Returns an input tag of the "date" type tailored for accessing a specified attribute.</p><div class="code_container">
+<h5 id="date_field">6.10.12 date_field</h5><p>Returns an input tag of the "date" type tailored for accessing a specified attribute.</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 date_field("user", "dob")
 
 </pre>
 </div>
-<h4 id="formtaghelper">6.11 FormTagHelper</h4><p>Provides a number of methods for creating form tags that don't rely on an Active Record object assigned to the template like FormHelper does. Instead, you provide the names and values manually.</p><h5 id="check-box-tag">6.11.1 check_box_tag</h5><p>Creates a check box form input tag.</p><div class="code_container">
+<h4 id="formtaghelper">6.11 FormTagHelper</h4><p>Provides a number of methods for creating form tags that don't rely on an Active Record object assigned to the template like FormHelper does. Instead, you provide the names and values manually.</p><h5 id="check_box_tag">6.11.1 check_box_tag</h5><p>Creates a check box form input tag.</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 check_box_tag 'accept'
 # =&gt; &lt;input id="accept" name="accept" type="checkbox" value="1" /&gt;
 
 </pre>
 </div>
-<h5 id="field-set-tag">6.11.2 field_set_tag</h5><p>Creates a field set for grouping HTML form elements.</p><div class="code_container">
+<h5 id="field_set_tag">6.11.2 field_set_tag</h5><p>Creates a field set for grouping HTML form elements.</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 &lt;%= field_set_tag do %&gt;
   &lt;p&gt;&lt;%= text_field_tag 'name' %&gt;&lt;/p&gt;
@@ -1202,7 +1202,7 @@ check_box_tag 'accept'
 
 </pre>
 </div>
-<h5 id="file-field-tag">6.11.3 file_field_tag</h5><p>Creates a file upload field.</p><div class="code_container">
+<h5 id="file_field_tag">6.11.3 file_field_tag</h5><p>Creates a file upload field.</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 &lt;%= form_tag({action:"post"}, multipart: true) do %&gt;
   &lt;label for="file"&gt;File to Upload&lt;/label&gt; &lt;%= file_field_tag "file" %&gt;
@@ -1218,7 +1218,7 @@ file_field_tag 'attachment'
 
 </pre>
 </div>
-<h5 id="form-tag">6.11.4 form_tag</h5><p>Starts a form tag that points the action to an url configured with <code>url_for_options</code> just like <code>ActionController::Base#url_for</code>.</p><div class="code_container">
+<h5 id="form_tag">6.11.4 form_tag</h5><p>Starts a form tag that points the action to an url configured with <code>url_for_options</code> just like <code>ActionController::Base#url_for</code>.</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 &lt;%= form_tag '/articles' do %&gt;
   &lt;div&gt;&lt;%= submit_tag 'Save' %&gt;&lt;/div&gt;
@@ -1227,91 +1227,91 @@ file_field_tag 'attachment'
 
 </pre>
 </div>
-<h5 id="hidden-field-tag">6.11.5 hidden_field_tag</h5><p>Creates a hidden form input field used to transmit data that would be lost due to HTTP's statelessness or data that should be hidden from the user.</p><div class="code_container">
+<h5 id="hidden_field_tag">6.11.5 hidden_field_tag</h5><p>Creates a hidden form input field used to transmit data that would be lost due to HTTP's statelessness or data that should be hidden from the user.</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 hidden_field_tag 'token', 'VUBJKB23UIVI1UU1VOBVI@'
 # =&gt; &lt;input id="token" name="token" type="hidden" value="VUBJKB23UIVI1UU1VOBVI@" /&gt;
 
 </pre>
 </div>
-<h5 id="image-submit-tag">6.11.6 image_submit_tag</h5><p>Displays an image which when clicked will submit the form.</p><div class="code_container">
+<h5 id="image_submit_tag">6.11.6 image_submit_tag</h5><p>Displays an image which when clicked will submit the form.</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 image_submit_tag("login.png")
 # =&gt; &lt;input src="/images/login.png" type="image" /&gt;
 
 </pre>
 </div>
-<h5 id="label-tag">6.11.7 label_tag</h5><p>Creates a label field.</p><div class="code_container">
+<h5 id="label_tag">6.11.7 label_tag</h5><p>Creates a label field.</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 label_tag 'name'
 # =&gt; &lt;label for="name"&gt;Name&lt;/label&gt;
 
 </pre>
 </div>
-<h5 id="password-field-tag">6.11.8 password_field_tag</h5><p>Creates a password field, a masked text field that will hide the users input behind a mask character.</p><div class="code_container">
+<h5 id="password_field_tag">6.11.8 password_field_tag</h5><p>Creates a password field, a masked text field that will hide the users input behind a mask character.</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 password_field_tag 'pass'
 # =&gt; &lt;input id="pass" name="pass" type="password" /&gt;
 
 </pre>
 </div>
-<h5 id="radio-button-tag">6.11.9 radio_button_tag</h5><p>Creates a radio button; use groups of radio buttons named the same to allow users to select from a group of options.</p><div class="code_container">
+<h5 id="radio_button_tag">6.11.9 radio_button_tag</h5><p>Creates a radio button; use groups of radio buttons named the same to allow users to select from a group of options.</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 radio_button_tag 'gender', 'male'
 # =&gt; &lt;input id="gender_male" name="gender" type="radio" value="male" /&gt;
 
 </pre>
 </div>
-<h5 id="select-tag">6.11.10 select_tag</h5><p>Creates a dropdown selection box.</p><div class="code_container">
+<h5 id="select_tag">6.11.10 select_tag</h5><p>Creates a dropdown selection box.</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 select_tag "people", "&lt;option&gt;David&lt;/option&gt;"
 # =&gt; &lt;select id="people" name="people"&gt;&lt;option&gt;David&lt;/option&gt;&lt;/select&gt;
 
 </pre>
 </div>
-<h5 id="submit-tag">6.11.11 submit_tag</h5><p>Creates a submit button with the text provided as the caption.</p><div class="code_container">
+<h5 id="submit_tag">6.11.11 submit_tag</h5><p>Creates a submit button with the text provided as the caption.</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 submit_tag "Publish this article"
 # =&gt; &lt;input name="commit" type="submit" value="Publish this article" /&gt;
 
 </pre>
 </div>
-<h5 id="text-area-tag">6.11.12 text_area_tag</h5><p>Creates a text input area; use a textarea for longer text inputs such as blog posts or descriptions.</p><div class="code_container">
+<h5 id="text_area_tag">6.11.12 text_area_tag</h5><p>Creates a text input area; use a textarea for longer text inputs such as blog posts or descriptions.</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 text_area_tag 'article'
 # =&gt; &lt;textarea id="article" name="article"&gt;&lt;/textarea&gt;
 
 </pre>
 </div>
-<h5 id="text-field-tag">6.11.13 text_field_tag</h5><p>Creates a standard text field; use these text fields to input smaller chunks of text like a username or a search query.</p><div class="code_container">
+<h5 id="text_field_tag">6.11.13 text_field_tag</h5><p>Creates a standard text field; use these text fields to input smaller chunks of text like a username or a search query.</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 text_field_tag 'name'
 # =&gt; &lt;input id="name" name="name" type="text" /&gt;
 
 </pre>
 </div>
-<h5 id="email-field-tag">6.11.14 email_field_tag</h5><p>Creates a standard input field of email type.</p><div class="code_container">
+<h5 id="email_field_tag">6.11.14 email_field_tag</h5><p>Creates a standard input field of email type.</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 email_field_tag 'email'
 # =&gt; &lt;input id="email" name="email" type="email" /&gt;
 
 </pre>
 </div>
-<h5 id="url-field-tag">6.11.15 url_field_tag</h5><p>Creates a standard input field of url type.</p><div class="code_container">
+<h5 id="url_field_tag">6.11.15 url_field_tag</h5><p>Creates a standard input field of url type.</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 url_field_tag 'url'
 # =&gt; &lt;input id="url" name="url" type="url" /&gt;
 
 </pre>
 </div>
-<h5 id="date-field-tag">6.11.16 date_field_tag</h5><p>Creates a standard input field of date type.</p><div class="code_container">
+<h5 id="date_field_tag">6.11.16 date_field_tag</h5><p>Creates a standard input field of date type.</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 date_field_tag "dob"
 # =&gt; &lt;input id="dob" name="dob" type="date" /&gt;
 
 </pre>
 </div>
-<h4 id="javascripthelper">6.12 JavaScriptHelper</h4><p>Provides functionality for working with JavaScript in your views.</p><h5 id="button-to-function">6.12.1 button_to_function</h5><p>Returns a button that'll trigger a JavaScript function using the onclick handler. Examples:</p><div class="code_container">
+<h4 id="javascripthelper">6.12 JavaScriptHelper</h4><p>Provides functionality for working with JavaScript in your views.</p><h5 id="button_to_function">6.12.1 button_to_function</h5><p>Returns a button that'll trigger a JavaScript function using the onclick handler. Examples:</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 button_to_function "Greeting", "alert('Hello world!')"
 button_to_function "Delete", "if (confirm('Really?')) do_delete()"
@@ -1321,7 +1321,7 @@ end
 
 </pre>
 </div>
-<h5 id="define-javascript-functions">6.12.2 define_javascript_functions</h5><p>Includes the Action Pack JavaScript libraries inside a single <code>script</code> tag.</p><h5 id="escape-javascript">6.12.3 escape_javascript</h5><p>Escape carrier returns and single and double quotes for JavaScript segments.</p><h5 id="javascript-tag">6.12.4 javascript_tag</h5><p>Returns a JavaScript tag wrapping the provided code.</p><div class="code_container">
+<h5 id="define_javascript_functions">6.12.2 define_javascript_functions</h5><p>Includes the Action Pack JavaScript libraries inside a single <code>script</code> tag.</p><h5 id="escape_javascript">6.12.3 escape_javascript</h5><p>Escape carrier returns and single and double quotes for JavaScript segments.</p><h5 id="javascript_tag">6.12.4 javascript_tag</h5><p>Returns a JavaScript tag wrapping the provided code.</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 javascript_tag "alert('All is good')"
 
@@ -1337,45 +1337,45 @@ alert('All is good')
 
 </pre>
 </div>
-<h5 id="link-to-function">6.12.5 link_to_function</h5><p>Returns a link that will trigger a JavaScript function using the onclick handler and return false after the fact.</p><div class="code_container">
+<h5 id="link_to_function">6.12.5 link_to_function</h5><p>Returns a link that will trigger a JavaScript function using the onclick handler and return false after the fact.</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 link_to_function "Greeting", "alert('Hello world!')"
 # =&gt; &lt;a onclick="alert('Hello world!'); return false;" href="#"&gt;Greeting&lt;/a&gt;
 
 </pre>
 </div>
-<h4 id="numberhelper">6.13 NumberHelper</h4><p>Provides methods for converting numbers into formatted strings. Methods are provided for phone numbers, currency, percentage, precision, positional notation, and file size.</p><h5 id="number-to-currency">6.13.1 number_to_currency</h5><p>Formats a number into a currency string (e.g., $13.65).</p><div class="code_container">
+<h4 id="numberhelper">6.13 NumberHelper</h4><p>Provides methods for converting numbers into formatted strings. Methods are provided for phone numbers, currency, percentage, precision, positional notation, and file size.</p><h5 id="number_to_currency">6.13.1 number_to_currency</h5><p>Formats a number into a currency string (e.g., $13.65).</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 number_to_currency(1234567890.50) # =&gt; $1,234,567,890.50
 
 </pre>
 </div>
-<h5 id="number-to-human-size">6.13.2 number_to_human_size</h5><p>Formats the bytes in size into a more understandable representation; useful for reporting file sizes to users.</p><div class="code_container">
+<h5 id="number_to_human_size">6.13.2 number_to_human_size</h5><p>Formats the bytes in size into a more understandable representation; useful for reporting file sizes to users.</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 number_to_human_size(1234)          # =&gt; 1.2 KB
 number_to_human_size(1234567)       # =&gt; 1.2 MB
 
 </pre>
 </div>
-<h5 id="number-to-percentage">6.13.3 number_to_percentage</h5><p>Formats a number as a percentage string.</p><div class="code_container">
+<h5 id="number_to_percentage">6.13.3 number_to_percentage</h5><p>Formats a number as a percentage string.</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 number_to_percentage(100, precision: 0)        # =&gt; 100%
 
 </pre>
 </div>
-<h5 id="number-to-phone">6.13.4 number_to_phone</h5><p>Formats a number into a US phone number.</p><div class="code_container">
+<h5 id="number_to_phone">6.13.4 number_to_phone</h5><p>Formats a number into a US phone number.</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 number_to_phone(1235551234) # =&gt; 123-555-1234
 
 </pre>
 </div>
-<h5 id="number-with-delimiter">6.13.5 number_with_delimiter</h5><p>Formats a number with grouped thousands using a delimiter.</p><div class="code_container">
+<h5 id="number_with_delimiter">6.13.5 number_with_delimiter</h5><p>Formats a number with grouped thousands using a delimiter.</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 number_with_delimiter(12345678) # =&gt; 12,345,678
 
 </pre>
 </div>
-<h5 id="number-with-precision">6.13.6 number_with_precision</h5><p>Formats a number with the specified level of <code>precision</code>, which defaults to 3.</p><div class="code_container">
+<h5 id="number_with_precision">6.13.6 number_with_precision</h5><p>Formats a number with the specified level of <code>precision</code>, which defaults to 3.</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 number_with_precision(111.2345)     # =&gt; 111.235
 number_with_precision(111.2345, 2)  # =&gt; 111.23
@@ -1402,7 +1402,7 @@ end
 
 </pre>
 </div>
-<h5 id="sanitize-css-style-">6.14.2 sanitize_css(style)</h5><p>Sanitizes a block of CSS code.</p><h5 id="strip-links-html-">6.14.3 strip_links(html)</h5><p>Strips all link tags from text leaving just the link text.</p><div class="code_container">
+<h5 id="sanitize_css-style-">6.14.2 sanitize_css(style)</h5><p>Sanitizes a block of CSS code.</p><h5 id="strip_links-html-">6.14.3 strip_links(html)</h5><p>Strips all link tags from text leaving just the link text.</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 strip_links("&lt;a href="http://rubyonrails.org"&gt;Ruby on Rails&lt;/a&gt;")
 # =&gt; Ruby on Rails
@@ -1423,7 +1423,7 @@ strip_links('Blog: &lt;a href="http://myblog.com/"&gt;Visit&lt;/a&gt;.')
 
 </pre>
 </div>
-<h5 id="strip-tags-html-">6.14.4 strip_tags(html)</h5><p>Strips all HTML tags from the html, including comments.
+<h5 id="strip_tags-html-">6.14.4 strip_tags(html)</h5><p>Strips all HTML tags from the html, including comments.
 This uses the html-scanner tokenizer and so its HTML parsing ability is limited by that of html-scanner.</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 strip_tags("Strip &lt;i&gt;these&lt;/i&gt; tags!")
