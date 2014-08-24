@@ -177,12 +177,12 @@
                 <div id="subCol">
             <h3 class="chapter"><img src="images/chapters_icon.gif" alt="" />Chapters</h3>
             <ol class="chapters">
-<li><a href="#%E7%B6%9C%E8%A6%BD-mvc-%E5%8D%94%E5%90%8C%E5%90%88%E4%BD%9C">綜覽：MVC 協同合作</a></li>
+<li><a href="#%E7%B6%9C%E8%A6%BD%EF%BC%9Amvc-%E5%8D%94%E5%90%8C%E5%90%88%E4%BD%9C">綜覽：MVC 協同合作</a></li>
 <li>
 <a href="#%E5%BB%BA%E7%AB%8B%E9%9F%BF%E6%87%89">建立響應</a>
 
 <ul>
-<li><a href="#%E9%A0%90%E8%A8%AD%E7%AE%97%E7%B9%AA-%E6%85%A3%E4%BE%8B%E5%8B%9D%E6%96%BC%E8%A8%AD%E5%AE%9A%E7%9A%84%E5%AF%A6%E8%B8%90">預設算繪：慣例勝於設定的實踐</a></li>
+<li><a href="#%E9%A0%90%E8%A8%AD%E7%AE%97%E7%B9%AA%EF%BC%9A%E6%85%A3%E4%BE%8B%E5%8B%9D%E6%96%BC%E8%A8%AD%E5%AE%9A%E7%9A%84%E5%AF%A6%E8%B8%90">預設算繪：慣例勝於設定的實踐</a></li>
 <li><a href="#%E4%BD%BF%E7%94%A8-render">使用 <code>render</code></a></li>
 <li><a href="#%E4%BD%BF%E7%94%A8-redirect-to">使用 <code>redirect_to</code></a></li>
 <li><a href="#%E4%BD%BF%E7%94%A8-head-%E4%BE%86%E5%BB%BA%E7%AB%8B%E5%8F%AA%E5%90%AB%E6%A8%99%E9%A0%AD%E7%9A%84%E9%9F%BF%E6%87%89">使用 <code>head</code> 來建立只含標頭的響應</a></li>
@@ -209,13 +209,13 @@
   <div id="container">
     <div class="wrapper">
       <div id="mainCol">
-        <h3 id="綜覽-mvc-協同合作">1 綜覽：MVC 協同合作</h3><p>本篇著重介紹 MVC 架構中，Controller 與 View 之間的互動關係。Controller 負責策劃處理請求（Request）的整個過程，但通常會把複雜的事情交給 Model 處理；要把響應（Response）回給使用者時，Controller 把事情交給 View 處理。Controller 如何將工作派給別人便是本篇要介紹的主題。</p><p>更完整的說，這個過程包含了，響應要傳送什麼內容，要呼叫那些方法來建立響應。如果響應是完整的 View，Rails 會做些額外工作，譬如會把 View 放到版型裡，或是把某個局部頁面加進來。本篇之後會完整介紹這整個過程。</p><h3 id="建立響應">2 建立響應</h3><p>從 Controller 的觀點來看，有三種方法可以建立 HTTP 響應：</p>
+        <h3 id="綜覽：mvc-協同合作">1 綜覽：MVC 協同合作</h3><p>本篇著重介紹 MVC 架構中，Controller 與 View 之間的互動關係。Controller 負責策劃處理請求（Request）的整個過程，但通常會把複雜的事情交給 Model 處理；要把響應（Response）回給使用者時，Controller 把事情交給 View 處理。Controller 如何將工作派給別人便是本篇要介紹的主題。</p><p>更完整的說，這個過程包含了，響應要傳送什麼內容，要呼叫那些方法來建立響應。如果響應是完整的 View，Rails 會做些額外工作，譬如會把 View 放到版型裡，或是把某個局部頁面加進來。本篇之後會完整介紹這整個過程。</p><h3 id="建立響應">2 建立響應</h3><p>從 Controller 的觀點來看，有三種方法可以建立 HTTP 響應：</p>
 <ul>
 <li>呼叫 <code>render</code> 方法，建立完整響應給瀏覽器。</li>
 <li>呼叫 <code>redirect_to</code> 方法，來寄送 HTTP 轉址狀態給瀏覽器。</li>
 <li>呼叫 <code>head</code> 方法，來建立只有 HTTP 標頭的響應給瀏覽器。</li>
 </ul>
-<h4 id="預設算繪-慣例勝於設定的實踐">2.1 預設算繪：慣例勝於設定的實踐</h4><p>你可能聽說過，Rails 遵行“慣例勝於設定”的原則。Rails 預設的算繪功能便是一個很好的例子。Controller 預設會算繪與路由同名的 View。舉例來說，若 <code>BooksController</code> 有如下程式：</p><div class="code_container">
+<h4 id="預設算繪：慣例勝於設定的實踐">2.1 預設算繪：慣例勝於設定的實踐</h4><p>你可能聽說過，Rails 遵行“慣例勝於設定”的原則。Rails 預設的算繪功能便是一個很好的例子。Controller 預設會算繪與路由同名的 View。舉例來說，若 <code>BooksController</code> 有如下程式：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class BooksController &lt; ApplicationController
 end
@@ -421,13 +421,13 @@ render body: "raw"
 <li><code>:location</code></li>
 <li><code>:status</code></li>
 </ul>
-<h6 id="-content-type-選項">2.2.13.1 <code>:content_type</code> 選項</h6><p>Rails 算繪操作預設的 MIME Content-Type 為 <code>text/html</code>（若用了 <code>:json</code> 選項，則為 <code>application/json</code>；<code>:xml</code> 選項為 <code>application/xml</code>）。有時候會想要修改 Content-Type，可以使用 <code>:content_type</code> 選項來設定：</p><div class="code_container">
+<h6 id="content-type-選項">2.2.13.1 <code>:content_type</code> 選項</h6><p>Rails 算繪操作預設的 MIME Content-Type 為 <code>text/html</code>（若用了 <code>:json</code> 選項，則為 <code>application/json</code>；<code>:xml</code> 選項為 <code>application/xml</code>）。有時候會想要修改 Content-Type，可以使用 <code>:content_type</code> 選項來設定：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 render file: filename, content_type: "application/rss"
 
 </pre>
 </div>
-<h6 id="-layout-選項">2.2.13.2 <code>:layout</code> 選項</h6><p><code>render</code> 方法多數的選項，都會把內容顯示到目前的版型裡。後面會更詳細介紹版型、版型如何使用。</p><p>用 <code>:layout</code> 選項指定動作要使用的版型：</p><div class="code_container">
+<h6 id="layout-選項">2.2.13.2 <code>:layout</code> 選項</h6><p><code>render</code> 方法多數的選項，都會把內容顯示到目前的版型裡。後面會更詳細介紹版型、版型如何使用。</p><p>用 <code>:layout</code> 選項指定動作要使用的版型：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 render layout: "special_layout"
 
@@ -439,13 +439,13 @@ render layout: false
 
 </pre>
 </div>
-<h6 id="-location-選項">2.2.13.3 <code>:location</code> 選項</h6><p>可以使用 <code>:location</code> 選項設定 HTTP 標頭的 <code>Location</code>：</p><div class="code_container">
+<h6 id="location-選項">2.2.13.3 <code>:location</code> 選項</h6><p>可以使用 <code>:location</code> 選項設定 HTTP 標頭的 <code>Location</code>：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 render xml: photo, location: photo_url(photo)
 
 </pre>
 </div>
-<h6 id="-status-選項">2.2.13.4 <code>:status</code> 選項</h6><p>Rails 會自動給響應產生正確的 HTTP 狀態碼（多數情況是 <code>200 OK</code>），可以用 <code>:status</code> 選項來修改：</p><div class="code_container">
+<h6 id="status-選項">2.2.13.4 <code>:status</code> 選項</h6><p>Rails 會自動給響應產生正確的 HTTP 狀態碼（多數情況是 <code>200 OK</code>），可以用 <code>:status</code> 選項來修改：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 render status: 500
 render status: :forbidden

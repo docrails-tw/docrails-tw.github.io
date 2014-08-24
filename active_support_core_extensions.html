@@ -194,8 +194,8 @@
 <li><a href="#duplicable-questionmark"><code>duplicable?</code></a></li>
 <li><a href="#deep-dup"><code>deep_dup</code></a></li>
 <li><a href="#try"><code>try</code></a></li>
-<li><a href="#class-eval-args-block-"><code>class_eval(*args, &amp;block)</code></a></li>
-<li><a href="#acts-like-questionmark-duck-"><code>acts_like?(duck)</code></a></li>
+<li><a href="#class-eval-args-block"><code>class_eval(*args, &amp;block)</code></a></li>
+<li><a href="#acts-like-questionmark-duck"><code>acts_like?(duck)</code></a></li>
 <li><a href="#to-param"><code>to_param</code></a></li>
 <li><a href="#to-query"><code>to_query</code></a></li>
 <li><a href="#with-options"><code>with_options</code></a></li>
@@ -371,9 +371,9 @@
 <a href="#extensions-to-logger">Extensions to <code>Logger</code></a>
 
 <ul>
-<li><a href="#around--level-"><code>around_[level]</code></a></li>
+<li><a href="#around-level"><code>around_[level]</code></a></li>
 <li><a href="#silence"><code>silence</code></a></li>
-<li><a href="#datetime-format-"><code>datetime_format=</code></a></li>
+<li><a href="#datetime-format"><code>datetime_format=</code></a></li>
 </ul>
 </li>
 <li><a href="#extensions-to-nameerror">Extensions to <code>NameError</code></a></li>
@@ -556,7 +556,7 @@ end
 
 </pre>
 </div>
-<div class="note"><p>Defined in <code>active_support/core_ext/object/try.rb</code>.</p></div><h4 id="class-eval-args-block-">2.6 <code>class_eval(*args, &amp;block)</code>
+<div class="note"><p>Defined in <code>active_support/core_ext/object/try.rb</code>.</p></div><h4 id="class-eval-args-block">2.6 <code>class_eval(*args, &amp;block)</code>
 </h4><p>You can evaluate code in the context of any object's singleton class using <code>class_eval</code>:</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Proc
@@ -574,7 +574,7 @@ end
 
 </pre>
 </div>
-<div class="note"><p>Defined in <code>active_support/core_ext/kernel/singleton_class.rb</code>.</p></div><h4 id="acts-like-questionmark-duck-">2.7 <code>acts_like?(duck)</code>
+<div class="note"><p>Defined in <code>active_support/core_ext/kernel/singleton_class.rb</code>.</p></div><h4 id="acts-like-questionmark-duck">2.7 <code>acts_like?(duck)</code>
 </h4><p>The method <code>acts_like?</code> provides a way to check whether some class acts like some other class based on a simple convention: a class that provides the same interface as <code>String</code> defines</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 def acts_like_string?
@@ -1428,7 +1428,7 @@ EOS
 
 </pre>
 </div>
-<p>The <code>indent!</code> method performs indentation in-place.</p><div class="note"><p>Defined in <code>active_support/core_ext/string/indent.rb</code>.</p></div><h4 id="access">5.9 Access</h4><h5 id="at-position-">5.9.1 <code>at(position)</code>
+<p>The <code>indent!</code> method performs indentation in-place.</p><div class="note"><p>Defined in <code>active_support/core_ext/string/indent.rb</code>.</p></div><h4 id="access">5.9 Access</h4><h5 id="at-position">5.9.1 <code>at(position)</code>
 </h5><p>Returns the character of the string at position <code>position</code>:</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 "hello".at(0)  # =&gt; "h"
@@ -1438,7 +1438,7 @@ EOS
 
 </pre>
 </div>
-<div class="note"><p>Defined in <code>active_support/core_ext/string/access.rb</code>.</p></div><h5 id="from-position-">5.9.2 <code>from(position)</code>
+<div class="note"><p>Defined in <code>active_support/core_ext/string/access.rb</code>.</p></div><h5 id="from-position">5.9.2 <code>from(position)</code>
 </h5><p>Returns the substring of the string starting at position <code>position</code>:</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 "hello".from(0)  # =&gt; "hello"
@@ -1448,7 +1448,7 @@ EOS
 
 </pre>
 </div>
-<div class="note"><p>Defined in <code>active_support/core_ext/string/access.rb</code>.</p></div><h5 id="to-position-">5.9.3 <code>to(position)</code>
+<div class="note"><p>Defined in <code>active_support/core_ext/string/access.rb</code>.</p></div><h5 id="to-position">5.9.3 <code>to(position)</code>
 </h5><p>Returns the substring of the string up to position <code>position</code>:</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 "hello".to(0)  # =&gt; "h"
@@ -1458,8 +1458,8 @@ EOS
 
 </pre>
 </div>
-<div class="note"><p>Defined in <code>active_support/core_ext/string/access.rb</code>.</p></div><h5 id="first-limit-1-">5.9.4 <code>first(limit = 1)</code>
-</h5><p>The call <code>str.first(n)</code> is equivalent to <code>str.to(n-1)</code> if <code>n</code> &gt; 0, and returns an empty string for <code>n</code> == 0.</p><div class="note"><p>Defined in <code>active_support/core_ext/string/access.rb</code>.</p></div><h5 id="last-limit-1-">5.9.5 <code>last(limit = 1)</code>
+<div class="note"><p>Defined in <code>active_support/core_ext/string/access.rb</code>.</p></div><h5 id="first-limit-1">5.9.4 <code>first(limit = 1)</code>
+</h5><p>The call <code>str.first(n)</code> is equivalent to <code>str.to(n-1)</code> if <code>n</code> &gt; 0, and returns an empty string for <code>n</code> == 0.</p><div class="note"><p>Defined in <code>active_support/core_ext/string/access.rb</code>.</p></div><h5 id="last-limit-1">5.9.5 <code>last(limit = 1)</code>
 </h5><p>The call <code>str.last(n)</code> is equivalent to <code>str.from(-n)</code> if <code>n</code> &gt; 0, and returns an empty string for <code>n</code> == 0.</p><div class="note"><p>Defined in <code>active_support/core_ext/string/access.rb</code>.</p></div><h4 id="inflections">5.10 Inflections</h4><h5 id="pluralize">5.10.1 <code>pluralize</code>
 </h5><p>The method <code>pluralize</code> returns the plural of its receiver:</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
@@ -2309,7 +2309,7 @@ array[1][2] == nil   # =&gt; true
 
 </pre>
 </div>
-<div class="note"><p>Defined in <code>active_support/core_ext/object/deep_dup.rb</code>.</p></div><h4 id="grouping">10.7 Grouping</h4><h5 id="in-groups-of-number-fill-with-nil-">10.7.1 <code>in_groups_of(number, fill_with = nil)</code>
+<div class="note"><p>Defined in <code>active_support/core_ext/object/deep_dup.rb</code>.</p></div><h4 id="grouping">10.7 Grouping</h4><h5 id="in-groups-of-number-fill-with-nil">10.7.1 <code>in_groups_of(number, fill_with = nil)</code>
 </h5><p>The method <code>in_groups_of</code> splits an array into consecutive groups of a certain size. It returns an array with the groups:</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 [1, 2, 3].in_groups_of(2) # =&gt; [[1, 2], [3, nil]]
@@ -2340,7 +2340,7 @@ array[1][2] == nil   # =&gt; true
 
 </pre>
 </div>
-<p>As a consequence <code>false</code> can't be a used as a padding value.</p><div class="note"><p>Defined in <code>active_support/core_ext/array/grouping.rb</code>.</p></div><h5 id="in-groups-number-fill-with-nil-">10.7.2 <code>in_groups(number, fill_with = nil)</code>
+<p>As a consequence <code>false</code> can't be a used as a padding value.</p><div class="note"><p>Defined in <code>active_support/core_ext/array/grouping.rb</code>.</p></div><h5 id="in-groups-number-fill-with-nil">10.7.2 <code>in_groups(number, fill_with = nil)</code>
 </h5><p>The method <code>in_groups</code> splits an array into a certain number of groups. The method returns an array with the groups:</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 %w(1 2 3 4 5 6 7).in_groups(3)
@@ -2371,7 +2371,7 @@ array[1][2] == nil   # =&gt; true
 
 </pre>
 </div>
-<p>As a consequence <code>false</code> can't be a used as a padding value.</p><div class="note"><p>Defined in <code>active_support/core_ext/array/grouping.rb</code>.</p></div><h5 id="split-value-nil-">10.7.3 <code>split(value = nil)</code>
+<p>As a consequence <code>false</code> can't be a used as a padding value.</p><div class="note"><p>Defined in <code>active_support/core_ext/array/grouping.rb</code>.</p></div><h5 id="split-value-nil">10.7.3 <code>split(value = nil)</code>
 </h5><p>The method <code>split</code> divides an array by a separator and returns the resulting chunks.</p><p>If a block is passed the separators are those elements of the array for which the block returns true:</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 (-5..5).to_a.split { |i| i.multiple_of?(4) }
@@ -3334,7 +3334,7 @@ File.open(file_name) { |f| Marshal.load(f) }
 </pre>
 </div>
 <p>If the cached data refers to a constant that is unknown at that point, the autoloading mechanism is triggered and if it succeeds the deserialization is retried transparently.</p><div class="warning"><p>If the argument is an <code>IO</code> it needs to respond to <code>rewind</code> to be able to retry. Regular files respond to <code>rewind</code>.</p></div><div class="note"><p>Defined in <code>active_support/core_ext/marshal.rb</code>.</p></div><h3 id="extensions-to-logger">20 Extensions to <code>Logger</code>
-</h3><h4 id="around--level-">20.1 <code>around_[level]</code>
+</h3><h4 id="around-level">20.1 <code>around_[level]</code>
 </h4><p>Takes two arguments, a <code>before_message</code> and <code>after_message</code> and calls the current level method on the <code>Logger</code> instance, passing in the <code>before_message</code>, then the specified message, then the <code>after_message</code>:</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 logger = Logger.new("log/development.log")
@@ -3353,7 +3353,7 @@ end
 
 </pre>
 </div>
-<h4 id="datetime-format-">20.3 <code>datetime_format=</code>
+<h4 id="datetime-format">20.3 <code>datetime_format=</code>
 </h4><p>Modifies the datetime format output by the formatter class associated with this logger. If the formatter class does not have a <code>datetime_format</code> method then this is ignored.</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Logger::FormatWithTime &lt; Logger::Formatter

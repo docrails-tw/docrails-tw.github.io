@@ -182,14 +182,14 @@
 <a href="#%E4%B8%BB%E8%A6%81%E6%96%B0%E5%8A%9F%E8%83%BD">主要新功能</a>
 
 <ul>
-<li><a href="#%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F%E9%A0%90%E5%8A%A0%E8%BC%89%E5%99%A8-spring">應用程式預加載器：Spring</a></li>
+<li><a href="#%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F%E9%A0%90%E5%8A%A0%E8%BC%89%E5%99%A8%EF%BC%9Aspring">應用程式預加載器：Spring</a></li>
 <li><a href="#config-secrets-yml"><code>config/secrets.yml</code></a></li>
 <li><a href="#action-pack-variants">Action Pack Variants</a></li>
 <li><a href="#action-mailer-%E9%A0%90%E8%A6%BD">Action Mailer 預覽</a></li>
 <li><a href="#active-record-enums">Active Record enums</a></li>
 <li><a href="#message-verifier-%E8%A8%8A%E6%81%AF%E9%A9%97%E8%AD%89%E5%99%A8">Message Verifier 訊息驗證器</a></li>
 <li><a href="#module-concerning">Module#concerning</a></li>
-<li><a href="#csrf-%E6%A9%9F%E5%88%B6%E6%96%B0%E5%A2%9E%E9%81%A0%E7%AB%AF-script-%E9%98%B2%E8%AD%B7-">CSRF 機制新增遠端 <code>&lt;script&gt;</code> 防護。</a></li>
+<li><a href="#csrf-%E6%A9%9F%E5%88%B6%E6%96%B0%E5%A2%9E%E9%81%A0%E7%AB%AF-script-%E9%98%B2%E8%AD%B7%E3%80%82">CSRF 機制新增遠端 <code>&lt;script&gt;</code> 防護。</a></li>
 </ul>
 </li>
 <li>
@@ -252,7 +252,7 @@
   <div id="container">
     <div class="wrapper">
       <div id="mainCol">
-        <h3 id="升級至-rails-4-1">1 升級至 Rails 4.1</h3><p>如果您正試著升級現有的應用程式，最好有廣的測試覆蓋度。首先應先升級至 4.0，確保應用程式仍正常工作，接著再升上 4.1。升級需要注意的事項在 <a href="upgrading_ruby_on_rails.html#upgrading-from-rails-4-0-to-rails-4-1">Ruby on Rails 升級指南</a>可以找到。</p><h3 id="主要新功能">2 主要新功能</h3><h4 id="應用程式預加載器-spring">2.1 應用程式預加載器：Spring</h4><p>Spring 會預加載你的 Rails 應用程式。保持應用程式在背景執行，如此一來在執行 Rails 命令時：如跑測試、<code>rake</code>、<code>migrate</code> 時，不用每次都重啟 Rails 應用程式，加速你的開發流程。</p><p>新版 Rails 4.1 應用程式出廠內建“Spring 加持”的 binstubs（aka，執行檔，如 <code>rails</code>、<code>rake</code>）。這表示 <code>bin/rails</code>、<code>bin/rake</code> 會自動採用 Spring 預載的那一份 Rails。</p><p><strong>執行 rake task：</strong></p><div class="code_container">
+        <h3 id="升級至-rails-4-1">1 升級至 Rails 4.1</h3><p>如果您正試著升級現有的應用程式，最好有廣的測試覆蓋度。首先應先升級至 4.0，確保應用程式仍正常工作，接著再升上 4.1。升級需要注意的事項在 <a href="upgrading_ruby_on_rails.html#upgrading-from-rails-4-0-to-rails-4-1">Ruby on Rails 升級指南</a>可以找到。</p><h3 id="主要新功能">2 主要新功能</h3><h4 id="應用程式預加載器：spring">2.1 應用程式預加載器：Spring</h4><p>Spring 會預加載你的 Rails 應用程式。保持應用程式在背景執行，如此一來在執行 Rails 命令時：如跑測試、<code>rake</code>、<code>migrate</code> 時，不用每次都重啟 Rails 應用程式，加速你的開發流程。</p><p>新版 Rails 4.1 應用程式出廠內建“Spring 加持”的 binstubs（aka，執行檔，如 <code>rails</code>、<code>rake</code>）。這表示 <code>bin/rails</code>、<code>bin/rake</code> 會自動採用 Spring 預載的那一份 Rails。</p><p><strong>執行 rake task：</strong></p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 bin/rake test:models
 
@@ -383,7 +383,7 @@ end
 
 </pre>
 </div>
-<p>等同於以前要定義 <code>EventTracking</code> Module，<code>extend ActiveSupport::Concern</code>，再混入 (mixin) <code>Todo</code> Class。</p><p>參見 <a href="http://api.rubyonrails.org/v4.1.0/classes/Module/Concerning.html">Module#concerning</a> 來了解更多細節。</p><h4 id="csrf-機制新增遠端-script-防護-">2.8 CSRF 機制新增遠端 <code>&lt;script&gt;</code> 防護。</h4><p>Rails 的跨站偽造請求（CSRF）防護機制現在也會保護從第三方 JavaScript 來的 GET 請求了！這預防第三方網站引用你的 JavaScript，試圖竊取敏感資料。</p><p>這意味著任何訪問 <code>.js</code> URL 的測試會失敗（因為受 CSRF 保護），必須明確指定使用 <code>xhr</code> （<code>XmlHttpRequests</code>）。</p><div class="code_container">
+<p>等同於以前要定義 <code>EventTracking</code> Module，<code>extend ActiveSupport::Concern</code>，再混入 (mixin) <code>Todo</code> Class。</p><p>參見 <a href="http://api.rubyonrails.org/v4.1.0/classes/Module/Concerning.html">Module#concerning</a> 來了解更多細節。</p><h4 id="csrf-機制新增遠端-script-防護。">2.8 CSRF 機制新增遠端 <code>&lt;script&gt;</code> 防護。</h4><p>Rails 的跨站偽造請求（CSRF）防護機制現在也會保護從第三方 JavaScript 來的 GET 請求了！這預防第三方網站引用你的 JavaScript，試圖竊取敏感資料。</p><p>這意味著任何訪問 <code>.js</code> URL 的測試會失敗（因為受 CSRF 保護），必須明確指定使用 <code>xhr</code> （<code>XmlHttpRequests</code>）。</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 post :create, format: :js
 
