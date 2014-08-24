@@ -205,7 +205,7 @@
 <li><a href="#more-efficient-routing">More Efficient Routing</a></li>
 <li><a href="#rack-based-lazy-loaded-sessions">Rack-based Lazy-loaded Sessions</a></li>
 <li><a href="#mime-type-handling-changes">MIME Type Handling Changes</a></li>
-<li><a href="#optimization-of-respond_to">Optimization of <code>respond_to</code></a></li>
+<li><a href="#optimization-of-respond-to">Optimization of <code>respond_to</code></a></li>
 <li><a href="#improved-caching-performance">Improved Caching Performance</a></li>
 <li><a href="#localized-views">Localized Views</a></li>
 <li><a href="#partial-scoping-for-translations">Partial Scoping for Translations</a></li>
@@ -221,7 +221,7 @@
 <li><a href="#prompts-for-date-select-helpers">Prompts for Date Select Helpers</a></li>
 <li><a href="#assettag-timestamp-caching">AssetTag Timestamp Caching</a></li>
 <li><a href="#asset-hosts-as-objects">Asset Hosts as Objects</a></li>
-<li><a href="#grouped_options_for_select-helper-method">grouped_options_for_select Helper Method</a></li>
+<li><a href="#grouped-options-for-select-helper-method">grouped_options_for_select Helper Method</a></li>
 <li><a href="#disabled-option-tags-for-form-select-helpers">Disabled Option Tags for Form Select Helpers</a></li>
 <li><a href="#a-note-about-template-loading">A Note About Template Loading</a></li>
 <li><a href="#other-action-view-changes">Other Action View Changes</a></li>
@@ -530,7 +530,7 @@ Mime::JS =~ "application/javascript" =&gt; true
 <li>Lead Contributor: <a href="http://www.workingwithrails.com/person/5510-seth-fitzsimmons">Seth Fitzsimmons</a>
 </li>
 </ul>
-<h4 id="optimization-of-respond_to">5.7 Optimization of <code>respond_to</code>
+<h4 id="optimization-of-respond-to">5.7 Optimization of <code>respond_to</code>
 </h4><p>In some of the first fruits of the Rails-Merb team merger, Rails 2.3 includes some optimizations for the <code>respond_to</code> method, which is of course heavily used in many Rails applications to allow your controller to format results differently based on the MIME type of the incoming request. After eliminating a call to <code>method_missing</code> and some profiling and tweaking, we're seeing an 8% improvement in the number of requests per second served with a simple <code>respond_to</code> that switches between three formats. The best part? No change at all required to the code of your application to take advantage of this speedup.</p><h4 id="improved-caching-performance">5.8 Improved Caching Performance</h4><p>Rails now keeps a per-request local cache of read from the remote cache stores, cutting down on unnecessary reads and leading to better site performance. While this work was originally limited to <code>MemCacheStore</code>, it is available to any remote store than implements the required methods.</p>
 <ul>
 <li>Lead Contributor: <a href="http://www.motionstandingstill.com/">Nahum Wild</a>
@@ -648,7 +648,7 @@ select_datetime(DateTime.now, :prompt =&gt;
 <li>More Information: <a href="http://github.com/dhh/asset-hosting-with-minimum-ssl/tree/master">asset-hosting-with-minimum-ssl</a>
 </li>
 </ul>
-<h4 id="grouped_options_for_select-helper-method">6.6 grouped_options_for_select Helper Method</h4><p>Action View already had a bunch of helpers to aid in generating select controls, but now there's one more: <code>grouped_options_for_select</code>. This one accepts an array or hash of strings, and converts them into a string of <code>option</code> tags wrapped with <code>optgroup</code> tags. For example:</p><div class="code_container">
+<h4 id="grouped-options-for-select-helper-method">6.6 grouped_options_for_select Helper Method</h4><p>Action View already had a bunch of helpers to aid in generating select controls, but now there's one more: <code>grouped_options_for_select</code>. This one accepts an array or hash of strings, and converts them into a string of <code>option</code> tags wrapped with <code>optgroup</code> tags. For example:</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 grouped_options_for_select([["Hats", ["Baseball Cap","Cowboy Hat"]]],
   "Cowboy Hat", "Choose a product...")

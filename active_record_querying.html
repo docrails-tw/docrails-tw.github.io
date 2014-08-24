@@ -216,7 +216,7 @@
 <li><a href="#unscope"><code>unscope</code></a></li>
 <li><a href="#only"><code>only</code></a></li>
 <li><a href="#reorder"><code>reorder</code></a></li>
-<li><a href="#reverse_order"><code>reverse_order</code></a></li>
+<li><a href="#reverse-order"><code>reverse_order</code></a></li>
 </ul>
 </li>
 <li><a href="#%E7%A9%BA-relation">空 Relation</a></li>
@@ -261,16 +261,16 @@
 <a href="#%E5%B0%8B%E6%89%BE%E6%88%96%E6%96%B0%E5%BB%BA%E7%89%A9%E4%BB%B6">尋找或新建物件</a>
 
 <ul>
-<li><a href="#find_or_create_by"><code>find_or_create_by</code></a></li>
-<li><a href="#find_or_create_by-bang"><code>find_or_create_by!</code></a></li>
-<li><a href="#find_or_initialize_by"><code>find_or_initialize_by</code></a></li>
+<li><a href="#find-or-create-by"><code>find_or_create_by</code></a></li>
+<li><a href="#find-or-create-by-bang"><code>find_or_create_by!</code></a></li>
+<li><a href="#find-or-initialize-by"><code>find_or_initialize_by</code></a></li>
 </ul>
 </li>
 <li>
 <a href="#%E7%94%A8-sql-%E6%9F%A5%E8%A9%A2">用 SQL 查詢</a>
 
 <ul>
-<li><a href="#select_all"><code>select_all</code></a></li>
+<li><a href="#select-all"><code>select_all</code></a></li>
 <li><a href="#pluck"><code>pluck</code></a></li>
 <li><a href="#ids"><code>ids</code></a></li>
 </ul>
@@ -475,7 +475,7 @@ SELECT * FROM clients ORDER BY clients.id DESC LIMIT 3
 
 </pre>
 </div>
-<p><code>last!</code> 行為同 <code>last</code>，但在沒找到記錄時會拋出 <code>ActiveRecord::RecordNotFound</code> 異常。</p><h5 id="find_by">1.1.5 <code>find_by</code>
+<p><code>last!</code> 行為同 <code>last</code>，但在沒找到記錄時會拋出 <code>ActiveRecord::RecordNotFound</code> 異常。</p><h5 id="find-by">1.1.5 <code>find_by</code>
 </h5><p><code>find_by</code> 找出第一筆符合條件的記錄，譬如：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 Client.find_by first_name: 'Lifo'
@@ -543,7 +543,7 @@ end
 
 </pre>
 </div>
-<p>但在資料表很大的時候，這個方法便不實用了。由於 <code>User.all.each</code> 告訴 Active Record 一次去把整張表抓出來，再為表的每一列建出物件，最後將所有的物件放到記憶體裡。如果資料庫裡存了非常多筆記錄，可能會把記憶體用光。</p><p>Rails 提供了兩個方法來解決這個問題，將記錄針對記憶體來說有效率的大小，分批處理。第一個方法是 <code>find_each</code>，取出一批記錄，並將每筆記錄傳入至區塊裡，可取單一筆記錄。第二個方法是 <code>find_in_batches</code>，一次取一批記錄，整批放至區塊裡，整批記錄以陣列形式取用。</p><div class="info"><p><code>find_each</code> 與 <code>find_in_batches</code> 方法專門用來解決大量記錄，處理無法一次放至記憶體的大量記錄。如果只是一千筆資料，使用平常的查詢方法便足夠了。</p></div><h5 id="find_each">1.2.1 <code>find_each</code>
+<p>但在資料表很大的時候，這個方法便不實用了。由於 <code>User.all.each</code> 告訴 Active Record 一次去把整張表抓出來，再為表的每一列建出物件，最後將所有的物件放到記憶體裡。如果資料庫裡存了非常多筆記錄，可能會把記憶體用光。</p><p>Rails 提供了兩個方法來解決這個問題，將記錄針對記憶體來說有效率的大小，分批處理。第一個方法是 <code>find_each</code>，取出一批記錄，並將每筆記錄傳入至區塊裡，可取單一筆記錄。第二個方法是 <code>find_in_batches</code>，一次取一批記錄，整批放至區塊裡，整批記錄以陣列形式取用。</p><div class="info"><p><code>find_each</code> 與 <code>find_in_batches</code> 方法專門用來解決大量記錄，處理無法一次放至記憶體的大量記錄。如果只是一千筆資料，使用平常的查詢方法便足夠了。</p></div><h5 id="find-each">1.2.1 <code>find_each</code>
 </h5><p><code>find_each</code> 方法取出一批記錄，將每筆記錄傳入區塊裡。下面的例子，將以 <code>find_each</code> 來取出 1000 筆記錄（<code>find_each</code> 與 <code>find_in_batches</code> 的預設值），並傳至區塊。一次處理 1000 筆，直至記錄通通處理完畢為止：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 User.find_each do |user|
@@ -560,7 +560,7 @@ end
 
 </pre>
 </div>
-<h6 id="find_each-選項">1.2.1.1 <code>find_each</code> 選項</h6><p><code>find_each</code> 方法接受多數 <code>find</code> 所允許的選項，除了 <code>:order</code> 與 <code>:limit</code>，這兩個選項保留供 <code>find_each</code> 內部使用。</p><p>此外有兩個額外的選項，<code>:batch_size</code> 與 <code>:start</code>。</p><p><strong><code>:batch_size</code></strong></p><p><code>:batch_size</code> 選項允許你在將各筆記錄傳進區塊前，指定一批要取多少筆記錄。比如一次取 5000 筆：</p><div class="code_container">
+<h6 id="find-each-選項">1.2.1.1 <code>find_each</code> 選項</h6><p><code>find_each</code> 方法接受多數 <code>find</code> 所允許的選項，除了 <code>:order</code> 與 <code>:limit</code>，這兩個選項保留供 <code>find_each</code> 內部使用。</p><p>此外有兩個額外的選項，<code>:batch_size</code> 與 <code>:start</code>。</p><p><strong><code>:batch_size</code></strong></p><p><code>:batch_size</code> 選項允許你在將各筆記錄傳進區塊前，指定一批要取多少筆記錄。比如一次取 5000 筆：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 User.find_each(batch_size: 5000) do |user|
   NewsLetter.weekly_deliver(user)
@@ -576,7 +576,7 @@ end
 
 </pre>
 </div>
-<p>另個例子是想要多個 worker 處理同個佇列時。可以使用 <code>:start</code> 讓每個 worker 分別處理 10000 筆記錄。</p><h5 id="find_in_batches">1.2.2 <code>find_in_batches</code>
+<p>另個例子是想要多個 worker 處理同個佇列時。可以使用 <code>:start</code> 讓每個 worker 分別處理 10000 筆記錄。</p><h5 id="find-in-batches">1.2.2 <code>find_in_batches</code>
 </h5><p><code>find_in_batches</code> 方法與 <code>find_each</code> 類似，皆用來取出記錄。差別在於 <code>find_in_batchs</code> 取出記錄放入陣列傳至區塊，而 <code>find_each</code> 是一筆一筆放入區塊。下例會一次將 1000 張發票拿到區塊裡處理：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 # Give add_invoices an array of 1000 invoices at a time
@@ -586,7 +586,7 @@ end
 
 </pre>
 </div>
-<div class="note"><p><code>:include</code> 選項可以指定需要跟 Model 一起載入的關聯。</p></div><h6 id="find_in_batches-接受的選項">1.2.2.1 <code>find_in_batches</code> 接受的選項</h6><p><code>find_in_batches</code> 方法接受和 <code>find_each</code> 一樣的選項： <code>:batch_size</code> 與 <code>:start</code>，以及多數 <code>find</code> 接受的參數，除了 <code>:order</code> 與 <code>:limit</code> 之外。</p><p><code>find_in_batches</code> 方法接受和 <code>find_each</code> 一樣的選項： <code>:batch_size</code> 與 <code>:start</code>，以及多數 <code>find</code> 接受的參數，除了 <code>:order</code> 與 <code>:limit</code> 之外。這兩個選項保留供 <code>find_in_batches</code> 內部使用。</p><h3 id="條件">2 條件</h3><p><code>where</code> 方法允許取出符合條件的記錄，<code>where</code> 即代表了 SQL 語句的 <code>WHERE</code> 部分。</p><p>條件可以是字串、陣列、或是 Hash。</p><h4 id="字串條件">2.1 字串條件</h4><p>直接將要使用的條件，以字串形式傳入 <code>where</code> 即可。如 <code>Client.where("orders_count = '2'")</code> 會回傳所有 <code>orders_count</code> 是 2 的 clients。</p><div class="warning"><p>條件是純字串可能有 SQL injection 的風險。舉例來說，<code>Client.where("first_name LIKE '%#{params[:first_name]}%'")</code> 是不安全的，參考下節如何將字串條件改用陣列來處理。</p></div><h4 id="陣列條件">2.2 陣列條件</h4><p>如果我們要找的 <code>orders_count</code>，不一定固定是 2，可能是不定的數字：</p><div class="code_container">
+<div class="note"><p><code>:include</code> 選項可以指定需要跟 Model 一起載入的關聯。</p></div><h6 id="find-in-batches-接受的選項">1.2.2.1 <code>find_in_batches</code> 接受的選項</h6><p><code>find_in_batches</code> 方法接受和 <code>find_each</code> 一樣的選項： <code>:batch_size</code> 與 <code>:start</code>，以及多數 <code>find</code> 接受的參數，除了 <code>:order</code> 與 <code>:limit</code> 之外。</p><p><code>find_in_batches</code> 方法接受和 <code>find_each</code> 一樣的選項： <code>:batch_size</code> 與 <code>:start</code>，以及多數 <code>find</code> 接受的參數，除了 <code>:order</code> 與 <code>:limit</code> 之外。這兩個選項保留供 <code>find_in_batches</code> 內部使用。</p><h3 id="條件">2 條件</h3><p><code>where</code> 方法允許取出符合條件的記錄，<code>where</code> 即代表了 SQL 語句的 <code>WHERE</code> 部分。</p><p>條件可以是字串、陣列、或是 Hash。</p><h4 id="字串條件">2.1 字串條件</h4><p>直接將要使用的條件，以字串形式傳入 <code>where</code> 即可。如 <code>Client.where("orders_count = '2'")</code> 會回傳所有 <code>orders_count</code> 是 2 的 clients。</p><div class="warning"><p>條件是純字串可能有 SQL injection 的風險。舉例來說，<code>Client.where("first_name LIKE '%#{params[:first_name]}%'")</code> 是不安全的，參考下節如何將字串條件改用陣列來處理。</p></div><h4 id="陣列條件">2.2 陣列條件</h4><p>如果我們要找的 <code>orders_count</code>，不一定固定是 2，可能是不定的數字：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 Client.where("orders_count = ?", params[:orders])
 
@@ -884,7 +884,7 @@ SELECT * FROM comments WHERE article_id = 10 ORDER BY posted_at DESC
 
 </pre>
 </div>
-<h4 id="reverse_order">8.4 <code>reverse_order</code>
+<h4 id="reverse-order">8.4 <code>reverse_order</code>
 </h4><p><code>reverse_order</code> 方法反轉 <code>order</code> 條件。</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 Client.where("orders_count &gt; 10").order(:name).reverse_order
@@ -1327,7 +1327,7 @@ Client.unscoped {
 
 </pre>
 </div>
-<h3 id="動態查詢方法">15 動態查詢方法</h3><div class="note"><p>Rails 4.0 已棄用動態查詢方法，並在 4.1 移除這些方法。最佳實踐是使用 Active Record 的 scope 來取代。可以在 <a href="https://github.com/rails/activerecord-deprecated_finders%E3%80%82">activerecord-deprecated_finders</a> Gem 找到這些棄用的方法。</p></div><p>每個資料表裡定義的欄位（又稱屬性），Active Record 都提供一個 Finder 方法。假設 <code>Client</code> Model 有 <code>first_name</code>，則 Active Record 便會有 <code>find_by_first_name</code> 方法可用。若 <code>Client</code> Model 有 <code>locked</code>，則 Active Record 便會有 <code>find_by_locked</code> 方法可用。</p><p>在動態查詢方法名稱最後加上驚嘆號（<code>!</code>），可以獲得對應的 BANG 版本，即未找到符合的記錄時，會拋出 <code>ActiveRecord::RecordNotFound</code> 異常，像是 <code>Client.find_by_name!("Ryan")</code>。</p><p>如果同時想找多個欄位，可以在方法名中間使用 <code>and</code> 連起來，比如：<code>Client.find_by_first_name_and_locked("Ryan", true)</code>。</p><h3 id="尋找或新建物件">16 尋找或新建物件</h3><p>在找不到記錄情況，新建一個物件是很常見的需求。可以透過 <code>find_or_create_by</code>、<code>find_or_create_by!</code> 來實作。</p><h4 id="find_or_create_by">16.1 <code>find_or_create_by</code>
+<h3 id="動態查詢方法">15 動態查詢方法</h3><div class="note"><p>Rails 4.0 已棄用動態查詢方法，並在 4.1 移除這些方法。最佳實踐是使用 Active Record 的 scope 來取代。可以在 <a href="https://github.com/rails/activerecord-deprecated_finders%E3%80%82">activerecord-deprecated_finders</a> Gem 找到這些棄用的方法。</p></div><p>每個資料表裡定義的欄位（又稱屬性），Active Record 都提供一個 Finder 方法。假設 <code>Client</code> Model 有 <code>first_name</code>，則 Active Record 便會有 <code>find_by_first_name</code> 方法可用。若 <code>Client</code> Model 有 <code>locked</code>，則 Active Record 便會有 <code>find_by_locked</code> 方法可用。</p><p>在動態查詢方法名稱最後加上驚嘆號（<code>!</code>），可以獲得對應的 BANG 版本，即未找到符合的記錄時，會拋出 <code>ActiveRecord::RecordNotFound</code> 異常，像是 <code>Client.find_by_name!("Ryan")</code>。</p><p>如果同時想找多個欄位，可以在方法名中間使用 <code>and</code> 連起來，比如：<code>Client.find_by_first_name_and_locked("Ryan", true)</code>。</p><h3 id="尋找或新建物件">16 尋找或新建物件</h3><p>在找不到記錄情況，新建一個物件是很常見的需求。可以透過 <code>find_or_create_by</code>、<code>find_or_create_by!</code> 來實作。</p><h4 id="find-or-create-by">16.1 <code>find_or_create_by</code>
 </h4><p><code>find_or_create_by</code> 方法檢查指定屬性的記錄是否存在。不存在便呼叫 <code>create</code>，看個例子。</p><p>假設想找到名稱是 <code>'Andy'</code> 的客戶，沒找到便新建。可以這麼做：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 Client.find_or_create_by(first_name: 'Andy')
@@ -1358,7 +1358,7 @@ end
 
 </pre>
 </div>
-<p>區塊只在新建客戶時執行，已有客戶便會忽略掉區塊。</p><h4 id="find_or_create_by-bang">16.2 <code>find_or_create_by!</code>
+<p>區塊只在新建客戶時執行，已有客戶便會忽略掉區塊。</p><h4 id="find-or-create-by-bang">16.2 <code>find_or_create_by!</code>
 </h4><p>也可以使用 <code>find_or_create_by!</code> 在建立的新紀錄為無效記錄時拋出異常。本文未涵蓋有關驗證的內容，但假設你不小心把這行加到了 <code>Client</code> Model：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 validates :orders_count, presence: true
@@ -1372,7 +1372,7 @@ Client.find_or_create_by!(first_name: 'Andy')
 
 </pre>
 </div>
-<h4 id="find_or_initialize_by">16.3 <code>find_or_initialize_by</code>
+<h4 id="find-or-initialize-by">16.3 <code>find_or_initialize_by</code>
 </h4><p><code>find_or_initialize_by</code> 方法的工作原理與 <code>find_or_create_by</code> 相同，但沒找到時會用 <code>new</code> 而不是 <code>create</code>。這表示新紀錄會放在記憶體，不會存到資料庫。沿用 <code>find_or_create_by</code> 例子 ，假設我們現在想找叫做 Nick 的客戶：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 nick = Client.find_or_initialize_by(first_name: 'Nick')
@@ -1412,7 +1412,7 @@ Client.find_by_sql("SELECT * FROM clients
 
 </pre>
 </div>
-<p><code>find_by_sql</code> 提供自定查詢的簡單方式，並會將取出的物件實體化。</p><h4 id="select_all">17.1 <code>select_all</code>
+<p><code>find_by_sql</code> 提供自定查詢的簡單方式，並會將取出的物件實體化。</p><h4 id="select-all">17.1 <code>select_all</code>
 </h4><p><code>find_by_sql</code> 有個類似的方法：<code>connection#select_all</code>。 <code>select_all</code> 會使用自定的 SQL 語句從資料庫取出物件，但不會實體化物件。會回傳一個 <code>ActiveRecord::Result</code> 物件，可以使用 <code>to_ary</code> 或 <code>to_hash</code> 將 <code>ActiveRecord::Result</code> 轉成陣列，每筆記錄皆是陣列裡的一個 Hash。</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 Client.connection.select_all("SELECT first_name, created_at FROM clients WHERE id = '1'")

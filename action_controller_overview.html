@@ -191,7 +191,7 @@
 <li><a href="#hash-%E8%88%87%E9%99%A3%E5%88%97%E5%8F%83%E6%95%B8">Hash 與陣列參數</a></li>
 <li><a href="#json-%E5%8F%83%E6%95%B8">JSON 參數</a></li>
 <li><a href="#%E8%B7%AF%E7%94%B1%E5%8F%83%E6%95%B8">路由參數</a></li>
-<li><a href="#default_url_options"><code>default_url_options</code></a></li>
+<li><a href="#default-url-options"><code>default_url_options</code></a></li>
 <li><a href="#strong-parameters">Strong Parameters</a></li>
 </ul>
 </li>
@@ -252,7 +252,7 @@
 
 <ul>
 <li><a href="#%E5%85%A7%E5%BB%BA%E7%9A%84-500-404-%E8%88%87-422-%E6%A8%A1%E7%89%88">內建的 500、404 與 422 模版</a></li>
-<li><a href="#rescue_from"><code>rescue_from</code></a></li>
+<li><a href="#rescue-from"><code>rescue_from</code></a></li>
 <li><a href="#%E8%87%AA%E8%A8%82%E9%8C%AF%E8%AA%A4%E9%A0%81%E9%9D%A2">自訂錯誤頁面</a></li>
 </ul>
 </li>
@@ -379,7 +379,7 @@ get '/clients/:status' =&gt; 'clients#index', foo: 'bar'
 
 </pre>
 </div>
-<p>這個情況裡，當使用者打開 <code>/clients/active</code> 這一頁，<code>params[:status]</code> 便會被設成 <code>"active"</code>，<code>params[:foo]</code> 也會被設成 <code>"bar"</code>，就像是我們原本透過 Query String 傳進去那樣。同樣的，<code>params[:action]</code> 也會被設成 <code>index</code>。</p><h4 id="default_url_options">4.4 <code>default_url_options</code>
+<p>這個情況裡，當使用者打開 <code>/clients/active</code> 這一頁，<code>params[:status]</code> 便會被設成 <code>"active"</code>，<code>params[:foo]</code> 也會被設成 <code>"bar"</code>，就像是我們原本透過 Query String 傳進去那樣。同樣的，<code>params[:action]</code> 也會被設成 <code>index</code>。</p><h4 id="default-url-options">4.4 <code>default_url_options</code>
 </h4><p>可以設定預設用來產生 URL 的參數。首先在 Controller 定義一個叫做 <code>default_url_options</code> 的方法。這個方法必須回傳一個 Hash。鍵必須是 <code>Symbol</code> 類型，值為需要的內容：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class ApplicationController &lt; ActionController::Base
@@ -895,7 +895,7 @@ end
 </tr>
 </tbody>
 </table>
-<h5 id="path_parameters-query_parameters-以及-request_parameters">10.1.1 <code>path_parameters</code>、<code>query_parameters</code> 以及 <code>request_parameters</code>
+<h5 id="path-parameters-query-parameters-以及-request-parameters">10.1.1 <code>path_parameters</code>、<code>query_parameters</code> 以及 <code>request_parameters</code>
 </h5><p>Rails 將所有與請求一起送來的參數，不管是 Query String 還是 POST body 而來的參數，都蒐集在 <code>params</code> Hash 裡。</p><p><code>request</code> 物件有三個存取器，可以取出這些參數，分別是 <code>query_parameters</code>、<code>request_parameters</code> 以及 <code>path_parameters</code>，它們都是 Hash。</p>
 <ul>
 <li><p><code>query_parameters</code>： Query String 參數（via GET）。</p></li>
@@ -1119,7 +1119,7 @@ config.filter_redirect.concat ['s3.amazonaws.com', /private_path/]
 
 </pre>
 </div>
-<p>匹配的 URL 會被標記成 <code>[FILTERED]</code>。</p><h3 id="拯救異常">14 拯救異常</h3><p>每個應用程式都可能有 bugs，或是拋出異常，這些都需要處理。舉例來說，使用者點了一個連結，該連結的 resource 已經不在資料庫了，Active Record 會拋出 <code>ActiveRecord::RecordNotFound</code> 異常。</p><p>Rails 預設處理異常的方式是 <code>"500 Internal Server Error"</code>。若 Request 是從 local 端發出，會有 backtrace 資訊，用來來查找錯誤究竟在那裡。若請求是從遠端而來，則 Rails 僅顯示 <code>"500 Internal Server Error"</code>。若是使用者試圖存取不存在的路徑，Rails 則會回 <code>"404 Not Found"</code>。有時會想自定這些錯誤的處理及顯示方式。接著讓我們看看在 Rails 當中，處理錯誤與異常的幾個層級：</p><h4 id="內建的-500-404-與-422-模版">14.1 內建的 500、404 與 422 模版</h4><p>跑在 production 環境的應用程式，預設會算繪 404、500 或 422 錯誤訊息，分別在 <code>public</code> 目錄下面的靜態檔案： <code>404.html</code>、<code>500.html</code> 與 <code>422.html</code>。可以修改 <code>404.html</code> 或是 <code>500.html</code> 或 <code>422.html</code>。可以客製化這些檔案，加入額外的資訊或調整版型等。但記得這些是靜態檔案，也就是無法嵌入任何 Ruby，只能使用純 HTML。</p><h4 id="rescue_from">14.2 <code>rescue_from</code>
+<p>匹配的 URL 會被標記成 <code>[FILTERED]</code>。</p><h3 id="拯救異常">14 拯救異常</h3><p>每個應用程式都可能有 bugs，或是拋出異常，這些都需要處理。舉例來說，使用者點了一個連結，該連結的 resource 已經不在資料庫了，Active Record 會拋出 <code>ActiveRecord::RecordNotFound</code> 異常。</p><p>Rails 預設處理異常的方式是 <code>"500 Internal Server Error"</code>。若 Request 是從 local 端發出，會有 backtrace 資訊，用來來查找錯誤究竟在那裡。若請求是從遠端而來，則 Rails 僅顯示 <code>"500 Internal Server Error"</code>。若是使用者試圖存取不存在的路徑，Rails 則會回 <code>"404 Not Found"</code>。有時會想自定這些錯誤的處理及顯示方式。接著讓我們看看在 Rails 當中，處理錯誤與異常的幾個層級：</p><h4 id="內建的-500-404-與-422-模版">14.1 內建的 500、404 與 422 模版</h4><p>跑在 production 環境的應用程式，預設會算繪 404、500 或 422 錯誤訊息，分別在 <code>public</code> 目錄下面的靜態檔案： <code>404.html</code>、<code>500.html</code> 與 <code>422.html</code>。可以修改 <code>404.html</code> 或是 <code>500.html</code> 或 <code>422.html</code>。可以客製化這些檔案，加入額外的資訊或調整版型等。但記得這些是靜態檔案，也就是無法嵌入任何 Ruby，只能使用純 HTML。</p><h4 id="rescue-from">14.2 <code>rescue_from</code>
 </h4><p>若想要對捕捉錯誤做些更複雜的事情，可以使用 <code>rescue_from</code>。<code>rescue_from</code> 在整個 Controller 與 Controller 的子類別下，處理特定類型的異常（或多種類型的異常）。</p><p>當異常發生，被 <code>rescue_from</code> 捕捉時，異常物件會傳給 Handler。Handler 可以是有著 <code>:with</code> 選項的 <code>Proc</code> 物件，也可以直接使用區塊。</p><p>以下是使用 <code>rescue_from</code> 來攔截所有 <code>ActiveRecord::RecordNotFound</code> 的示範：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class ApplicationController &lt; ActionController::Base

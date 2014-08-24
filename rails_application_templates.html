@@ -181,15 +181,15 @@
 
 <ul>
 <li><a href="#gem-args-">gem(*args)</a></li>
-<li><a href="#gem_group-names-block-">gem_group(*names, &amp;block)</a></li>
-<li><a href="#add_source-source-options-">add_source(source, options = {})</a></li>
+<li><a href="#gem-group-names-block-">gem_group(*names, &amp;block)</a></li>
+<li><a href="#add-source-source-options-">add_source(source, options = {})</a></li>
 <li><a href="#environment-application-data-nil-options-block-">environment/application(data=nil, options={}, &amp;block)</a></li>
 <li><a href="#vendor-lib-file-initializer-filename-data-nil-block-">vendor/lib/file/initializer(filename, data = nil, &amp;block)</a></li>
 <li><a href="#rakefile-filename-data-nil-block-">rakefile(filename, data = nil, &amp;block)</a></li>
 <li><a href="#generate-what-args-">generate(what, *args)</a></li>
 <li><a href="#run-command-">run(command)</a></li>
 <li><a href="#rake-command-options-">rake(command, options = {})</a></li>
-<li><a href="#route-routing_code-">route(routing_code)</a></li>
+<li><a href="#route-routing-code-">route(routing_code)</a></li>
 <li><a href="#inside-dir-">inside(dir)</a></li>
 <li><a href="#ask-question-">ask(question)</a></li>
 <li><a href="#yes-questionmark-question-or-no-questionmark-question-">yes?(question) or no?(question)</a></li>
@@ -249,7 +249,7 @@ bundle install
 
 </pre>
 </div>
-<h4 id="gem_group-names-block-">2.2 gem_group(*names, &amp;block)</h4><p>將 Gem 分組。</p><p>譬如只想要在開發與測試環境下載入 <code>rspec-rails</code>：</p><div class="code_container">
+<h4 id="gem-group-names-block-">2.2 gem_group(*names, &amp;block)</h4><p>將 Gem 分組。</p><p>譬如只想要在開發與測試環境下載入 <code>rspec-rails</code>：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 gem_group :development, :test do
   gem "rspec-rails"
@@ -257,7 +257,7 @@ end
 
 </pre>
 </div>
-<h4 id="add_source-source-options-">2.3 add_source(source, options = {})</h4><p>新增 RubyGems 來源網站到 <code>Gemfile</code>。</p><div class="code_container">
+<h4 id="add-source-source-options-">2.3 add_source(source, options = {})</h4><p>新增 RubyGems 來源網站到 <code>Gemfile</code>。</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 add_source "http://code.whytheluckystiff.net"
 
@@ -332,7 +332,7 @@ rake "db:migrate", env: 'production'
 
 </pre>
 </div>
-<h4 id="route-routing_code-">2.10 route(routing_code)</h4><p>新增一筆路由到 <code>config/routes.rb</code>。譬如加一筆 <code>root</code> 路由：</p><div class="code_container">
+<h4 id="route-routing-code-">2.10 route(routing_code)</h4><p>新增一筆路由到 <code>config/routes.rb</code>。譬如加一筆 <code>root</code> 路由：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 route "root to: 'person#index'"
 

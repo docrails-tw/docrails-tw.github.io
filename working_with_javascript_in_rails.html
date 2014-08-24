@@ -184,10 +184,10 @@
 <a href="#%E5%85%A7%E5%BB%BA%E7%9A%84-ajax-%E5%B9%AB%E5%8A%A9%E6%96%B9%E6%B3%95">內建的 Ajax 幫助方法</a>
 
 <ul>
-<li><a href="#form_for">form_for</a></li>
-<li><a href="#form_tag">form_tag</a></li>
-<li><a href="#link_to">link_to</a></li>
-<li><a href="#button_to">button_to</a></li>
+<li><a href="#form-for">form_for</a></li>
+<li><a href="#form-tag">form_tag</a></li>
+<li><a href="#link-to">link_to</a></li>
+<li><a href="#button-to">button_to</a></li>
 </ul>
 </li>
 <li>
@@ -283,7 +283,7 @@ $ -&gt;
 
 </pre>
 </div>
-<p>這個技術稱為 “Unobtrusive” JavaScript。因為 JavaScript 不再需要與 HTML 混在一起。之後便更容易修改，也更容易加新功能上去。任何連結只要加個 <code>data-</code> 屬性，便可以得到同樣效果。將 JavaScript 從 HTML 抽離後，JavaScript 便可透過合併壓縮工具，讓所有頁面可以共用整份 JavaScript 。也就是說，只需在第一次戴入頁面時下載一次，之後的頁面使用快取的檔案即可。Unobtrusive JavaScript 帶來的好處非常多。</p><p>Rails 團隊強烈建議採用這種風格來撰寫 CoffeeScript (JavaScript)，你會發現許多函式庫也採用這種風格。</p><h3 id="內建的-ajax-幫助方法">3 內建的 Ajax 幫助方法</h3><p>Rails 在 View 提供了許多用 Ruby 寫的幫助方法來產生 HTML。會想元素加上 Ajax？沒問題，Rails 會幫助你。</p><p>Rails 的 “Ajax 幫助方法” 實際上分成用 JavaScript 所寫的幫助方法，與用 Ruby 所寫成的幫助方法。</p><p>用 JavaScript 寫的部分可以在這找到 <a href="https://github.com/rails/jquery-ujs/blob/master/src/rails.js">rails.js</a>，而用 Ruby 寫的部份就是 View 的幫助方法，用來給 DOM 新增適當的標籤。rails.js 裡的 CoffeeScript 會監聽這些屬性，執行相應的處理函式。</p><h4 id="form_for">3.1 form_for</h4><p><a href="http://api.rubyonrails.org/classes/ActionView/Helpers/FormHelper.html#method-i-form_for"><code>form_for</code></a></p><p>撰寫表單的幫助方法。接受 <code>:remote</code> 選項：</p><div class="code_container">
+<p>這個技術稱為 “Unobtrusive” JavaScript。因為 JavaScript 不再需要與 HTML 混在一起。之後便更容易修改，也更容易加新功能上去。任何連結只要加個 <code>data-</code> 屬性，便可以得到同樣效果。將 JavaScript 從 HTML 抽離後，JavaScript 便可透過合併壓縮工具，讓所有頁面可以共用整份 JavaScript 。也就是說，只需在第一次戴入頁面時下載一次，之後的頁面使用快取的檔案即可。Unobtrusive JavaScript 帶來的好處非常多。</p><p>Rails 團隊強烈建議採用這種風格來撰寫 CoffeeScript (JavaScript)，你會發現許多函式庫也採用這種風格。</p><h3 id="內建的-ajax-幫助方法">3 內建的 Ajax 幫助方法</h3><p>Rails 在 View 提供了許多用 Ruby 寫的幫助方法來產生 HTML。會想元素加上 Ajax？沒問題，Rails 會幫助你。</p><p>Rails 的 “Ajax 幫助方法” 實際上分成用 JavaScript 所寫的幫助方法，與用 Ruby 所寫成的幫助方法。</p><p>用 JavaScript 寫的部分可以在這找到 <a href="https://github.com/rails/jquery-ujs/blob/master/src/rails.js">rails.js</a>，而用 Ruby 寫的部份就是 View 的幫助方法，用來給 DOM 新增適當的標籤。rails.js 裡的 CoffeeScript 會監聽這些屬性，執行相應的處理函式。</p><h4 id="form-for">3.1 form_for</h4><p><a href="http://api.rubyonrails.org/classes/ActionView/Helpers/FormHelper.html#method-i-form_for"><code>form_for</code></a></p><p>撰寫表單的幫助方法。接受 <code>:remote</code> 選項：</p><div class="code_container">
 <pre class="brush: ruby; html-script: true; gutter: false; toolbar: false">
 &lt;%= form_for(@article, remote: true) do |f| %&gt;
   ...
@@ -309,7 +309,7 @@ $(document).ready -&gt;
 
 </pre>
 </div>
-<p>當然這只是個開始，更多可用的事件可在 <a href="https://github.com/rails/jquery-ujs/wiki/ajax">jQuery-ujs 的維基頁面</a>上可找到。</p><h4 id="form_tag">3.2 form_tag</h4><p><a href="http://api.rubyonrails.org/classes/ActionView/Helpers/FormTagHelper.html#method-i-form_tag"><code>form_tag</code></a></p><p>跟 <code>form_for</code> 非常類似，接受 <code>:remote</code> 選項：</p><div class="code_container">
+<p>當然這只是個開始，更多可用的事件可在 <a href="https://github.com/rails/jquery-ujs/wiki/ajax">jQuery-ujs 的維基頁面</a>上可找到。</p><h4 id="form-tag">3.2 form_tag</h4><p><a href="http://api.rubyonrails.org/classes/ActionView/Helpers/FormTagHelper.html#method-i-form_tag"><code>form_tag</code></a></p><p>跟 <code>form_for</code> 非常類似，接受 <code>:remote</code> 選項：</p><div class="code_container">
 <pre class="brush: ruby; html-script: true; gutter: false; toolbar: false">
 &lt;%= form_tag('/articles', remote: true) %&gt;
 
@@ -323,7 +323,7 @@ $(document).ready -&gt;
 
 </pre>
 </div>
-<h4 id="link_to">3.3 link_to</h4><p><a href="http://api.rubyonrails.org/classes/ActionView/Helpers/UrlHelper.html#method-i-link_to"><code>link_to</code></a></p><p>產生連結的幫助方法。接受 <code>:remote</code> 選項：</p><div class="code_container">
+<h4 id="link-to">3.3 link_to</h4><p><a href="http://api.rubyonrails.org/classes/ActionView/Helpers/UrlHelper.html#method-i-link_to"><code>link_to</code></a></p><p>產生連結的幫助方法。接受 <code>:remote</code> 選項：</p><div class="code_container">
 <pre class="brush: ruby; html-script: true; gutter: false; toolbar: false">
 &lt;%= link_to "an article", @article, remote: true %&gt;
 
@@ -349,7 +349,7 @@ $ -&gt;
 
 </pre>
 </div>
-<p>就這麼簡單。</p><h4 id="button_to">3.4 button_to</h4><p><a href="http://api.rubyonrails.org/classes/ActionView/Helpers/UrlHelper.html#method-i-button_to"><code>button_to</code></a></p><p>建立按鈕的幫助方法。接受 <code>:remote</code> 選項：</p><div class="code_container">
+<p>就這麼簡單。</p><h4 id="button-to">3.4 button_to</h4><p><a href="http://api.rubyonrails.org/classes/ActionView/Helpers/UrlHelper.html#method-i-button_to"><code>button_to</code></a></p><p>建立按鈕的幫助方法。接受 <code>:remote</code> 選項：</p><div class="code_container">
 <pre class="brush: ruby; html-script: true; gutter: false; toolbar: false">
 &lt;%= button_to "An article", @article, remote: true %&gt;
 

@@ -1575,14 +1575,14 @@ $ CONTROLLER=users rake routes
 <li><code>assert_recognizes</code></li>
 <li><code>assert_routing</code></li>
 </ul>
-<h5 id="assert_generates-斷言">5.2.1 <code>assert_generates</code> 斷言</h5><p><code>assert_generates</code> 檢測給定選項產生出來的預設路由或自訂路由是否正確：</p><div class="code_container">
+<h5 id="assert-generates-斷言">5.2.1 <code>assert_generates</code> 斷言</h5><p><code>assert_generates</code> 檢測給定選項產生出來的預設路由或自訂路由是否正確：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 assert_generates '/photos/1', { controller: 'photos', action: 'show', id: '1' }
 assert_generates '/about', controller: 'pages', action: 'about'
 
 </pre>
 </div>
-<h5 id="assert_recognizes-斷言">5.2.2 <code>assert_recognizes</code> 斷言</h5><p><code>assert_recognizes</code> 與 <code>assert_generates</code> 相反。檢測給定的路徑是否能識別出來，並路由到正確的位置。比如：</p><div class="code_container">
+<h5 id="assert-recognizes-斷言">5.2.2 <code>assert_recognizes</code> 斷言</h5><p><code>assert_recognizes</code> 與 <code>assert_generates</code> 相反。檢測給定的路徑是否能識別出來，並路由到正確的位置。比如：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 assert_recognizes({ controller: 'photos', action: 'show', id: '1' }, '/photos/1')
 
@@ -1594,7 +1594,7 @@ assert_recognizes({ controller: 'photos', action: 'create' }, { path: 'photos', 
 
 </pre>
 </div>
-<h5 id="assert_routing-斷言">5.2.3 <code>assert_routing</code> 斷言</h5><p><code>assert_routing</code> 斷言雙向檢查路由：測試路徑產生的選項對不對，以及選項產生出來的路徑是否正確。因此，結合了 <code>assert_generates</code> 與 <code>assert_recognizes</code> 的功能：</p><div class="code_container">
+<h5 id="assert-routing-斷言">5.2.3 <code>assert_routing</code> 斷言</h5><p><code>assert_routing</code> 斷言雙向檢查路由：測試路徑產生的選項對不對，以及選項產生出來的路徑是否正確。因此，結合了 <code>assert_generates</code> 與 <code>assert_recognizes</code> 的功能：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 assert_routing({ path: 'photos', method: :post }, { controller: 'photos', action: 'create' })
 
