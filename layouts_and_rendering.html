@@ -347,7 +347,7 @@ render file: "/u/apps/warehouse_app/current/app/views/products/show"
 
 </pre>
 </div>
-<p><code>:file</code> 選項接受系統的絕對路徑，要算繪的檔案必須要有權限才行。</p><div class="note"><p>算繪檔案預設不會使用版型。若想 Rails 將算繪的檔案內容放入版型裡，需要加上 <code>layout: true</code> 選項。</p></div><div class="info"><p>若想在 Microsoft Windows 執行 Rails，要算繪檔案必須要使用 <code>:file</code> 選項，因為 Windows 的檔名跟 Unix 的檔名格式不同。</p></div><h5 id="總結">2.2.5 總結</h5><p>上述三種算繪方法（算繪模版、算繪別的 Controller 的模版、算繪檔案）實際上都是同種動作的不同表現方式。</p><p>實際上，在 <code>BooksController</code> 類別裡，在 <code>update</code> 動作裡，書本更新失敗時，我們想算繪 <code>edit</code> 模版。以下的呼叫都會算繪 <code>app/views/books</code> 目錄下的 <code>edit.html.erb</code>：</p><div class="code_container">
+<p><code>:file</code> 選項接受系統的絕對路徑，要算繪的檔案必須要有權限才行。</p><div class="note"><p>算繪檔案預設不會使用版型。若想 Rails 將算繪的檔案內容放入版型裡，需要加上 <code>layout: true</code> 選項，版型檔案需使用 <code>txt.erb</code> 副檔名。</p></div><div class="info"><p>若想在 Microsoft Windows 執行 Rails，要算繪檔案必須要使用 <code>:file</code> 選項，因為 Windows 的檔名跟 Unix 的檔名格式不同。</p></div><h5 id="總結">2.2.5 總結</h5><p>上述三種算繪方法（算繪模版、算繪別的 Controller 的模版、算繪檔案）實際上都是同種動作的不同表現方式。</p><p>實際上，在 <code>BooksController</code> 類別裡，在 <code>update</code> 動作裡，書本更新失敗時，我們想算繪 <code>edit</code> 模版。以下的呼叫都會算繪 <code>app/views/books</code> 目錄下的 <code>edit.html.erb</code>：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 render :edit
 render action: :edit

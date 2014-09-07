@@ -306,7 +306,7 @@ $ bin/rake db:migrate
 
 </pre>
 </div>
-<p>現在有了可以實驗的 <code>User</code> Model，打開 <code>app/controllers/users_controller.rb</code>，修改 <code>create</code> 動作，在成功新建使用者之後，讓 Controller 呼叫 <code>UserMailer</code> 寄信出去。將 <code>UserMailer.welcome_email</code> 這一行，放到成功儲存使用者之後：</p><div class="code_container">
+<p>現在有了可以實驗的 <code>User</code> Model，打開 <code>app/controllers/users_controller.rb</code>，修改 <code>create</code> 動作，在成功新建使用者之後，讓 Controller 呼叫 <code>UserMailer</code> 寄信出去。將 <code>UserMailer.welcome_email</code> 這一行，放到成功儲存使用者之後。</p><p>Action Mailer 最近與 Active Job 整併，現在可以在請求響應週期之外寄送信件（背景執行），而無需使用者等候。</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class UsersController &lt; ApplicationController
   # POST /users
@@ -317,7 +317,7 @@ class UsersController &lt; ApplicationController
     respond_to do |format|
       if @user.save
         # Tell the UserMailer to send a welcome email after save
-        UserMailer.welcome_email(@user).deliver
+        UserMailer.welcome_email(@user).deliver_later
 
         format.html { redirect_to(@user, notice: 'User was successfully created.') }
         format.json { render json: @user, status: :created, location: @user }
@@ -331,7 +331,19 @@ end
 
 </pre>
 </div>
-<p><code>welcome_email</code> 會回傳 <code>Mail::Message</code> 物件，對這個物件呼叫 <code>deliver</code> 便會將信件發送出去。</p><h4 id="自動對標頭編碼">2.2 自動對標頭編碼</h4><p>Action Mailer 會自動對標頭（header）與信件主體（body）裡的多位元組字元進行編碼。</p><p>定義其它字元組、自編碼純文字等更複雜的範例，請參考 <a href="https://github.com/mikel/mail">Mail</a> 函式庫的說明文件。</p><h4 id="action-mailer-方法清單">2.3 Action Mailer 方法清單</h4><p>有三個方法最為重要：</p>
+<div class="note"><p>Active Job 的預設行為是即刻（<code>:inline</code>）執行任務，要馬上寄出信件現在用 <code>deliver_later</code> 即可。之後要改成背景執行也很簡單，給 Active Job 設定一個佇列後台即可（比如 Sidekiq、Resque 等）。</p></div><p>若想馬上寄出信件（比如在定時任務裡），只要呼叫 <code>deliver_now</code> 即可：</p><div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+class SendWeeklySummary
+  def run
+    User.find_each do |user|
+      UserMailer.weekly_summary(user).deliver_now
+    end
+  end
+end
+
+</pre>
+</div>
+<p><code>welcome_email</code> 會回傳 <code>Mail::Message</code> 物件，對這個物件呼叫 <code>deliver_now</code> 或 <code>deliver_later</code> 便會將信件發送出去。<code>ActionMailer::MessageDelivery</code> 物件不過是 <code>Mail::Message</code> 物件的封裝。若想查看、修改 <code>Mail::Message</code> 物件，可以對 <code>ActionMailer::MessageDelivery</code> 呼叫 <code>message</code> 方法，來獲得 <code>Mail::Message</code> 物件。</p><h4 id="自動對標頭編碼">2.2 自動對標頭編碼</h4><p>Action Mailer 會自動對標頭（header）與信件主體（body）裡的多位元組字元進行編碼。</p><p>定義其它字元組、自編碼純文字等更複雜的範例，請參考 <a href="https://github.com/mikel/mail">Mail</a> 函式庫的說明文件。</p><h4 id="action-mailer-方法清單">2.3 Action Mailer 方法清單</h4><p>有三個方法最為重要：</p>
 <ul>
 <li>
 <code>headers</code> ─ 指定信件的標頭。可以用 Hash 傳入欄位名與數值，或是使用 <code>headers[:field_name] = 'value'</code> 進行設定。</li>

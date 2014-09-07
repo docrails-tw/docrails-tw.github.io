@@ -1291,9 +1291,9 @@ has_many</code> 的這個類別沒有外鍵。外鍵在與之關聯的類別，�
 <li><code>collection&lt;&lt;(object, ...)</code></li>
 <li><code>collection.delete(object, ...)</code></li>
 <li><code>collection.destroy(object, ...)</code></li>
-<li><code>collection=objects</code></li>
+<li><code>collection=(objects)</code></li>
 <li><code>collection_singular_ids</code></li>
-<li><code>collection_singular_ids=ids</code></li>
+<li><code>collection_singular_ids=(ids)</code></li>
 <li><code>collection.clear</code></li>
 <li><code>collection.empty?</code></li>
 <li><code>collection.size</code></li>
@@ -1318,9 +1318,9 @@ orders(force_reload = false)
 orders&lt;&lt;(object, ...)
 orders.delete(object, ...)
 orders.destroy(object, ...)
-orders=objects
+orders=(objects)
 order_ids
-order_ids=ids
+order_ids=(ids)
 orders.clear
 orders.empty?
 orders.size
@@ -1361,7 +1361,7 @@ orders.create!(attributes = {})
 
 </pre>
 </div>
-<div class="warning"><p>無論 <code>:dependent</code> 選項是什麼，物件都會從資料庫裡刪除。</p></div><h6 id="has-many-關聯新增的方法-collection-objects">4.3.1.5 <code>collection=objects</code>
+<div class="warning"><p>無論 <code>:dependent</code> 選項是什麼，物件都會從資料庫裡刪除。</p></div><h6 id="has-many-關聯新增的方法-collection-objects">4.3.1.5 <code>collection=(objects)</code>
 </h6><p><code>collection=</code> 方法更改集合內容，根據提供的物件來決定要刪除還是新增。</p><h6 id="has-many-關聯新增的方法-collection-singular-ids">4.3.1.6 <code>collection_singular_ids</code>
 </h6><p><code>collection_singular_ids</code> 方法回傳集合陣列中各物件的 ID。</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
@@ -1369,7 +1369,7 @@ orders.create!(attributes = {})
 
 </pre>
 </div>
-<h6 id="has-many-關聯新增的方法-collection-singular-ids-ids">4.3.1.7 <code>collection_singular_ids=ids</code>
+<h6 id="has-many-關聯新增的方法-collection-singular-ids-ids">4.3.1.7 <code>collection_singular_ids=(ids)</code>
 </h6><p><code>collection_singular_ids=</code> 方法更改集合擁有物件的 ID，根據所提供的主鍵值來決定要刪除還是新增。</p><h6 id="has-many-關聯新增的方法-collection-clear">4.3.1.8 <code>collection.clear</code>
 </h6><p><code>collection.clear</code> 方法移除集合中的所有物件。若有設定 <code>dependent: :destroy</code> 選項，則會 <code>destory</code> 關聯物件；若設定的是 <code>dependent: :delete_all</code> 選項，則會直接從資料庫刪除關聯物件；其他情況會將外鍵設為 <code>NULL</code>。</p><h6 id="has-many-關聯新增的方法-collection-empty-questionmark">4.3.1.9 <code>collection.empty?</code>
 </h6><p><code>collection.empty?</code> 方法在集合沒有任何關聯物件時回傳 <code>true</code>。</p><div class="code_container">
@@ -1662,9 +1662,9 @@ person.articles &lt;&lt; article unless person.articles.include?(article)
 <li><code>collection&lt;&lt;(object, ...)</code></li>
 <li><code>collection.delete(object, ...)</code></li>
 <li><code>collection.destroy(object, ...)</code></li>
-<li><code>collection=objects</code></li>
+<li><code>collection=(objects)</code></li>
 <li><code>collection_singular_ids</code></li>
-<li><code>collection_singular_ids=ids</code></li>
+<li><code>collection_singular_ids=(ids)</code></li>
 <li><code>collection.clear</code></li>
 <li><code>collection.empty?</code></li>
 <li><code>collection.size</code></li>
@@ -1689,9 +1689,9 @@ assemblies(force_reload = false)
 assemblies&lt;&lt;(object, ...)
 assemblies.delete(object, ...)
 assemblies.destroy(object, ...)
-assemblies=objects
+assemblies=(objects)
 assembly_ids
-assembly_ids=ids
+assembly_ids=(ids)
 assemblies.clear
 assemblies.empty?
 assemblies.size
@@ -1732,7 +1732,7 @@ assemblies.create!(attributes = {})
 
 </pre>
 </div>
-<h6 id="has-and-belongs-to-many-關聯新增的方法-collection-objects">4.4.1.6 <code>collection=objects</code>
+<h6 id="has-and-belongs-to-many-關聯新增的方法-collection-objects">4.4.1.6 <code>collection=(objects)</code>
 </h6><p><code>collection=</code> 方法更改集合內容，根據提供的物件來決定要刪除還是新增。</p><h6 id="has-and-belongs-to-many-關聯新增的方法-collection-singular-ids">4.4.1.7 <code>collection_singular_ids</code>
 </h6><p><code>collection_singular_ids</code> 方法回傳集合陣列中各物件的 ID。</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
@@ -1740,7 +1740,7 @@ assemblies.create!(attributes = {})
 
 </pre>
 </div>
-<h6 id="has-and-belongs-to-many-關聯新增的方法-collection-singular-ids-ids">4.4.1.8 <code>collection_singular_ids=ids</code>
+<h6 id="has-and-belongs-to-many-關聯新增的方法-collection-singular-ids-ids">4.4.1.8 <code>collection_singular_ids=(ids)</code>
 </h6><p><code>collection_singular_ids=</code> 方法更改集合擁有物件的 ID，根據所提供的主鍵值來決定要刪除還是新增。</p><h6 id="has-and-belongs-to-many-關聯新增的方法-collection-clear">4.4.1.9 <code>collection.clear</code>
 </h6><p><code>collection.clear</code> 方法透過刪除連接資料表的列來移除集合中的所有物件。但並不會刪除關聯物件。</p><h6 id="has-and-belongs-to-many-關聯新增的方法-collection-empty-questionmark">4.4.1.10 <code>collection.empty?</code>
 </h6><p><code>collection.empty?</code> 方法在集合沒有任何關聯物件時回傳 <code>true</code>。</p><div class="code_container">

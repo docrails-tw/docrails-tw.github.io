@@ -236,7 +236,7 @@ create  app/jobs/guests_cleanup_job.rb
 class GuestsCleanupJob &lt; ActiveJob::Base
   queue_as :default
 
-  def perform
+  def perform(*args)
     # Do something later
   end
 end
@@ -267,8 +267,8 @@ MyJob.enqueue_in 1.week, record # Enqueue a job to be performed 1 week from now.
 <li><a href="https://github.com/collectiveidea/delayed_job">Delayed Job</a></li>
 <li><a href="https://github.com/bkeepers/qu">Qu</a></li>
 <li><a href="https://github.com/chanks/que">Que</a></li>
-<li><a href="https://github.com/ryandotsmith/queue_classic">QueueClassic</a></li>
-<li><a href="https://github.com/resque/resque">Resque 1.x</a></li>
+<li><a href="https://github.com/ryandotsmith/queue_classic/tree/v2.2.3">QueueClassic 2.x</a></li>
+<li><a href="https://github.com/resque/resque/tree/1-x-stable">Resque 1.x</a></li>
 <li><a href="https://github.com/mperham/sidekiq">Sidekiq</a></li>
 <li><a href="https://github.com/jondot/sneakers">Sneakers</a></li>
 <li><a href="https://github.com/brandonhilkert/sucker_punch">Sucker Punch</a></li>
@@ -318,7 +318,7 @@ MyJob.enqueue_in 1.week, record # Enqueue a job to be performed 1 week from now.
 <td><strong>Queue Classic</strong></td>
 <td>Yes</td>
 <td>Yes</td>
-<td>Gem</td>
+<td>No*</td>
 <td>No</td>
 <td>No</td>
 <td>No</td>
@@ -327,10 +327,10 @@ MyJob.enqueue_in 1.week, record # Enqueue a job to be performed 1 week from now.
 <td><strong>Resque</strong></td>
 <td>Yes</td>
 <td>Yes</td>
-<td>Gem</td>
+<td>Yes (Gem)</td>
 <td>Queue</td>
 <td>Global</td>
-<td>?</td>
+<td>Yes</td>
 </tr>
 <tr>
 <td><strong>Sidekiq</strong></td>
@@ -354,16 +354,7 @@ MyJob.enqueue_in 1.week, record # Enqueue a job to be performed 1 week from now.
 <td><strong>Sucker Punch</strong></td>
 <td>Yes</td>
 <td>Yes</td>
-<td>Yes</td>
 <td>No</td>
-<td>No</td>
-<td>No</td>
-</tr>
-<tr>
-<td><strong>Active Job</strong></td>
-<td>Yes</td>
-<td>Yes</td>
-<td>WIP</td>
 <td>No</td>
 <td>No</td>
 <td>No</td>
@@ -377,9 +368,18 @@ MyJob.enqueue_in 1.week, record # Enqueue a job to be performed 1 week from now.
 <td>N/A</td>
 <td>N/A</td>
 </tr>
+<tr>
+<td><strong>Active Job</strong></td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>No</td>
+<td>No</td>
+<td>No</td>
+</tr>
 </tbody>
 </table>
-<h4 id="切換後台">4.2 切換後台</h4><p>切換後台的連接器非常簡單：</p><div class="code_container">
+<div class="note"><p>* Queue Classic 不支援任務排程。但可以自己用 queue_classic-later Gem 來實作，詳細請參考 <code>ActiveJob::QueueAdapters::QueueClassicAdapter</code> 的文件。</p></div><h4 id="切換後台">4.2 切換後台</h4><p>切換後台的連接器非常簡單：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 # be sure to have the adapter gem in your Gemfile and follow the adapter specific
 # installation and deployment instructions
@@ -393,6 +393,26 @@ class GuestsCleanupJob &lt; ActiveJob::Base
   queue_as :low_priority
   #....
 end
+
+</pre>
+</div>
+<p>也可給所有任務加上佇列名前綴，加入 <code>config.active_job.queue_name_prefix</code> 設定到 <code>application.rb</code> 即可：</p><div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+# config/application.rb
+module YourApp
+  class Application &lt; Rails::Application
+    config.active_job.queue_name_prefix = Rails.env
+  end
+end
+
+# app/jobs/guests_cleanup.rb
+class GuestsCleanupJob &lt; ActiveJob::Base
+  queue_as :low_priority
+  #....
+end
+
+# Now your job will run on queue production_low_priority on your production
+# environment and on beta_low_priority on your beta environment
 
 </pre>
 </div>
@@ -430,10 +450,10 @@ end
 <h3 id="actionmailer">7 ActionMailer</h3><p>現代網路應用最常見的任務之一是在請求響應週期之外發送 Email，減去使用者等待的時間。Active Job
 已與 Action Mailer 整合，異步寄送信件只需使用 <code>deliver_later</code> 即可：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
-# Instead of the classic
-UserMailer.welcome(@user).deliver
+# If you want to send the email now use #deliver_now
+UserMailer.welcome(@user).deliver_now
 
-# use #deliver later to send the email async
+# If you want to send the email through Active Job use #deliver_later
 UserMailer.welcome(@user).deliver_later
 
 </pre>
@@ -465,7 +485,7 @@ end
 class GuestsCleanupJob &lt; ActiveJob::Base
   queue_as :default
 
-  rescue_from(ActiveRecord:NotFound) do |exception|
+  rescue_from(ActiveRecord::RecordNotFound) do |exception|
    # do something with the exception
   end
 

@@ -538,7 +538,7 @@ SELECT * FROM clients ORDER BY id DESC LIMIT 2
 <pre class="brush: ruby; gutter: false; toolbar: false">
 # 如果有數千個使用者，效率非常差。
 User.all.each do |user|
-  NewsLetter.weekly_deliver(user)
+  NewsMailer.weekly(user).deliver_now
 end
 
 </pre>
@@ -547,7 +547,7 @@ end
 </h5><p><code>find_each</code> 方法取出一批記錄，將每筆記錄傳入區塊裡。下面的例子，將以 <code>find_each</code> 來取出 1000 筆記錄（<code>find_each</code> 與 <code>find_in_batches</code> 的預設值），並傳至區塊。一次處理 1000 筆，直至記錄通通處理完畢為止：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 User.find_each do |user|
-  NewsMailer.weekly(user).deliver
+  NewsMailer.weekly(user).deliver_now
 end
 
 </pre>
@@ -555,7 +555,7 @@ end
 <p>要給 <code>find_each</code> 加上條件，可以像用 <code>where</code> 一樣連鎖使用：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 User.where(weekly_subscriber: true).find_each do |user|
-  NewsMailer.weekly(user).deliver
+  NewsMailer.weekly(user).deliver_now
 end
 
 </pre>
@@ -563,7 +563,7 @@ end
 <h6 id="find-each-選項">1.2.1.1 <code>find_each</code> 選項</h6><p><code>find_each</code> 方法接受多數 <code>find</code> 所允許的選項，除了 <code>:order</code> 與 <code>:limit</code>，這兩個選項保留供 <code>find_each</code> 內部使用。</p><p>此外有兩個額外的選項，<code>:batch_size</code> 與 <code>:start</code>。</p><p><strong><code>:batch_size</code></strong></p><p><code>:batch_size</code> 選項允許你在將各筆記錄傳進區塊前，指定一批要取多少筆記錄。比如一次取 5000 筆：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 User.find_each(batch_size: 5000) do |user|
-  NewsLetter.weekly_deliver(user)
+  NewsMailer.weekly(user).deliver_now
 end
 
 </pre>
@@ -571,7 +571,7 @@ end
 <p><strong><code>:start</code></strong></p><p>預設記錄按主鍵升序取出，主鍵類型必須是整數。批次預設從最小的 ID 開始，可用 <code>:start</code> 選項可以設定批次的起始 ID。在前次被中斷的批量處理重新開始的場景下很有用。</p><p>舉例來說，本週總共有 5000 封信要發。1-1999 已經發過了，便可以使用此選項從 2000 開始發信：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 User.find_each(start: 2000, batch_size: 5000) do |user|
-  NewsLetter.weekly_deliver(user)
+  NewsMailer.weekly(user).deliver_now
 end
 
 </pre>
