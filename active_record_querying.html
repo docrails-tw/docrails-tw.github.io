@@ -580,13 +580,13 @@ end
 </h5><p><code>find_in_batches</code> 方法與 <code>find_each</code> 類似，皆用來取出記錄。差別在於 <code>find_in_batchs</code> 取出記錄放入陣列傳至區塊，而 <code>find_each</code> 是一筆一筆放入區塊。下例會一次將 1000 張發票拿到區塊裡處理：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 # Give add_invoices an array of 1000 invoices at a time
-Invoice.find_in_batches(include: :invoice_lines) do |invoices|
+Invoice.find_in_batches do |invoices|
   export.add_invoices(invoices)
 end
 
 </pre>
 </div>
-<div class="note"><p><code>:include</code> 選項可以指定需要跟 Model 一起載入的關聯。</p></div><h6 id="find-in-batches-接受的選項">1.2.2.1 <code>find_in_batches</code> 接受的選項</h6><p><code>find_in_batches</code> 方法接受和 <code>find_each</code> 一樣的選項： <code>:batch_size</code> 與 <code>:start</code>，以及多數 <code>find</code> 接受的參數，除了 <code>:order</code> 與 <code>:limit</code> 之外。</p><p><code>find_in_batches</code> 方法接受和 <code>find_each</code> 一樣的選項： <code>:batch_size</code> 與 <code>:start</code>，以及多數 <code>find</code> 接受的參數，除了 <code>:order</code> 與 <code>:limit</code> 之外。這兩個選項保留供 <code>find_in_batches</code> 內部使用。</p><h3 id="條件">2 條件</h3><p><code>where</code> 方法允許取出符合條件的記錄，<code>where</code> 即代表了 SQL 語句的 <code>WHERE</code> 部分。</p><p>條件可以是字串、陣列、或是 Hash。</p><h4 id="字串條件">2.1 字串條件</h4><p>直接將要使用的條件，以字串形式傳入 <code>where</code> 即可。如 <code>Client.where("orders_count = '2'")</code> 會回傳所有 <code>orders_count</code> 是 2 的 clients。</p><div class="warning"><p>條件是純字串可能有 SQL injection 的風險。舉例來說，<code>Client.where("first_name LIKE '%#{params[:first_name]}%'")</code> 是不安全的，參考下節如何將字串條件改用陣列來處理。</p></div><h4 id="陣列條件">2.2 陣列條件</h4><p>如果我們要找的 <code>orders_count</code>，不一定固定是 2，可能是不定的數字：</p><div class="code_container">
+<h6 id="find-in-batches-接受的選項">1.2.2.1 <code>find_in_batches</code> 接受的選項</h6><p><code>find_in_batches</code> 方法接受和 <code>find_each</code> 一樣的選項： <code>:batch_size</code> 與 <code>:start</code>。</p><h3 id="條件">2 條件</h3><p><code>where</code> 方法允許取出符合條件的記錄，<code>where</code> 即代表了 SQL 語句的 <code>WHERE</code> 部分。</p><p>條件可以是字串、陣列、或是 Hash。</p><h4 id="字串條件">2.1 字串條件</h4><p>直接將要使用的條件，以字串形式傳入 <code>where</code> 即可。如 <code>Client.where("orders_count = '2'")</code> 會回傳所有 <code>orders_count</code> 是 2 的 clients。</p><div class="warning"><p>條件是純字串可能有 SQL injection 的風險。舉例來說，<code>Client.where("first_name LIKE '%#{params[:first_name]}%'")</code> 是不安全的，參考下節如何將字串條件改用陣列來處理。</p></div><h4 id="陣列條件">2.2 陣列條件</h4><p>如果我們要找的 <code>orders_count</code>，不一定固定是 2，可能是不定的數字：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 Client.where("orders_count = ?", params[:orders])
 
