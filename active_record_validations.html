@@ -452,7 +452,7 @@ end
 
 </pre>
 </div>
-<p><code>format</code> 預設錯誤訊息是  <em>"is invalid"</em>。</p><h4 id="inclusion">2.6 <code>inclusion</code>
+<p>也可以使用 <code>:without</code> 來指定沒有匹配的屬性。</p><p><code>format</code> 預設錯誤訊息是  <em>"is invalid"</em>。</p><h4 id="inclusion">2.6 <code>inclusion</code>
 </h4><p>這個方法驗證屬性是否“屬於”某個給定的集合。集合可以是任何 <code>Enumerable</code> 的物件。</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Coffee &lt; ActiveRecord::Base
@@ -568,7 +568,15 @@ end
 
 </pre>
 </div>
-<p>如透過 <code>has_one</code> 或 <code>has_many</code> 關係來驗證關聯的物件是否存在，則會對該物件呼叫 <code>blank?</code> 與 <code>marked_for_destruction?</code>，來確定存在性。</p><p>由於 <code>false.blank?</code> 為 <code>true</code>，如果想驗證布林欄位的存在性，應該要使用 <code>validates :field_name, inclusion: { in: [true, false] }</code>。</p><p>預設錯誤訊息是 <em>"can't be blank"</em>。</p><h4 id="absence">2.10 <code>absence</code>
+<p>如透過 <code>has_one</code> 或 <code>has_many</code> 關係來驗證關聯的物件是否存在，則會對該物件呼叫 <code>blank?</code> 與 <code>marked_for_destruction?</code>，來確定存在性。</p><p>由於 <code>false.blank?</code> 為 <code>true</code>，如果想驗證布林欄位的存在性，應該要使用下列的驗證方法：</p><div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+validates :boolean_field_name, presence: true
+validates :boolean_field_name, inclusion: { in: [true, false] }
+validates :boolean_field_name, exclusion: { in: [nil] }
+
+</pre>
+</div>
+<p>預設錯誤訊息是 <em>"can't be blank"</em>。</p><h4 id="absence">2.10 <code>absence</code>
 </h4><p>這個方法驗證是否“不存在”。使用 <code>present?</code> 來檢查數值是否為非 <code>nil</code> 或非空字串（僅有空白的字串也是空字串）。</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Person &lt; ActiveRecord::Base
@@ -682,7 +690,7 @@ end
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class Person &lt; ActiveRecord::Base
   validates_each :name, :surname do |record, attr, value|
-    record.errors.add(attr, 'must start with upper case') if value =~ /\A[a-z]/
+    record.errors.add(attr, 'must start with upper case') if value =~ /\A[[:lower:]]/
   end
 end
 

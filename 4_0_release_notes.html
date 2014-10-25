@@ -423,11 +423,11 @@ The method <code>remove_column</code> used to accept multiple column names; inst
 The method <code>change_table</code> is also reversible, as long as its block doesn't call <code>remove</code>, <code>change</code> or <code>change_default</code>
 </li>
 <li>New method <code>reversible</code> makes it possible to specify code to be run when migrating up or down.
-See the <a href="https://github.com/rails/rails/blob/master/guides/source/migrations.md#using-the-reversible-method">Guide on Migration</a>
+See the <a href="https://github.com/rails/rails/blob/master/guides/source/active_record_migrations.md#using-reversible">Guide on Migration</a>
 </li>
 <li>New method <code>revert</code> will revert a whole migration or the given block.
 If migrating down, the given migration / block is run normally.
-See the <a href="https://github.com/rails/rails/blob/master/guides/source/migrations.md#reverting-previous-migrations">Guide on Migration</a>
+See the <a href="https://github.com/rails/rails/blob/master/guides/source/active_record_migrations.md#reverting-previous-migrations">Guide on Migration</a>
 </li>
 </ul>
 </li>

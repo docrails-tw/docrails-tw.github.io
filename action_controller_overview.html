@@ -1218,16 +1218,16 @@ end
 </ul>
 <div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
-    errors/
-      not_found.html.erb
-      unprocessable_entity.html.erb
-      server_error.html.erb
-    layouts/
-      error.html.erb
+  errors/
+    not_found.html.erb
+    unprocessable_entity.html.erb
+    server_error.html.erb
+  layouts/
+    error.html.erb
 
 </pre>
 </div>
-<p>別忘記在 Controller 設定正確的錯誤碼（如上所示）。錯誤頁面要避免使用資料庫，或進行任何複雜的操作。因為使用者已經到了錯誤頁面這裡，在錯誤頁面產生另外的錯誤會造成不必要的問題。</p><h3 id="強制使用-https-協定">15 強制使用 HTTPS 協定</h3><p>有時候出於安全性考量，可能想讓特定的 Controller 只可以透過 HTTPS 來存取。可以在 Controller 使用 <code>force_ssl</code> 方法：</p><div class="code_container">
+<p>別忘記在 Controller 設定正確的錯誤碼（如上所示）。</p><div class="warning"><p>錯誤頁面要避免對資料庫進行操作，或是進行任何複雜的操作。因為使用者已經到了錯誤頁面這裡，在錯誤頁面產生另外的錯誤會造成不必要的問題。</p></div><h3 id="強制使用-https-協定">15 強制使用 HTTPS 協定</h3><p>有時候出於安全性考量，可能想讓特定的 Controller 只可以透過 HTTPS 來存取。可以在 Controller 使用 <code>force_ssl</code> 方法：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 class DinnerController
   force_ssl
