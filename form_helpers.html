@@ -631,6 +631,12 @@ form_tag(search_path, method: "patch")
 
 </pre>
 </div>
+<p>和其他輔助方法一樣，若想在 form builder 的作用在 <code>@person</code> 物件裡使用 <code>collection_select</code>，應當這麼寫：</p><div class="code_container">
+<pre class="brush: ruby; html-script: true; gutter: false; toolbar: false">
+&lt;%= f.collection_select(:city_id, City.all, :id, :name) %&gt;
+
+</pre>
+</div>
 <p>複習一下，<code>options_from_collection_for_select</code> 與 <code>collection_select</code> 的關係，和 <code>options_for_select</code> 與 <code>select</code> 之間的關係一樣。</p><div class="note"><p>傳給 <code>options_for_select</code> 的陣列需要先傳 <code>name</code>，再傳 <code>id</code>；而 <code>options_from_collection_for_select</code> 則是先傳 <code>id</code>，再傳 <code>name</code>。</p></div><h4 id="時區與國家選單">3.4 時區與國家選單</h4><p>要完善利用 Rails 支援的時區功能，首先要詢問使用者所在的時區為何。要詢問時區得先產生所有的時區選項，再傳給 <code>collection_select</code> 來產生選單，但可以直接使用 <code>time_zone_select</code> 輔助方法，已經包裝好了：</p><div class="code_container">
 <pre class="brush: ruby; html-script: true; gutter: false; toolbar: false">
 &lt;%= time_zone_select(:person, :time_zone) %&gt;

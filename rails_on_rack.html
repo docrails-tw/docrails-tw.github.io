@@ -184,6 +184,7 @@
 <li><a href="#rails-%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F%E7%9A%84-rack-%E7%89%A9%E4%BB%B6">Rails 應用程式的 Rack 物件</a></li>
 <li><a href="#rails-server"><code>rails server</code></a></li>
 <li><a href="#rackup"><code>rackup</code></a></li>
+<li><a href="#%E9%96%8B%E7%99%BC%E8%87%AA%E5%8B%95%E9%87%8D%E8%BC%89">開發自動重載</a></li>
 </ul>
 </li>
 <li>
@@ -289,7 +290,7 @@ $ rackup --help
 
 </pre>
 </div>
-<h3 id="action-dispatcher-middleware-stack">3 Action Dispatcher Middleware Stack</h3><p>許多 Action Dispatcher 的內部組件都是以 Rack Middleware 的方式所實作。<code>Rails::Application</code> 使用了 <code>ActionDispatch::MiddlewareStack</code>，將內部與外部的 Middleware 結合起來，形成完整的 Rails Rack 應用程式。</p><div class="note"><p>Rails 的 <code>ActionDispatch::MiddlewareStack</code> 等同於 <code>Rack::Builder</code>，但靈活性更高、更多功能，專門為了滿足 Rails 需求所打造。</p></div><h4 id="檢視-middleware-stack">3.1 檢視 Middleware Stack</h4><p>Rails 有一個好用的 Rake 任務，可檢視使用中的 Middleware stack：</p><div class="code_container">
+<h4 id="開發自動重載">2.4 開發自動重載</h4><p>Middlewares 只會載入一次，察覺不到新的修改。有關 Middleware 的修改需要重新啟動伺服器才行。</p><h3 id="action-dispatcher-middleware-stack">3 Action Dispatcher Middleware Stack</h3><p>許多 Action Dispatcher 的內部組件都是以 Rack Middleware 的方式所實作。<code>Rails::Application</code> 使用了 <code>ActionDispatch::MiddlewareStack</code>，將內部與外部的 Middleware 結合起來，形成完整的 Rails Rack 應用程式。</p><div class="note"><p>Rails 的 <code>ActionDispatch::MiddlewareStack</code> 等同於 <code>Rack::Builder</code>，但靈活性更高、更多功能，專門為了滿足 Rails 需求所打造。</p></div><h4 id="檢視-middleware-stack">3.1 檢視 Middleware Stack</h4><p>Rails 有一個好用的 Rake 任務，可檢視使用中的 Middleware stack：</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 $ bin/rake middleware
 

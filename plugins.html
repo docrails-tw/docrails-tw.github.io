@@ -231,20 +231,20 @@ skeleton for developing any kind of Rails extension with the ability
 to run integration tests using a dummy Rails application. Create your
 plugin with the command:</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
-$ bin/rails plugin new yaffle
+$ rails plugin new yaffle
 
 </pre>
 </div>
 <p>See usage and options by asking for help:</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
-$ bin/rails plugin --help
+$ rails plugin new --help
 
 </pre>
 </div>
 <h3 id="testing-your-newly-generated-plugin">2 Testing Your Newly Generated Plugin</h3><p>You can navigate to the directory that contains the plugin, run the <code>bundle install</code> command
  and run the one generated test using the <code>rake</code> command.</p><p>You should see:</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
-  2 tests, 2 assertions, 0 failures, 0 errors, 0 skips
+  1 runs, 1 assertions, 0 failures, 0 errors, 0 skips
 
 </pre>
 </div>
@@ -265,9 +265,9 @@ end
 <p>Run <code>rake</code> to run the test. This test should fail because we haven't implemented the <code>to_squawk</code> method:</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
     1) Error:
-  test_to_squawk_prepends_the_word_squawk(CoreExtTest):
-  NoMethodError: undefined method `to_squawk' for [Hello World](String)
-      test/core_ext_test.rb:5:in `test_to_squawk_prepends_the_word_squawk'
+  CoreExtTest#test_to_squawk_prepends_the_word_squawk:
+  NoMethodError: undefined method `to_squawk' for "Hello World":String
+    /path/to/yaffle/test/core_ext_test.rb:5:in `test_to_squawk_prepends_the_word_squawk'
 
 </pre>
 </div>
@@ -296,7 +296,7 @@ end
 </div>
 <p>To test that your method does what it says it does, run the unit tests with <code>rake</code> from your plugin directory.</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
-  3 tests, 3 assertions, 0 failures, 0 errors, 0 skips
+  2 runs, 2 assertions, 0 failures, 0 errors, 0 skips
 
 </pre>
 </div>
@@ -369,16 +369,16 @@ end
 <p>When you run <code>rake</code>, you should see the following:</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
     1) Error:
-  test_a_hickwalls_yaffle_text_field_should_be_last_squawk(ActsAsYaffleTest):
+  ActsAsYaffleTest#test_a_hickwalls_yaffle_text_field_should_be_last_squawk:
   NameError: uninitialized constant ActsAsYaffleTest::Hickwall
-      test/acts_as_yaffle_test.rb:6:in `test_a_hickwalls_yaffle_text_field_should_be_last_squawk'
+    /path/to/yaffle/test/acts_as_yaffle_test.rb:6:in `test_a_hickwalls_yaffle_text_field_should_be_last_squawk'
 
     2) Error:
-  test_a_wickwalls_yaffle_text_field_should_be_last_tweet(ActsAsYaffleTest):
+  ActsAsYaffleTest#test_a_wickwalls_yaffle_text_field_should_be_last_tweet:
   NameError: uninitialized constant ActsAsYaffleTest::Wickwall
-      test/acts_as_yaffle_test.rb:10:in `test_a_wickwalls_yaffle_text_field_should_be_last_tweet'
+    /path/to/yaffle/test/acts_as_yaffle_test.rb:10:in `test_a_wickwalls_yaffle_text_field_should_be_last_tweet'
 
-  5 tests, 3 assertions, 0 failures, 2 errors, 0 skips
+  4 runs, 2 assertions, 0 failures, 2 errors, 0 skips
 
 </pre>
 </div>
@@ -443,18 +443,18 @@ ActiveRecord::Base.send :include, Yaffle::ActsAsYaffle
 <p>You can then return to the root directory (<code>cd ../..</code>) of your plugin and rerun the tests using <code>rake</code>.</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
     1) Error:
-  test_a_hickwalls_yaffle_text_field_should_be_last_squawk(ActsAsYaffleTest):
-  NoMethodError: undefined method `yaffle_text_field' for #&lt;Class:0x000001016661b8&gt;
-      /Users/xxx/.rvm/gems/ruby-1.9.2-p136@xxx/gems/activerecord-3.0.3/lib/active_record/base.rb:1008:in `method_missing'
-      test/acts_as_yaffle_test.rb:5:in `test_a_hickwalls_yaffle_text_field_should_be_last_squawk'
+  ActsAsYaffleTest#test_a_hickwalls_yaffle_text_field_should_be_last_squawk:
+  NoMethodError: undefined method `yaffle_text_field' for #&lt;Class:0x007fd105e3b218&gt;
+    activerecord (4.1.5) lib/active_record/dynamic_matchers.rb:26:in `method_missing'
+    /path/to/yaffle/test/acts_as_yaffle_test.rb:6:in `test_a_hickwalls_yaffle_text_field_should_be_last_squawk'
 
     2) Error:
-  test_a_wickwalls_yaffle_text_field_should_be_last_tweet(ActsAsYaffleTest):
-  NoMethodError: undefined method `yaffle_text_field' for #&lt;Class:0x00000101653748&gt;
-      Users/xxx/.rvm/gems/ruby-1.9.2-p136@xxx/gems/activerecord-3.0.3/lib/active_record/base.rb:1008:in `method_missing'
-      test/acts_as_yaffle_test.rb:9:in `test_a_wickwalls_yaffle_text_field_should_be_last_tweet'
+  ActsAsYaffleTest#test_a_wickwalls_yaffle_text_field_should_be_last_tweet:
+  NoMethodError: undefined method `yaffle_text_field' for #&lt;Class:0x007fd105e409c0&gt;
+    activerecord (4.1.5) lib/active_record/dynamic_matchers.rb:26:in `method_missing'
+    /path/to/yaffle/test/acts_as_yaffle_test.rb:10:in `test_a_wickwalls_yaffle_text_field_should_be_last_tweet'
 
-  5 tests, 3 assertions, 0 failures, 2 errors, 0 skips
+  4 runs, 2 assertions, 0 failures, 2 errors, 0 skips
 
 
 </pre>
@@ -485,7 +485,7 @@ ActiveRecord::Base.send :include, Yaffle::ActsAsYaffle
 </div>
 <p>When you run <code>rake</code>, you should see the tests all pass:</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
-  5 tests, 5 assertions, 0 failures, 0 errors, 0 skips
+  4 runs, 4 assertions, 0 failures, 0 errors, 0 skips
 
 </pre>
 </div>
@@ -555,7 +555,7 @@ ActiveRecord::Base.send :include, Yaffle::ActsAsYaffle
 </div>
 <p>Run <code>rake</code> one final time and you should see:</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
-  7 tests, 7 assertions, 0 failures, 0 errors, 0 skips
+  6 runs, 6 assertions, 0 failures, 0 errors, 0 skips
 
 </pre>
 </div>
@@ -591,7 +591,7 @@ $ bin/rake rdoc
 <ul>
 <li><a href="https://github.com/radar/guides/blob/master/gem-development.md">Developing a RubyGem using Bundler</a></li>
 <li><a href="http://yehudakatz.com/2010/04/02/using-gemspecs-as-intended/">Using .gemspecs as Intended</a></li>
-<li><a href="http://docs.rubygems.org/read/chapter/20">Gemspec Reference</a></li>
+<li><a href="http://guides.rubygems.org/specification-reference/">Gemspec Reference</a></li>
 <li><a href="http://www.intridea.com/blog/2008/6/11/gemplugins-a-brief-introduction-to-the-future-of-rails-plugins">GemPlugins: A Brief Introduction to the Future of Rails Plugins</a></li>
 </ul>
 

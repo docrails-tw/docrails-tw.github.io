@@ -288,7 +288,7 @@ one:
 <p>Note: For associations to reference one another by name, you cannot specify the <code>id:</code>
  attribute on the fixtures. Rails will auto assign a primary key to be consistent between
  runs. If you manually specify an <code>id:</code> attribute, this behavior will not work. For more
-  information on this assocation behavior please read the
+  information on this association behavior please read the
   <a href="http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html">fixture api documentation</a>.</p><h5 id="erb-in-it-up">2.3.3 ERB'in It Up</h5><p>ERB allows you to embed Ruby code within templates. The YAML fixture format is pre-processed with ERB when Rails loads fixtures. This allows you to use Ruby to help you generate some sample data. For example, the following code generates a thousand users:</p><div class="code_container">
 <pre class="brush: ruby; html-script: true; gutter: false; toolbar: false">
 &lt;% 1000.times do |n| %&gt;
@@ -827,7 +827,7 @@ end
 
 </pre>
 </div>
-<h4 id="testing-views">4.8 Testing Views</h4><p>Testing the response to your request by asserting the presence of key HTML elements and their content is a useful way to test the views of your application. The <code>assert_select</code> assertion allows you to do this by using a simple yet powerful syntax.</p><div class="note"><p>You may find references to <code>assert_tag</code> in other documentation, but this is now deprecated in favor of <code>assert_select</code>.</p></div><p>There are two forms of <code>assert_select</code>:</p><p><code>assert_select(selector, [equality], [message])</code> ensures that the equality condition is met on the selected elements through the selector. The selector may be a CSS selector expression (String), an expression with substitution values, or an <code>HTML::Selector</code> object.</p><p><code>assert_select(element, selector, [equality], [message])</code> ensures that the equality condition is met on all the selected elements through the selector starting from the <em>element</em> (instance of <code>HTML::Node</code>) and its descendants.</p><p>For example, you could verify the contents on the title element in your response with:</p><div class="code_container">
+<h4 id="testing-views">4.8 Testing Views</h4><p>Testing the response to your request by asserting the presence of key HTML elements and their content is a useful way to test the views of your application. The <code>assert_select</code> assertion allows you to do this by using a simple yet powerful syntax.</p><div class="note"><p>You may find references to <code>assert_tag</code> in other documentation. This has been removed in 4.2. Use <code>assert_select</code> instead.</p></div><p>There are two forms of <code>assert_select</code>:</p><p><code>assert_select(selector, [equality], [message])</code> ensures that the equality condition is met on the selected elements through the selector. The selector may be a CSS selector expression (String) or an expression with substitution values.</p><p><code>assert_select(element, selector, [equality], [message])</code> ensures that the equality condition is met on all the selected elements through the selector starting from the <em>element</em> (instance of <code>Nokogiri::XML::Node</code> or <code>Nokogiri::XML::NodeSet</code>) and its descendants.</p><p>For example, you could verify the contents on the title element in your response with:</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 assert_select 'title', "Welcome to Rails Testing Guide"
 
@@ -855,7 +855,7 @@ end
 
 </pre>
 </div>
-<p>The <code>assert_select</code> assertion is quite powerful. For more advanced usage, refer to its <a href="http://api.rubyonrails.org/classes/ActionDispatch/Assertions/SelectorAssertions.html">documentation</a>.</p><h5 id="additional-view-based-assertions">4.8.1 Additional View-Based Assertions</h5><p>There are more assertions that are primarily used in testing views:</p>
+<p>The <code>assert_select</code> assertion is quite powerful. For more advanced usage, refer to its <a href="https://github.com/rails/rails-dom-testing/blob/master/lib/rails/dom/testing/assertions/selector_assertions.rb">documentation</a>.</p><h5 id="additional-view-based-assertions">4.8.1 Additional View-Based Assertions</h5><p>There are more assertions that are primarily used in testing views:</p>
 <table>
 <thead>
 <tr>
@@ -1075,6 +1075,11 @@ when you initiate a Rails project.</p>
 </td>
 </tr>
 <tr>
+<td><code>rake test:jobs</code></td>
+<td>Runs all the job tests from <code>test/jobs</code>
+</td>
+</tr>
+<tr>
 <td><code>rake test:mailers</code></td>
 <td>Runs all the mailer tests from <code>test/mailers</code>
 </td>
@@ -1206,7 +1211,7 @@ class UserMailerTest &lt; ActionMailer::TestCase
   test "invite" do
     # Send the email, then test that it got queued
     email = UserMailer.create_invite('me@example.com',
-                                     'friend@example.com', Time.now).deliver
+                                     'friend@example.com', Time.now).deliver_now
     assert_not ActionMailer::Base.deliveries.empty?
 
     # Test the body of the sent email contains what we expect it to

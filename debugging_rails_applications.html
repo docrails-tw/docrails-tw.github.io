@@ -335,7 +335,7 @@ Rails.logger.level = 0 # at any time
 
 </pre>
 </div>
-<p>這在開發和準上線環境（Staging）下很有用，也能避免上線環境寫入大量不必要的資訊。</p><div class="info"><p>Rails 預設上線環境的 Log 層級是 <code>info</code>，開發與測試環境是 <code>debug</code>。</p></div><h4 id="寫入訊息">2.3 寫入訊息</h4><p>要寫入訊息到目前的記錄檔裡，在 Controller、Model 或 Mailer 裡使用 <code>logger.(debug|info|warn|error|fatal)</code>：</p><div class="code_container">
+<p>這在開發和準上線環境（Staging）下很有用，也能避免上線環境寫入大量不必要的資訊。</p><div class="info"><p>Rails 所有環境預設的 Log 層級是 <code>debug</code>。</p></div><h4 id="寫入訊息">2.3 寫入訊息</h4><p>要寫入訊息到目前的記錄檔裡，在 Controller、Model 或 Mailer 裡使用 <code>logger.(debug|info|warn|error|fatal)</code>：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 logger.debug "Person attributes hash: #{@person.attributes.inspect}"
 logger.info "Processing the request..."

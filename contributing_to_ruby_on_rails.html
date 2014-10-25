@@ -275,7 +275,7 @@ $ git pull JohnSmith orange
 </ul>
 <p>Once you're happy that the pull request contains a good change, comment on the GitHub issue indicating your approval. Your comment should indicate that you like the change and what you like about it. Something like:</p>
 <blockquote>
-I like the way you've restructured that code in generate_finder_sql - much nicer. The tests look good too.
+<p>I like the way you've restructured that code in generate_finder_sql - much nicer. The tests look good too.</p>
 </blockquote>
 <p>If your comment simply says "+1", then odds are that other reviewers aren't going to take it too seriously. Show that you took the time to review the pull request.</p><h3 id="contributing-to-the-rails-documentation">3 Contributing to the Rails Documentation</h3><p>Ruby on Rails has two main sets of documentation: the guides, which help you
 learn about Ruby on Rails, and the API, which serves as a reference.</p><p>You can help improve the Rails guides by making them more coherent, consistent or readable, adding missing information, correcting factual errors, fixing typos, or bringing it up to date with the latest edge Rails. To get involved in the translation of Rails guides, please see <a href="https://wiki.github.com/rails/docrails/translating-rails-guides">Translating Rails Guides</a>.</p><p>You can either open a pull request to <a href="http://github.com/rails/rails">Rails</a> or
@@ -310,7 +310,7 @@ and in particular sees any modifications upon server reboot.</p><h4 id="write-yo
 <li>Include tests that fail without your code, and pass with it.</li>
 <li>Update the (surrounding) documentation, examples elsewhere, and the guides: whatever is affected by your contribution.</li>
 </ul>
-<div class="info"><p>Changes that are cosmetic in nature and do not add anything substantial to the stability, functionality, or testability of Rails will generally not be accepted.</p></div><h5 id="follow-the-coding-conventions">4.4.1 Follow the Coding Conventions</h5><p>Rails follows a simple set of coding style conventions:</p>
+<div class="info"><p>Changes that are cosmetic in nature and do not add anything substantial to the stability, functionality, or testability of Rails will generally not be accepted (read more about <a href="https://github.com/rails/rails/pull/13771#issuecomment-32746700">our rationales behind this decision</a>).</p></div><h5 id="follow-the-coding-conventions">4.4.1 Follow the Coding Conventions</h5><p>Rails follows a simple set of coding style conventions:</p>
 <ul>
 <li>Two spaces, no tabs (for indentation).</li>
 <li>No trailing whitespace. Blank lines should not have any spaces.</li>
@@ -405,6 +405,12 @@ $ ARCONN=sqlite3 ruby -Itest test/cases/associations/has_many_associations_test.
 
 </pre>
 </div>
+<p>To run a single test against all adapters, use:</p><div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+$ bundle exec rake TEST=test/cases/associations/has_many_associations_test.rb
+
+</pre>
+</div>
 <p>You can invoke <code>test_jdbcmysql</code>, <code>test_jdbcsqlite3</code> or <code>test_jdbcpostgresql</code> also. See the file <code>activerecord/RUNNING_UNIT_TESTS.rdoc</code> for information on running more targeted database tests, or the file <code>ci/travis.rb</code> for the test suite run by the continuous integration server.</p><h4 id="warnings">4.7 Warnings</h4><p>The test suite runs with warnings enabled. Ideally, Ruby on Rails should issue no warnings, but there may be a few, as well as some from third-party libraries. Please ignore (or fix!) them, if any, and submit patches that do not issue new warnings.</p><p>If you are sure about what you are doing and would like to have a more clear output, there's a way to override the flag:</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 $ RUBYOPT=-W0 bundle exec rake test
@@ -455,7 +461,7 @@ inside, just indent it with 4 spaces:
 
     class ArticlesController
       def index
-        respond_with Article.limit(10)
+        render json: Article.limit(10)
       end
     end
 
@@ -575,7 +581,19 @@ $ git push origin my_pull_request -f
 </pre>
 </div>
 <p>You should be able to refresh the pull request on GitHub and see that it has
-been updated.</p><h4 id="older-versions-of-ruby-on-rails">4.16 Older Versions of Ruby on Rails</h4><p>If you want to add a fix to older versions of Ruby on Rails, you'll need to set up and switch to your own local tracking branch. Here is an example to switch to the 4-0-stable branch:</p><div class="code_container">
+been updated.</p><h5 id="updating-pull-request">4.15.2 Updating pull request</h5><p>Sometimes you will be asked to make some changes to the code you have
+already committed. This can include amending existing commits. In this
+case Git will not allow you to push the changes as the pushed branch
+and local branch do not match. Instead of opening a new pull request,
+you can force push to your branch on GitHub as described earlier in
+squashing commits section:</p><div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+$ git push origin my_pull_request -f
+
+</pre>
+</div>
+<p>This will update the branch and pull request on GitHub with your new code. Do
+note that using force push may result in commits being lost on the remote branch; use it with care.</p><h4 id="older-versions-of-ruby-on-rails">4.16 Older Versions of Ruby on Rails</h4><p>If you want to add a fix to older versions of Ruby on Rails, you'll need to set up and switch to your own local tracking branch. Here is an example to switch to the 4-0-stable branch:</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 $ git branch --track 4-0-stable origin/4-0-stable
 $ git checkout 4-0-stable
