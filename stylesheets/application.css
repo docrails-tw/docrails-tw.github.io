@@ -62,7 +62,10 @@ q:before, q:after {
 /* General
 --------------------------------------- */
 .snsb {
-  overflow: hidden; }
+  overflow: hidden;
+  margin-top: 20px;
+  margin-left: 0px;
+  margin-bottom: 0px; }
 
 .snsb li {
   float: left;
