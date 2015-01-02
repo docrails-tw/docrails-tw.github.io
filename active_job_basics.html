@@ -5,6 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Active Job 基礎 — Ruby on Rails 指南</title>
 
+  <meta name="description" content="Ruby on Rails 指南：系統學習 Rails（Rails 4.2 版本）" >
+  <meta name="keywords"    content="Ruby Rails Guides 指南 系統 學習 免費 網路 Web 開發" >
+  <meta name="author"      content="http://git.io/G_R1sA">
+
+  <meta property="fb:admins"      content="1340181291">
+  <meta property="og:title"       content="Ruby on Rails 指南">
+  <meta property="og:site_name"   content="Ruby on Rails 指南">
+  <meta property="og:image"       content="http://rails.ruby.tw/images/rails_guides_cover.jpg">
+  <meta property="og:url"         content="http://rails.ruby.tw/">
+  <meta property="og:type"        content="article">
+  <meta property="og:description" content="Ruby on Rails 指南：系統學習 Rails（Rails 4.2 版本）">
+
   <link rel="stylesheet" href="stylesheets/application.css">
 
   <link href="http://fonts.googleapis.com/css?family=Noto+Sans:400,700|Noto+Serif:700|Source+Code+Pro" rel="stylesheet">
@@ -224,6 +236,8 @@
         <h3 id="簡介">1 簡介</h3><p>Active Job 是用來宣告任務，並把任務放到多種佇列後台執行的框架。這些任務可以是平常的系統定時清理、收費方式改變通知、或是定時寄送郵件等任務。任何可以細分的工作與同步執行的事情都可以用 Active Job 來做。</p><h3 id="active-job-存在目的">2 Active Job 存在目的</h3><p>主要確保 Rails 應用程式有個一致的背景任務框架，不做背景任務，要即時執行也可以。接著便可以有基於 Active Job 打造的功能、Gem 誕生，而無需擔心各種佇列後台，像是 Delayed Job 和 Resque 之間的 API 差異。選擇佇列後台變成一種運維方面的考量，而切換後台也無需修改任務本身的實作。</p><h3 id="新建任務">3 新建任務</h3><p>本節提供建立任務，將任務加入排程的詳細教學。</p><h4 id="建立任務">3.1 建立任務</h4><p>Active Job 提供了 Rails 產生器來建立任務。以下會在 <code>app/jobs</code> 建立一件新任務：</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 $ bin/rails generate job guests_cleanup
+invoke  test_unit
+create    test/jobs/guests_cleanup_job_test.rb
 create  app/jobs/guests_cleanup_job.rb
 
 </pre>
@@ -231,7 +245,6 @@ create  app/jobs/guests_cleanup_job.rb
 <p>也可以建立跑在特定佇列上的任務：</p><div class="code_container">
 <pre class="brush: plain; gutter: false; toolbar: false">
 $ bin/rails generate job guests_cleanup --queue urgent
-create  app/jobs/guests_cleanup_job.rb
 
 </pre>
 </div>
@@ -249,19 +262,22 @@ end
 </div>
 <h4 id="任務排程">3.2 任務排程</h4><p>將任務加入排程：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
-MyJob.perform_later record  # Enqueue a job to be performed as soon the queueing system is free.
+# Enqueue a job to be performed as soon the queueing system is free.
+MyJob.perform_later record
 
 </pre>
 </div>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
-MyJob.set(wait_until: Date.tomorrow.noon).perform_later(record)  # Enqueue a job to be performed tomorrow at noon.
+# Enqueue a job to be performed tomorrow at noon.
+MyJob.set(wait_until: Date.tomorrow.noon).perform_later(record)
 
 </pre>
 </div>
 <div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
-MyJob.set(wait: 1.week).perform_later(record) # Enqueue a job to be performed 1 week from now.
+# Enqueue a job to be performed 1 week from now.
+MyJob.set(wait: 1.week).perform_later(record)
 
 </pre>
 </div>
@@ -282,12 +298,13 @@ end
 
 </pre>
 </div>
-<p>也可給所有任務加上佇列名前綴，加入 <code>config.active_job.queue_name_prefix</code> 設定到 <code>application.rb</code> 即可：</p><div class="code_container">
+<p>預設佇列名稱的前綴為 <code>\_</code>。可以在 <code>application.rb 修改</code>config.active_job.queue_name_delimiter` 來修改：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 # config/application.rb
 module YourApp
   class Application &lt; Rails::Application
     config.active_job.queue_name_prefix = Rails.env
+    config.active_job.queue_name_delimiter = '.'
   end
 end
 
@@ -393,7 +410,7 @@ end
 
 </pre>
 </div>
-<p>以上對任何混入 <code>ActiveModel::GlobalIdentification</code> 的類都有效，Active Model 的類別預設皆有混入 <code>ActiveModel::GlobalIdentification</code>。</p><h3 id="exceptions">9 Exceptions</h3><p>Active Job 提供捕捉任務執行期間發生異常的方法：</p><div class="code_container">
+<p>以上對任何混入 <code>GlobalID::Identification</code> 的類都有效，Active Model 的類別預設皆有混入 <code>GlobalID::Identification</code>。</p><h3 id="exceptions">9 Exceptions</h3><p>Active Job 提供捕捉任務執行期間發生異常的方法：</p><div class="code_container">
 <pre class="brush: ruby; gutter: false; toolbar: false">
 
 class GuestsCleanupJob &lt; ActiveJob::Base
@@ -432,7 +449,13 @@ end
   <hr class="hide">
   <div id="footer">
     <div class="wrapper">
-      <p>本著作係採用<a href="https://creativecommons.org/licenses/by-sa/4.0/">創用 CC 姓名標示-相同方式分享 4.0 國際授權條款</a>授權。</p>
+      <ol class="snsb" style="margin-left: 13px">
+  <li><iframe src="http://ghbtns.com/github-btn.html?user=docrails-tw&repo=rails.ruby.tw&type=watch&count=true" allowtransparency="true" frameborder="0" scrolling="0" width="80" height="20"></iframe></li>
+  <li><div class="fb-like" data-href="http://rails.ruby.tw/" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div></li>
+  <li><a href="https://twitter.com/share" class="twitter-share-button" data-url="http://rails.ruby.tw/" data-text="Ruby on Rails 指南：系統化學習 Rails（Rails 4.2 版本）" data-lang="zh-TW" data-hashtags="railsguidestw">ツイート</a><script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script></li>
+</ol>
+
+      <p>本著作係採用<a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh_TW">創用 CC 姓名標示-相同方式分享 4.0 國際授權條款</a>授權。</p>
 <p>“Rails”、“Ruby on Rails”，以及 Rails logo 為 David Heinemeier Hansson 的商標。版權所有。</p>
 
     </div>
@@ -456,10 +479,9 @@ end
     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
     })(window,document,"script","//www.google-analytics.com/analytics.js","ga");
 
-    ga("create", "UA-49903900-1", "docrails-tw.github.io");
+    ga("create", "UA-49903900-1", "auto");
     ga("require", "displayfeatures");
     ga("send", "pageview");
-
   </script>
 </body>
 </html>

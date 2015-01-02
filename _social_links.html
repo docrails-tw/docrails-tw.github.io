@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Active Model 基礎 — Ruby on Rails 指南</title>
+  <title></title>
 
   <meta name="description" content="Ruby on Rails 指南：系統學習 Rails（Rails 4.2 版本）" >
   <meta name="keywords"    content="Ruby Rails Guides 指南 系統 學習 免費 網路 Web 開發" >
@@ -181,236 +181,20 @@
 
   <div id="feature">
     <div class="wrapper">
-      <h2>Active Model 基礎</h2><p>本篇教你如何開始使用 Model。 Active Model 允許 Action Pack 輔助方法與不是 Active Record 的 Model 類別來做互動。Active Model 也允許在 Rails 框架之外自己造 ORM。</p><p>讀完本篇，您將了解：</p>
-<ul>
-<li><code>AttributeMethods</code> 模組</li>
-<li><code>Callbacks</code> 模組</li>
-<li><code>Conversion</code> 模組</li>
-<li><code>Dirty</code> 模組</li>
-<li><code>Validations</code> 模組</li>
-</ul>
+      
 
-
-                <div id="subCol">
-            <h3 class="chapter"><img src="images/chapters_icon.gif" alt="" />Chapters</h3>
-            <ol class="chapters">
-<li>
-<a href="#active-model-%E7%B0%A1%E4%BB%8B">Active Model 簡介</a>
-
-<ul>
-<li><a href="#attributemethods">AttributeMethods</a></li>
-<li><a href="#%E5%9B%9E%E5%91%BC">回呼</a></li>
-<li><a href="#conversion">Conversion</a></li>
-<li><a href="#dirty">Dirty</a></li>
-<li><a href="#%E9%A9%97%E8%AD%89">驗證</a></li>
-<li><a href="#activemodel-naming">ActiveModel::Naming</a></li>
-</ul>
-</li>
-</ol>
-
-          </div>
-
+      
     </div>
   </div>
 
   <div id="container">
     <div class="wrapper">
       <div id="mainCol">
-        <h3 id="active-model-簡介">1 Active Model 簡介</h3><p>Active Model 是一個函式庫，由許多用來與 Action Pack 互動的模組組成。以下簡單介紹幾個 Active Model 的模組。</p><h4 id="attributemethods">1.1 AttributeMethods</h4><p>用來給方法加上前綴或後綴。</p><div class="code_container">
-<pre class="brush: ruby; gutter: false; toolbar: false">
-class Person
-  include ActiveModel::AttributeMethods
-
-  attribute_method_prefix 'reset_'
-  attribute_method_suffix '_highest?'
-  define_attribute_methods 'age'
-
-  attr_accessor :age
-
-  private
-    def reset_attribute(attribute)
-      send("#{attribute}=", 0)
-    end
-
-    def attribute_highest?(attribute)
-      send(attribute) &gt; 100
-    end
-end
-
-person = Person.new
-person.age = 110
-person.age_highest?  # true
-person.reset_age     # 0
-person.age_highest?  # false
-
-</pre>
-</div>
-<h4 id="回呼">1.2 回呼</h4><p>Active Record 風格的回呼。讓我們可以在運行期定義回呼。定義回呼後便有 <code>before_*</code>、<code>after_*</code> 與 <code>around_*</code> 方法可用。</p><div class="code_container">
-<pre class="brush: ruby; gutter: false; toolbar: false">
-class Person
-  extend ActiveModel::Callbacks
-
-  define_model_callbacks :update
-
-  before_update :reset_me
-
-  def update
-    run_callbacks(:update) do
-      # This method is called when update is called on an object.
-    end
-  end
-
-  def reset_me
-    # This method is called when update is called on an object as a before_update callback is defined.
-  end
-end
-
-</pre>
-</div>
-<h4 id="conversion">1.3 Conversion</h4><p>如果一個類別有定義 <code>persisted?</code> 與 <code>id</code> 方法，則你可引入 <code>Conversion</code> 模組，並對此類別的物件呼叫 Rails 的 conversion 方法（<code>to_model</code>、<code>to_key</code>、<code>to_param</code>）。</p><div class="code_container">
-<pre class="brush: ruby; gutter: false; toolbar: false">
-class Person
-  include ActiveModel::Conversion
-
-  def persisted?
-    false
-  end
-
-  def id
-    nil
-  end
-end
-
-person = Person.new
-person.to_model == person  # =&gt; true
-person.to_key              # =&gt; nil
-person.to_param            # =&gt; nil
-
-</pre>
-</div>
-<h4 id="dirty">1.4 Dirty</h4><p>物件有一個或多個改動，卻未儲存，則稱物件變“dirty”了。這讓我們可以檢查物件是否有變動。以下是 <code>Person</code> 類別，有 <code>first_name</code> 與 <code>last_name</code> 這兩個屬性：</p><div class="code_container">
-<pre class="brush: ruby; gutter: false; toolbar: false">
-require 'active_model'
-
-class Person
-  include ActiveModel::Dirty
-  define_attribute_methods :first_name, :last_name
-
-  def first_name
-    @first_name
-  end
-
-  def first_name=(value)
-    first_name_will_change!
-    @first_name = value
-  end
-
-  def last_name
-    @last_name
-  end
-
-  def last_name=(value)
-    last_name_will_change!
-    @last_name = value
-  end
-
-  def save
-    # do save work...
-    changes_applied
-  end
-end
-
-</pre>
-</div>
-<h5 id="查詢物件修改過屬性的列表">1.4.1 查詢物件修改過屬性的列表</h5><div class="code_container">
-<pre class="brush: ruby; gutter: false; toolbar: false">
-person = Person.new
-person.changed? # =&gt; false
-
-person.first_name = "First Name"
-person.first_name # =&gt; "First Name"
-
-# returns if any attribute has changed.
-person.changed? # =&gt; true
-
-# returns a list of attributes that have changed before saving.
-person.changed # =&gt; ["first_name"]
-
-# returns a hash of the attributes that have changed with their original values.
-person.changed_attributes # =&gt; {"first_name"=&gt;nil}
-
-# returns a hash of changes, with the attribute names as the keys, and the values will be an array of the old and new value for that field.
-person.changes # =&gt; {"first_name"=&gt;[nil, "First Name"]}
-
-</pre>
-</div>
-<h5 id="attribute-based-accessor-methods">1.4.2 Attribute based accessor methods</h5><p>檢查 <code>first_name</code> 這個屬性是否有變動，<code>first_name_changed?</code>：</p><p>Track whether the particular attribute has been changed or not.</p><div class="code_container">
-<pre class="brush: ruby; gutter: false; toolbar: false">
-# attr_name_changed?
-person.first_name # =&gt; "First Name"
-person.first_name_changed? # =&gt; true
-
-</pre>
-</div>
-<p>檢查屬性上一次的數值：
-Track what was the previous value of the attribute.</p><div class="code_container">
-<pre class="brush: ruby; gutter: false; toolbar: false">
-# attr_name_was accessor
-person.first_name_was # =&gt; "First Name"
-
-</pre>
-</div>
-<p>檢查屬性上次與當前的值，有變化回傳 Array，沒變化回傳 <code>nil</code>：</p><div class="code_container">
-<pre class="brush: ruby; gutter: false; toolbar: false">
-# attr_name_change
-person.first_name_change # =&gt; [nil, "First Name"]
-person.last_name_change # =&gt; nil
-
-</pre>
-</div>
-<h4 id="驗證">1.5 驗證</h4><p>給類別加入 Active Record 風格的驗證功能：</p><div class="code_container">
-<pre class="brush: ruby; gutter: false; toolbar: false">
-class Person
-  include ActiveModel::Validations
-
-  attr_accessor :name, :email, :token
-
-  validates :name, presence: true
-  validates_format_of :email, with: /\A([^\s]+)((?:[-a-z0-9]\.)[a-z]{2,})\z/i
-  validates! :token, presence: true
-end
-
-person = Person.new(token: "2b1f325")
-person.valid?                        # =&gt; false
-person.name = 'vishnu'
-person.email = 'me'
-person.valid?                        # =&gt; false
-person.email = 'me@vishnuatrai.com'
-person.valid?                        # =&gt; true
-person.token = nil
-person.valid?                        # =&gt; raises ActiveModel::StrictValidationFailed
-
-</pre>
-</div>
-<h4 id="activemodel-naming">1.6 ActiveModel::Naming</h4><p><code>Naming</code> 模組加入幾個幫助管理命名和路由的模組。這個模組定義了 <code>model_name</code> 類別方法，這個方法用 <code>ActiveSupport::Inflector</code> 定義了許多存取器（accessor）方法。</p><div class="code_container">
-<pre class="brush: ruby; gutter: false; toolbar: false">
-class Person
-  extend ActiveModel::Naming
-end
-
-Person.model_name.name                # =&gt; "Person"
-Person.model_name.singular            # =&gt; "person"
-Person.model_name.plural              # =&gt; "people"
-Person.model_name.element             # =&gt; "person"
-Person.model_name.human               # =&gt; "Person"
-Person.model_name.collection          # =&gt; "people"
-Person.model_name.param_key           # =&gt; "person"
-Person.model_name.i18n_key            # =&gt; :person
-Person.model_name.route_key           # =&gt; "people"
-Person.model_name.singular_route_key  # =&gt; "person"
-
-</pre>
-</div>
+        <ol class="snsb" style="margin-left: 13px">
+  <li><iframe src="http://ghbtns.com/github-btn.html?user=docrails-tw&repo=rails.ruby.tw&type=watch&count=true" allowtransparency="true" frameborder="0" scrolling="0" width="80" height="20"></iframe></li>
+  <li><div class="fb-like" data-href="http://rails.ruby.tw/" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div></li>
+  <li><a href="https://twitter.com/share" class="twitter-share-button" data-url="http://rails.ruby.tw/" data-text="Ruby on Rails 指南：系統化學習 Rails（Rails 4.2 版本）" data-lang="zh-TW" data-hashtags="railsguidestw">ツイート</a><script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script></li>
+</ol>
 
 
         <h3>反饋</h3>
