@@ -773,7 +773,16 @@ end
 
 </pre>
 </div>
-<p>若很常需要使用這個功能，可以定義一個 <code>labeled_form_for</code> 輔助方法，來自動代入 <code>builder: LabellingFormBuilder</code> 選項。</p><p>表單構造器會決定下面這行程式碼會做什麼事：</p><div class="code_container">
+<p>若很常需要使用這個功能，可以定義一個 <code>labeled_form_for</code> 輔助方法，來自動代入 <code>builder: LabellingFormBuilder</code> 選項：</p><div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+def labeled_form_for(record, options = {}, &amp;block)
+  options.merge! builder: LabellingFormBuilder
+  form_for record, options, &amp;block
+end
+
+</pre>
+</div>
+<p>表單構造器也決定了下面這行程式碼的行為：</p><div class="code_container">
 <pre class="brush: ruby; html-script: true; gutter: false; toolbar: false">
 &lt;%= render partial: f %&gt;
 
