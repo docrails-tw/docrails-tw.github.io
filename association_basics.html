@@ -194,7 +194,7 @@
 
   <div id="feature">
     <div class="wrapper">
-      <h2>Active Record 關聯</h2><p>本篇介紹 Active Record 的關聯功能。</p><p>讀完本篇，您將了解：</p>
+      <p><strong>DO NOT READ THIS FILE ON GITHUB, GUIDES ARE PUBLISHED ON <a href="http://rails.ruby.tw">http://rails.ruby.tw</a>.</strong></p><h2>Active Record 關聯</h2><p>本篇介紹 Active Record 的關聯功能。</p><p>讀完本篇，您將了解：</p>
 <ul>
 <li>如何宣告 Active Record Model 之間的關聯。</li>
 <li>如何理解 Active Record 的各種關聯。</li>
@@ -245,6 +245,7 @@
 <li><a href="#%E6%93%B4%E5%85%85%E9%97%9C%E8%81%AF">擴充關聯</a></li>
 </ul>
 </li>
+<li><a href="#%E5%96%AE%E8%A1%A8%E7%B9%BC%E6%89%BF">單表繼承</a></li>
 </ol>
 
           </div>
@@ -2019,6 +2020,49 @@ end
 <li>
 <code>proxy_association.target</code>：回傳 <code>belongs_to</code> 或 <code>has_one</code> 的關聯物件，或是 <code>has_many</code> 或 <code>has_and_belongs_to_many</code> 的關聯物件集合。</li>
 </ul>
+<h3 id="單表繼承">5 單表繼承</h3><p>有時候會想要再不同的 Model 之間共享欄位與行為。比如我們有 Car、Motorcycle 以及 Bicycle 這三個 Model。這三個 Model 都有 <code>color</code> 以及 <code>price</code> 欄位，以及通用的方法，但各自又有特定的行為及控制器。</p><p>在 Rails 裡面要辦到非常容易。首先，先產生一個 Vehicle Model 作為基石：</p><div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+$ rails generate model vehicle type:string color:string price:decimal{10.2}
+
+</pre>
+</div>
+<p>有注意到加了一個 “type” 欄位嗎？因為所有的 Model 都會存在一張“單一的資料表”裡，Rails 會把 Model 名稱存在這個 type 欄位裡。根據上面舉的例子，type 的值就會是 "Car"、"Motorcycle" 或 "Bicycle"。STI 需要有一個 “type” 欄位才可以正常工作。</p><p>接下來產生三張繼承自 Vehicle 的 Model。這裡可以使用 <code>--parent=PARENT</code> 選項，會產生出繼承自指定 <code>PARENT</code> 的 Model，而不會產生出遷移檔案（因為表已經存在了嘛）。</p><p>譬如要產生 Car Model：</p><div class="code_container">
+<pre class="brush: plain; gutter: false; toolbar: false">
+$ rails generate model car --parent=Vehicle
+
+</pre>
+</div>
+<p>產生的 Model 看起來會像是：</p><div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+class Car &lt; Vehicle
+end
+
+</pre>
+</div>
+<p>這表示所有 Vehicle 有的行為，譬如公有方法、關聯等，Car 也有。</p><p>新建的 Car 會存在 <code>vehicles</code> 表裡，<code>type</code> 會被設為 <code>"Car"</code>。</p><div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+Car.create color: 'Red', price: 10000
+
+</pre>
+</div>
+<p>會產生下列的 SQL 語句：</p><div class="code_container">
+<pre class="brush: sql; gutter: false; toolbar: false">
+INSERT INTO "vehicles" ("type", "color", "price") VALUES ("Car", "Red", 10000)
+
+</pre>
+</div>
+<p>查詢 Car 記錄也只會搜尋是 “Car” 的 Vehicles：</p><div class="code_container">
+<pre class="brush: ruby; gutter: false; toolbar: false">
+Car.all
+
+</pre>
+</div>
+<p>會執行像是下面的 SQL 查詢：</p><div class="code_container">
+<pre class="brush: sql; gutter: false; toolbar: false">
+SELECT "vehicles".* FROM "vehicles" WHERE "vehicles"."type" IN ('Car')
+
+</pre>
+</div>
 
 
         <h3>反饋</h3>
