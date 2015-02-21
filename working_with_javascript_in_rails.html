@@ -451,7 +451,7 @@ class UsersController &lt; ApplicationController
 
 </pre>
 </div>
-<p>注意 <code>respond_to</code> 區塊內的 <code>format.js</code>，這是 Cotroller 回應 Ajax 請求的地方。<code>create</code> 動作對應 <code>app/views/users/create.js.erb</code>：</p><div class="code_container">
+<p>注意 <code>respond_to</code> 區塊內的 <code>format.js</code>，這是 Controller 回應 Ajax 請求的地方。<code>create</code> 動作對應 <code>app/views/users/create.js.erb</code>：</p><div class="code_container">
 <pre class="brush: ruby; html-script: true; gutter: false; toolbar: false">
 $("&lt;%= escape_javascript(render @user) %&gt;").appendTo("#users");
 
